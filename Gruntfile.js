@@ -160,8 +160,11 @@ module.exports = function(grunt) {
     }
   });
 
-  // Define tasks that serve as aliases for other tasks.
-  grunt.registerTask('build', ['drush:make']);
-  grunt.registerTask('default', ['clean:default', 'mkdir:init', 'build', 'symlink:profiles', 'symlink:modules', 'symlink:themes', 'clean:sites', 'symlink:sites', 'mkdir:files', 'copy:static', 'compass']);
+  // Define the default task to fully build and configure the project.
+  var tasksDefault = ['clean:default', 'mkdir:init', 'drush:make', 'symlink:profiles', 'symlink:modules', 'symlink:themes', 'clean:sites', 'symlink:sites', 'mkdir:files', 'copy:static'];
+  if (grunt.config.get('compass')) {
+    tasksDefault.push('compass');
+  }
+  grunt.registerTask('default', tasksDefault);
 
 };
