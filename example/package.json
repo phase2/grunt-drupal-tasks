@@ -1,0 +1,10 @@
+{
+  "name": "drupal-grunt-example",
+  "description": "Example package.json for a Drupal project built with drupal-grunt-tools.",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "grunt": "~0.4.2",
+    "drupal-grunt-starter": "git@bitbucket.org:phase2tech/drupal-grunt-starter.git"
+  }
+}

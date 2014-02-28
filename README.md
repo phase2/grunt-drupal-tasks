@@ -1,14 +1,37 @@
-Drupal Grunt Starter
+Drupal Grunt Build and Testing Tools
 ===
 
-Getting started:
+Requirements
+---
 
-1. Node.js and Grunt CLI must be installed. Ensure you can run "npm" and "grunt --help".
+* Node.js
+* Grunt CLI
 
-1. To install dependencies for the Drupal Grunt script, run "npm install" in the project directory where package.json is located.
 
-1. Update package.json as needed to provide non-standard paths or to enable Compass SASS to CSS compilation for custom themes.
+Getting started
+---
 
-1. Update Gruntfile as needed to add build steps or other project-specific actions.
+Including in an existing project:
 
-1. Run "grunt" to execute a full project build or use parameters to execute a specific action (i.e. "grunt compass").
+1. Copy Gruntconfig.json and Gruntfile.js from this project's example directory to your project. Add the grunt and drupal-grunt-starter dependency to your package.json or copy package.json as well.
+
+1. Run "npm install" to install dependencies.
+
+Setting up a new project:
+
+1. In an empty directory, run: npm install --save-dev grunt git+ssh://git@bitbucket.org/phase2tech/drupal-grunt-starter.git
+
+1. Copy the contents of the example directory in drupal-grunt-starter to the new project directory.
+
+
+Configuration
+---
+
+1. Update Gruntconfig.json as needed to specify a custom source or build path or to enable Compass SASS to CSS compilation for custom themes.
+
+
+Extending
+---
+
+1. Update Gruntfile.js as needed to add build steps or other project-specific actions.
+
