@@ -12,14 +12,5 @@
     "grunt-drush": "0.0.1",
     "grunt-lib-contrib": "~0.6.1",
     "grunt-mkdir": "0.1.1"
-  },
-  "srcPaths": {
-    "make": "src/project.make"
-  },
-  "buildPaths": {
-    "build": "build",
-    "html": "build/html"
-  },
-  "compassConfig": {
   }
 }

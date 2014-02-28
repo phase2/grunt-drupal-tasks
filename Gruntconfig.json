@@ -1,0 +1,10 @@
+{
+  "srcPaths": {
+    "make": "src/project.make"
+  },
+  "buildPaths": {
+    "build": "build",
+    "html": "build/html"
+  },
+  "compassConfig": {}
+}

@@ -1,9 +1,9 @@
 module.exports = function(grunt) {
 
   // Initialize global configuration variables.
-  var pkg = grunt.file.readJSON('package.json');
+  var config = grunt.file.readJSON('Gruntconfig.json');
   grunt.initConfig({
-    pkg: pkg
+    config: config
   });
 
   /**
@@ -15,13 +15,13 @@ module.exports = function(grunt) {
    * grunt clean:sites
    *   Removes sites/default in the build/html directory.
    */
-  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadTasks(__dirname + '/node_modules/grunt-contrib-clean/tasks');
   grunt.config('clean', {
     default: [
-      '<%= pkg.buildPaths.build %>'
+      '<%= config.buildPaths.build %>'
     ],
     sites: [
-      '<%= pkg.buildPaths.html %>/sites/default'
+      '<%= config.buildPaths.html %>/sites/default'
     ]
   });
 
@@ -34,16 +34,16 @@ module.exports = function(grunt) {
    * Example:
    *   "compassConfig": {
    *     "project": {
-   *       "basePath": "<%= pkg.buildPaths.html %>/sites/all/themes/custom/project"
+   *       "basePath": "<%= config.buildPaths.html %>/sites/all/themes/custom/project"
    *     }
    *   }
    */
-  grunt.loadNpmTasks('grunt-contrib-compass');
-  if (pkg.compassConfig) {
-    for (var key in pkg.compassConfig) {
-      if (pkg.compassConfig.hasOwnProperty(key)) {
+  grunt.loadTasks(__dirname + '/node_modules/grunt-contrib-compass/tasks');
+  if (config.compassConfig) {
+    for (var key in config.compassConfig) {
+      if (config.compassConfig.hasOwnProperty(key)) {
         grunt.config(['compass', key], {
-          options: pkg.compassConfig[key]
+          options: config.compassConfig[key]
         });
       }
     }
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
    * grunt copy:static
    *   Copies all files from src/static to the build/html directory.
    */
-  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadTasks(__dirname + '/node_modules/grunt-contrib-copy/tasks');
   grunt.config('copy', {
     static: {
       files: [
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'src/static',
           src: ['*', '.*'],
-          dest: '<%= pkg.buildPaths.html %>'
+          dest: '<%= config.buildPaths.html %>'
         }
       ]
     }
@@ -89,31 +89,31 @@ module.exports = function(grunt) {
    *   Makes a symbolic link to src/themes from sites/all/themes/custom in the
    *   build/html directory.
    */
-  grunt.loadNpmTasks('grunt-contrib-symlink');
+  grunt.loadTasks(__dirname + '/node_modules/grunt-contrib-symlink/tasks');
   grunt.config('symlink', {
     modules: {
       src: 'src/modules',
-      dest: '<%= pkg.buildPaths.html %>/sites/all/modules/custom'
+      dest: '<%= config.buildPaths.html %>/sites/all/modules/custom'
     },
     profiles: {
       expand: true,
       cwd: 'src/profiles',
       src: ['*'],
-      dest: '<%= pkg.buildPaths.html %>/profiles',
+      dest: '<%= config.buildPaths.html %>/profiles',
       filter: 'isDirectory'
     },
     sites: {
       expand: true,
       cwd: 'src/sites',
       src: ['*'],
-      dest: '<%= pkg.buildPaths.html %>/sites',
+      dest: '<%= config.buildPaths.html %>/sites',
       filter: function (path) {
         return (path !== 'src/sites/all');
       }
     },
     themes: {
       src: 'src/themes',
-      dest: '<%= pkg.buildPaths.html %>/sites/all/themes/custom'
+      dest: '<%= config.buildPaths.html %>/sites/all/themes/custom'
     }
   });
 
@@ -123,11 +123,11 @@ module.exports = function(grunt) {
    * grunt drush:make
    *   Builds the Drush make file to the build/html directory.
    */
-  grunt.loadNpmTasks('grunt-drush');
+  grunt.loadTasks(__dirname + '/node_modules/grunt-drush/tasks');
   grunt.config('drush', {
     make: {
-      args: ['make', '<%= pkg.srcPaths.make %>'],
-      dest: '<%= pkg.buildPaths.html %>'
+      args: ['make', '<%= config.srcPaths.make %>'],
+      dest: '<%= config.buildPaths.html %>'
     }
   });
 
@@ -140,21 +140,21 @@ module.exports = function(grunt) {
    * grunt mkdir:files
    *   Creates sites/default/files in the build/html directory.
    */
-  grunt.loadNpmTasks('grunt-mkdir');
+  grunt.loadTasks(__dirname + '/node_modules/grunt-mkdir/tasks');
   grunt.config('mkdir', {
     init: {
       options: {
         create: [
-          '<%= pkg.buildPaths.build %>/cache',
-          '<%= pkg.buildPaths.build %>/docs',
-          '<%= pkg.buildPaths.build %>/reports'
+          '<%= config.buildPaths.build %>/cache',
+          '<%= config.buildPaths.build %>/docs',
+          '<%= config.buildPaths.build %>/reports'
         ]
       }
     },
     files: {
       options: {
         create: [
-          '<%= pkg.buildPaths.html %>/sites/default/files'
+          '<%= config.buildPaths.html %>/sites/default/files'
         ]
       }
     }
