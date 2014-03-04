@@ -5,6 +5,6 @@
   "private": true,
   "dependencies": {
     "grunt": "~0.4.2",
-    "drupal-grunt-starter": "git@bitbucket.org:phase2tech/drupal-grunt-starter.git"
+    "drupal-grunt-starter": "git+ssh://git@bitbucket.org:phase2tech/drupal-grunt-starter.git"
   }
 }
