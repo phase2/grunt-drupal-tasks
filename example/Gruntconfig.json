@@ -6,5 +6,8 @@
     "build": "build",
     "html": "build/html"
   },
+  "siteUrls": {
+    "default": "http://project.local"
+  },
   "compassConfig": {}
 }

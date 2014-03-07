@@ -1,0 +1,18 @@
+default:
+  extensions:
+    Behat\MinkExtension\Extension:
+      goutte: ~
+    Drupal\DrupalExtension\Extension:
+      blackbox: ~
+      api_driver: drupal
+      drupal: ~
+
+  paths:
+    features: features
+    bootstrap: features/bootstrap
+
+ci:
+  formatter:
+    name: junit
+    parameters:
+      output_path: behat_junit
