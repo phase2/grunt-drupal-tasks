@@ -21,7 +21,7 @@ Setting up a new project:
 
 1. In an empty directory, run: npm install --save-dev grunt git+ssh://git@bitbucket.org/phase2tech/drupal-grunt-starter.git
 
-1. Copy the contents of the example directory in drupal-grunt-starter to the new project directory.
+1. Copy the contents of node_modules/drupal-grunt-starter/example to the project directory.
 
 
 Configuration
