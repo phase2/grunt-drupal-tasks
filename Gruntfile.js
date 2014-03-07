@@ -22,6 +22,9 @@ module.exports = function(grunt) {
     'mkdir:files',
     'copy:static'
   ];
+  if (grunt.config.get('behat')) {
+    tasksDefault.push('behat');
+  }
   if (grunt.config.get('compass')) {
     tasksDefault.push('compass');
   }

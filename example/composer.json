@@ -1,0 +1,19 @@
+{
+    "name": "drupal/drupal-testing-framework",
+    "description": "Testing framework for a Drupal site.",
+    "config": {
+        "bin-dir": "bin"
+    },
+    "require-dev": {
+        "drupal/drupal-extension": "v0.1.5",
+        "behat/behat": ">=2.5@stable",
+        "behat/gherkin": ">=2.3@stable",
+        "behat/mink": ">=1.5@stable",
+        "behat/mink-browserkit-driver": "*",
+        "behat/mink-extension": "*",
+        "behat/mink-goutte-driver": "*",
+        "behat/mink-sahi-driver": "*",
+        "behat/mink-selenium2-driver": "*",
+        "behat/mink-zombie-driver": "*"
+    }
+}
