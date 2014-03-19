@@ -23,11 +23,16 @@ Setting up a new project:
 
 1. Copy the contents of node_modules/drupal-grunt-starter/example to the project directory.
 
+Supporting the validate task:
+
+1. Create or modify your project's composer.json file to include `squizlabs/php_codesniffer` and `drupal/coder` as demonstrated in example/composer.json
 
 Configuration
 ---
 
 1. Update Gruntconfig.json as needed to specify a custom source or build path or to enable Compass SASS to CSS compilation for custom themes.
+
+1. Update Gruntconfig.json as needed to specify the path to the PHPCS binary and the Drupal Coder module PHPCS standard.
 
 
 Extending
