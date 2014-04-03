@@ -22,8 +22,8 @@ module.exports = function(grunt) {
     'mkdir:files',
     'copy:static'
   ];
-  if (grunt.config.get(['composer', 'update'])) {
-    tasksDefault.unshift('composer:update');
+  if (grunt.config.get(['composer', 'install'])) {
+    tasksDefault.unshift('composer:install');
   }
   if (grunt.config.get('compass')) {
     tasksDefault.push('compass');
