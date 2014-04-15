@@ -25,6 +25,7 @@ module.exports = function(grunt) {
           maxProcesses: 5,
           bin: './bin/behat',
           flags: '',
+          debug: true,
           env: {
             //"BEHAT_PARAMS": "extensions[Drupal\\DrupalExtension\\Extension][drupal][drupal_root]=./" + config.buildPaths.html,
             //"MINK_EXTENSION_PARAMS": "base_url=" + config.siteUrls[key]
