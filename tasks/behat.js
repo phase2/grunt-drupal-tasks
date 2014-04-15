@@ -16,6 +16,7 @@ module.exports = function(grunt) {
    */
   grunt.loadTasks(__dirname + '/../node_modules/grunt-parallel-behat/tasks');
   var config = grunt.config.get('config');
+  var flags = grunt.option('flags') || '';
   if (config.buildPaths.html && config.siteUrls) {
     for (var key in config.siteUrls) {
       if (config.siteUrls.hasOwnProperty(key)) {
@@ -24,7 +25,7 @@ module.exports = function(grunt) {
           config: './behat.yml',
           maxProcesses: 5,
           bin: './bin/behat',
-          flags: '',
+          flags: flags,
           debug: true,
           env: {
             //"BEHAT_PARAMS": "extensions[Drupal\\DrupalExtension\\Extension][drupal][drupal_root]=./" + config.buildPaths.html,
