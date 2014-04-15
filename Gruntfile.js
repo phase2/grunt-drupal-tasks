@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     tasksDefault.push('compass');
   }
   if (grunt.config.get('behat')) {
-    tasksDefault.push('behat');
+   // tasksDefault.push('behat');
   }
   grunt.registerTask('default', tasksDefault);
 
