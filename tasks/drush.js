@@ -10,6 +10,7 @@ module.exports = function(grunt) {
   grunt.config('drush', {
     make: {
       args: ['make', '<%= config.srcPaths.make %>'],
+      src: '<%= config.srcPaths.make %>',
       dest: '<%= config.buildPaths.html %>'
     }
   });
