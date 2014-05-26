@@ -11,9 +11,7 @@ module.exports = function(grunt) {
 
   // Define the default task to fully build and configure the project.
   var tasksDefault = [
-    'clean:default',
-    'mkdir:init',
-    'newer:drush:make',
+    'newer:drushmake:default',
     'symlink:profiles',
     'symlink:modules',
     'symlink:themes',
