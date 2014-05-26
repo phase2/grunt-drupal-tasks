@@ -16,7 +16,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('drushmake', 'Run "drush make" iff the makefile is newer than the dest directory.', function() {
+  grunt.registerTask('drushmake', 'Run "drush make" if the makefile is newer than the dest directory.', function() {
     grunt.task.run('clean:default', 'mkdir:init', 'drush:make');
   });
 
