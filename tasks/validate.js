@@ -22,6 +22,7 @@ module.exports = function(grunt) {
       bin: '<%= config.phpcs.path %>',
       standard: '<%= config.phpcs.standard %>',
       extensions: 'php,install,module,inc,profile',
+      ignoreExitCode: true,
       report: 'checkstyle',
       reportFile: '<%= config.buildPaths.build %>/reports/phpcs.xml'
     }
