@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         mode: 'tgz'
       },
       files: [
-        {expand: true, cwd: '<%= config.buildPaths.html %>', src: ['**', '!sites/*/files/**'], dest: 'docroot/'},
+        {expand: true, cwd: '<%= config.buildPaths.html %>', src: ['**', '!sites/*/files/**', '!xmlrpc.php', '!modules/php/*'], dest: 'docroot/'},
         {expand: true, src: ['README*', 'bin/**']}
       ]
     }
