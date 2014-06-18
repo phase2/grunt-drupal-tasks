@@ -23,27 +23,27 @@ module.exports = function(grunt) {
   grunt.loadTasks(__dirname + '/../node_modules/grunt-contrib-symlink/tasks');
   grunt.config('symlink', {
     modules: {
-      src: 'src/modules',
+      src: '<%= config.srcPaths.drupal %>/modules',
       dest: '<%= config.buildPaths.html %>/sites/all/modules/custom'
     },
     profiles: {
       expand: true,
-      cwd: 'src/profiles',
+      cwd: '<%= config.srcPaths.drupal %>/profiles',
       src: ['*'],
       dest: '<%= config.buildPaths.html %>/profiles',
       filter: 'isDirectory'
     },
     sites: {
       expand: true,
-      cwd: 'src/sites',
+      cwd: '<%= config.srcPaths.drupal %>/sites',
       src: ['*'],
       dest: '<%= config.buildPaths.html %>/sites',
       filter: function (path) {
-        return (path !== 'src/sites/all');
+        return (path !== '<%= config.srcPaths.drupal %>/sites/all');
       }
     },
     themes: {
-      src: 'src/themes',
+      src: '<%= config.buildPaths.html %>/themes',
       dest: '<%= config.buildPaths.html %>/sites/all/themes/custom'
     }
   });

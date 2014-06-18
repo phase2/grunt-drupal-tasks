@@ -1,6 +1,7 @@
 {
   "srcPaths": {
-    "make": "src/project.make"
+    "make": "src/project.make",
+    "drupal": "src"
   },
   "buildPaths": {
     "build": "build",
