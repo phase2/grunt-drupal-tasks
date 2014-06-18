@@ -10,14 +10,27 @@ module.exports = function(grunt) {
   grunt.loadTasks(__dirname + '/../node_modules/grunt-phpcs/tasks');
 
   grunt.config('phplint', {
-    all: ['src/**/*.php', 'src/**/*.module', 'src/**/*.inc', 'src/**/*.install', 'src/**/*.profile', '!src/**/*.features.*inc'],
+    all: [
+      '<%= config.srcPaths.drupal %>/**/*.php',
+      '<%= config.srcPaths.drupal %>/**/*.module',
+      '<%= config.srcPaths.drupal %>/**/*.inc',
+      '<%= config.srcPaths.drupal %>/**/*.install',
+      '<%= config.srcPaths.drupal %>/**/*.profile',
+      '!<%= config.srcPaths.drupal %>/**/*.features.*inc'
+    ],
   });
 
   grunt.config('phpcs', {
     drupal: {
       dir: [
-        'src/**/*.php', 'src/**/*.module', 'src/**/*.inc', 'src/**/*.install', 'src/**/*.profile', 'src/**/*.css',
-        '!src/**/*.features.*inc', '!src/sites/**'
+        '<%= config.srcPaths.drupal %>/**/*.php',
+        '<%= config.srcPaths.drupal %>/**/*.module',
+        '<%= config.srcPaths.drupal %>/**/*.inc',
+        '<%= config.srcPaths.drupal %>/**/*.install',
+        '<%= config.srcPaths.drupal %>/**/*.profile',
+        '<%= config.srcPaths.drupal %>/**/*.css',
+        '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
+        '!<%= config.srcPaths.drupal %>/sites/**'
       ],
     },
     options: {

@@ -18,7 +18,9 @@ module.exports = function(grunt) {
   });
   grunt.config(['watch', 'validate'], {
     files: [
-      'src/**/*', '!src/**/*.features.*inc', '!src/sites/**'
+      '<%= config.srcPaths.drupal %>/**/*',
+      '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
+      '!<%= config.srcPaths.drupal %>/sites/**'
     ],
     tasks: ['validate']
   });
