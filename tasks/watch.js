@@ -16,5 +16,10 @@ module.exports = function(grunt) {
     ],
     tasks: ['behat']
   });
-
+  grunt.config(['watch', 'validate'], {
+    files: [
+      'src/**/*', '!src/**/*.features.*inc', '!src/sites/**'
+    ],
+    tasks: ['validate']
+  });
 }

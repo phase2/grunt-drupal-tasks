@@ -13,6 +13,7 @@ module.exports = function(grunt) {
   var tasksDefault = [
     'clean:default',
     'mkdir:init',
+    'validate',
     'drush:make',
     'symlink:profiles',
     'symlink:modules',

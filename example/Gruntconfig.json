@@ -5,10 +5,15 @@
   },
   "buildPaths": {
     "build": "build",
-    "html": "build/html"
+    "html": "build/html",
+    "reports": "build/reports"
   },
   "siteUrls": {
     "default": "http://project.local"
+  },
+  "phpcs": {
+    "path": "bin/phpcs",
+    "standard": "vendor/drupal/coder/coder_sniffer/Drupal"
   },
   "compassConfig": {}
 }
