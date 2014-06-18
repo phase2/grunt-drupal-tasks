@@ -4,7 +4,8 @@
   },
   "buildPaths": {
     "build": "build",
-    "html": "build/html"
+    "html": "build/html",
+    "reports": "build/reports"
   },
   "siteUrls": {
     "default": "http://project.local"

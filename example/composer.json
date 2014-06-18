@@ -14,7 +14,7 @@
         "behat/mink-goutte-driver": "*",
         "behat/mink-sahi-driver": "*",
         "behat/mink-selenium2-driver": "*",
-        "behat/mink-zombie-driver": "*"
+        "behat/mink-zombie-driver": "*",
         "squizlabs/php_codesniffer": "1.*",
         "drupal/coder": "7.2.2"
     },
