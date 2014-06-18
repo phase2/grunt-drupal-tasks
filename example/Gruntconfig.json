@@ -6,10 +6,15 @@
   "buildPaths": {
     "build": "build",
     "html": "build/html",
+    "package": "build/packages",
     "reports": "build/reports"
   },
   "siteUrls": {
     "default": "http://project.local"
+  },
+  "packages": {
+    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
+    "projFiles": ["README*", "bin/**"]
   },
   "phpcs": {
     "path": "bin/phpcs",
