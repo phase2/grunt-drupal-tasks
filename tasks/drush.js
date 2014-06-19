@@ -20,8 +20,10 @@ module.exports = function(grunt) {
     grunt.task.run('clean:default', 'mkdir:init', 'drush:make');
   });
 
+  // The "drushmake" task will run make only if the src file specified here is
+  // newer than the dest file specified.
   grunt.config('drushmake', {
-    default : {
+    default: {
       src: '<%= config.srcPaths.make %>',
       dest: '<%= config.buildPaths.html %>'
     }
