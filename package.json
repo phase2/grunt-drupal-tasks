@@ -15,6 +15,9 @@
     "grunt-lib-contrib": "~0.6.1",
     "grunt-mkdir": "0.1.1",
     "grunt-newer": "~0.7.0",
-    "grunt-parallel-behat": "git+https://github.com/arithmetric/grunt-parallel-behat.git"
+    "grunt-parallel-behat": "git+https://github.com/arithmetric/grunt-parallel-behat.git",
+    "grunt-phplint": "~0.0.5",
+    "grunt-phpcs": "~0.2.2",
+    "grunt-contrib-compress": "~0.9.1"
   }
 }
