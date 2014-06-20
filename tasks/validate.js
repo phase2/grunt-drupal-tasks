@@ -54,7 +54,7 @@ module.exports = function(grunt) {
       suffixes: "php,module,inc,install,profile",
       exclude: "<%= config.srcPaths.drupal %>/sites",
       reportFormat: 'xml',
-      reportFile: '<%= config.buildPaths.build %>/reports/phpmd.xml'
+      reportFile: '<%= config.buildPaths.reports %>/phpmd.xml'
     }
   });
 
