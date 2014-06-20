@@ -5,7 +5,6 @@ Requirements
 ---
 
 * Node.js
-* Grunt CLI
 
 
 Getting started
@@ -13,7 +12,7 @@ Getting started
 
 Including in an existing project:
 
-1. Copy Gruntconfig.json and Gruntfile.js from this project's example directory to your project. Add the grunt and drupal-grunt-starter dependency to your package.json or copy package.json as well.
+1. Copy Gruntconfig.json, Gruntfile.js, and composer.json from this project's example directory to your project. Add the grunt and drupal-grunt-starter dependency to your package.json or copy package.json as well.
 
 1. Run "npm install" to install dependencies.
 
@@ -25,7 +24,11 @@ Setting up a new project:
 
 Supporting the validate task:
 
-1. Create or modify your project's composer.json file to include `squizlabs/php_codesniffer` and `drupal/coder` as demonstrated in example/composer.json
+1. Create or modify your project's composer.json file to include `squizlabs/php_codesniffer`, `grunt-phpmd`, and `drupal/coder` as demonstrated in example/composer.json
+
+Supporting the package task:
+
+1. Create or modify your project's composer.json file to include `grunt-contrib-compress` as demonstrated in example/composer.json.
 
 Configuration
 ---
