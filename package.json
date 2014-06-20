@@ -18,6 +18,7 @@
     "grunt-parallel-behat": "git+https://github.com/arithmetric/grunt-parallel-behat.git",
     "grunt-phplint": "~0.0.5",
     "grunt-phpcs": "~0.2.2",
-    "grunt-contrib-compress": "~0.9.1"
+    "grunt-contrib-compress": "~0.9.1",
+    "grunt-phpmd": "~0.1.0"
   }
 }

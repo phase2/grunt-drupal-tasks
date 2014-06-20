@@ -15,6 +15,8 @@
         "behat/mink-sahi-driver": "*",
         "behat/mink-selenium2-driver": "*",
         "behat/mink-zombie-driver": "*",
+        "phpmd/phpmd": "1.4.*",
+        "pdepend/pdepend": "1.1.*",
         "squizlabs/php_codesniffer": "1.*",
         "drupal/coder": "7.2.2"
     },
