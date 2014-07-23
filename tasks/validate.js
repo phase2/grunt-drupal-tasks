@@ -4,11 +4,10 @@ module.exports = function(grunt) {
    * Define "validate" tasks, and include required plugins.
    *
    * grunt validate
-   *   Evaluate the quality of all custom code.
+   *   Evaluate the quality of all custom code to make sure it is safe to push.
    */
   grunt.loadTasks(__dirname + '/../node_modules/grunt-phplint/tasks');
   grunt.loadTasks(__dirname + '/../node_modules/grunt-phpcs/tasks');
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-phpmd/tasks');
 
   grunt.config('phplint', {
     all: [
@@ -44,19 +43,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.config('phpmd', {
-    custom: {
-      dir: '<%= config.srcPaths.drupal %>/'
-    },
-    options: {
-      bin: '<%= config.phpmd.path %>',
-      rulesets: "codesize,unusedcode,naming,controversial,design",
-      suffixes: "php,module,inc,install,profile",
-      exclude: "<%= config.srcPaths.drupal %>/sites",
-      reportFormat: 'xml',
-      reportFile: '<%= config.buildPaths.reports %>/phpmd.xml'
-    }
-  });
-
-  grunt.registerTask('validate', ['phplint:all', 'phpcs:drupal', 'phpmd:custom']);
+  grunt.registerTask('validate', ['phplint:all', 'phpcs:drupal']);
 };
