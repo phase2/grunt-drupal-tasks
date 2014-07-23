@@ -16,7 +16,8 @@ module.exports = function(grunt) {
       '<%= config.srcPaths.drupal %>/**/*.inc',
       '<%= config.srcPaths.drupal %>/**/*.install',
       '<%= config.srcPaths.drupal %>/**/*.profile',
-      '!<%= config.srcPaths.drupal %>/**/*.features.*inc'
+      '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
+      '!<%= config.srcPaths.drupal %>/sites/**'
     ],
   });
 
