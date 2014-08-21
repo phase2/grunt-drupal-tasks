@@ -1,28 +1,37 @@
 module.exports = function(grunt) {
 
   /**
-   * Define "compass" tasks.
+   * Define "Compass" tasks.
    *
    * Dynamically adds Compass compile tasks based on configuration sets in the
    * package.json file.
    *
    * Example:
-   *   "compassConfig": {
-   *     "project": {
-   *       "basePath": "<%= config.buildPaths.html %>/sites/all/themes/custom/project"
-   *     }
+   *
+   * "themes": {
+   *   "spartan": {
+   *     "path": "<%= config.srcPaths.drupal %>/themes/spartan",
+   *     "compass": true
+   *   },
+   *   "trojan": {
+   *     "path": "<%= config.srcPaths.drupal %>/themes/trojan"
    *   }
+   * }
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-contrib-compass/tasks');
+  grunt.loadTasks(__dirname + '/../node_modules/grunt-shell/tasks');
+
   var config = grunt.config.get('config');
-  if (config.compassConfig) {
-    for (var key in config.compassConfig) {
-      if (config.compassConfig.hasOwnProperty(key)) {
-        grunt.config(['compass', key], {
-          options: config.compassConfig[key]
+  if (config.themes) {
+    var compass = []
+    for (var key in config.themes) {
+      if (config.themes.hasOwnProperty(key) && config.themes[key].compass) {
+        var path = config.themes[key].path;
+        grunt.config(['shell', 'compass-' + key], {
+          command: 'bundle exec "compass compile --time --app-dir=' + path + ' --config=' + path + '/config.rb"'
         });
+        compass.push('shell:compass-' + key);
       }
     }
+    grunt.registerTask('compass', compass);
   }
-
 };
