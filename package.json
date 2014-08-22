@@ -20,6 +20,7 @@
     "grunt-phplint": "~0.0.5",
     "grunt-phpcs": "~0.2.2",
     "grunt-contrib-compress": "~0.9.1",
-    "grunt-phpmd": "~0.1.0"
+    "grunt-phpmd": "~0.1.0",
+    "time-grunt": "^0.4.0"
   }
 }
