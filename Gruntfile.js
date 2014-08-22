@@ -24,8 +24,8 @@ module.exports = function(grunt) {
   if (grunt.config.get(['composer', 'install'])) {
     tasksDefault.unshift('composer:install');
   }
-  if (grunt.config.get('compass')) {
-    tasksDefault.push('compass');
+  if (grunt.task.exists('compile-theme')) {
+    tasksDefault.push('compile-theme');
   }
   if (grunt.config.get('behat')) {
    // tasksDefault.push('behat');
