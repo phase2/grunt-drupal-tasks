@@ -22,16 +22,16 @@ module.exports = function(grunt) {
 
   var config = grunt.config.get('config');
   if (config.themes) {
-    var compass = []
+    var steps = []
     for (var key in config.themes) {
       if (config.themes.hasOwnProperty(key) && config.themes[key].compass) {
         var path = config.themes[key].path;
         grunt.config(['shell', 'compass-' + key], {
           command: 'bundle exec "compass compile --time --app-dir=' + path + ' --config=' + path + '/config.rb"'
         });
-        compass.push('shell:compass-' + key);
+        steps.push('shell:compass-' + key);
       }
     }
-    grunt.registerTask('compass', compass);
+    grunt.registerTask('compile-theme', steps);
   }
 };
