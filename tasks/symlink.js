@@ -43,7 +43,7 @@ module.exports = function(grunt) {
       }
     },
     themes: {
-      src: '<%= config.buildPaths.html %>/themes',
+      src: '<%= config.srcPaths.drupal %>/themes',
       dest: '<%= config.buildPaths.html %>/sites/all/themes/custom'
     }
   });
