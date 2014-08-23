@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+ module.exports = function(grunt) {
 
   // Initialize global configuration variables.
   var config = grunt.file.readJSON('Gruntconfig.json');
@@ -30,6 +30,10 @@ module.exports = function(grunt) {
   if (grunt.config.get('behat')) {
    // tasksDefault.push('behat');
   }
+  if (grunt.task.exists('bundleInstall')) {
+    tasksDefault.unshift('bundleInstall');
+  }
+
   grunt.registerTask('default', tasksDefault);
 
 };
