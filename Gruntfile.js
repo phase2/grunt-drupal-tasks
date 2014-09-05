@@ -1,6 +1,8 @@
 module.exports = function(grunt) {
-  // shows how long grunt tasks take ~ https://github.com/sindresorhus/time-grunt
-  require('time-grunt')(grunt);
+  if (grunt.option('timer') || false) {
+    // shows how long grunt tasks take ~ https://github.com/sindresorhus/time-grunt
+    require('time-grunt')(grunt);
+  }
 
   // Initialize global configuration variables.
   var config = grunt.file.readJSON('Gruntconfig.json');
