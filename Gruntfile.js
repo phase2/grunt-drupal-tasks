@@ -1,4 +1,6 @@
- module.exports = function(grunt) {
+module.exports = function(grunt) {
+  // shows how long grunt tasks take ~ https://github.com/sindresorhus/time-grunt
+  require('time-grunt')(grunt);
 
   // Initialize global configuration variables.
   var config = grunt.file.readJSON('Gruntconfig.json');
@@ -24,8 +26,8 @@
   if (grunt.config.get(['composer', 'install'])) {
     tasksDefault.unshift('composer:install');
   }
-  if (grunt.config.get('compass')) {
-    tasksDefault.push('compass');
+  if (grunt.task.exists('compile-theme')) {
+    tasksDefault.push('compile-theme');
   }
   if (grunt.config.get('behat')) {
    // tasksDefault.push('behat');
