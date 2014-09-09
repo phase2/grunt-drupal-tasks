@@ -1,6 +1,6 @@
 {
-    "name": "drupal/drupal-testing-framework",
-    "description": "Testing framework for a Drupal site.",
+    "name": "client/project",
+    "description": "{Project} drupal codebase for {client}.",
     "config": {
         "bin-dir": "bin"
     },
@@ -14,6 +14,28 @@
         "behat/mink-goutte-driver": "*",
         "behat/mink-sahi-driver": "*",
         "behat/mink-selenium2-driver": "*",
-        "behat/mink-zombie-driver": "*"
-    }
+        "behat/mink-zombie-driver": "*",
+        "phpmd/phpmd": "1.4.*",
+        "pdepend/pdepend": "1.1.*",
+        "squizlabs/php_codesniffer": "1.*",
+        "drupal/coder": "7.2.2"
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "drupal/coder",
+                "version": "7.2.2",
+                "dist": {
+                    "url": "http://ftp.drupal.org/files/projects/coder-7.x-2.2.zip",
+                    "type": "zip"
+                },
+                "source": {
+                    "url": "http://git.drupal.org/project/coder.git",
+                    "type": "git",
+                    "reference": "tags/7.x-2.2"
+                }
+            }
+        }
+    ]
 }

@@ -16,5 +16,12 @@ module.exports = function(grunt) {
     ],
     tasks: ['behat']
   });
-
+  grunt.config(['watch', 'validate'], {
+    files: [
+      '<%= config.srcPaths.drupal %>/**/*',
+      '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
+      '!<%= config.srcPaths.drupal %>/sites/**'
+    ],
+    tasks: ['validate']
+  });
 }

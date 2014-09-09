@@ -12,7 +12,7 @@ module.exports = function(grunt) {
       files: [
         {
           expand: true,
-          cwd: 'src/static',
+          cwd: '<%= config.srcPaths.drupal %>/static',
           src: ['*', '.*'],
           dest: '<%= config.buildPaths.html %>'
         }

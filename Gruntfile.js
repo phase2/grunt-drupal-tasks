@@ -1,4 +1,8 @@
 module.exports = function(grunt) {
+  if (grunt.option('timer')) {
+    // shows how long grunt tasks take ~ https://github.com/sindresorhus/time-grunt
+    require('time-grunt')(grunt);
+  }
 
   // Initialize global configuration variables.
   var config = grunt.file.readJSON('Gruntconfig.json');
@@ -11,9 +15,8 @@ module.exports = function(grunt) {
 
   // Define the default task to fully build and configure the project.
   var tasksDefault = [
-    'clean:default',
-    'mkdir:init',
-    'drush:make',
+    'validate',
+    'newer:drushmake:default',
     'symlink:profiles',
     'symlink:modules',
     'symlink:themes',
@@ -25,12 +28,16 @@ module.exports = function(grunt) {
   if (grunt.config.get(['composer', 'install'])) {
     tasksDefault.unshift('composer:install');
   }
-  if (grunt.config.get('compass')) {
-    tasksDefault.push('compass');
+  if (grunt.task.exists('compile-theme')) {
+    tasksDefault.push('compile-theme');
   }
   if (grunt.config.get('behat')) {
    // tasksDefault.push('behat');
   }
+  if (grunt.task.exists('bundleInstall')) {
+    tasksDefault.unshift('bundleInstall');
+  }
+
   grunt.registerTask('default', tasksDefault);
 
 };

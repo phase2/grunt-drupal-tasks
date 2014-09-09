@@ -1,19 +1,25 @@
 {
   "name": "drupal-grunt-starter",
   "description": "Build and testing tools for a Drupal project built based on Grunt.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "grunt": "~0.4.2",
+    "grunt": "~0.4.5",
     "grunt-composer": "0.2.0",
     "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-compass": "~0.7.0",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-symlink": "~0.2.0",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-drush": "0.0.1",
     "grunt-lib-contrib": "~0.6.1",
     "grunt-mkdir": "0.1.1",
-    "grunt-parallel-behat": "git+https://github.com/arithmetric/grunt-parallel-behat.git"
+    "grunt-newer": "~0.7.0",
+    "grunt-shell": "~0.7.0",
+    "grunt-parallel-behat": "git+https://github.com/arithmetric/grunt-parallel-behat.git",
+    "grunt-phplint": "~0.0.5",
+    "grunt-phpcs": "~0.2.2",
+    "grunt-contrib-compress": "~0.9.1",
+    "grunt-phpmd": "~0.1.0",
+    "time-grunt": "^0.4.0"
   }
 }

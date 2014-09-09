@@ -7,6 +7,8 @@ module.exports = function(grunt) {
    *   Builds the Drush make file to the build/html directory.
    */
   grunt.loadTasks(__dirname + '/../node_modules/grunt-drush/tasks');
+  grunt.loadTasks(__dirname + '/../node_modules/grunt-newer/tasks');
+
   grunt.config('drush', {
     make: {
       args: ['make', '<%= config.srcPaths.make %>'],
@@ -14,4 +16,17 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('drushmake', 'Run "drush make" if the makefile is newer than the dest directory.', function() {
+    grunt.task.run('clean:default', 'mkdir:init', 'drush:make');
+  });
+
+  // The "drushmake" task will run make only if the src file specified here is
+  // newer than the dest file specified. This includes all make files in the
+  // source directory to catch make files included from the primary one.
+  grunt.config('drushmake', {
+    default: {
+      src: '<%= config.srcPaths.drupal %>/**/*.make',
+      dest: '<%= config.buildPaths.html %>'
+    }
+  });
 };

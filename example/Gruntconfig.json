@@ -1,13 +1,27 @@
 {
   "srcPaths": {
-    "make": "src/project.make"
+    "make": "src/project.make",
+    "drupal": "src"
   },
   "buildPaths": {
     "build": "build",
-    "html": "build/html"
+    "html": "build/html",
+    "package": "build/packages",
+    "reports": "build/reports"
   },
   "siteUrls": {
     "default": "http://project.local"
+  },
+  "packages": {
+    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
+    "projFiles": ["README*", "bin/**"]
+  },
+  "phpcs": {
+    "path": "bin/phpcs",
+    "standard": "vendor/drupal/coder/coder_sniffer/Drupal"
+  },
+  "phpmd": {
+    "path": "bin/phpmd"
   },
   "compassConfig": {}
 }
