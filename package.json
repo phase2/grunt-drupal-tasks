@@ -1,7 +1,7 @@
 {
   "name": "drupal-grunt-starter",
   "description": "Build and testing tools for a Drupal project built based on Grunt.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "grunt": "~0.4.5",
