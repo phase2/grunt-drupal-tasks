@@ -21,10 +21,11 @@ module.exports = function(grunt) {
   });
 
   // The "drushmake" task will run make only if the src file specified here is
-  // newer than the dest file specified.
+  // newer than the dest file specified. This includes all make files in the
+  // source directory to catch make files included from the primary one.
   grunt.config('drushmake', {
     default: {
-      src: '<%= config.srcPaths.make %>',
+      src: '<%= config.srcPaths.drupal %>/**/*.make',
       dest: '<%= config.buildPaths.html %>'
     }
   });
