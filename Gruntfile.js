@@ -32,6 +32,10 @@ module.exports = function(grunt) {
   if (grunt.config.get('behat')) {
    // tasksDefault.push('behat');
   }
+  if (grunt.task.exists('bundleInstall')) {
+    tasksDefault.unshift('bundleInstall');
+  }
+
   grunt.registerTask('default', tasksDefault);
 
 };
