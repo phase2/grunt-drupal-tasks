@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-  if (grunt.option('timer') || false) {
+  if (grunt.option('timer')) {
     // shows how long grunt tasks take ~ https://github.com/sindresorhus/time-grunt
     require('time-grunt')(grunt);
   }
