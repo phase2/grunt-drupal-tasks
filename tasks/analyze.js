@@ -14,7 +14,7 @@ module.exports = function(grunt) {
     },
     options: {
       bin: '<%= config.phpmd.path %>',
-      rulesets: "codesize,unusedcode,naming,controversial,design",
+      rulesets: "node_modules/drupal-grunt-starter/phpmd.xml",
       suffixes: "php,module,inc,install,profile",
       exclude: "<%= config.srcPaths.drupal %>/sites",
       reportFormat: 'xml',
