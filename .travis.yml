@@ -1,8 +1,10 @@
 language: node_js
 node_js:
+  - "0.11"
   - "0.10"
   - "0.8"
 install:
+  - mkdir node_modules
   - mkdir node_modules/grunt-drupal-tasks
   - mv -f * node_modules/grunt-drupal-tasks
   - cp -r node_modules/grunt-drupal-tasks/example/* .
