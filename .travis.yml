@@ -6,7 +6,7 @@ node_js:
 install:
   - mkdir node_modules
   - mkdir node_modules/grunt-drupal-tasks
-  - mv -f * node_modules/grunt-drupal-tasks
+  - for fn in *; do if [ "$fn" != "node_modules" ]; then mv $fn node_modules/grunt-drupal-tasks; fi; done
   - cp -r node_modules/grunt-drupal-tasks/example/* .
   - npm install
 script:
