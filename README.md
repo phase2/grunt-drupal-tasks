@@ -12,15 +12,15 @@ Getting started
 
 Including in an existing project:
 
-1. Copy Gruntconfig.json, Gruntfile.js, and composer.json from this project's example directory to your project. Add the grunt and drupal-grunt-starter dependency to your package.json or copy package.json as well.
+1. Copy Gruntconfig.json, Gruntfile.js, and composer.json from this project's example directory to your project. Add the grunt and grunt-drupal-tasks dependency to your package.json or copy package.json as well.
 
 1. Run "npm install" to install dependencies.
 
 Setting up a new project:
 
-1. In an empty directory, run: npm install --save-dev grunt git+ssh://git@bitbucket.org/phase2tech/drupal-grunt-starter.git
+1. In an empty directory, run: npm install --save-dev grunt git+https://github.com/phase2/grunt-drupal-tasks.git
 
-1. Copy the contents of node_modules/drupal-grunt-starter/example to the project directory.
+1. Copy the contents of node_modules/grunt-drupal-tasks/example to the project directory.
 
 Supporting the validate task:
 
