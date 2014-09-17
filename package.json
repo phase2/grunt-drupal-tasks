@@ -1,6 +1,6 @@
 {
-  "name": "drupal-grunt-starter",
-  "description": "Build and testing tools for a Drupal project built based on Grunt.",
+  "name": "grunt-drupal-tasks",
+  "description": "Grunt-based build and testing tasks for Drupal projects.",
   "version": "0.2.0",
   "private": true,
   "dependencies": {
