@@ -10,8 +10,10 @@ install:
   - mv node_modules_new node_modules
   - npm install
   - npm install -g grunt-cli
+  - wget https://github.com/drush-ops/drush/archive/6.4.0.tar.gz
+  - tar xfvz 6.4.0.tar.gz
 before_script:
   - rm composer.json
 script:
-  - grunt
+  - PATH=$PATH:drush-6.4.0 grunt
   - npm test
