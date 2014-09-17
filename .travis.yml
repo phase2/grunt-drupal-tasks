@@ -3,8 +3,7 @@ php:
   - 5.3
 install:
   - npm install
-  - mkdir node_modules_new
-  - mkdir node_modules_new/grunt-drupal-tasks
+  - mkdir -p node_modules_new/grunt-drupal-tasks
   - for fn in *; do if [ "$fn" != "node_modules_new" ]; then mv $fn node_modules_new/grunt-drupal-tasks; fi; done
   - cp -r node_modules_new/grunt-drupal-tasks/example/* .
   - mv node_modules_new node_modules
