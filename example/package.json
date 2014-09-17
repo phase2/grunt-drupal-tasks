@@ -5,6 +5,6 @@
   "private": true,
   "dependencies": {
     "grunt": "~0.4.2",
-    "grunt-drupal-tasks": "git+ssh://git@github.com:phase2/grunt-drupal-tasks.git"
+    "grunt-drupal-tasks": "git+https://github.com/phase2/grunt-drupal-tasks.git"
   }
 }
