@@ -1,6 +1,8 @@
 Drupal Grunt Build and Testing Tools
 ===
 
+Code Status (master branch): <img src="https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master">
+
 Requirements
 ---
 
