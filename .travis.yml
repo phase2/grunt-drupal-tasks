@@ -3,6 +3,9 @@ node_js:
   - "0.11"
   - "0.10"
   - "0.8"
+before_install:
+  - curl -sS https://getcomposer.org/installer | php
+  - alias composer="php composer.phar"
 install:
   - npm install
   - mkdir node_modules_new
