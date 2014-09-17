@@ -4,10 +4,12 @@ node_js:
   - "0.10"
   - "0.8"
 install:
-  - mkdir node_modules
-  - mkdir node_modules/grunt-drupal-tasks
-  - for fn in *; do if [ "$fn" != "node_modules" ]; then mv $fn node_modules/grunt-drupal-tasks; fi; done
-  - cp -r node_modules/grunt-drupal-tasks/example/* .
+  - npm install
+  - mkdir node_modules_new
+  - mkdir node_modules_new/grunt-drupal-tasks
+  - for fn in *; do if [ "$fn" != "node_modules_new" ]; then mv $fn node_modules_new/grunt-drupal-tasks; fi; done
+  - cp -r node_modules_new/grunt-drupal-tasks/example/* .
+  - mv node_modules_new node_modules
   - npm install
   - npm install -g grunt-cli
 script:
