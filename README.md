@@ -51,8 +51,42 @@ If you would like to use grunt-drupal-tasks, be prepared to use it as a dependen
 1. Update Gruntconfig.json as needed to specify the path to the PHPCS binary and the Drupal Coder module PHPCS standard.
 
 
-Extending
----
+## Extending
 
-1. Update Gruntfile.js as needed to add build steps or other project-specific actions.
+You may add any project-specific directives you want to your Gruntfile.js.
 
+### Changing the Default Build Process
+
+There are two ways to change the default build process (which is run when simply typing `grunt` into the command-line.)
+
+1. Replicate the definition of the default task you can see in this grunt-drupal-tasks' Gruntfile.js. This will completely replace what currently exists.
+2. Use a slick workaround that allows you to keep the default task as it's been defined, but append or prepend your own operations. See below for a simple example.
+
+```js
+grunt.task.rename('default', 'default-original');
+grunt.registerTask('default', ['shell:custom', 'default-original']);
+```
+
+### Leveraging Bash Scripts
+
+If you have an existing project or a kit of useful project utilities, you may have some Bash scripts laying around that you want to keep. You can fold them into the grunt tools and worry about reimplementing them later using something like the simple wrapper script based on [grunt-shell](https://github.com/sindresorhus/grunt-shell) displayed below. 
+
+```js
+module.exports = function(grunt) {
+ 
+/**
+ * Define "bin" wrapper tasks.
+ */
+var files = grunt.file.expand("bin/*.sh");
+if (files) {
+  for (var f in files) {
+    var name = files[f].split('/').pop().split('.').shift();
+      grunt.config(['shell', name], {
+        command: 'bash ' + files[f]
+      });
+      grunt.registerTask(name, ['shell:' + name]);
+    }
+  }
+};
+```
+This particular snippet requires your bash scripts end in `.sh` and be located in the directory `root:bin/`.
