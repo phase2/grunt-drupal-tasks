@@ -1,8 +1,7 @@
 {
-  "name": "drupal-grunt-starter",
-  "description": "Build and testing tools for a Drupal project built based on Grunt.",
+  "name": "grunt-drupal-tasks",
+  "description": "Grunt-based build and testing tasks for Drupal projects.",
   "version": "0.2.0",
-  "private": true,
   "dependencies": {
     "grunt": "~0.4.5",
     "grunt-composer": "0.2.0",
@@ -21,5 +20,15 @@
     "grunt-contrib-compress": "~0.9.1",
     "grunt-phpmd": "~0.1.0",
     "time-grunt": "^0.4.0"
+  },
+  "keywords": [
+    "build",
+    "drupal",
+    "grunt",
+    "gruntplugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url" : "https://github.com/phase2/grunt-drupal-tasks.git"
   }
 }
