@@ -8,19 +8,24 @@ module.exports = function(grunt) {
    */
   grunt.loadTasks(__dirname + '/../node_modules/grunt-phpmd/tasks');
 
-  grunt.config('phpmd', {
-    custom: {
-      dir: '<%= config.srcPaths.drupal %>/'
-    },
-    options: {
-      bin: '<%= config.phpmd.path %>',
-      rulesets: "node_modules/drupal-grunt-starter/phpmd.xml",
-      suffixes: "php,module,inc,install,profile",
-      exclude: "<%= config.srcPaths.drupal %>/sites",
-      reportFormat: 'xml',
-      reportFile: '<%= config.buildPaths.reports %>/phpmd.xml'
-    }
-  });
+  var steps = [];
+  if (grunt.config.get('config.phpmd') != undefined) {
+    var phpmdConfig = grunt.config.get('config.phpmd.configPath') || 'phpmd.xml';
+    grunt.config('phpmd', {
+      custom: {
+        dir: '<%= config.srcPaths.drupal %>/'
+      },
+      options: {
+        bin: '<%= config.phpmd.path %>',
+        rulesets: phpmdConfig,
+        suffixes: "php,module,inc,install,profile",
+        exclude: "<%= config.srcPaths.drupal %>/sites",
+        reportFormat: 'xml',
+        reportFile: '<%= config.buildPaths.reports %>/phpmd.xml'
+      }
+    });
+    steps.push('phpmd:custom');
+  }
 
-  grunt.registerTask('analyze', ['phpmd:custom']);
+  grunt.registerTask('analyze', steps);
 };
