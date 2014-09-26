@@ -23,5 +23,10 @@
   "phpmd": {
     "path": "bin/phpmd"
   },
+  "drush": {
+    "make": {
+      "args": []
+    }
+  },
   "compassConfig": {}
 }
