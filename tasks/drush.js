@@ -9,9 +9,18 @@ module.exports = function(grunt) {
   grunt.loadTasks(__dirname + '/../node_modules/grunt-drush/tasks');
   grunt.loadTasks(__dirname + '/../node_modules/grunt-newer/tasks');
 
+  // Allow extra arguments for drush to be supplied.
+  var args = ['make', '<%= config.srcPaths.make %>'],
+    extra_args = grunt.config.get('config.drush.make.args');
+  if (extra_args && extra_args.length) {
+    extra_args.unshift(args[0]);
+    extra_args.push(args[1]);
+    args = extra_args;
+  }
+
   grunt.config('drush', {
     make: {
-      args: ['make', '<%= config.srcPaths.make %>'],
+      args: args,
       dest: '<%= config.buildPaths.html %>'
     }
   });
