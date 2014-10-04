@@ -31,7 +31,7 @@ module.exports = function(grunt) {
       '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
       '!<%= config.srcPaths.drupal %>/sites/**'
     ],
-  });
+  }); 
   validate.push('phplint:all');
 
   if (grunt.config.get('config.phpcs') != undefined) {
@@ -57,9 +57,19 @@ module.exports = function(grunt) {
         report: grunt.config.get('config.phpcs.validateReport') || 'summary',
         reportFile: false,
       },
-      inspect: {
+      full: {
         dir: phpcs,
         report: 'full',
+        reportFile: false
+      },
+      summary: {
+        dir: phpcs,
+        report: 'summary',
+        reportFile: false
+      },
+      gitblame: {
+        dir: phpcs,
+        report: 'gitblame',
         reportFile: false
       },
       options: {
