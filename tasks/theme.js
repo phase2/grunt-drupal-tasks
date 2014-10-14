@@ -43,5 +43,9 @@ module.exports = function(grunt) {
       }
     }
     grunt.registerTask('compile-theme', steps);
+
+    grunt.config('help.compile-theme', {
+      group: 'Asset & Code Compilation'
+    });
   }
 };

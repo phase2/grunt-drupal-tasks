@@ -45,4 +45,8 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('validate', ['phplint:all', 'phpcs:drupal']);
+
+  grunt.config('help.validate', {
+    group: 'Testing & Code Quality'
+  });
 };

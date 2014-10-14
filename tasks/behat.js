@@ -34,6 +34,10 @@ module.exports = function(grunt) {
         });
       }
     }
+
+    grunt.config('help.behat', {
+      group: 'Testing & Code Quality'
+    });
   }
 
 }
