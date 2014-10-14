@@ -11,4 +11,4 @@ mkdir -p node_modules_new/grunt-drupal-tasks
 for fn in *; do if [ "$fn" != "node_modules_new" ]; then mv $fn node_modules_new/grunt-drupal-tasks; fi; done
 cp -r node_modules_new/grunt-drupal-tasks/example/* .
 mv node_modules_new node_modules
-npm install
+npm install grunt@0.4.5
