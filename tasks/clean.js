@@ -12,10 +12,13 @@ module.exports = function(grunt) {
   grunt.loadTasks(__dirname + '/../node_modules/grunt-contrib-clean/tasks');
   grunt.config('clean', {
     default: [
-      '<%= config.buildPaths.build %>'
+      '<%= config.buildPaths.html %>'
     ],
     sites: [
       '<%= config.buildPaths.html %>/sites/default'
+    ],
+    temp: [
+      '<%= config.buildPaths.temp %>'
     ]
   });
 

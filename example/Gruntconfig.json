@@ -7,7 +7,8 @@
     "build": "build",
     "html": "build/html",
     "package": "build/packages",
-    "reports": "build/reports"
+    "reports": "build/reports",
+    "temp": "build/temp"
   },
   "siteUrls": {
     "default": "http://project.local"
