@@ -19,4 +19,7 @@ module.exports = function(grunt) {
     ]
   });
 
+  grunt.config('help.clean', {
+    group: 'Utilities'
+  });
 };

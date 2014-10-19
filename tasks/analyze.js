@@ -28,4 +28,8 @@ module.exports = function(grunt) {
   }
 
   grunt.registerTask('analyze', steps);
+
+  grunt.config('help.analyze', {
+    group: 'Testing & Code Quality'
+  });
 };

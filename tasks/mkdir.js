@@ -29,4 +29,8 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.config('help.mkdir', {
+    group: 'Utilities'
+  });
+
 };

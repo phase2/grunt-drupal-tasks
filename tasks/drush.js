@@ -38,4 +38,8 @@ module.exports = function(grunt) {
       dest: '<%= config.buildPaths.html %>'
     }
   });
+
+  grunt.config('help.drushmake', {
+    group: 'Dependency Management'
+  });
 };
