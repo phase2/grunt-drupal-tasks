@@ -66,10 +66,7 @@ in example/composer.json
 
 ## Configuration
 
-1. Update Gruntconfig.json as needed to specify a custom source or build path
-   or to enable Compass SASS to CSS compilation for custom themes.
-2. Update Gruntconfig.json as needed to specify the path to the PHPCS binary
-   and the Drupal Coder module PHPCS standard.
+See CONFIG.md for documentation on all configuration options.
 
 ## Customizing
 
