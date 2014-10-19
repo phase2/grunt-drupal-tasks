@@ -10,16 +10,16 @@ module.exports = function(grunt) {
   grunt.loadTasks(__dirname + '/../node_modules/grunt-available-tasks/tasks');
 
   grunt.config('help.default', {
-    group: 'Build Process',
-  }),
-  grunt.config('help.newer',{
+    group: 'Build Process'
+  });
+  grunt.config('help.newer', {
     group: 'Utilities'
-  })
+  });
 
-  var help = grunt.config.get('help');
-  var items = Object.keys(help);
-  var descriptions = {};
-  var groups = {};
+  var help = grunt.config.get('help'),
+    items = Object.keys(help),
+    descriptions = {},
+    groups = {};
 
   items.forEach(function(item) {
     if (help[item]['description']) {
@@ -43,5 +43,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('help', ['availabletasks:help'])
+  grunt.registerTask('help', ['availabletasks:help']);
 };
