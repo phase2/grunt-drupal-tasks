@@ -5,7 +5,15 @@ Code Status (master branch):
 
 ## Requirements
 
-* Node.js
+* Download and install <a href="http://nodejs.org/">Node.js</a>
+
+* Once _Node.js_ is installed, use _npm_ to install
+<a href="https://github.com/gruntjs/grunt-cli">grunt-cli</a>, the Grunt command
+line interface, by running:
+
+```
+npm install -g grunt-cli
+```
 
 ## Features
 
