@@ -16,7 +16,7 @@
     "grunt-shell": "~0.7.0",
     "grunt-parallel-behat": "git+https://github.com/arithmetric/grunt-parallel-behat.git",
     "grunt-phplint": "~0.0.5",
-    "grunt-phpcs": "~0.2.2",
+    "grunt-phpcs": "git+https://github.com/grayside/grunt-phpcs.git#0.3.0",
     "grunt-contrib-compress": "~0.9.1",
     "grunt-phpmd": "~0.1.0",
     "time-grunt": "^0.4.0",
