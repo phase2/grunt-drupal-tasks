@@ -21,12 +21,12 @@ module.exports = function(grunt) {
   grunt.config('drush', {
     make: {
       args: args,
-      dest: '<%= config.buildPaths.html %>'
+      dest: '<%= config.buildPaths.temp %>'
     }
   });
 
   grunt.registerTask('drushmake', 'Run "drush make" if the makefile is newer than the dest directory.', function() {
-    grunt.task.run('clean:default', 'mkdir:init', 'drush:make');
+    grunt.task.run('mkdir:init', 'drush:make', 'clean:default', 'copy:tempbuild', 'clean:temp');
   });
 
   // The "drushmake" task will run make only if the src file specified here is
