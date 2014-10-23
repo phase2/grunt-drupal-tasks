@@ -40,4 +40,8 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('package', 'Package the operational codebase for deployment.', function() {
     grunt.task.run(this.data);
   });
+
+  grunt.config('help.package', {
+    group: 'Operations'
+  });
 };

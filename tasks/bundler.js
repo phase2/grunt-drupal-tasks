@@ -13,5 +13,10 @@ module.exports = function(grunt) {
       command: "bundle install --binstubs=gems/bin"
     });
     grunt.registerTask('bundleInstall', ['shell:bundleInstall']);  
+
+    grunt.config('help.bundleInstall', {
+      group: 'Dependency Management',
+      description: 'Run `bundle install`, dropping symlinks to all binaries in `gems/bin`.'
+    });
   }
 };

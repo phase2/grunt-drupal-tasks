@@ -10,6 +10,8 @@ module.exports = function(grunt) {
   var config = grunt.config.get('config');
   if (require('fs').existsSync('./composer.json')) {
     grunt.config(['composer', 'install'], {});
+    grunt.config('help.composer', {
+      group: 'Dependency Management',
+    });
   }
-
 };

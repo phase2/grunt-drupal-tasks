@@ -24,4 +24,8 @@ module.exports = function(grunt) {
     ],
     tasks: ['validate']
   });
+
+  grunt.config('help.watch', {
+    group: 'Real-time Tooling'
+  });
 }

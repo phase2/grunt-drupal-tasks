@@ -106,4 +106,13 @@ module.exports = function(grunt) {
 
   grunt.registerTask('validate', validate);
   grunt.registerTask('analyze', analyze);
+
+  grunt.config('help', {
+    validate: {
+      group: 'Testing & Code Quality'
+    },
+    analyze: {
+      group: 'Testing & Code Quality'
+    }
+  });
 };
