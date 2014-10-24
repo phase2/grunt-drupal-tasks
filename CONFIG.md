@@ -4,6 +4,8 @@
 This documents all configuration options for Drupal Grunt Build and Testing
 Tasks. These options are defined in the Gruntconfig.json file.
 
+For an example of many options, see Gruntconfig.json in the example directory.
+
 ## Core
 
 ### config.srcPaths.drupal
