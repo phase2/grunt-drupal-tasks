@@ -1,4 +1,4 @@
-# Drupal Grunt Build and Testing Tools
+# Drupal Grunt Build and Testing Tasks
 
 Code Status (master branch):
 <a href="https://travis-ci.org/phase2/grunt-drupal-tasks"><img src="https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master"></a>
