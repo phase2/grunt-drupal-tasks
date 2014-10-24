@@ -5,7 +5,10 @@ Code Status (master branch):
 
 ## Requirements
 
-* Download and install <a href="http://nodejs.org/">Node.js</a>
+* Install _Node.js v0.10.0 or better_ either using a
+<a href="https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager">package manager</a>
+like apt-get, brew, or yum or a
+<a href="http://nodejs.org/download/">standalone installer</a>.
 
 * Once _Node.js_ is installed, use _npm_ to install
 <a href="https://github.com/gruntjs/grunt-cli">grunt-cli</a>, the Grunt command
