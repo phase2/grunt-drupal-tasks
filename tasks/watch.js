@@ -10,8 +10,8 @@ module.exports = function(grunt) {
   grunt.loadTasks(__dirname + '/../node_modules/grunt-contrib-watch/tasks');
   grunt.config(['watch', 'behat'], {
     files: [
-      '<%= config.docroot %>/**/*',
-      '!<%= config.docroot %>/sites/*/files/**/*',
+      '<%= config.srcPaths.drupal %>/**/*',
+      '!<%= config.srcPaths.drupal %>/sites/*/files/**/*',
       'features/**/*'
     ],
     tasks: ['behat']

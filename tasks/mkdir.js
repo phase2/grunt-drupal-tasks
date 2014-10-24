@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         create: [
           '<%= config.buildPaths.build %>/cache',
           '<%= config.buildPaths.build %>/docs',
-          '<%= config.buildPaths.build %>/reports'
+          '<%= config.buildPaths.reports %>'
         ]
       }
     },
