@@ -1,22 +1,22 @@
+# Setting up Drupal Grunt Build and Testing Tasks
 
-# Setting Up Drupal Grunt Build and Testing Tasks On Your Project
+This is a guide for integrating Drupal Grunt Build and Testing Tasks with your
+Drupal project.
 
-This document is a guide for integrating these tools with your Drupal project.
+## Start with the example
 
-## Starting From The Example
-
-The recommended starting point is to use the included kickstart example to
-structure your Drupal project. To extract the example template, you can use the
-following two commands:
+It's recommended to use the included example as an initial scaffold for your
+Drupal project. To download this template, you can use the following two
+commands:
 
 1. In an empty directory, run:
    `npm install --save-dev grunt git+https://github.com/phase2/grunt-drupal-tasks.git`
 
-2. Copy the contents of node_modules/grunt-drupal-tasks/example to the project
+2. Copy the contents of node_modules/grunt-drupal-tasks/example to your starting
    directory, by running:
    `cp -rf node_modules/grunt-drupal-tasks/example/* .`
 
-This should result in the following initial files and directories:
+The directory's contents should now look like this:
 
 ```
 Gruntconfig.json
@@ -24,10 +24,9 @@ Gruntfile.js
 behat.yml
 composer.json
 features/
-  bootstrap/
+  ...
 node_modules/
-  grunt/
-  grunt-drupal-tasks/
+  ...
 package.json
 phpmd.xml
 src/
@@ -39,42 +38,75 @@ src/
   themes/
 ```
 
-The first step is to configure the Drush make file and add your custom code and
-configuration to the directories under _src/_.
+## Add project code and configuration
 
-- Place custom modules in *src/modules/*. When the project is built, the
+After setting up the project directory, the next step is to configure the Drush
+make file and add your custom code and configuration in the directories under
+**src/**.
+
+- Place custom modules in **src/modules/**. When the project is built, the
   contents of src/modules/ become part of the Drupal's sites/all/modules/
   directory (via a symlink from sites/all/modules/custom/ to src/modules/).
 
-- Place custom installation profiles in *src/profiles/*. When the project is
+- Place custom installation profiles in **src/profiles/**. When the project is
   built, the contents of src/profiles/ is copied into Drupal's profiles/
   directory.
 
-- Include a Drush make file for the project. The example includes *project.make*
-  but the name can be changed by updating Gruntconfig.json (see below). Grunt
-  executes "drush make" with this file at the start of the build process.
+- Customize the Drush make file that is used at the start of the build process.
+  The example includes **project.make** but this file can be replaced or renamed
+  with a setting change in Gruntconfig.json (see below).
 
 - Include any sites directories (like "default"), optionally with settings.php
-  or other files, and a multi-site sites.php, if needed, in *src/sites/*.
+  or other files, and if needed a multi-site sites.php in **src/sites/**.
 
 - Include any static files that should be copied into the Drupal docroot on
-  build. This can be used for overriding files like .htaccess.
+  build in **src/static/**. This allows for overriding files like .htaccess.
 
-- Place custom themes in *src/themes/*. When the project is built, the
+- Place custom themes in **src/themes/**. When the project is built, the
   contents of src/themes/ become part of the Drupal's sites/all/themes/
   directory (via a symlink from sites/all/themes/custom/ to src/themes/).
 
-At this point, you should be able to run "grunt" to generate the basic build.
-This should result in a fully-built Drupal site docroot in build/html/
-that also includes any contrib modules, themes, and libraries specified in the
-make file, and all custom code and settings include in src/.
+At this point, you should be able to run "grunt" to build a Drupal site into
+**build/html/** using the make file and adding any custom modules, themes, and
+other files included in src/ directories.
 
-## Configuration Options
+## Use other features
 
-This documents all configuration options for Drupal Grunt Build and Testing
-Tasks. These options are defined in the Gruntconfig.json file.
+The example template bundles a **composer.json** file that installs supporting
+tools, like Behat with the Drupal Extension, PHPMD (PHP Mess Detector), and the
+PHP Code Sniffer, among others. By default, the build runs "composer install" to
+install these tools. You can modify composer.json to include other dependencies
+for your project.
 
-### Core Configuration
+To support Behat tests, the example includes a basic **behat.yml** configuration
+file and a **features/** directory for test cases.
+
+The example also includes **phpmd.xml** to provide some sensible defaults for
+Drupal development to the PHPMD utility.
+
+## Customize the tasks
+
+Drupal Grunt Build and Testing Tasks is designed to provide sensible default
+behaviors for Drupal projects, but allow these assumptions to be overridden.
+There are three ways to customize the build and testing tasks:
+
+- **Gruntconfig.json** is a settings file that allows certain paths and optional
+  features to be configured on a project-specific basis. See the next section
+  for more information on the settings in Gruntconfig.json.
+
+- Many core tasks, like the default build task or the analyze and validate
+  tasks, define a series of sub-tasks to run. The sequence of sub-tasks can be
+  modified in the project's **Gruntfile.js**. See EXTEND.md.
+
+- In some cases, you may need to add new tasks or alter existing tasks for your
+  project. See EXTEND.md.
+
+## Modify Gruntconfig.json
+
+The following sections document all configuration options that can be set in the
+project-specific Gruntconfig.json file.
+
+### Core Settings
 
 The core set of configuration options for Gruntconfig.json specify the basic
 build parameters: the code to build, and the output directories to use.
@@ -97,8 +129,8 @@ This is the minimum set of configuration options:
 }
 ```
 
-*srcPaths.drupal*: Specifies the directory that contains all project-specific
-Drupal code and configuration. Grunt Drupal Tasks assumes this directory has the
+**srcPaths.drupal**: The directory that contains all project-specific Drupal
+code and configuration. Grunt Drupal Tasks assumes this directory has the
 following structure:
 
 ```
@@ -110,50 +142,128 @@ src/
   themes/
 ```
 
-*srcPaths.make*: Specifies the Drush make file used to build the Drupal project.
+**srcPaths.make**: The Drush make file used to assumble the Drupal project.
 
-*buildPaths.build*: Specifies the directory that should be used for
-miscellaneous build artifacts. This can be the parent directory of
-buildPaths.html and buildPaths.reports.
+**buildPaths.build**: The directory that should be used for miscellaneous build
+artifacts. This can be the parent directory of the following build paths.
 
-*buildPaths.html*: Specifies the directory that should be used for the Drupal
-docroot build destination generated by the default build operation.
+**buildPaths.html**: The directory that should be used for the Drupal docroot
+build destination generated by the default build operation.
 
-*buildPaths.package*: Specifies the directory that should be used to store
-packages generated on demand by the _package_ operation.
+**buildPaths.package**: The directory that should be used to store packages
+generated on demand by the *package* operation.
 
-*buildPaths.reports*: Specifies the directory that should be used for output
-from the analysis and validation tools.
+**buildPaths.reports**: The directory that should be used for output from the
+analysis and validation tools.
 
-*buildPaths.temp*: Specifies the directory that should be used for temporary
-build artifacts. This can be a subdirectory of buildPaths.html.
+**buildPaths.temp**: The directory that should be used for temporary build
+artifacts. This can be a subdirectory of buildPaths.html.
 
-### Analyze Tasks
+### Analyze Settings
 
-*phpmd.configPath*
+This is an example of the settings for analyze tasks:
 
-*phpmd.path*
+```
+{
+  "phpmd": {
+    "configPath": "phpmd.xml",
+    "path": "bin/phpmd"
+  }
+}
+```
 
-### Behat
+**phpmd.configPath**: The configuration file to use with PHPMD. Defaults to
+*phpmd.xml*.
 
-*siteUrls*
+**phpmd.path**: The path to the PHPMD executable.
 
-### Drush
+### Behat Settings
 
-*drush.make.args*
+This is an example of the settings for Behat tasks:
 
-### Package
+```
+{
+  "siteUrls": {
+    "default": "http://project.local",
+    "subsite": "http://subsite.project.local"
+  }
+}
+```
 
-*packages.srcFiles*
+**siteUrls**: A map of Drupal subsite names to the URLs by which each can be
+accessed for testing by Behat.
 
-*packages.projFiles*
+### Drush Settings
 
-### Theme
+This is an example of the settings for Drush tasks:
 
-*themes*
+```
+{
+  "drush": {
+    "make": {
+      "args": ["--force-complete", "--working-copy"]
+    }
+  }
+}
+```
 
-### Validate
+**drush.make.args**: An array of arguments to pass to Drush for the make
+operation.
 
-*phpcs.path*
+### Package Settings
 
-*phpcs.standard*
+This is an example of the settings for package tasks:
+
+```
+{
+  "packages": {
+    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
+    "projFiles": ["README*", "bin/**"]
+  }
+}
+```
+
+**packages.srcFiles**: An array of files or file patterns to include or exclude
+from the build output when building a package. The above excludes files within
+any sites/*/files directory, and Drupal's xmlrpc.php and PHP Filter. For more on
+this format, see: http://gruntjs.com/configuring-tasks#files
+
+**packages.projFiles**: An array of files or file patterns to include or exclude
+from the project directory when building a package. The above includes README
+files and files under bin/ in the project's package.
+
+### Theme Settings
+
+This is an example of the settings for theme tasks:
+
+```
+{
+  "themes": {
+    "spartan": {
+      "path": "<%= config.srcPaths.drupal %>/themes/spartan",
+      "compass": true
+    }
+  }
+}
+```
+
+**themes**: Defines each custom Drupal theme and enables features, like Sass
+processing by Compass.
+
+### Validate Settings
+
+This is an example of the settings for the validate tasks:
+
+```
+{
+  "phpcs": {
+    "path": "bin/phpcs",
+    "standard": "vendor/drupal/coder/coder_sniffer/Drupal"
+  }
+}
+```
+
+**phpcs.path**: The path to the PHPCS executable.
+
+**phpcs.standard**: The PHPCS coding standard to use. The example composer.json
+installs the Drupal Coder's standard, the path of which is shown above.
