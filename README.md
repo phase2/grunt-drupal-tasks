@@ -28,17 +28,26 @@ This project is built on the tools of the Grunt community to provide scripted
 automation of a number of PHP & Drupal tasks. Here are a few examples of what it
 provides:
 
-* PHP code quality checks
-* Compass compilation
 * Drush make-based build workflow
+* CI portability (used with Jenkins so far)
+* Opt-in for a number of great enhancements:
+  * Composer dependency management for PHP
+  * Bundler dependency management for Ruby
+  * PHP code quality & static analysis checks
+  * Compass compilation
+  * Behat testing
 * Deployment packaging
-* Behat testing
-* Jenkins support
-* Extensibility: Add or override anything with your plugins or configuration.
+* Extensibility: Add or override with your plugins or configuration.
 
 We are continuously working to improve this toolchain, adding functionality that
 we see as common to our _continuous integration_ and everyday development
 practices.
+
+## Usage
+
+Working on a project that's integrated **grunt-drupal-tasks**? Run `grunt help` to view documentation tailored for your project.
+
+To build your Drupal site, run `grunt`.
 
 ## More information
 
