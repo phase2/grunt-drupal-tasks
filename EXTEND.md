@@ -24,7 +24,8 @@ grunt.registerTask('default', ['shell:custom', 'default-original']);
 
 ### Adding new tasks
 
-To add additional tasks to your project's grunt implementation, you may define them directly in your Gruntfile.js or include them from separate files.
+To add additional tasks to your project's grunt implementation, you may define
+them directly in your Gruntfile.js or include them from separate files.
 
 #### Load a plugin managed by npm:
 
@@ -40,7 +41,9 @@ grunt.loadTasks(__dirname + '/grunt/tasks');
 
 ### Overriding existing tasks
 
-To override an existing task the trick is to add code that will be the final piece to adjust the configuration of the task. This may be a specific configuration element, or a redefinition of the entire task.
+To override an existing task the trick is to add code that will be the final
+piece to adjust the configuration of the task. This may be a specific
+configuration element, or a redefinition of the entire task.
 
 #### Re-register the validate task
 

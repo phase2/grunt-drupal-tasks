@@ -67,7 +67,7 @@ make file and add your custom code and configuration in the directories under
   contents of src/themes/ become part of the Drupal's sites/all/themes/
   directory (via a symlink from sites/all/themes/custom/ to src/themes/).
 
-At this point, you should be able to run "`grunt`" to build a Drupal site into
+At this point, you should be able to run `grunt` to build a Drupal site into
 **build/html/** using the make file and adding any custom modules, themes, and
 other files included in src/ directories.
 
@@ -178,7 +178,8 @@ This is an example of the settings for analyze tasks:
 
 **phpmd.path**: The path to the PHPMD executable.
 
-> If there is no `phpmd` key in the configuration, the system will assume you are not using PHPMD and will suppress it from the system.
+> If there is no `phpmd` key in the configuration, the system will assume you
+are not using PHPMD and will suppress it from the system.
 
 ### Behat Settings
 
@@ -249,7 +250,8 @@ This is an example of the settings for the validate tasks:
 **phpcs.standard**: The PHPCS coding standard to use. The example composer.json
 installs the Drupal Coder's standard, the path of which is shown above.
 
-> If there is no `phpcs` key in the configuration, the system will assume you are not using PHPCS and will suppress it from the system.
+> If there is no `phpcs` key in the configuration, the system will assume you
+are not using PHPCS and will suppress it from the system.
 
 ### Package Settings
 
@@ -272,5 +274,3 @@ this format, see: http://gruntjs.com/configuring-tasks#files
 **packages.projFiles**: An array of files or file patterns to include or exclude
 from the project directory when building a package. The above includes README
 files and files under bin/ in the project's package.
-
-

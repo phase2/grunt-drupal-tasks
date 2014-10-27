@@ -45,17 +45,15 @@ practices.
 
 ## Usage
 
-Working on a project that's integrated **grunt-drupal-tasks**? Run `grunt help` to view documentation tailored for your project.
+Working on a project that's integrated **grunt-drupal-tasks**? Run `grunt help`
+to view documentation tailored for your project.
 
 To build your Drupal site, run `grunt`.
 
-## More information
+## Setting Up and Extending
 
-For information on integrating these tools with your project, see
+For information on setting up your project with these tools, see
 <a href="https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md">CONFIG.md</a>.
-
-If your project is already using these tools, use **grunt help** to get
-information on available tasks.
 
 For information on extending these tools or contributing changes, see
 <a href="https://github.com/phase2/grunt-drupal-tasks/blob/master/EXTEND.md">EXTEND.md</a>.
