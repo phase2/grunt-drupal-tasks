@@ -1,4 +1,4 @@
-# Setting up Drupal Grunt Build and Testing Tasks
+# Set Up Your Drupal Project
 
 This is a guide for integrating Drupal Grunt Build and Testing Tasks with your
 Drupal project.
@@ -10,7 +10,7 @@ Drupal project. To download this template, you can use the following two
 commands:
 
 1. In an empty directory, run:
-   `npm install --save-dev grunt git+https://github.com/phase2/grunt-drupal-tasks.git`
+   `npm install --save-dev grunt grunt-drupal-tasks`
 
 2. Copy the contents of node_modules/grunt-drupal-tasks/example to your starting
    directory, by running:
@@ -49,15 +49,16 @@ make file and add your custom code and configuration in the directories under
   directory (via a symlink from sites/all/modules/custom/ to src/modules/).
 
 - Place custom installation profiles in **src/profiles/**. When the project is
-  built, the contents of src/profiles/ is copied into Drupal's profiles/
-  directory.
+  built, the contents of src/profiles become part of Drupal's sites/all/modules/
+  directory (via symlink from profiles/ to each profile in src/profiles/).
 
 - Customize the Drush make file that is used at the start of the build process.
   The example includes **project.make** but this file can be replaced or renamed
   with a setting change in Gruntconfig.json (see below).
 
 - Include any sites directories (like "default"), optionally with settings.php
-  or other files, and if needed a multi-site sites.php in **src/sites/**.
+  or other files, and if needed a multi-site sites.php in **src/sites/**. (The 
+  contents of src/sites/ are copied into sites/.)
 
 - Include any static files that should be copied into the Drupal docroot on
   build in **src/static/**. This allows for overriding files like .htaccess.
@@ -66,7 +67,7 @@ make file and add your custom code and configuration in the directories under
   contents of src/themes/ become part of the Drupal's sites/all/themes/
   directory (via a symlink from sites/all/themes/custom/ to src/themes/).
 
-At this point, you should be able to run "grunt" to build a Drupal site into
+At this point, you should be able to run `grunt` to build a Drupal site into
 **build/html/** using the make file and adding any custom modules, themes, and
 other files included in src/ directories.
 
@@ -177,6 +178,9 @@ This is an example of the settings for analyze tasks:
 
 **phpmd.path**: The path to the PHPMD executable.
 
+> If there is no `phpmd` key in the configuration, the system will assume you
+are not using PHPMD and will suppress it from the system.
+
 ### Behat Settings
 
 This is an example of the settings for Behat tasks:
@@ -209,28 +213,6 @@ This is an example of the settings for Drush tasks:
 
 **drush.make.args**: An array of arguments to pass to Drush for the make
 operation.
-
-### Package Settings
-
-This is an example of the settings for package tasks:
-
-```
-{
-  "packages": {
-    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
-    "projFiles": ["README*", "bin/**"]
-  }
-}
-```
-
-**packages.srcFiles**: An array of files or file patterns to include or exclude
-from the build output when building a package. The above excludes files within
-any sites/*/files directory, and Drupal's xmlrpc.php and PHP Filter. For more on
-this format, see: http://gruntjs.com/configuring-tasks#files
-
-**packages.projFiles**: An array of files or file patterns to include or exclude
-from the project directory when building a package. The above includes README
-files and files under bin/ in the project's package.
 
 ### Theme Settings
 
@@ -267,3 +249,28 @@ This is an example of the settings for the validate tasks:
 
 **phpcs.standard**: The PHPCS coding standard to use. The example composer.json
 installs the Drupal Coder's standard, the path of which is shown above.
+
+> If there is no `phpcs` key in the configuration, the system will assume you
+are not using PHPCS and will suppress it from the system.
+
+### Package Settings
+
+This is an example of the settings for package tasks:
+
+```
+{
+  "packages": {
+    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
+    "projFiles": ["README*", "bin/**"]
+  }
+}
+```
+
+**packages.srcFiles**: An array of files or file patterns to include or exclude
+from the build output when building a package. The above excludes files within
+any sites/*/files directory, and Drupal's xmlrpc.php and PHP Filter. For more on
+this format, see: http://gruntjs.com/configuring-tasks#files
+
+**packages.projFiles**: An array of files or file patterns to include or exclude
+from the project directory when building a package. The above includes README
+files and files under bin/ in the project's package.
