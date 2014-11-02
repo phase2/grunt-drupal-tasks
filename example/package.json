@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "grunt": "~0.4.5",
+    "grunt": "git+https://github.com/rbelouin/grunt.git#5afe572d",
     "grunt-drupal-tasks": "git+https://github.com/phase2/grunt-drupal-tasks.git"
   }
 }
