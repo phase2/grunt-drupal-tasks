@@ -18,7 +18,7 @@ module.exports = function(grunt) {
    *   }
    * }
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-shell/tasks');
+  grunt.loadNpmTasks('grunt-shell');
 
   var config = grunt.config.get('config');
   if (config.themes) {

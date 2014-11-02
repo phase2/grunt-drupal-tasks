@@ -9,7 +9,7 @@ module.exports = function(grunt) {
    * grunt clean:sites
    *   Removes sites/default in the build/html directory.
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-contrib-clean/tasks');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.config('clean', {
     default: [
       '<%= config.buildPaths.html %>'

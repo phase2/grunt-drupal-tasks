@@ -6,7 +6,7 @@ module.exports = function(grunt) {
    * grunt package
    *   Builds a deployment package in the build/package directory.
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-contrib-compress/tasks');
+  grunt.loadNpmTasks('grunt-contrib-compress');
   var config = grunt.config.get('config'),
     srcFiles = (config.packages && config.packages.srcFiles && config.packages.srcFiles.length) ? config.packages.srcFiles : [],
     projFiles = (config.packages && config.packages.projFiles && config.packages.projFiles.length) ? config.packages.projFiles : [];
