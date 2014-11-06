@@ -35,7 +35,7 @@ module.exports = function(grunt) {
   validate.push('phplint:all');
 
   if (grunt.config.get('config.phpcs') != undefined) {
-    var phpcs = [
+    var phpcs = grunt.config.get('config.phpcs.dir') || [
       '<%= config.srcPaths.drupal %>/**/*.php',
       '<%= config.srcPaths.drupal %>/**/*.module',
       '<%= config.srcPaths.drupal %>/**/*.inc',
