@@ -28,16 +28,12 @@ module.exports = function(grunt) {
   if (grunt.config.get(['composer', 'install'])) {
     tasksDefault.unshift('composer:install');
   }
-  if (grunt.task.exists('compile-theme')) {
-    tasksDefault.push('compile-theme');
-  }
-  if (grunt.config.get('behat')) {
-   // tasksDefault.push('behat');
-  }
   if (grunt.task.exists('bundleInstall')) {
     tasksDefault.unshift('bundleInstall');
   }
+  if (grunt.task.exists('compile-theme')) {
+    tasksDefault.push('compile-theme');
+  }
 
   grunt.registerTask('default', tasksDefault);
-
 };
