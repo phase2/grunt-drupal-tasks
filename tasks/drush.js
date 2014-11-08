@@ -6,8 +6,8 @@ module.exports = function(grunt) {
    * grunt drush:make
    *   Builds the Drush make file to the build/html directory.
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-drush/tasks');
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-newer/tasks');
+  grunt.loadNpmTasks('grunt-drush');
+  grunt.loadNpmTasks('grunt-newer');
 
   // Allow extra arguments for drush to be supplied.
   var args = ['make', '<%= config.srcPaths.make %>'],

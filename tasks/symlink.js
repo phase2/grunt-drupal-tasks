@@ -20,7 +20,7 @@ module.exports = function(grunt) {
    *   Makes a symbolic link to src/themes from sites/all/themes/custom in the
    *   build/html directory.
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-contrib-symlink/tasks');
+  grunt.loadNpmTasks('grunt-contrib-symlink');
   grunt.config('symlink', {
     modules: {
       src: '<%= config.srcPaths.drupal %>/modules',

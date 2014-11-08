@@ -6,7 +6,7 @@ module.exports = function(grunt) {
    * grunt copy:static
    *   Copies all files from src/static to the build/html directory.
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-contrib-copy/tasks');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.config('copy', {
     static: {
       files: [

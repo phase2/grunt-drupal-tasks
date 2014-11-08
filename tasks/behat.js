@@ -14,7 +14,7 @@ module.exports = function(grunt) {
    *     }
    *   }
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-parallel-behat/tasks');
+  grunt.loadNpmTasks('grunt-parallel-behat');
   var config = grunt.config.get('config');
   var flags = grunt.option('flags') || '';
   if (config.buildPaths.html && config.siteUrls) {

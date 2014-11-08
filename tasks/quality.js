@@ -13,9 +13,9 @@ module.exports = function(grunt) {
    *   Deeper inspection & analyze of codebase, not done on every build.
    *   Produces reports for Jenkins. May be a long-running task.
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-phplint/tasks');
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-phpcs/tasks');
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-phpmd/tasks');
+  grunt.loadNpmTasks('grunt-phplint');
+  grunt.loadNpmTasks('grunt-phpcs');
+  grunt.loadNpmTasks('grunt-phpmd');
 
   // Task set aliases are registered at the end of the file based on these values.
   var validate = [];
