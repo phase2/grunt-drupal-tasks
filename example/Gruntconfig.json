@@ -11,7 +11,7 @@
     "temp": "build/temp"
   },
   "siteUrls": {
-    "default": "http://project.local"
+    "baseUrl": "http://project.local"
   },
   "packages": {
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],

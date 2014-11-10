@@ -10,6 +10,20 @@ module.exports = function(grunt) {
     config: config
   });
 
+  // Load environment-based values.
+  var baseUrl = process.env.DRUPAL_GRUNT_BASEURL || config.get('config.siteUrls.baseUrl');
+  var paths = config.get('config.siteUrls.paths');
+  if (baseUrl && paths) {
+    var completePaths = paths.map(function(value, index, arr) {
+      return baseUrl . value;
+    });
+  }
+  config.set('config.siteUrls.paths', completePaths);
+
+  // Set the siteUrls.default URL for backwards compatibility.
+  var defaultUrl = config.get('config.siteUrls.default') || baseUrl;
+  config.set('config.siteUrls.default', defaultUrl);
+
   // Load all tasks from grunt-drupal-tasks. Ensure the tasks are loaded from
   // the grunt-drupal-tasks directory, so plugin dependencies are found.
   var pathOrig = process.cwd();
