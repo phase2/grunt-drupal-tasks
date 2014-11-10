@@ -54,7 +54,7 @@ module.exports = function(grunt) {
       },
       validate: {
         dir: phpcs,
-        report: grunt.config.get('config.phpcs.validateReport') || 'summary',
+        report: grunt.config.get('config.phpcs.validateReport') || 'full',
         reportFile: false,
       },
       full: {
