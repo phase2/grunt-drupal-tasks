@@ -10,7 +10,7 @@ Drupal project. To download this template, you can use the following two
 commands:
 
 1. In an empty directory, run:
-   `npm install --save-dev grunt grunt-drupal-tasks`
+   `npm install grunt grunt-drupal-tasks`
 
 2. Copy the contents of node_modules/grunt-drupal-tasks/example to your starting
    directory, by running:
