@@ -27,6 +27,16 @@ module.exports = function(grunt) {
           dest: '<%= config.buildPaths.html %>'
         }
       ]
+    },
+    defaults: {
+      files: [
+        {
+          expand: true,
+          cwd: '<%= config.buildPaths.html %>/sites/default',
+          src: ['default*'],
+          dest: '<%= config.srcPaths.drupal %>/sites/default'
+        }
+      ]
     }
   });
 

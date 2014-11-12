@@ -24,6 +24,7 @@ module.exports = function(grunt) {
     'symlink:profiles',
     'symlink:modules',
     'symlink:themes',
+    'copy:defaults',
     'clean:sites',
     'symlink:sites',
     'mkdir:files',
