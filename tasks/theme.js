@@ -30,15 +30,6 @@ module.exports = function(grunt) {
           command: 'bundle exec "compass compile --time --app-dir=' + path + ' --config=' + path + '/config.rb"'
         });
         steps.push('shell:compass-' + key);
-
-        // Commented this watch task out in favor of a more global task
-        // see watch.js, line 31
-        // grunt.config(['watch', 'scss-' + key], {
-        //   files: [
-        //     path + '/**/*.{sass,scss}'
-        //   ],
-        //   tasks: ['shell:compass-' + key]
-        // });
       }
     }
     grunt.registerTask('compile-theme', steps);
