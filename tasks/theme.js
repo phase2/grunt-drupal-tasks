@@ -31,15 +31,14 @@ module.exports = function(grunt) {
         });
         steps.push('shell:compass-' + key);
 
-        // Integrate compass compilation with sass.
-        // Does not narrow down more specific than a sass/ directory because
-        // that location is subject only to the theme's config.rb.
-        grunt.config(['watch', 'scss-' + key], {
-          files: [
-            path + '/**/*.scss'
-          ],
-          tasks: ['shell:compass-' + key]
-        });
+        // Commented this watch task out in favor of a more global task
+        // see watch.js, line 31
+        // grunt.config(['watch', 'scss-' + key], {
+        //   files: [
+        //     path + '/**/*.{sass,scss}'
+        //   ],
+        //   tasks: ['shell:compass-' + key]
+        // });
       }
     }
     grunt.registerTask('compile-theme', steps);

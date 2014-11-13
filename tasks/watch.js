@@ -30,38 +30,55 @@ module.exports = function(grunt) {
   // added to the compile-theme task.
   grunt.config(['watch', 'compass'], {
     files: [
-      '<%= config.srcPaths.drupal %>/themes/**/sass/*scss'
+      '<%= config.srcPaths.drupal %>/themes/{,**/}*.{sass,scss}'
     ],
     tasks: ['compile-theme']
   });
 
-  grunt.config(['parallel', 'watch-test'], {
+  // Add a watch task to Livereload CSS files after compilation
+  grunt.config(['watch', 'css'], {
+    options: {
+      livereload: true
+    },
+    files: [
+      '<%= config.srcPaths.drupal %>/themes/{,**/}*.css'
+    ]
+  });
+
+  // Initialize parallel
+  grunt.config(['parallel', 'watch-theme'], {
+    options: {
+      stream: true
+    },
     tasks: [
       {
         grunt: true,
-        stream: true,
+        args: ['watch:compass']
+      },
+      {
+        grunt: true,
+        args: ['watch:css']
+      }
+    ]
+  });
+
+  grunt.config(['parallel', 'watch-test'], {
+    options: {
+      stream: true
+    },
+    tasks: [
+      {
+        grunt: true,
         args: ['watch:validate']
       },
       {
         grunt: true,
-        stream: true,
         args: ['watch:behat']
       }
     ]
   });
 
-  grunt.config(['parallel', 'watch-theme'], {
-    tasks: [
-      {
-        grunt: true,
-        stream: true,
-        args: ['watch:compass']
-      }
-    ]
-  });
-
   grunt.registerTask('watch-test', ['parallel:watch-test']);
-  grunt.registerTask('watch-theme', ['parallel:watch-theme']);
 
   grunt.config('watch-test', {
     group: 'Real-time Tooling'
