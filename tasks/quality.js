@@ -21,30 +21,30 @@ module.exports = function(grunt) {
   var validate = [];
   var analyze = [];
 
+  var defaultPatterns = [
+    '<%= config.srcPaths.drupal %>/**/*.php',
+    '<%= config.srcPaths.drupal %>/**/*.module',
+    '<%= config.srcPaths.drupal %>/**/*.inc',
+    '<%= config.srcPaths.drupal %>/**/*.install',
+    '<%= config.srcPaths.drupal %>/**/*.profile',
+    '!<%= config.srcPaths.drupal %>/sites/**',
+    '!<%= config.srcPaths.drupal %>/**/*.box.inc',
+    '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
+    '!<%= config.srcPaths.drupal %>/**/*.pages_default.inc',
+    '!<%= config.srcPaths.drupal %>/**/*.panelizer.inc',
+    '!<%= config.srcPaths.drupal %>/**/*.strongarm.inc'
+  ];
+
   grunt.config('phplint', {
-    all: [
-      '<%= config.srcPaths.drupal %>/**/*.php',
-      '<%= config.srcPaths.drupal %>/**/*.module',
-      '<%= config.srcPaths.drupal %>/**/*.inc',
-      '<%= config.srcPaths.drupal %>/**/*.install',
-      '<%= config.srcPaths.drupal %>/**/*.profile',
-      '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
-      '!<%= config.srcPaths.drupal %>/sites/**'
-    ],
+    all: defaultPatterns
   }); 
   validate.push('phplint:all');
 
   if (grunt.config.get('config.phpcs') != undefined) {
     var phpcs = grunt.config.get('config.phpcs.dir') || [
-      '<%= config.srcPaths.drupal %>/**/*.php',
-      '<%= config.srcPaths.drupal %>/**/*.module',
-      '<%= config.srcPaths.drupal %>/**/*.inc',
-      '<%= config.srcPaths.drupal %>/**/*.install',
-      '<%= config.srcPaths.drupal %>/**/*.profile',
-      '<%= config.srcPaths.drupal %>/**/*.css',
-      '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
-      '!<%= config.srcPaths.drupal %>/sites/**'
-    ];
+      '<%= config.srcPaths.drupal %>/**/*.css'
+    ].concat(defaultPatterns);
+
     grunt.config('phpcs', {
       analyze: {
         dir: phpcs
