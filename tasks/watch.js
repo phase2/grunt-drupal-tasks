@@ -79,6 +79,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('watch-test', ['parallel:watch-test']);
+  grunt.registerTask('watch-theme', ['parallel:watch-theme']);
 
   grunt.config('watch-test', {
     group: 'Real-time Tooling'
