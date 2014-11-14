@@ -10,12 +10,18 @@ module.exports = function(grunt) {
     config: config
   });
 
-  // Load all tasks from grunt-drupal-tasks. Ensure the tasks are loaded from
-  // the grunt-drupal-tasks directory, so plugin dependencies are found.
-  var pathOrig = process.cwd();
-  process.chdir(__dirname);
-  grunt.loadTasks('./tasks');
-  process.chdir(pathOrig);
+  // Wrap Grunt's loadNpmTasks() function to change the current directory to
+  // grunt-drupal-tasks, so that module dependencies of it are found.
+  grunt._loadNpmTasks = grunt.loadNpmTasks;
+  grunt.loadNpmTasks = function (mod) {
+    var pathOrig = process.cwd();
+    process.chdir(__dirname);
+    grunt._loadNpmTasks(mod);
+    process.chdir(pathOrig);
+  };
+
+  // Load all tasks from grunt-drupal-tasks.
+  grunt.loadTasks(__dirname + '/tasks');
 
   // Define the default task to fully build and configure the project.
   var tasksDefault = [
