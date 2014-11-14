@@ -1,9 +1,4 @@
 module.exports = function(grunt) {
-  if (grunt.option('timer')) {
-    // shows how long grunt tasks take ~ https://github.com/sindresorhus/time-grunt
-    require('time-grunt')(grunt);
-  }
-
   // Initialize global configuration variables.
   var config = grunt.file.readJSON('Gruntconfig.json');
   grunt.initConfig({
@@ -45,6 +40,11 @@ module.exports = function(grunt) {
   if (grunt.task.exists('compile-theme')) {
     tasksDefault.push('compile-theme');
   }
-
   grunt.registerTask('default', tasksDefault);
+
+  // If the "--timer" option is given, enable time-grunt to show how long each
+  // task takes.
+  if (grunt.option('timer')) {
+    require('time-grunt')(grunt);
+  }
 };
