@@ -9,7 +9,8 @@ install:
   - wget https://github.com/drush-ops/drush/archive/master.tar.gz
   - tar xfvz master.tar.gz
 script:
-  - PATH=$PATH:drush-6.4.0 grunt
+  - export PATH=$PATH:drush-master
+  - grunt
   - grunt drush:liteinstall
   - grunt drush:runserver &
   - grunt behat
