@@ -24,7 +24,8 @@
     "grunt-phpmd": "~0.1.0",
     "grunt-shell": "^1.1.1",
     "lodash": "^2.4.1",
-    "time-grunt": "^1.0.0"
+    "time-grunt": "^1.0.0",
+    "zombie": "^2.5.1"
   },
   "keywords": [
     "build",
