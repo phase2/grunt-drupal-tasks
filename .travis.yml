@@ -1,6 +1,6 @@
 language: php
 php:
-  - 5.3
+  - 5.4
 install:
   - ./test/create_working_copy.sh
   - cd test/working_copy
