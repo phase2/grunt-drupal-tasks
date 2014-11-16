@@ -6,10 +6,8 @@ install:
   - cd test/working_copy
   - npm install -g grunt-cli
   - npm install -g mocha
-  - wget https://github.com/drush-ops/drush/archive/master.tar.gz
-  - tar xfvz master.tar.gz
 script:
-  - export PATH=$PATH:drush-master
+  - export PATH=$PATH:`pwd`/bin
   - grunt
   - grunt drush:liteinstall
   - grunt drush:runserver &
