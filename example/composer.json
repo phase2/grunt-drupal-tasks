@@ -5,6 +5,8 @@
         "bin-dir": "bin"
     },
     "require-dev": {
+        "behat/mink-zombie-driver": "~1.2",
+        "drupal/coder": "7.2.2",
         "drupal/drupal-extension": "~3.0",
         "drush/drush": "dev-master",
         "phpmd/phpmd": "~2.1",
