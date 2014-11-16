@@ -10,7 +10,9 @@ script:
   - export PATH=$PATH:`pwd`/bin
   - grunt
   - grunt drush:liteinstall
+  - cd build/html
   - grunt drush:runserver &
+  - cd ../..
   - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do sleep 0.2; done
   - behat
   - grunt behat
