@@ -3,7 +3,6 @@ php:
   - 5.4
 before_install:
   - composer self-update
-  - phpenv rehash
 install:
   - ./test/create_working_copy.sh
   - cd test/working_copy
@@ -15,10 +14,5 @@ script:
   - grunt drush:liteinstall
   - grunt drush:runserver &
   - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do sleep 0.2; done
-  - curl -v http://127.0.0.1:8080
-  - curl -v http://127.0.0.1:8080/index.php
-  - curl -v http://127.0.0.1:8080/user
-  - curl -v http://127.0.0.1:8080/index.php?q=user
-  - behat
   - grunt behat
   - mocha node_modules/grunt-drupal-tasks/test
