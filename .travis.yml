@@ -13,10 +13,7 @@ script:
   - export PATH=$PATH:`pwd`/bin
   - grunt
   - grunt drush:liteinstall
-  - cd build/html
-  - which drush
-  - ../../bin/drush runserver --server=builtin 8080 --strict=0 &
-  - cd ../..
+  - grunt drush:runserver
   - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do sleep 0.2; done
   - curl -v http://127.0.0.1:8080
   - curl -v http://127.0.0.1:8080/index.php

@@ -24,12 +24,12 @@ module.exports = function(grunt) {
       dest: '<%= config.buildPaths.temp %>'
     },
     liteinstall: {
-      args: ['site-install', '-y', '--root=./build/html', 'standard', '--db-url=sqlite://drupal:drupal@drupal.sqlite'],
-      dest: '<%= config.buildPaths.html %>'
+      args: ['site-install', '-y', 'standard', '--db-url=sqlite://drupal:drupal@drupal.sqlite'],
+      cwd: '<%= config.buildPaths.html %>'
     },
     runserver: {
-      args: ['runserver', '--root=./build/html', '8080'],
-      dest: '<%= config.buildPaths.html %>'
+      args: ['runserver', '8080'],
+      cwd: '<%= config.buildPaths.html %>'
     }
   });
 
