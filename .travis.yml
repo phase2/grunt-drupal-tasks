@@ -1,6 +1,9 @@
 language: php
 php:
   - 5.4
+before_install:
+  - composer self-update
+  - phpenv rehash
 install:
   - ./test/create_working_copy.sh
   - cd test/working_copy
