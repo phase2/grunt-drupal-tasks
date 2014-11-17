@@ -16,7 +16,13 @@ module.exports = function(grunt) {
    */
   grunt.loadNpmTasks('grunt-parallel-behat');
   var config = grunt.config.get('config');
-  var flags = grunt.option('flags') || '';
+  var flags = '';
+  if (grunt.option('behat_flags')) {
+    flags = grunt.option('behat_flags');
+  }
+  else if (config.behat && config.behat.flags) {
+    flags = config.behat.flags;
+  }
   if (config.buildPaths.html && config.siteUrls) {
     for (var key in config.siteUrls) {
       if (config.siteUrls.hasOwnProperty(key)) {

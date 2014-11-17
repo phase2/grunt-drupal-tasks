@@ -29,5 +29,8 @@
       "args": []
     }
   },
-  "compassConfig": {}
+  "compassConfig": {},
+  "behat": {
+    "flags": "--tags '~@javascript'"
+  }
 }

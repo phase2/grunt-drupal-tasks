@@ -190,12 +190,21 @@ This is an example of the settings for Behat tasks:
   "siteUrls": {
     "default": "http://project.local",
     "subsite": "http://subsite.project.local"
+  },
+  "behat": {
+    "flags": "--tags '~@javascript'"
   }
 }
 ```
 
 **siteUrls**: A map of Drupal subsite names to the URLs by which each can be
 accessed for testing by Behat.
+
+**behat.flags**: A string with any command-line arguments and options that
+should be used while invoking Behat. These flags can be overridden by using the
+`--behat-flags` option when running `grunt`. Common use cases are to include or
+exclude tests according to tags or to use an alternative profile defined in
+`behat.yml`.
 
 ### Drush Settings
 
