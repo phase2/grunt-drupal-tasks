@@ -27,13 +27,13 @@ grunt.registerTask('default', ['shell:custom', 'default-original']);
 To add additional tasks to your project's grunt implementation, you may define
 them directly in your Gruntfile.js or include them from separate files.
 
-#### Load a plugin managed by npm:
+#### Load a plugin managed by npm
 
 ```js
 grunt.loadNpmTasks('grunt-plugin-name');
 ```
 
-#### Load a local grunt plugin:
+#### Load a local grunt plugin
 
 ```js
 grunt.loadTasks(__dirname + '/grunt/tasks');
@@ -45,7 +45,28 @@ To override an existing task the trick is to add code that will be the final
 piece to adjust the configuration of the task. This may be a specific
 configuration element, or a redefinition of the entire task.
 
+#### Override a task's configuration
+
+In your project's `Gruntconfig.json`, use the `grunt.config.set()` function to
+override the task's default configuration provided by Grunt Drupal Tasks.
+
+The following example changes the list of files scanned by the `phplint:all`
+command:
+
+```js
+grunt.config.set('phplint', {
+  all: [
+    '<%= config.srcPaths.drupal %>/**/*.php'
+  ]
+});
+```
+
 #### Re-register the validate task
+
+In your project's `Gruntconfig.json`, use the `grunt.registerTask()` function to
+override task aliases, like default, validate, and analyze.
+
+The following example changes the list of tasks run by the `validate` command:
 
 ```js
 var taskList = ['phpcs:full'];
