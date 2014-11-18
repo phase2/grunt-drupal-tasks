@@ -45,7 +45,8 @@ module.exports = function(grunt) {
     grunt.registerTask('compile-theme', steps);
 
     grunt.config('help.compile-theme', {
-      group: 'Asset & Code Compilation'
+      group: 'Asset & Code Compilation',
+      description: 'Run compilers for the theme, such as Compass.'
     });
   }
 };

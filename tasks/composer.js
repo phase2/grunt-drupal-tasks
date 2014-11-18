@@ -12,6 +12,7 @@ module.exports = function(grunt) {
     grunt.config(['composer', 'install'], {});
     grunt.config('help.composer', {
       group: 'Dependency Management',
+      description: 'Install dependencies defined in this project\'s composer.json file.'
     });
   }
 };

@@ -39,9 +39,4 @@ module.exports = function(grunt) {
       ]
     }
   });
-
-  grunt.config('help.copy', {
-    group: 'Utilities',
-    description: "Copy the contents of the static files directory to the Drupal docroot."
-  });
 };

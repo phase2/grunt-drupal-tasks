@@ -25,7 +25,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('drushmake', 'Run "drush make" if the makefile is newer than the dest directory.', function() {
+  grunt.registerTask('drushmake', 'Prepare the build directory and run "drush make"', function() {
     grunt.task.run('mkdir:init', 'drush:make', 'clean:default', 'copy:tempbuild', 'clean:temp');
   });
 
@@ -41,5 +41,9 @@ module.exports = function(grunt) {
 
   grunt.config('help.drushmake', {
     group: 'Dependency Management'
+  });
+  grunt.config('help.newer', {
+    group: 'Dependency Management',
+    description: 'Use "newer:drushmake" to run the drushmake task only if the make file was updated.'
   });
 };
