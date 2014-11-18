@@ -36,8 +36,8 @@ module.exports = function(grunt) {
     }
 
     grunt.config('help.behat', {
-      group: 'Testing & Code Quality'
+      group: 'Testing & Code Quality',
+      description: 'Run the Behat tests included with this project.'
     });
   }
-
-}
+};

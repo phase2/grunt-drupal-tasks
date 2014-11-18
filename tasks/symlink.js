@@ -47,5 +47,4 @@ module.exports = function(grunt) {
       dest: '<%= config.buildPaths.html %>/sites/all/themes/custom'
     }
   });
-
 };

@@ -109,11 +109,10 @@ module.exports = function(grunt) {
 
   grunt.config('help.validate', {
     group: 'Testing & Code Quality',
-    description: 'Quick code health check for syntax errors and basic practices. (e.g., PHPCS w/ Drush Coder rules)'
+    description: 'Quick code health check for syntax errors and basic practices. (e.g. PHPCS w/ Drush Coder rules)'
   });
   grunt.config('help.analyze', {
     group: 'Testing & Code Quality',
-    description: 'Static codebase analysis to detect problems. Outputs Jenkins-compatible reports. (e.g., PHPMD)'
+    description: 'Static codebase analysis to detect problems. Outputs Jenkins-compatible reports. (e.g. PHPMD)'
   });
-
 };
