@@ -1,15 +1,34 @@
 <?php
 
-use Drupal\DrupalExtension\Context\DrupalContext;
+use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
+use Drupal\DrupalExtension\Context\RawDrupalContext;
 
 /**
- * Features context.
+ * Define application features from the specific context.
  */
-class FeatureContext extends Drupal\DrupalExtension\Context\DrupalContext
-{
-
+class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
   /**
-   * TODO: Implement custom step definitions
+   * Initializes context.
+   * Every scenario gets its own context object.
+   *
+   * @param array $parameters
+   *   Context parameters (set them in behat.yml)
    */
+  public function __construct(array $parameters = []) {
+    // Initialize your context here
+  }
+
+//
+// Place your definition and hook methods here:
+//
+//  /**
+//   * @Given I have done something with :stuff
+//   */
+//  public function iHaveDoneSomethingWith($stuff) {
+//    doSomethingWith($stuff);
+//  }
+//
 
 }
