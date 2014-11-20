@@ -10,8 +10,10 @@
     "reports": "build/reports",
     "temp": "build/temp"
   },
+  "domain": "project.vm",
   "siteUrls": {
-    "baseUrl": "http://project.local"
+    "default": "http://<% config.domain %>",
+    "subsite.project.vm": "https://subsite.<% config.domain %>"
   },
   "packages": {
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],

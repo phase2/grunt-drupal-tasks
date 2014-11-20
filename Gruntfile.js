@@ -11,18 +11,8 @@ module.exports = function(grunt) {
   });
 
   // Load environment-based values.
-  var baseUrl = process.env.DRUPAL_GRUNT_BASEURL || config.get('config.siteUrls.baseUrl');
-  var paths = config.get('config.siteUrls.paths');
-  if (baseUrl && paths) {
-    var completePaths = paths.map(function(value, index, arr) {
-      return baseUrl . value;
-    });
-  }
-  config.set('config.siteUrls.paths', completePaths);
-
-  // Set the siteUrls.default URL for backwards compatibility.
-  var defaultUrl = config.get('config.siteUrls.default') || baseUrl;
-  config.set('config.siteUrls.default', defaultUrl);
+  var domain = process.env.GRUNT_DRUPAL_DOMAIN || grunt.config.get('config.domain');
+  grunt.config.set('config.domain', domain);
 
   // Load all tasks from grunt-drupal-tasks. Ensure the tasks are loaded from
   // the grunt-drupal-tasks directory, so plugin dependencies are found.
@@ -54,4 +44,15 @@ module.exports = function(grunt) {
   }
 
   grunt.registerTask('default', tasksDefault);
+
+  // Helper function to compute environmentally adaptive absolute URLs for e2e testing.
+  var testExpansion = function(baseUrl, paths) {
+    var paths = grunt.config.get('config.test.paths');
+    if (baseUrl && paths) {
+      var completePaths = paths.map(function(value, index, arr) {
+        return baseUrl . value;
+      });
+    }
+    return completePaths;
+  }
 };
