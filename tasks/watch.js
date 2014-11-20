@@ -35,16 +35,6 @@ module.exports = function(grunt) {
     tasks: ['compile-theme']
   });
 
-  // Add a watch task to Livereload CSS files after compilation
-  grunt.config(['watch', 'css'], {
-    options: {
-      livereload: true
-    },
-    files: [
-      '<%= config.srcPaths.drupal %>/themes/{,**/}*.css'
-    ]
-  });
-
   // Initialize parallel
   grunt.config(['parallel', 'watch-theme'], {
     options: {
@@ -54,10 +44,6 @@ module.exports = function(grunt) {
       {
         grunt: true,
         args: ['watch:compass']
-      },
-      {
-        grunt: true,
-        args: ['watch:css']
       }
     ]
   });
