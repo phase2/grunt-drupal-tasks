@@ -26,7 +26,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('drushmake', 'Prepare the build directory and run "drush make"', function() {
-    grunt.task.run('mkdir:init', 'drush:make', 'clean:default', 'copy:tempbuild', 'clean:temp');
+    grunt.task.run('mkdir:init', 'clean:temp', 'drush:make', 'clean:default', 'copy:tempbuild', 'clean:temp');
   });
 
   // The "drushmake" task will run make only if the src file specified here is
