@@ -67,10 +67,12 @@ module.exports = function(grunt) {
   grunt.registerTask('watch-test', ['parallel:watch-test']);
   grunt.registerTask('watch-theme', ['parallel:watch-theme']);
 
-  grunt.config('watch-test', {
-    group: 'Real-time Tooling'
+  grunt.config('help.watch-test', {
+    group: 'Real-time Tooling',
+    description: "Watch for changes that should trigger new testing and validation of the codebase."
   });
-  grunt.config('watch-theme', {
-    group: 'Real-time Tooling'
+  grunt.config('help.watch-theme', {
+    group: 'Real-time Tooling',
+    description: "Watch for changes that should rebuild frontend assets, such as CSS."
   });
 }
