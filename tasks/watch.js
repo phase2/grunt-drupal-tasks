@@ -30,32 +30,36 @@ module.exports = function(grunt) {
   // added to the compile-theme task.
   grunt.config(['watch', 'compass'], {
     files: [
-      '<%= config.srcPaths.drupal %>/themes/**/sass/*scss'
+      '<%= config.srcPaths.drupal %>/themes/{,**/}*.{sass,scss}'
     ],
     tasks: ['compile-theme']
   });
 
-  grunt.config(['parallel', 'watch-test'], {
+  // Initialize parallel
+  grunt.config(['parallel', 'watch-theme'], {
+    options: {
+      stream: true
+    },
     tasks: [
       {
         grunt: true,
-        stream: true,
-        args: ['watch:validate']
-      },
-      {
-        grunt: true,
-        stream: true,
-        args: ['watch:behat']
+        args: ['watch:compass']
       }
     ]
   });
 
-  grunt.config(['parallel', 'watch-theme'], {
+  grunt.config(['parallel', 'watch-test'], {
+    options: {
+      stream: true
+    },
     tasks: [
       {
         grunt: true,
-        stream: true,
-        args: ['watch:compass']
+        args: ['watch:validate']
+      },
+      {
+        grunt: true,
+        args: ['watch:behat']
       }
     ]
   });
