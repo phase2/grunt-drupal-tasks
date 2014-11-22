@@ -13,9 +13,9 @@ module.exports = function(grunt) {
    *   Deeper inspection & analyze of codebase, not done on every build.
    *   Produces reports for Jenkins. May be a long-running task.
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-phplint/tasks');
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-phpcs/tasks');
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-phpmd/tasks');
+  grunt.loadNpmTasks('grunt-phplint');
+  grunt.loadNpmTasks('grunt-phpcs');
+  grunt.loadNpmTasks('grunt-phpmd');
 
   // Task set aliases are registered at the end of the file based on these values.
   var validate = [];
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
       },
       validate: {
         dir: phpcs,
-        report: grunt.config.get('config.phpcs.validateReport') || 'summary',
+        report: grunt.config.get('config.phpcs.validateReport') || 'full',
         reportFile: false,
       },
       full: {
@@ -109,11 +109,10 @@ module.exports = function(grunt) {
 
   grunt.config('help.validate', {
     group: 'Testing & Code Quality',
-    description: 'Quick code health check for syntax errors and basic practices. (e.g., PHPCS w/ Drush Coder rules)'
+    description: 'Quick code health check for syntax errors and basic practices. (e.g. PHPCS w/ Drush Coder rules)'
   });
   grunt.config('help.analyze', {
     group: 'Testing & Code Quality',
-    description: 'Static codebase analysis to detect problems. Outputs Jenkins-compatible reports. (e.g., PHPMD)'
+    description: 'Static codebase analysis to detect problems. Outputs Jenkins-compatible reports. (e.g. PHPMD)'
   });
-
 };

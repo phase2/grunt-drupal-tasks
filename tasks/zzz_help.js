@@ -7,13 +7,11 @@ module.exports = function(grunt) {
    *   Provides an overview of intended and useful grunt tasks.
    */
 
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-available-tasks/tasks');
+  grunt.loadNpmTasks('grunt-available-tasks');
 
   grunt.config('help.default', {
-    group: 'Build Process'
-  });
-  grunt.config('help.newer', {
-    group: 'Utilities'
+    group: 'Build Process',
+    description: 'The default build process that executes when "grunt" runs, which includes verifying dependencies and assembling the build directory.'
   });
 
   var help = grunt.config.get('help'),

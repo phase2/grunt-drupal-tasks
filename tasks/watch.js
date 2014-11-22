@@ -7,7 +7,7 @@ module.exports = function(grunt) {
    * the Drupal docroot changes (except for files in sites/.../files) or when
    * a file in the testing features directory changes.
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-contrib-watch/tasks');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.config(['watch', 'behat'], {
     files: [
       '<%= config.srcPaths.drupal %>/**/*',

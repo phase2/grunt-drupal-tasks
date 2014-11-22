@@ -6,7 +6,7 @@ module.exports = function(grunt) {
    * grunt copy:static
    *   Copies all files from src/static to the build/html directory.
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-contrib-copy/tasks');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.config('copy', {
     static: {
       files: [
@@ -27,11 +27,16 @@ module.exports = function(grunt) {
           dest: '<%= config.buildPaths.html %>'
         }
       ]
+    },
+    defaults: {
+      files: [
+        {
+          expand: true,
+          cwd: '<%= config.buildPaths.html %>/sites/default',
+          src: ['default*'],
+          dest: '<%= config.srcPaths.drupal %>/sites/default'
+        }
+      ]
     }
-  });
-
-  grunt.config('help.copy', {
-    group: 'Utilities',
-    description: "Copy the contents of the static files directory to the Drupal docroot."
   });
 };

@@ -6,7 +6,7 @@ module.exports = function(grunt) {
    * If a Gemfile is defined in the repository root, add a grunt task to run
    * "bundle install".
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-shell/tasks');
+  grunt.loadNpmTasks('grunt-shell');
 
   if (grunt.file.exists('Gemfile')) {
     grunt.config(['shell', 'bundleInstall'], {

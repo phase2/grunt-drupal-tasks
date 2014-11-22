@@ -9,7 +9,7 @@ module.exports = function(grunt) {
    * grunt mkdir:files
    *   Creates sites/default/files in the build/html directory.
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-mkdir/tasks');
+  grunt.loadNpmTasks('grunt-mkdir');
   grunt.config('mkdir', {
     init: {
       options: {
@@ -28,9 +28,4 @@ module.exports = function(grunt) {
       }
     }
   });
-
-  grunt.config('help.mkdir', {
-    group: 'Utilities'
-  });
-
 };

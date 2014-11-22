@@ -7,8 +7,6 @@ install:
   - npm install -g mocha
   - wget https://github.com/drush-ops/drush/archive/6.4.0.tar.gz
   - tar xfvz 6.4.0.tar.gz
-before_script:
-  - rm composer.json
 script:
   - PATH=$PATH:drush-6.4.0 grunt
   - mocha node_modules/grunt-drupal-tasks/test

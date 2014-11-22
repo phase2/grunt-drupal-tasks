@@ -5,6 +5,14 @@ var exec = require('child_process').exec;
 describe('grunt', function() {
   describe('default', function() {
 
+    // Ensure the vendor directory exists.
+    it('it should create the vendor directory', function(done) {
+      fs.exists('vendor', function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
     // Ensure the build/html directory exists.
     it('it should create the build/html directory', function(done) {
       fs.exists('build/html', function (exists) {

@@ -6,8 +6,8 @@ module.exports = function(grunt) {
    * grunt drush:make
    *   Builds the Drush make file to the build/html directory.
    */
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-drush/tasks');
-  grunt.loadTasks(__dirname + '/../node_modules/grunt-newer/tasks');
+  grunt.loadNpmTasks('grunt-drush');
+  grunt.loadNpmTasks('grunt-newer');
 
   // Allow extra arguments for drush to be supplied.
   var args = ['make', '<%= config.srcPaths.make %>'],
@@ -25,8 +25,8 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('drushmake', 'Run "drush make" if the makefile is newer than the dest directory.', function() {
-    grunt.task.run('mkdir:init', 'drush:make', 'clean:default', 'copy:tempbuild', 'clean:temp');
+  grunt.registerTask('drushmake', 'Prepare the build directory and run "drush make"', function() {
+    grunt.task.run('mkdir:init', 'clean:temp', 'drush:make', 'clean:default', 'copy:tempbuild', 'clean:temp');
   });
 
   // The "drushmake" task will run make only if the src file specified here is
@@ -41,5 +41,9 @@ module.exports = function(grunt) {
 
   grunt.config('help.drushmake', {
     group: 'Dependency Management'
+  });
+  grunt.config('help.newer', {
+    group: 'Dependency Management',
+    description: 'Use "newer:drushmake" to run the drushmake task only if the make file was updated.'
   });
 };
