@@ -28,7 +28,7 @@ module.exports = function(grunt) {
   // Watch SASS files for changes, if there is run compile-theme task.
   // A more fine-grained task may be needed later if more non-SASS elements are
   // added to the compile-theme task.
-  grunt.config(['watch', 'compass'], {
+  grunt.config(['watch', 'theme'], {
     files: [
       '<%= config.srcPaths.drupal %>/themes/{,**/}*.{sass,scss}'
     ],
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
     tasks: [
       {
         grunt: true,
-        args: ['watch:compass']
+        args: ['watch:theme']
       }
     ]
   });
