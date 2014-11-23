@@ -265,6 +265,9 @@ This is an example of the settings for the validate tasks:
 **phpcs.standard**: The PHPCS coding standard to use. The example composer.json
 installs the Drupal Coder's standard, the path of which is shown above.
 
+**phpcs.dir**: An array of globbing pattern where phpcs should search for files.
+This can be used to replace the defaults supplied by grunt-drupal-tasks.
+
 > If there is no `phpcs` key in the configuration, the system will assume you
 are not using PHPCS and will suppress it from the system.
 
