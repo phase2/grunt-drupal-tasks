@@ -8,6 +8,8 @@ module.exports = function(grunt) {
    * a file in the testing features directory changes.
    */
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-parallel');
+
   grunt.config(['watch', 'behat'], {
     files: [
       '<%= config.srcPaths.drupal %>/**/*',
