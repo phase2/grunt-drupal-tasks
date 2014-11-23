@@ -7,9 +7,14 @@ module.exports = function(grunt) {
    * Gruntconfig.json file.
    *
    * Example:
-   *   "siteUrls": {
-   *     "default": "http://project.local",
-   *     "subsite": "http://sub.project.local"
+   *   "config": {
+   *     "buildPaths": {
+   *       "html": "build/html"
+   *     },
+   *     "siteUrls": {
+   *       "default": "http://project.local",
+   *       "subsite": "http://sub.project.local"
+   *     }
    *   }
    */
   grunt.loadNpmTasks('grunt-parallel-behat');
