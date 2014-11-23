@@ -39,7 +39,7 @@ module.exports = function(grunt) {
           flags: flags,
           debug: true,
           env: {
-            "BEHAT_PARAMS": "extensions[Drupal\\DrupalExtension\\Extension][drupal][drupal_root]=" + config.buildPaths.html,
+            "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"" + config.buildPaths.html + "\"}}}}",
             "MINK_EXTENSION_PARAMS": "base_url=" + config.siteUrls[key]
           }
         });
