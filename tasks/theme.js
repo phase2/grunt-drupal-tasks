@@ -30,7 +30,8 @@ module.exports = function(grunt) {
 
   var config = grunt.config.get('config'),
     util = require('util'),
-    steps = [];
+    steps = [],
+    watch = [];
 
   if (config.themes) {
     for (var key in config.themes) {
@@ -49,22 +50,39 @@ module.exports = function(grunt) {
         steps.push('compass:' + key);
 
         // Integrate compass compilation with sass.
-        // Does not narrow down more specific than a sass/ directory because
-        // that location is subject only to the theme's config.rb.
-        grunt.config(['watch', key], {
+        grunt.config(['watch', 'compass-' + key], {
           files: [
             theme.path + '/**/*.scss'
           ],
           tasks: ['compass:' + key]
         });
+
+        watch.push('watch:compass-' + key);
       }
     }
 
+    grunt.config(['parallel', 'watch-theme'], {
+      options: {
+        stream: true
+      },
+      tasks: [
+        {
+          grunt: true,
+          args: watch
+        }
+      ]
+    });
+
     grunt.registerTask('compile-theme', steps);
+    grunt.registerTask('watch-theme', ['parallel:watch-theme']);
 
     grunt.config('help.compile-theme', {
       group: 'Asset & Code Compilation',
       description: 'Run compilers for the theme, such as Compass.'
+    });
+    grunt.config('help.watch-theme', {
+      group: 'Real-time Tooling',
+      description: "Watch for changes that should rebuild frontend assets, such as CSS."
     });
   }
 };

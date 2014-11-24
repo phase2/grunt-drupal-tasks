@@ -27,29 +27,6 @@ module.exports = function(grunt) {
     tasks: ['validate']
   });
 
-  // Watch SASS files for changes, if there is run compile-theme task.
-  // A more fine-grained task may be needed later if more non-SASS elements are
-  // added to the compile-theme task.
-  grunt.config(['watch', 'theme'], {
-    files: [
-      '<%= config.srcPaths.drupal %>/themes/{,**/}*.{sass,scss}'
-    ],
-    tasks: ['compile-theme']
-  });
-
-  // Initialize parallel
-  grunt.config(['parallel', 'watch-theme'], {
-    options: {
-      stream: true
-    },
-    tasks: [
-      {
-        grunt: true,
-        args: ['watch:theme']
-      }
-    ]
-  });
-
   grunt.config(['parallel', 'watch-test'], {
     options: {
       stream: true
@@ -67,14 +44,9 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('watch-test', ['parallel:watch-test']);
-  grunt.registerTask('watch-theme', ['parallel:watch-theme']);
 
   grunt.config('help.watch-test', {
     group: 'Real-time Tooling',
     description: "Watch for changes that should trigger new testing and validation of the codebase."
-  });
-  grunt.config('help.watch-theme', {
-    group: 'Real-time Tooling',
-    description: "Watch for changes that should rebuild frontend assets, such as CSS."
   });
 }
