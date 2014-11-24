@@ -31,7 +31,7 @@ module.exports = function(grunt) {
   var config = grunt.config.get('config'),
     util = require('util'),
     steps = [],
-    watch = [];
+    parallelTasks = [];
 
   if (config.themes) {
     for (var key in config.themes) {
@@ -49,7 +49,7 @@ module.exports = function(grunt) {
 
         steps.push('compass:' + key);
 
-        // Integrate compass compilation with sass.
+        // Provide a watch handler
         grunt.config(['watch', 'compass-' + key], {
           files: [
             theme.path + '/**/*.scss'
@@ -57,7 +57,11 @@ module.exports = function(grunt) {
           tasks: ['compass:' + key]
         });
 
-        watch.push('watch:compass-' + key);
+        // Add this watch to the parallel watch-theme task
+        parallelTasks.push({
+          grunt: true,
+          args: ['watch:compass-' + key]
+        });
       }
     }
 
@@ -65,12 +69,7 @@ module.exports = function(grunt) {
       options: {
         stream: true
       },
-      tasks: [
-        {
-          grunt: true,
-          args: watch
-        }
-      ]
+      tasks: parallelTasks
     });
 
     grunt.registerTask('compile-theme', steps);
