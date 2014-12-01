@@ -20,6 +20,7 @@
     "grunt-contrib-compress": "~0.9.1",
     "grunt-phpmd": "~0.1.0",
     "time-grunt": "^0.4.0",
+    "grunt-parallel": "^0.3.1",
     "grunt-available-tasks": "~0.5.0"
   },
   "keywords": [

@@ -8,6 +8,8 @@ module.exports = function(grunt) {
    * a file in the testing features directory changes.
    */
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-parallel');
+
   grunt.config(['watch', 'behat'], {
     files: [
       '<%= config.srcPaths.drupal %>/**/*',
@@ -25,7 +27,26 @@ module.exports = function(grunt) {
     tasks: ['validate']
   });
 
-  grunt.config('help.watch', {
-    group: 'Real-time Tooling'
+  grunt.config(['parallel', 'watch-test'], {
+    options: {
+      stream: true
+    },
+    tasks: [
+      {
+        grunt: true,
+        args: ['watch:validate']
+      },
+      {
+        grunt: true,
+        args: ['watch:behat']
+      }
+    ]
+  });
+
+  grunt.registerTask('watch-test', ['parallel:watch-test']);
+
+  grunt.config('help.watch-test', {
+    group: 'Real-time Tooling',
+    description: "Watch for changes that should trigger new testing and validation of the codebase."
   });
 }
