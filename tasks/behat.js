@@ -58,8 +58,7 @@ module.exports = function(grunt) {
             bin: './bin/behat',
             debug: true,
             env: {
-              "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"" + config.buildPaths.html + "\"}}}}",
-              "MINK_EXTENSION_PARAMS": "base_url=" + config.siteUrls[key]
+              "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\"}}}"
             }
           }, options)
         );
