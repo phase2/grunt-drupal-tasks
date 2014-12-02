@@ -188,17 +188,24 @@ This is an example of the settings for Behat tasks:
 ```
 {
   "siteUrls": {
-    "default": "http://project.local",
-    "subsite": "http://subsite.project.local"
+    "default": "http://dev-site.local",
+    "subsite": "http://sub.dev-site.local"
   },
   "behat": {
-    "flags": "--tags '~@javascript'"
+    "flags": "--tags '~@javascript'",
+    "subsite": {
+      "src": "./features/subsite/*.feature",
+      "debug": false
+    }
   }
 }
 ```
 
 **siteUrls**: A map of Drupal subsite names to the URLs by which each can be
 accessed for testing by Behat.
+
+**behat.\<siteurl\>**: A map of Drupal subsite names to a configuration object, which will extend the defaults passed to
+[grunt-parallel-behat](https://github.com/linusnorton/grunt-parallel-behat)
 
 **behat.flags**: A string with any command-line arguments and options that
 should be used while invoking Behat. These flags can be overridden by using the
@@ -241,7 +248,7 @@ This is an example of the settings for theme tasks:
 **themes**: Defines each custom Drupal theme and enables features, like Sass
 processing by Compass.
 
-**themes.<theme>.compass**: Enable compass preprocessing. Either `true` to 
+**themes.\<theme\>.compass**: Enable compass preprocessing. Either `true` to 
 enable with default compass options, or a configuration object to be passed 
 directly to 
 [grunt-contrib-compass](https://github.com/gruntjs/grunt-contrib-compass)

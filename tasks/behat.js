@@ -12,37 +12,57 @@ module.exports = function(grunt) {
    *       "html": "build/html"
    *     },
    *     "siteUrls": {
-   *       "default": "http://project.local",
-   *       "subsite": "http://sub.project.local"
+   *       "default": "http://dev-site.local",
+   *       "subsite": "http://sub.dev-site.local"
+   *     },
+   *     "behat": {
+   *       "subsite": {
+   *          "src": "./features/subsite/*.feature",
+   *          "debug": false
+   *       }
    *     }
    *   }
    */
   grunt.loadNpmTasks('grunt-parallel-behat');
 
   var config = grunt.config.get('config'),
-    flags = '';
-  if (grunt.option('behat_flags')) {
-    flags = grunt.option('behat_flags');
-  }
-  else if (config.behat && config.behat.flags) {
-    flags = config.behat.flags;
-  }
+    flags = '',
+    util = require('util');
 
   if (config.buildPaths.html && config.siteUrls) {
     for (var key in config.siteUrls) {
       if (config.siteUrls.hasOwnProperty(key)) {
-        grunt.config(['behat', 'site-' + key], {
-          src: './features/*.feature',
-          config: './behat.yml',
-          maxProcesses: 5,
-          bin: './bin/behat',
-          flags: flags,
-          debug: true,
-          env: {
-            "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"" + config.buildPaths.html + "\"}}}}",
-            "MINK_EXTENSION_PARAMS": "base_url=" + config.siteUrls[key]
-          }
-        });
+        var options = {};
+
+        // Check for per-site behat options.
+        if (config.behat && config.behat[key]) {
+          var siteOptions = config.behat[key];
+          options = (typeof siteOptions === 'object') ? siteOptions : options;
+        }
+
+        // Support for global behat flags config.
+        if (!options.flags && config.behat.flags) {
+          options.flags = config.behat.flags;
+        }
+
+        // Override with flags at runtime.
+        if (grunt.option('behat_flags')) {
+          options.flags = grunt.option('behat_flags');
+        }
+
+        grunt.config(['behat', 'site-' + key],
+          util._extend({
+            src: './features/*.feature',
+            config: './behat.yml',
+            maxProcesses: 5,
+            bin: './bin/behat',
+            debug: true,
+            env: {
+              "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"" + config.buildPaths.html + "\"}}}}",
+              "MINK_EXTENSION_PARAMS": "base_url=" + config.siteUrls[key]
+            }
+          }, options)
+        );
       }
     }
 
