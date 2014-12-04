@@ -2,11 +2,12 @@ language: php
 php:
   - 5.3
 install:
-  - ./test/invert_example.sh
+  - ./test/create_working_copy.sh
+  - cd test/working_copy
   - npm install -g grunt-cli
   - npm install -g mocha
   - wget https://github.com/drush-ops/drush/archive/6.4.0.tar.gz
   - tar xfvz 6.4.0.tar.gz
 script:
   - PATH=$PATH:drush-6.4.0 grunt
-  - mocha node_modules/grunt-drupal-tasks/test
+  - mocha ../../test
