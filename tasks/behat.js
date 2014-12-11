@@ -52,9 +52,9 @@ module.exports = function(grunt) {
 
         grunt.config(['behat', 'site-' + key],
           {
-            src: options.src || './features/**/*.feature',
+            src: options.src || './test/features/**/*.feature',
             options: _.extend({
-              config: './behat.yml',
+              config: './test/behat.yml',
               maxProcesses: 5,
               bin: './bin/behat',
               debug: true,
@@ -67,7 +67,9 @@ module.exports = function(grunt) {
       }
     }
 
-    grunt.config('help.behat', {
+    grunt.registerTask('test', ['behat']);
+
+    grunt.config('help.test', {
       group: 'Testing & Code Quality',
       description: 'Run the Behat tests included with this project.'
     });

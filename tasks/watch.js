@@ -10,13 +10,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-parallel');
 
-  grunt.config(['watch', 'behat'], {
+  grunt.config(['watch', 'test'], {
     files: [
       '<%= config.srcPaths.drupal %>/**/*',
       '!<%= config.srcPaths.drupal %>/sites/*/files/**/*',
       'features/**/*'
     ],
-    tasks: ['behat']
+    tasks: ['test']
   });
   grunt.config(['watch', 'validate'], {
     files: [
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
       },
       {
         grunt: true,
-        args: ['watch:behat']
+        args: ['watch:test']
       }
     ]
   });
