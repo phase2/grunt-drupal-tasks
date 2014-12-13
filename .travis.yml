@@ -11,9 +11,9 @@ install:
   - npm install -g mocha
 script:
   - export PATH=$PATH:`pwd`/bin
-  - grunt
-  - grunt drush:liteinstall
+  - grunt --timer
+  - grunt drush:liteinstall --timer
   - grunt drush:runserver &
   - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do sleep 0.2; done
-  - grunt behat
+  - grunt behat --timer
   - mocha node_modules/grunt-drupal-tasks/test
