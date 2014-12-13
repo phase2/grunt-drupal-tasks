@@ -16,6 +16,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-phplint');
   grunt.loadNpmTasks('grunt-phpcs');
   grunt.loadNpmTasks('grunt-phpmd');
+  grunt.loadNpmTasks('grunt-eslint');
 
   // Task set aliases are registered at the end of the file based on these values.
   var validate = [];
@@ -103,6 +104,11 @@ module.exports = function(grunt) {
     });
     analyze.push('phpmd:custom');
   }
+
+  grunt.config('eslint', grunt.config.get('eslint') || {
+    target: ['<%= config.srcPaths.drupal %>/**/*.js']
+  });
+  validate.push('eslint');
 
   grunt.registerTask('validate', validate);
   grunt.registerTask('analyze', analyze);
