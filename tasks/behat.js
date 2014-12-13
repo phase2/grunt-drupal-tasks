@@ -41,7 +41,7 @@ module.exports = function(grunt) {
         }
 
         // Support for global behat flags config.
-        if (!options.flags && config.behat.flags) {
+        if (!options.flags && config.behat && config.behat.flags) {
           options.flags = config.behat.flags;
         }
 
