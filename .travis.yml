@@ -1,13 +1,19 @@
 language: php
 php:
-  - 5.3
+  - 5.4
+before_install:
+  - composer self-update
+  - echo "sendmail_path='true'" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
 install:
   - ./test/create_working_copy.sh
   - cd test/working_copy
   - npm install -g grunt-cli
   - npm install -g mocha
-  - wget https://github.com/drush-ops/drush/archive/6.4.0.tar.gz
-  - tar xfvz 6.4.0.tar.gz
 script:
-  - PATH=$PATH:drush-6.4.0 grunt
-  - mocha ../../test
+  - export PATH=$PATH:`pwd`/bin
+  - grunt
+  - grunt drush:liteinstall
+  - grunt drush:runserver &
+  - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do sleep 0.2; done
+  - grunt behat
+  - mocha node_modules/grunt-drupal-tasks/test

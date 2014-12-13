@@ -22,6 +22,16 @@ module.exports = function(grunt) {
     make: {
       args: args,
       dest: '<%= config.buildPaths.temp %>'
+    },
+    liteinstall: {
+      args: ['site-install', '-y', 'standard', '--db-url=sqlite://drupal:drupal@drupal.sqlite'],
+      dest: null,
+      cwd: '<%= config.buildPaths.html %>'
+    },
+    runserver: {
+      args: ['runserver', '8080'],
+      dest: null,
+      cwd: '<%= config.buildPaths.html %>'
     }
   });
 
