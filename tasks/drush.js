@@ -22,11 +22,21 @@ module.exports = function(grunt) {
     make: {
       args: args,
       dest: '<%= config.buildPaths.temp %>'
+    },
+    liteinstall: {
+      args: ['site-install', '-y', 'standard', '--db-url=sqlite://drupal:drupal@drupal.sqlite'],
+      dest: null,
+      cwd: '<%= config.buildPaths.html %>'
+    },
+    runserver: {
+      args: ['runserver', '8080'],
+      dest: null,
+      cwd: '<%= config.buildPaths.html %>'
     }
   });
 
-  grunt.registerTask('drushmake', 'Run "drush make" if the makefile is newer than the dest directory.', function() {
-    grunt.task.run('mkdir:init', 'drush:make', 'clean:default', 'copy:tempbuild', 'clean:temp');
+  grunt.registerTask('drushmake', 'Prepare the build directory and run "drush make"', function() {
+    grunt.task.run('mkdir:init', 'clean:temp', 'drush:make', 'clean:default', 'copy:tempbuild', 'clean:temp');
   });
 
   // The "drushmake" task will run make only if the src file specified here is
@@ -41,5 +51,9 @@ module.exports = function(grunt) {
 
   grunt.config('help.drushmake', {
     group: 'Dependency Management'
+  });
+  grunt.config('help.newer', {
+    group: 'Dependency Management',
+    description: 'Use "newer:drushmake" to run the drushmake task only if the make file was updated.'
   });
 };

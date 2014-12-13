@@ -23,6 +23,7 @@ module.exports = function(grunt) {
   });
 
   grunt.config('help.clean', {
-    group: 'Utilities'
+    group: 'Utilities',
+    description: 'Use "clean" to remove the build output directory.'
   });
 };

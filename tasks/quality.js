@@ -21,30 +21,30 @@ module.exports = function(grunt) {
   var validate = [];
   var analyze = [];
 
+  var defaultPatterns = [
+    '<%= config.srcPaths.drupal %>/**/*.php',
+    '<%= config.srcPaths.drupal %>/**/*.module',
+    '<%= config.srcPaths.drupal %>/**/*.inc',
+    '<%= config.srcPaths.drupal %>/**/*.install',
+    '<%= config.srcPaths.drupal %>/**/*.profile',
+    '!<%= config.srcPaths.drupal %>/sites/**',
+    '!<%= config.srcPaths.drupal %>/**/*.box.inc',
+    '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
+    '!<%= config.srcPaths.drupal %>/**/*.pages_default.inc',
+    '!<%= config.srcPaths.drupal %>/**/*.panelizer.inc',
+    '!<%= config.srcPaths.drupal %>/**/*.strongarm.inc'
+  ];
+
   grunt.config('phplint', {
-    all: [
-      '<%= config.srcPaths.drupal %>/**/*.php',
-      '<%= config.srcPaths.drupal %>/**/*.module',
-      '<%= config.srcPaths.drupal %>/**/*.inc',
-      '<%= config.srcPaths.drupal %>/**/*.install',
-      '<%= config.srcPaths.drupal %>/**/*.profile',
-      '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
-      '!<%= config.srcPaths.drupal %>/sites/**'
-    ],
+    all: defaultPatterns
   }); 
   validate.push('phplint:all');
 
   if (grunt.config.get('config.phpcs') != undefined) {
-    var phpcs = [
-      '<%= config.srcPaths.drupal %>/**/*.php',
-      '<%= config.srcPaths.drupal %>/**/*.module',
-      '<%= config.srcPaths.drupal %>/**/*.inc',
-      '<%= config.srcPaths.drupal %>/**/*.install',
-      '<%= config.srcPaths.drupal %>/**/*.profile',
-      '<%= config.srcPaths.drupal %>/**/*.css',
-      '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
-      '!<%= config.srcPaths.drupal %>/sites/**'
-    ];
+    var phpcs = grunt.config.get('config.phpcs.dir') || [
+      '<%= config.srcPaths.drupal %>/**/*.css'
+    ].concat(defaultPatterns);
+
     grunt.config('phpcs', {
       analyze: {
         dir: phpcs
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
       },
       validate: {
         dir: phpcs,
-        report: grunt.config.get('config.phpcs.validateReport') || 'summary',
+        report: grunt.config.get('config.phpcs.validateReport') || 'full',
         reportFile: false,
       },
       full: {
@@ -109,11 +109,10 @@ module.exports = function(grunt) {
 
   grunt.config('help.validate', {
     group: 'Testing & Code Quality',
-    description: 'Quick code health check for syntax errors and basic practices. (e.g., PHPCS w/ Drush Coder rules)'
+    description: 'Quick code health check for syntax errors and basic practices. (e.g. PHPCS w/ Drush Coder rules)'
   });
   grunt.config('help.analyze', {
     group: 'Testing & Code Quality',
-    description: 'Static codebase analysis to detect problems. Outputs Jenkins-compatible reports. (e.g., PHPMD)'
+    description: 'Static codebase analysis to detect problems. Outputs Jenkins-compatible reports. (e.g. PHPMD)'
   });
-
 };

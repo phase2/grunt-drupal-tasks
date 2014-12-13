@@ -9,43 +9,79 @@ module.exports = function(grunt) {
    * Example:
    *
    * "themes": {
+   *   "viking": {
+   *     "path": "<%= config.srcPaths.drupal %>/themes/viking",
+   *     "compass": true
+   *   },
    *   "spartan": {
    *     "path": "<%= config.srcPaths.drupal %>/themes/spartan",
-   *     "compass": true
+   *     "compass": {
+   *       "environment": "development",
+   *       "sourcemap": true
+   *     }
    *   },
    *   "trojan": {
    *     "path": "<%= config.srcPaths.drupal %>/themes/trojan"
    *   }
    * }
    */
-  grunt.loadNpmTasks('grunt-shell');
 
-  var config = grunt.config.get('config');
+  grunt.loadNpmTasks('grunt-contrib-compass');
+
+  var config = grunt.config.get('config'),
+    util = require('util'),
+    steps = [],
+    parallelTasks = [];
+
   if (config.themes) {
-    var steps = []
     for (var key in config.themes) {
       if (config.themes.hasOwnProperty(key) && config.themes[key].compass) {
-        var path = config.themes[key].path;
-        grunt.config(['shell', 'compass-' + key], {
-          command: 'bundle exec "compass compile --time --app-dir=' + path + ' --config=' + path + '/config.rb"'
-        });
-        steps.push('shell:compass-' + key);
+        var theme = config.themes[key],
+          options = (theme.compass && typeof theme.compass === 'object') ? theme.compass : {};
 
-        // Integrate compass compilation with sass.
-        // Does not narrow down more specific than a sass/ directory because
-        // that location is subject only to the theme's config.rb.
-        grunt.config(['watch', 'scss-' + key], {
+        grunt.config(['compass', key], {
+          options: util._extend({
+            basePath: theme.path,
+            config: theme.path + '/config.rb',
+            bundleExec: true
+          }, options)
+        });
+
+        steps.push('compass:' + key);
+
+        // Provide a watch handler
+        grunt.config(['watch', 'compass-' + key], {
           files: [
-            path + '/**/*.scss'
+            theme.path + '/**/*.scss'
           ],
-          tasks: ['shell:compass-' + key]
+          tasks: ['compass:' + key]
+        });
+
+        // Add this watch to the parallel watch-theme task
+        parallelTasks.push({
+          grunt: true,
+          args: ['watch:compass-' + key]
         });
       }
     }
+
+    grunt.config(['parallel', 'watch-theme'], {
+      options: {
+        stream: true
+      },
+      tasks: parallelTasks
+    });
+
     grunt.registerTask('compile-theme', steps);
+    grunt.registerTask('watch-theme', ['parallel:watch-theme']);
 
     grunt.config('help.compile-theme', {
-      group: 'Asset & Code Compilation'
+      group: 'Asset & Code Compilation',
+      description: 'Run compilers for the theme, such as Compass.'
+    });
+    grunt.config('help.watch-theme', {
+      group: 'Real-time Tooling',
+      description: "Watch for changes that should rebuild frontend assets, such as CSS."
     });
   }
 };

@@ -14,7 +14,7 @@ module.exports = function(grunt) {
     package: {
       options: {
         archive: function () {
-          return grunt.config.get('config.buildPaths.package') + '/package-' + new Date().toISOString() + '.tgz';
+          return grunt.config.get('config.buildPaths.package') + '/package.tgz';
         },
         mode: 'tgz'
       },

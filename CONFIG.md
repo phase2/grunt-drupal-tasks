@@ -10,7 +10,7 @@ Drupal project. To download this template, you can use the following two
 commands:
 
 1. In an empty directory, run:
-   `npm install --save-dev grunt grunt-drupal-tasks`
+   `npm install grunt grunt-drupal-tasks`
 
 2. Copy the contents of node_modules/grunt-drupal-tasks/example to your starting
    directory, by running:
@@ -188,14 +188,30 @@ This is an example of the settings for Behat tasks:
 ```
 {
   "siteUrls": {
-    "default": "http://project.local",
-    "subsite": "http://subsite.project.local"
+    "default": "http://dev-site.local",
+    "subsite": "http://sub.dev-site.local"
+  },
+  "behat": {
+    "flags": "--tags '~@javascript'",
+    "subsite": {
+      "src": "./features/subsite/*.feature",
+      "debug": false
+    }
   }
 }
 ```
 
 **siteUrls**: A map of Drupal subsite names to the URLs by which each can be
 accessed for testing by Behat.
+
+**behat.\<siteurl\>**: A map of Drupal subsite names to a configuration object, which will extend the defaults passed to
+[grunt-parallel-behat](https://github.com/linusnorton/grunt-parallel-behat)
+
+**behat.flags**: A string with any command-line arguments and options that
+should be used while invoking Behat. These flags can be overridden by using the
+`--behat-flags` option when running `grunt`. Common use cases are to include or
+exclude tests according to tags or to use an alternative profile defined in
+`behat.yml`.
 
 ### Drush Settings
 
@@ -232,6 +248,12 @@ This is an example of the settings for theme tasks:
 **themes**: Defines each custom Drupal theme and enables features, like Sass
 processing by Compass.
 
+**themes.\<theme\>.compass**: Enable compass preprocessing. Either `true` to 
+enable with default compass options, or a configuration object to be passed 
+directly to 
+[grunt-contrib-compass](https://github.com/gruntjs/grunt-contrib-compass)
+for this theme.
+
 ### Validate Settings
 
 This is an example of the settings for the validate tasks:
@@ -249,6 +271,9 @@ This is an example of the settings for the validate tasks:
 
 **phpcs.standard**: The PHPCS coding standard to use. The example composer.json
 installs the Drupal Coder's standard, the path of which is shown above.
+
+**phpcs.dir**: An array of globbing pattern where phpcs should search for files.
+This can be used to replace the defaults supplied by grunt-drupal-tasks.
 
 > If there is no `phpcs` key in the configuration, the system will assume you
 are not using PHPCS and will suppress it from the system.

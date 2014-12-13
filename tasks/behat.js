@@ -4,40 +4,70 @@ module.exports = function(grunt) {
    * Define "behat" tasks.
    *
    * Dynamically adds Behat testing tasks based on configuration sets in the
-   * package.json file.
+   * Gruntconfig.json file.
    *
    * Example:
    *   "config": {
-   *     "docroot": "/var/www/vhosts/dev-site.local",
-   *     "site_urls": {
-   *       default: http://dev-site.local"
+   *     "buildPaths": {
+   *       "html": "build/html"
+   *     },
+   *     "siteUrls": {
+   *       "default": "http://dev-site.local",
+   *       "subsite": "http://sub.dev-site.local"
+   *     },
+   *     "behat": {
+   *       "subsite": {
+   *          "src": "./features/subsite/*.feature",
+   *          "debug": false
+   *       }
    *     }
    *   }
    */
   grunt.loadNpmTasks('grunt-parallel-behat');
-  var config = grunt.config.get('config');
-  var flags = grunt.option('flags') || '';
+
+  var config = grunt.config.get('config'),
+    flags = '',
+    util = require('util');
+
   if (config.buildPaths.html && config.siteUrls) {
     for (var key in config.siteUrls) {
       if (config.siteUrls.hasOwnProperty(key)) {
-        grunt.config(['behat', 'site-' + key], {
-          src: './features/*.feature',
-          config: './behat.yml',
-          maxProcesses: 5,
-          bin: './bin/behat',
-          flags: flags,
-          debug: true,
-          env: {
-            //"BEHAT_PARAMS": "extensions[Drupal\\DrupalExtension\\Extension][drupal][drupal_root]=./" + config.buildPaths.html,
-            //"MINK_EXTENSION_PARAMS": "base_url=" + config.siteUrls[key]
-          }
-        });
+        var options = {};
+
+        // Check for per-site behat options.
+        if (config.behat && config.behat[key]) {
+          var siteOptions = config.behat[key];
+          options = (typeof siteOptions === 'object') ? siteOptions : options;
+        }
+
+        // Support for global behat flags config.
+        if (!options.flags && config.behat && config.behat.flags) {
+          options.flags = config.behat.flags;
+        }
+
+        // Override with flags at runtime.
+        if (grunt.option('behat_flags')) {
+          options.flags = grunt.option('behat_flags');
+        }
+
+        grunt.config(['behat', 'site-' + key],
+          util._extend({
+            src: './features/*.feature',
+            config: './behat.yml',
+            maxProcesses: 5,
+            bin: './bin/behat',
+            debug: true,
+            env: {
+              "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\"}}}"
+            }
+          }, options)
+        );
       }
     }
 
     grunt.config('help.behat', {
-      group: 'Testing & Code Quality'
+      group: 'Testing & Code Quality',
+      description: 'Run the Behat tests included with this project.'
     });
   }
-
-}
+};
