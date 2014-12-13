@@ -21,10 +21,10 @@ The directory's contents should now look like this:
 ```
 Gruntconfig.json
 Gruntfile.js
-behat.yml
 composer.json
-features/
-  ...
+test/
+  behat.yml
+  features/
 node_modules/
   ...
 package.json
@@ -80,7 +80,8 @@ install these tools. You can modify composer.json to include other dependencies
 for your project.
 
 To support Behat tests, the example includes a basic **behat.yml** configuration
-file and a **features/** directory for test cases.
+file and a **features/** directory for test cases inside the general **test/**
+directory.
 
 The example also includes **phpmd.xml** to provide some sensible defaults for
 Drupal development to the PHPMD utility.
