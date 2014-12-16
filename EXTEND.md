@@ -18,7 +18,7 @@ typing `grunt` into the command-line.)
    example.
 
 ```js
-grunt.task.rename('default', 'default-original');
+grunt.task.renameTask('default', 'default-original');
 grunt.registerTask('default', ['shell:custom', 'default-original']);
 ```
 
