@@ -11,6 +11,7 @@ mkdir test/working_copy
 
 # Copy the example skeleton into working_copy
 cp -r example/* test/working_copy
+echo -e "<?php\n\$x = 10;" > test/working_copy/src/modules/test.php
 
 # Install dependencies of working_copy
 cd test/working_copy
