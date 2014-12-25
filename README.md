@@ -58,3 +58,6 @@ For information on setting up your project with these tools, see
 
 For information on extending these tools or contributing changes, see
 <a href="https://github.com/phase2/grunt-drupal-tasks/blob/master/EXTEND.md">EXTEND.md</a>.
+
+For information on using these tools with a continuous integration (CI) system,
+see <a href="https://github.com/phase2/grunt-drupal-tasks/blob/master/CI.md">CI.md</a>.
