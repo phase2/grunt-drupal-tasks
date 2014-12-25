@@ -29,7 +29,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compass');
 
   var config = grunt.config.get('config'),
-    util = require('util'),
+    _ = require('lodash'),
     steps = [],
     parallelTasks = [];
 
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
           options = (theme.compass && typeof theme.compass === 'object') ? theme.compass : {};
 
         grunt.config(['compass', key], {
-          options: util._extend({
+          options: _.extend({
             basePath: theme.path,
             config: theme.path + '/config.rb',
             bundleExec: true

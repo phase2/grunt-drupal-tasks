@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 
   var config = grunt.config.get('config'),
     flags = '',
-    util = require('util');
+    _ = require('lodash');
 
   if (config.buildPaths.html && config.siteUrls) {
     for (var key in config.siteUrls) {
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         }
 
         grunt.config(['behat', 'site-' + key],
-          util._extend({
+          _.extend({
             src: './features/*.feature',
             config: './behat.yml',
             maxProcesses: 5,
