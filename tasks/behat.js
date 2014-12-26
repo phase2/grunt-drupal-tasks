@@ -51,16 +51,18 @@ module.exports = function(grunt) {
         }
 
         grunt.config(['behat', 'site-' + key],
-          _.extend({
-            src: './features/*.feature',
-            config: './behat.yml',
-            maxProcesses: 5,
-            bin: './bin/behat',
-            debug: true,
-            env: {
-              "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\"}}}"
-            }
-          }, options)
+          {
+            src: options.src || './features/**/*.feature',
+            options: _.extend({
+              config: './behat.yml',
+              maxProcesses: 5,
+              bin: './bin/behat',
+              debug: true,
+              env: {
+                "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\"}}}"
+              }
+            }, options)
+          }
         );
       }
     }
