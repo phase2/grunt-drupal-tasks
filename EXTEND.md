@@ -129,7 +129,7 @@ be:
   configuration.
 
 - If conditionally added to the build, make sure that condition checks that the
-  task is properly configured. Look at `Gruntfile.js` for examples of
+  task is properly configured. Look at `bootstrap.js` for examples of
   conditional steps.
 
 ### Things to Consider
