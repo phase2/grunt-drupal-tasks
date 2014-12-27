@@ -16,7 +16,7 @@
     "grunt-drush": "~0.0.3",
     "grunt-mkdir": "~0.1.1",
     "grunt-newer": "~0.8.0",
-    "grunt-notify": "^0.4.1",
+    "grunt-notify": "git+https://github.com/grayside/grunt-notify.git#0.5.0",
     "grunt-parallel": "^0.3.1",
     "grunt-parallel-behat": "~0.3.6",
     "grunt-phpcs": "git+https://github.com/grayside/grunt-phpcs.git#0.3.0",
