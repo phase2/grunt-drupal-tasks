@@ -18,7 +18,7 @@
     "projFiles": ["README*", "bin/**"]
   },
   "phpcs": {
-    "path": "bin/phpcs",
+    "path": "bin/phpcs"
   },
   "phpmd": {
     "path": "bin/phpmd"
