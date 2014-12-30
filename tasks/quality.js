@@ -45,6 +45,9 @@ module.exports = function(grunt) {
       '<%= config.srcPaths.drupal %>/**/*.css'
     ].concat(defaultPatterns);
 
+    var phpStandard = grunt.config('config.phpcs.standard')
+      || 'vendor/drupal/coder/coder_sniffer/Drupal';
+
     grunt.config('phpcs', {
       analyze: {
         dir: phpcs
@@ -74,7 +77,7 @@ module.exports = function(grunt) {
       },
       options: {
         bin: '<%= config.phpcs.path %>',
-        standard: '<%= config.phpcs.standard %>',
+        standard: phpStandard,
         extensions: 'php,install,module,inc,profile',
         ignoreExitCode: true,
         report: 'checkstyle',
