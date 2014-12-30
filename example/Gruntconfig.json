@@ -26,7 +26,7 @@
   },
   "drush": {
     "make": {
-      "args": []
+      "args": ["--concurrency=16"]
     }
   },
   "behat": {
