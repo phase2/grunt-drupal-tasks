@@ -230,6 +230,21 @@ This is an example of the settings for Drush tasks:
 **drush.make.args**: An array of arguments to pass to Drush for the make
 operation.
 
+### Notify Settings
+
+This is an example of the settings for the notify feature:
+
+```
+{
+  "notify": {
+    "threshold": 3
+  }
+}
+```
+
+**notify.threshold**: Minimum number of seconds a task must execute for a
+notification to be triggered when the task ends.
+
 ### Theme Settings
 
 This is an example of the settings for theme tasks:
