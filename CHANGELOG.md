@@ -7,6 +7,7 @@
 - Adding documentation for use with a continuous integration system
 - Wrapping `behat` task in a `test` alias and moving Behat-related files into
 - top-level `test/` directory to allow for multiple testing methods
+- Replacing grunt-parallel with grunt-concurrent
 - Many dependency updates
 - Other minor improvements
 
@@ -28,3 +29,6 @@ providing a `config` and `src` option for any configured sites. For example:
     }
   }
 ```
+
+- Custom tasks that execute steps in parallel should be updated to use the
+grunt-concurrent plugin. See grunt-drupal-tasks/tasks/behat.js for an example.
