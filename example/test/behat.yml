@@ -9,8 +9,7 @@ default:
     Behat\MinkExtension:
       goutte: ~
       selenium2: ~
-      zombie:
-        node_modules_path: './node_modules/'
+      zombie: ~
       base_url: http://127.0.0.1:8080
       javascript_session: 'zombie'
     Drupal\DrupalExtension:
