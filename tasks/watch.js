@@ -8,7 +8,6 @@ module.exports = function(grunt) {
    * a file in the testing features directory changes.
    */
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-parallel');
 
   grunt.config(['watch', 'test'], {
     files: [
@@ -27,23 +26,17 @@ module.exports = function(grunt) {
     tasks: ['validate']
   });
 
-  grunt.config(['parallel', 'watch-test'], {
+  grunt.config(['concurrent', 'watch-test'], {
+    tasks: ['watch:validate', 'watch:test'],
     options: {
-      stream: true
-    },
-    tasks: [
-      {
-        grunt: true,
-        args: ['watch:validate']
-      },
-      {
-        grunt: true,
-        args: ['watch:test']
-      }
-    ]
+      logConcurrentOutput: true
+    }
   });
 
-  grunt.registerTask('watch-test', ['parallel:watch-test']);
+  grunt.registerTask('watch-test', 'Backend operations watch task.', function() {
+    grunt.loadNpmTasks('grunt-concurrent');
+    grunt.task.run('concurrent:watch-test');
+  });
 
   grunt.config('help.watch-test', {
     group: 'Real-time Tooling',
