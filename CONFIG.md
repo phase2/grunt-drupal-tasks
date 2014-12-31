@@ -22,9 +22,6 @@ The directory's contents should now look like this:
 Gruntconfig.json
 Gruntfile.js
 composer.json
-test/
-  behat.yml
-  features/
 node_modules/
   ...
 package.json
@@ -36,6 +33,9 @@ src/
   sites/
   static/
   themes/
+test/
+  behat.yml
+  features/
 ```
 
 ## Add project code and configuration
@@ -195,7 +195,7 @@ This is an example of the settings for Behat tasks:
   "behat": {
     "flags": "--tags '~@javascript'",
     "subsite": {
-      "src": "./features/subsite/*.feature",
+      "src": "./test/features/subsite/*.feature",
       "debug": false
     }
   }
@@ -205,7 +205,8 @@ This is an example of the settings for Behat tasks:
 **siteUrls**: A map of Drupal subsite names to the URLs by which each can be
 accessed for testing by Behat.
 
-**behat.\<siteurl\>**: A map of Drupal subsite names to a configuration object, which will extend the defaults passed to
+**behat.\<siteurl\>**: A map of Drupal subsite names to a configuration object,
+which will extend the defaults passed to
 [grunt-parallel-behat](https://github.com/linusnorton/grunt-parallel-behat)
 
 **behat.flags**: A string with any command-line arguments and options that
