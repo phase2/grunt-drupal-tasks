@@ -15,5 +15,5 @@ script:
   - grunt drush:liteinstall --timer
   - grunt drush:runserver &
   - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do sleep 0.2; done
-  - grunt behat --timer
+  - grunt test --timer
   - mocha node_modules/grunt-drupal-tasks/test
