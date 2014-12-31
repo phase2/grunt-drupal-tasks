@@ -12,10 +12,8 @@ module.exports = function(grunt) {
     grunt.config(['shell', 'bundle-install'], {
       command: "bundle install --binstubs=gems/bin"
     });
-
-    // camelCase is deprecated.
-    grunt.registerTask('bundleInstall', ['shell:bundle-install']);  
-    grunt.registerTask('bundle-install', ['shell:bundle-install']);  
+    grunt.registerTask('bundleInstall', ['shell:bundleInstall']);
+    grunt.registerTask('bundle-install', ['shell:bundleInstall']);
 
     grunt.config('help.bundle-install', {
       group: 'Dependency Management',

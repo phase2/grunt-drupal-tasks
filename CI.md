@@ -18,7 +18,7 @@ git rebase origin/develop
 npm install
 grunt
 # ::Your installation script here.
-grunt behat
+grunt test
 ```
 
 ### Reports
