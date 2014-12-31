@@ -18,7 +18,7 @@
     "grunt-mkdir": "~0.1.1",
     "grunt-newer": "~0.8.0",
     "grunt-notify": "git+https://github.com/grayside/grunt-notify.git#0.5.0",
-    "grunt-parallel-behat": "~0.3.6",
+    "grunt-parallel-behat": "git+https://github.com/arithmetric/grunt-parallel-behat.git#feature/fail_grunt_any_error",
     "grunt-phpcs": "git+https://github.com/grayside/grunt-phpcs.git#0.3.0",
     "grunt-phplint": "~0.0.5",
     "grunt-phpmd": "~0.1.0",
