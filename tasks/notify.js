@@ -18,7 +18,7 @@ module.exports = function(grunt) {
       // Only trigger success messages if the process has taken longer than the
       // configured notifyThreshold.
       success: true,
-      threshold: grunt.config('notifyThreshold') || 10,
+      threshold: grunt.config.get('config.notify.threshold') || 10,
       duration: 5
     }
   });
