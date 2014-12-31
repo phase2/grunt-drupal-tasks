@@ -5,7 +5,8 @@
 - Moving main Grunt Drupal Tasks library code from Gruntfile.js to bootstrap.js
 - Adding integration with OS notification features with grunt-notify
 - Adding documentation for use with a continuous integration system
-- Wrapping `behat` task in an alias `test` to allow for multiple test methods
+- Wrapping `behat` task in a `test` alias and moving Behat-related files into
+- top-level `test/` directory to allow for multiple testing methods
 - Many dependency updates
 - Other minor improvements
 
@@ -16,4 +17,14 @@
 `require('grunt-drupal-tasks/Gruntfile')(grunt);`
 
 - By default, Behat expects test features and the behat.yml inside a top-level
-`test/` directory.
+`test/` directory. You can continue to keep these files in the old location by
+providing a `config` and `src` option for any configured sites. For example:
+
+```json
+  "behat": {
+    "default": {
+      "config": "./behat.yml",
+      "src": "./features/**/*.feature"
+    }
+  }
+```
