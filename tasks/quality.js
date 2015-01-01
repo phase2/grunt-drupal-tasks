@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 
   grunt.config('phplint', {
     all: defaultPatterns
-  }); 
+  });
   validate.push('phplint:all');
 
   if (grunt.config.get('config.phpcs') != undefined) {
@@ -105,7 +105,20 @@ module.exports = function(grunt) {
   }
 
   grunt.registerTask('validate', validate);
-  grunt.registerTask('analyze', analyze);
+
+  if (analyze.length < 2) {
+    grunt.registerTask('analyze', analyze);
+  }
+  else {
+    grunt.loadNpmTasks('grunt-concurrent');
+    grunt.config(['concurrent', 'analyze'], {
+      tasks: analyze,
+      options: {
+        logConcurrentOutput: true
+      }
+    });
+    grunt.registerTask('analyze', ['concurrent:analyze']);
+  }
 
   grunt.config('help.validate', {
     group: 'Testing & Code Quality',
