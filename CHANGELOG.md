@@ -7,6 +7,7 @@
 - Adding documentation for use with a continuous integration system
 - Wrapping `behat` task in a `test` alias and moving Behat-related files into
 - top-level `test/` directory to allow for multiple testing methods
+- Adding Zombie.js and Behat support for JavaScript testing
 - Replacing grunt-parallel with grunt-concurrent
 - Many dependency updates
 - Other minor improvements
