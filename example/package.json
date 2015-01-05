@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "grunt": "~0.4.5",
-    "grunt-drupal-tasks": "~0.4.0"
+    "grunt-drupal-tasks": "~0.4.0",
+    "zombie": "^2.5.1"
   }
 }

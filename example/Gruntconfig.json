@@ -30,6 +30,6 @@
     }
   },
   "behat": {
-    "flags": "--tags '~@javascript'"
+    "flags": "--tags ~@wip"
   }
 }
