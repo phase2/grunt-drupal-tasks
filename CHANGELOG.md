@@ -19,8 +19,10 @@
 `require('grunt-drupal-tasks/Gruntfile')(grunt);`
 
 - By default, Behat expects test features and the behat.yml inside a top-level
-`test/` directory. You can continue to keep these files in the old location by
-providing a `config` and `src` option for any configured sites. For example:
+`test/` directory. You can either update your project structure by moving
+behat.yml and the features directory under `test/`, or you may continue to use
+the old structure by providing a `config` and `src` option for any configured
+sites. For example:
 
 ```json
   "behat": {
@@ -33,3 +35,6 @@ providing a `config` and `src` option for any configured sites. For example:
 
 - Custom tasks that execute steps in parallel should be updated to use the
 grunt-concurrent plugin. See grunt-drupal-tasks/tasks/behat.js for an example.
+
+- See the example composer.json for updated dependency versions, which you can
+manually apply to your project.
