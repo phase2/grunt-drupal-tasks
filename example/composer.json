@@ -12,5 +12,8 @@
         "phpmd/phpmd": "~2.1",
         "squizlabs/php_codesniffer": "~1.5",
         "drupal/coder": "7.2.3"
+    },
+    "require": {
+        "roave/security-advisories": "dev-master"
     }
 }
