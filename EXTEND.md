@@ -11,14 +11,14 @@ There are two ways to change the default build process (which is run when simply
 typing `grunt` into the command-line.)
 
 1. Replicate the definition of the default task you can see in this
-   grunt-drupal-tasks' Gruntfile.js. This will completely replace what currently
+   grunt-drupal-tasks' bootstrap.js. This will completely replace what currently
    exists.
 2. Use a slick workaround that allows you to keep the default task as it's been
    defined, but append or prepend your own operations. See below for a simple
    example.
 
 ```js
-grunt.task.rename('default', 'default-original');
+grunt.task.renameTask('default', 'default-original');
 grunt.registerTask('default', ['shell:custom', 'default-original']);
 ```
 
@@ -129,7 +129,7 @@ be:
   configuration.
 
 - If conditionally added to the build, make sure that condition checks that the
-  task is properly configured. Look at `Gruntfile.js` for examples of
+  task is properly configured. Look at `bootstrap.js` for examples of
   conditional steps.
 
 ### Things to Consider

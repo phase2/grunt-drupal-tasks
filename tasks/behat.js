@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 
   var config = grunt.config.get('config'),
     flags = '',
-    util = require('util');
+    _ = require('lodash');
 
   if (config.buildPaths.html && config.siteUrls) {
     for (var key in config.siteUrls) {
@@ -51,21 +51,25 @@ module.exports = function(grunt) {
         }
 
         grunt.config(['behat', 'site-' + key],
-          util._extend({
-            src: './features/*.feature',
-            config: './behat.yml',
-            maxProcesses: 5,
-            bin: './bin/behat',
-            debug: true,
-            env: {
-              "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\"}}}"
-            }
-          }, options)
+          {
+            src: options.src || './test/features/**/*.feature',
+            options: _.extend({
+              config: './test/behat.yml',
+              maxProcesses: 5,
+              bin: './bin/behat',
+              debug: true,
+              env: {
+                "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\", \"zombie\": {\"node_modules_path\": \"" + process.cwd() + "/node_modules/\"}}}}"
+              }
+            }, options)
+          }
         );
       }
     }
 
-    grunt.config('help.behat', {
+    grunt.registerTask('test', ['behat']);
+
+    grunt.config('help.test', {
       group: 'Testing & Code Quality',
       description: 'Run the Behat tests included with this project.'
     });

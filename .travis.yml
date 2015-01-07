@@ -5,15 +5,18 @@ before_install:
   - composer self-update
   - echo "sendmail_path='true'" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
 install:
+  - echo "Code checkout disk usage"; du -chs .; ls -lRa
   - ./test/create_working_copy.sh
   - cd test/working_copy
+  - echo "Example working copy disk usage"; du -chs .
   - npm install -g grunt-cli
   - npm install -g mocha
 script:
   - export PATH=$PATH:`pwd`/bin
-  - grunt
-  - grunt drush:liteinstall
+  - grunt --timer
+  - echo "Example fully built disk usage"; du -chs .
+  - grunt drush:liteinstall --timer
   - grunt drush:runserver &
   - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do sleep 0.2; done
-  - grunt behat
+  - grunt test --timer
   - mocha node_modules/grunt-drupal-tasks/test

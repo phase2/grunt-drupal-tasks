@@ -23,3 +23,11 @@ tests are meant both to verify the Drupal install as well as Behat test features
      When I am on the homepage
       And I click "Reports"
      Then I should be on "#overlay=admin/reports"
+
+  @wip
+  Scenario: This is a broken test scenario, which should be excluded with the
+  example Gruntconfig.json due to the wip tag.
+    Given I am logged in as a user with the "xyz" role
+     When I am on the xyz page
+      And I click "Xyz"
+     Then I should be on "abc"

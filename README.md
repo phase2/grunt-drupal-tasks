@@ -2,6 +2,7 @@
 
 Code Status (master branch):
 <a href="https://travis-ci.org/phase2/grunt-drupal-tasks"><img src="https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master"></a>
+[![Dependency Status](https://david-dm.org/phase2/grunt-drupal-tasks.svg)](https://david-dm.org/phase2/grunt-drupal-tasks)
 
 ## Requirements
 
@@ -57,3 +58,6 @@ For information on setting up your project with these tools, see
 
 For information on extending these tools or contributing changes, see
 <a href="https://github.com/phase2/grunt-drupal-tasks/blob/master/EXTEND.md">EXTEND.md</a>.
+
+For information on using these tools with a continuous integration (CI) system,
+see <a href="https://github.com/phase2/grunt-drupal-tasks/blob/master/CI.md">CI.md</a>.

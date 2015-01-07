@@ -18,18 +18,17 @@
     "projFiles": ["README*", "bin/**"]
   },
   "phpcs": {
-    "path": "bin/phpcs",
-    "standard": "vendor/drupal/coder/coder_sniffer/Drupal"
+    "path": "bin/phpcs"
   },
   "phpmd": {
     "path": "bin/phpmd"
   },
   "drush": {
     "make": {
-      "args": []
+      "args": ["--concurrency=16"]
     }
   },
   "behat": {
-    "flags": "--tags '~@javascript'"
+    "flags": "--tags ~@wip"
   }
 }

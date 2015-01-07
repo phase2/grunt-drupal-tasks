@@ -37,13 +37,16 @@ module.exports = function(grunt) {
 
   grunt.config('phplint', {
     all: defaultPatterns
-  }); 
+  });
   validate.push('phplint:all');
 
   if (grunt.config.get('config.phpcs') != undefined) {
     var phpcs = grunt.config.get('config.phpcs.dir') || [
       '<%= config.srcPaths.drupal %>/**/*.css'
     ].concat(defaultPatterns);
+
+    var phpStandard = grunt.config('config.phpcs.standard')
+      || 'vendor/drupal/coder/coder_sniffer/Drupal';
 
     grunt.config('phpcs', {
       analyze: {
@@ -74,7 +77,7 @@ module.exports = function(grunt) {
       },
       options: {
         bin: '<%= config.phpcs.path %>',
-        standard: '<%= config.phpcs.standard %>',
+        standard: phpStandard,
         extensions: 'php,install,module,inc,profile',
         ignoreExitCode: true,
         report: 'checkstyle',
@@ -105,7 +108,20 @@ module.exports = function(grunt) {
   }
 
   grunt.registerTask('validate', validate);
-  grunt.registerTask('analyze', analyze);
+
+  if (analyze.length < 2) {
+    grunt.registerTask('analyze', analyze);
+  }
+  else {
+    grunt.loadNpmTasks('grunt-concurrent');
+    grunt.config(['concurrent', 'analyze'], {
+      tasks: analyze,
+      options: {
+        logConcurrentOutput: true
+      }
+    });
+    grunt.registerTask('analyze', ['concurrent:analyze']);
+  }
 
   grunt.config('help.validate', {
     group: 'Testing & Code Quality',
