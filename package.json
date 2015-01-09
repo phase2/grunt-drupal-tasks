@@ -35,5 +35,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/phase2/grunt-drupal-tasks.git"
+  },
+  "scripts": {
+    "test": "./test/test.sh"
   }
 }
