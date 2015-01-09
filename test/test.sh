@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-test/create_working_copy.sh
+set -e
+./test/create_working_copy.sh
 cd test/working_copy/
 grunt --quiet
 grunt drush:liteinstall --quiet
