@@ -14,7 +14,7 @@
     "grunt-contrib-copy": "~0.7.0",
     "grunt-contrib-symlink": "~0.3.0",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-drush": "~0.0.3",
+    "grunt-drush": "0.0.3",
     "grunt-mkdir": "~0.1.1",
     "grunt-newer": "~0.8.0",
     "grunt-notify": "git+https://github.com/grayside/grunt-notify.git#0.5.0",
