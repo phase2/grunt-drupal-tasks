@@ -1,8 +1,9 @@
 # Drupal Grunt Build and Testing Tasks
 
 Code Status (master branch):
-<a href="https://travis-ci.org/phase2/grunt-drupal-tasks"><img src="https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master"></a>
+[![Travis CI status](https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master)](https://travis-ci.org/phase2/grunt-drupal-tasks)
 [![Dependency Status](https://david-dm.org/phase2/grunt-drupal-tasks.svg)](https://david-dm.org/phase2/grunt-drupal-tasks)
+[![npm version](https://badge.fury.io/js/grunt-drupal-tasks.svg)](https://www.npmjs.com/package/grunt-drupal-tasks)
 
 ## Requirements
 
