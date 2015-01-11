@@ -316,3 +316,23 @@ this format, see: http://gruntjs.com/configuring-tasks#files
 **packages.projFiles**: An array of files or file patterns to include or exclude
 from the project directory when building a package. The above includes README
 files and files under bin/ in the project's package.
+
+### Help Settings
+
+If you add custom tasks to your project and want them exposed as part of the
+`help` task, you may add the following configuration to your `Gruntconfig.json`
+on a per task basis:
+
+```
+{
+  "help": {
+    "task-name": {
+      "group": "Include Task in this Named Group",
+      "description": "Optional description that overrides the default description you would see in `grunt -h`"
+    }
+  }
+}
+```
+
+If you want to include your task in one of the existing groupings, copy the text
+exactly as seen in the output of the `grunt help` task.
