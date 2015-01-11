@@ -6,9 +6,9 @@ module.exports = function(grunt) {
   });
 
   // Allow Gruntconfig.json to set default descriptions.
+  // tasks/zzz_help.js checks the root 'help' config namespace.
   if (config.help) {
     grunt.config('help', config.help);
-    grunt.config('config.help', '');
   }
 
   // Wrap Grunt's loadNpmTasks() function to change the current directory to
