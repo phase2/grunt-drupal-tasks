@@ -5,6 +5,12 @@ module.exports = function(grunt) {
     config: config
   });
 
+  // Allow Gruntconfig.json to set default descriptions.
+  // tasks/zzz_help.js checks the root 'help' config namespace.
+  if (config.help) {
+    grunt.config('help', config.help);
+  }
+
   // Wrap Grunt's loadNpmTasks() function to change the current directory to
   // grunt-drupal-tasks, so that module dependencies of it are found.
   grunt._loadNpmTasks = grunt.loadNpmTasks;

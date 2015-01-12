@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## v0.5.1
+
+- Critical bug fixes to Bundler and Drush support
+- Adding a script to support the `npm test` command for running an end-to-end
+test on Grunt Drupal Tasks functionality similar to the Travis CI script
+
+### Upgrade Notes
+
+- Update your project's package.json to require at least v0.5.1 of Grunt Drupal
+Tasks by using the `~0.5.1` version field value.
+
 ## v0.5.0
 
 - Moving main Grunt Drupal Tasks library code from Gruntfile.js to bootstrap.js
