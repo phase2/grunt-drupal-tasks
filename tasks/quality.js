@@ -48,6 +48,9 @@ module.exports = function(grunt) {
     var phpStandard = grunt.config('config.phpcs.standard')
       || 'vendor/drupal/coder/coder_sniffer/Drupal';
 
+    var ignoreError = grunt.config('config.phpcs.ignoreExitCode');
+    ignoreError = ignoreError === undefined ? true : ignoreError;
+
     grunt.config('phpcs', {
       analyze: {
         dir: phpcs
@@ -79,7 +82,7 @@ module.exports = function(grunt) {
         bin: '<%= config.phpcs.path %>',
         standard: phpStandard,
         extensions: 'php,install,module,inc,profile',
-        ignoreExitCode: true,
+        ignoreExitCode: ignoreError,
         report: 'checkstyle',
         reportFile: '<%= config.buildPaths.reports %>/phpcs.xml'
       }
