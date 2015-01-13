@@ -14,10 +14,13 @@ mkdir test/working_copy
 
 # Copy the example skeleton into working_copy
 cp -r example/* test/working_copy
-echo -e "<?php\n\$x = 10;" > test/working_copy/src/modules/test.php
+
+# Copy the test assets into working_copy
+cd test/test_assets
+for file in `find . -type f`; do mkdir -p ../working_copy/`dirname $file`; cp $file ../working_copy/$file; done;
 
 # Install dependencies of working_copy
-cd test/working_copy
+cd ../working_copy
 npm install
 
 # Force installation of the checked out version of grunt-drupal-tasks
