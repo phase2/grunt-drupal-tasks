@@ -20,9 +20,9 @@ line interface, by running:
 npm install -g grunt-cli
 ```
 
-* Optional: The example included and some optional features require
-  <a href="https://getcomposer.org/download/">Composer</a> for installing
-  supporting tools, like Behat, PHP CodeSniffer, and more.
+* Some optional features, used in the included example and end-to-end test
+  suite, require additional tools, including <a href="http://bundler.io/">Bundler</a>,
+  <a href="https://getcomposer.org/download/">Composer</a>, Ruby, and RubyGems.
 
 ## Features
 
