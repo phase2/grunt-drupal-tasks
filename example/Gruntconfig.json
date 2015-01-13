@@ -24,6 +24,7 @@
     "path": "bin/phpmd"
   },
   "drush": {
+    "cmd": "bin/drush",
     "make": {
       "args": ["--concurrency=16"]
     }

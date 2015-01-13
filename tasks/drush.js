@@ -10,28 +10,33 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-newer');
 
   // Allow extra arguments for drush to be supplied.
-  var args = ['make', '<%= config.srcPaths.make %>'],
+  var args = ['make', '<%= config.srcPaths.make %>', '<%= config.buildPaths.temp %>'],
     extra_args = grunt.config.get('config.drush.make.args');
   if (extra_args && extra_args.length) {
     extra_args.unshift(args[0]);
     extra_args.push(args[1]);
+    extra_args.push(args[2]);
     args = extra_args;
   }
 
   grunt.config('drush', {
     make: {
       args: args,
-      dest: '<%= config.buildPaths.temp %>'
+      options: {
+        cmd: '<%= config.drush.cmd %>'
+      }
     },
     liteinstall: {
       args: ['site-install', '-y', 'standard', '--db-url=sqlite://drupal:drupal@drupal.sqlite'],
-      dest: '',
-      cwd: '<%= config.buildPaths.html %>'
+      options: {
+        cwd: '<%= config.buildPaths.html %>'
+      }
     },
     runserver: {
       args: ['runserver', '8080'],
-      dest: '',
-      cwd: '<%= config.buildPaths.html %>'
+      options: {
+        cwd: '<%= config.buildPaths.html %>'
+      }
     }
   });
 
