@@ -222,12 +222,16 @@ This is an example of the settings for Drush tasks:
 ```
 {
   "drush": {
+    "cmd": "/usr/bin/drush",
     "make": {
       "args": ["--force-complete", "--working-copy"]
     }
   }
 }
 ```
+
+**drush.cmd**: The path to the Drush executable that should be used for all
+Drush operations.
 
 **drush.make.args**: An array of arguments to pass to Drush for the make
 operation.
