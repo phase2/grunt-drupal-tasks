@@ -26,40 +26,41 @@ module.exports = function(grunt) {
    * }
    */
 
-  grunt.loadNpmTasks('grunt-contrib-compass');
-
   var config = grunt.config.get('config'),
     _ = require('lodash'),
-    steps = [],
     parallelTasks = [];
 
   if (config.themes) {
+    grunt.loadNpmTasks('grunt-contrib-compass');
+
     for (var key in config.themes) {
-      if (config.themes.hasOwnProperty(key) && config.themes[key].compass) {
-        var theme = config.themes[key],
-          options = (theme.compass && typeof theme.compass === 'object') ? theme.compass : {};
+      grunt.config(['compile-theme', key], grunt.config('config.themes.' + key));
+      grunt.registerMultiTask('compile-theme', '', function() {
+        grunt.log.debug('Emitting compile.theme event.');
+        grunt.event.emit('compile.theme', this.target, this.data);
+      });
+    }
 
-        grunt.config(['compass', key], {
-          options: _.extend({
-            basePath: theme.path,
-            config: theme.path + '/config.rb',
-            bundleExec: true
-          }, options)
-        });
+    if (config.themes.hasOwnProperty(key) && config.themes[key].compass) {
+      var theme = config.themes[key],
+        options = (theme.compass && typeof theme.compass === 'object') ? theme.compass : {};
 
-        steps.push('compass:' + key);
+      grunt.config(['compass', key], {
+        options: _.extend({
+          basePath: theme.path,
+          config: theme.path + '/config.rb',
+          bundleExec: true
+        }, options)
+      });
 
-        // Provide a watch handler
-        grunt.config(['watch', 'compass-' + key], {
-          files: [
-            theme.path + '/**/*.scss'
-          ],
-          tasks: ['compass:' + key]
-        });
-
-        // Add this watch to the parallel watch-theme task
-        parallelTasks.push('watch:compass-' + key);
-      }
+      grunt.config(['watch', 'compass-' + key], {
+        files: [
+          theme.path + '/**/*.scss'
+        ],
+        tasks: ['compass:' + key]
+      });
+      // Add this watch to the parallel watch-theme task
+      parallelTasks.push('watch:compass-' + key);
     }
 
     if (parallelTasks) {
@@ -77,14 +78,14 @@ module.exports = function(grunt) {
         description: "Watch for changes that should rebuild frontend assets, such as CSS."
       });
     }
-
-    if (steps) {
-      grunt.registerTask('compile-theme', steps);
-      grunt.config('help.compile-theme', {
-        group: 'Asset & Code Compilation',
-        description: 'Run compilers for the theme, such as Compass.'
-      });
-    }
-
   }
+
+  // Example of reacting to the compile.theme event.
+  grunt.event.on('compile.theme', function(theme, config) {
+    if (config.compass) {
+      grunt.log.debug('Processing theme "' + theme + '" with compass.')
+      grunt.task.run('compass:' + theme);
+    }
+  });
+
 };
