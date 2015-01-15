@@ -21,8 +21,9 @@ module.exports = function(grunt) {
       files: [
         {
           expand: true,
+          dot: true,
           cwd: '<%= config.buildPaths.html %>',
-          src: ['**'].concat(srcFiles),
+          src: ['**', '!**/.gitkeep'].concat(srcFiles),
           dest: 'docroot/'
         },
         {
