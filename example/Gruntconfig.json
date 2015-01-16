@@ -24,10 +24,7 @@
     "path": "bin/phpmd"
   },
   "drush": {
-    "cmd": "bin/drush",
-    "make": {
-      "args": ["--concurrency=16"]
-    }
+    "cmd": "bin/drush"
   },
   "behat": {
     "flags": "--tags ~@wip"
