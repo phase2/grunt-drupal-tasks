@@ -8,38 +8,21 @@ module.exports = function(grunt) {
    */
 
   grunt.loadNpmTasks('grunt-available-tasks');
+  var gdt = require('../lib/gdt')(grunt);
 
-  grunt.config('help.default', {
+  gdt.help.add({
+    task: 'default',
     group: 'Build Process',
     description: 'The default build process that executes when "grunt" runs, which includes verifying dependencies and assembling the build directory.'
-  });
-
-  var help = grunt.config.get('help'),
-    items = Object.keys(help),
-    descriptions = {},
-    groups = {};
-
-  items.forEach(function(item) {
-    if (help[item]['description']) {
-      descriptions[item] = help[item]['description'];
-    }
-    if (help[item]['group']) {
-      var groupName = help[item]['group'];
-      if (groups[groupName] == undefined) {
-        groups[groupName] = [];
-      }
-      groups[groupName].push(item);
-    }
   });
 
   grunt.config(['availabletasks', 'help'], {
     options: {
       filter: 'include',
-      tasks: Object.keys(help),
-      descriptions: descriptions,
-      groups: groups
     }
   });
+
+  console.log(gdt);
 
   grunt.registerTask('help', ['availabletasks:help']);
 };
