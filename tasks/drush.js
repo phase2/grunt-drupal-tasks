@@ -9,10 +9,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-drush');
   grunt.loadNpmTasks('grunt-newer');
 
-  var _ = require('lodash');
+  var path = require('path'),
+    _ = require('lodash');
 
   // If no path is configured for Drush, fallback to the system path.
-  var cmd = grunt.config('config.drush.cmd') !== undefined ? {cmd: grunt.config('config.drush.cmd')} : {};
+  var cmd = grunt.config('config.drush.cmd') !== undefined ? {cmd: path.resolve(grunt.config('config.drush.cmd'))} : {};
 
   // Allow extra arguments for drush to be supplied.
   var args = ['make', '<%= config.srcPaths.make %>', '<%= config.buildPaths.temp %>'],
