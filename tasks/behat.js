@@ -24,6 +24,7 @@ module.exports = function(grunt) {
    *   }
    */
   grunt.loadNpmTasks('grunt-parallel-behat');
+  var GDT = require('../lib/gdt')(grunt);
 
   var config = grunt.config.get('config'),
     flags = '',
@@ -69,7 +70,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test', ['behat']);
 
-    grunt.config('help.test', {
+    GDT.help.add({
+      task: 'test',
       group: 'Testing & Code Quality',
       description: 'Run the Behat tests included with this project.'
     });

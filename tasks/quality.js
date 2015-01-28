@@ -16,6 +16,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-phplint');
   grunt.loadNpmTasks('grunt-phpcs');
   grunt.loadNpmTasks('grunt-phpmd');
+  var GDT = require('../lib/gdt')(grunt);
 
   // Task set aliases are registered at the end of the file based on these values.
   var validate = [];
@@ -126,12 +127,16 @@ module.exports = function(grunt) {
     grunt.registerTask('analyze', ['concurrent:analyze']);
   }
 
-  grunt.config('help.validate', {
-    group: 'Testing & Code Quality',
-    description: 'Quick code health check for syntax errors and basic practices. (e.g. PHPCS w/ Drush Coder rules)'
-  });
-  grunt.config('help.analyze', {
-    group: 'Testing & Code Quality',
-    description: 'Static codebase analysis to detect problems. Outputs Jenkins-compatible reports. (e.g. PHPMD)'
-  });
+  GDT.help.add([
+    {
+      task: 'validate',
+      group: 'Testing & Code Quality',
+      description: 'Quick code health check for syntax errors and basic practices. (e.g. PHPCS w/ Drush Coder rules)'
+    },
+    {
+      task: 'analyze',
+      group: 'Testing & Code Quality',
+      description: 'Static codebase analysis to detect problems. Outputs Jenkins-compatible reports. (e.g. PHPMD)'
+    }
+  ]);
 };

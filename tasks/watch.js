@@ -8,6 +8,7 @@ module.exports = function(grunt) {
    * a file in the testing features directory changes.
    */
   grunt.loadNpmTasks('grunt-contrib-watch');
+  var GDT = require('../lib/gdt')(grunt);
 
   grunt.config(['watch', 'test'], {
     files: [
@@ -38,8 +39,9 @@ module.exports = function(grunt) {
     grunt.task.run('concurrent:watch-test');
   });
 
-  grunt.config('help.watch-test', {
+  GDT.help.add({
+    task: 'watch-test',
     group: 'Real-time Tooling',
-    description: "Watch for changes that should trigger new testing and validation of the codebase."
+    description: 'Watch for changes that should trigger new testing and validation of the codebase.'
   });
 }

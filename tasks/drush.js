@@ -8,6 +8,7 @@ module.exports = function(grunt) {
    */
   grunt.loadNpmTasks('grunt-drush');
   grunt.loadNpmTasks('grunt-newer');
+  var GDT = require('../lib/gdt')(grunt);
 
   // Provide a default path for drush.
   var cmd = grunt.config('config.drush.cmd') || process.cwd() + '/bin/drush';
@@ -59,11 +60,15 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.config('help.drushmake', {
-    group: 'Dependency Management'
-  });
-  grunt.config('help.newer', {
-    group: 'Dependency Management',
-    description: 'Use "newer:drushmake" to run the drushmake task only if the make file was updated.'
-  });
+  GDT.help.add([
+    {
+      task: 'drushmake',
+      group: 'Dependency Management'
+    },
+    {
+      task: 'newer',
+      group: 'Dependency Management',
+      description: 'Use "newer:drushmake" to run the drushmake task only if the make file was updated.'
+    }
+  ]);
 };
