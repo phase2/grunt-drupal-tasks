@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## NEXT
+
+- Allow composer-installed binaries to be symlinked from the default directory
+  of `vendor/bin` to facilitate custom scripts in `bin/`.
+- Install Ruby libraries in `vendor/bundler` and binaries in `vendor/bin`.
+  `bundle exec` should continue to execute as normal, but see Upgrade Notes.
+
+
+### Upgrade Notes
+
+- If you are using the default `Gruntconfig.json` example for bin paths on PHP
+  scripts, you should be fine.
+- You may need to run `rm -Rf .bundle` to clear bundler configuration to make
+  way for the new install location.
+
+
 ## v0.5.2 [2015/01/24]
 
 - Adding configuration for the Drush executable path, whether to trigger a fail
