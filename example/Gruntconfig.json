@@ -18,13 +18,13 @@
     "projFiles": ["README*", "bin/**"]
   },
   "phpcs": {
-    "path": "bin/phpcs"
+    "path": "vendor/bin/phpcs"
   },
   "phpmd": {
-    "path": "bin/phpmd"
+    "path": "vendor/bin/phpmd"
   },
   "drush": {
-    "cmd": "bin/drush",
+    "cmd": "vendor/bin/drush",
     "make": {
       "args": ["--concurrency=16"]
     }
