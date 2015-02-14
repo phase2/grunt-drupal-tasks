@@ -18,6 +18,8 @@ script:
   - export PATH=$PATH:`pwd`/bin
   - grunt --timer
   - echo "Example fully built disk usage"; du -chs .
+  - find . -name 'BeforeUserCreateScope.php'
+  - exit 0
   - grunt drush:liteinstall --timer
   - grunt drush:runserver &
   - until curl -I -XGET -s http://127.0.0.1:8080/misc/drupal.js 2>/dev/null | egrep -q '^HTTP.*200'; do sleep 0.5; done
