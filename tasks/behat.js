@@ -55,7 +55,7 @@ module.exports = function(grunt) {
             src: options.src || './test/features/**/*.feature',
             options: _.extend({
               config: './test/behat.yml',
-              maxProcesses: 5,
+              maxProcesses: 1,
               bin: './bin/behat',
               debug: true,
               env: {
