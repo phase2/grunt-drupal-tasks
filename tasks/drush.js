@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 
   grunt.config('drush', {
     make: {
-      args: args,
+      args: make_args,
       options: _.extend({}, cmd)
     },
     liteinstall: {
