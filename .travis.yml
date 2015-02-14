@@ -18,7 +18,7 @@ script:
   - export PATH=$PATH:`pwd`/bin
   - grunt --timer
   - echo "Example fully built disk usage"; du -chs .
-  - find . -name 'BeforeUserCreateScope.php'
+  - find ~ -name 'BeforeUserCreateScope.php'
   - exit 0
   - grunt drush:liteinstall --timer
   - grunt drush:runserver &
