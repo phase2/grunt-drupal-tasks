@@ -1,3 +1,4 @@
+sudo: false
 language: php
 php: [5.5, 5.4]
 before_install:
@@ -19,6 +20,6 @@ script:
   - echo "Example fully built disk usage"; du -chs .
   - grunt drush:liteinstall --timer
   - grunt drush:runserver &
-  - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do sleep 0.2; done
+  - until curl -I -XGET -s http://127.0.0.1:8080/misc/drupal.js 2>/dev/null | egrep -q '^HTTP.*200'; do sleep 0.5; done
   - grunt test --timer
   - mocha node_modules/grunt-drupal-tasks/test
