@@ -231,7 +231,8 @@ This is an example of the settings for Drush tasks:
 ```
 
 **drush.cmd**: The path to the Drush executable that should be used for all
-Drush operations.
+Drush operations. If none is specified, the Drush executable found in the
+default PATH will be used.
 
 **drush.make.args**: An array of arguments to pass to Drush for the make
 operation.

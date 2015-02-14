@@ -1,7 +1,7 @@
 {
   "name": "grunt-drupal-tasks",
   "description": "Grunt-based build and testing tasks for Drupal projects.",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "main": "bootstrap.js",
   "dependencies": {
     "grunt-available-tasks": "0.5.4",
