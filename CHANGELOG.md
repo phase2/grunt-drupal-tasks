@@ -2,11 +2,9 @@
 
 ## NEXT
 
-- Allow composer-installed binaries to be symlinked from the default directory
-  of `vendor/bin` to facilitate custom scripts in `bin/`.
-- Install Ruby libraries in `vendor/bundler` and binaries in `vendor/bin`.
-  `bundle exec` should continue to execute as normal, but see Upgrade Notes.
-
+- Ruby (bundler) will now install dependencies into `vendor/bundle`.
+- Ruby and PHP upstream binaries are placed or symlinked from `vendor/bin`.
+  This frees up `bin/` for custom project scripts.
 
 ### Upgrade Notes
 
