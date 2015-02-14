@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## NEXT
+
+- Dynamically compute Drush Make concurrency based on system capability with a
+  new concurrency detection service.
+
+### Upgrade Notes
+
+- Remove --concurrency flag from your Gruntconfig. It will no logner be respected.
+
 ## v0.5.2 [2015/01/24]
 
 - Adding configuration for the Drush executable path, whether to trigger a fail
