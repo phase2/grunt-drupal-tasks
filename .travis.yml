@@ -3,6 +3,8 @@ php: [5.5, 5.4]
 before_install:
   - composer self-update
   - echo "sendmail_path='true'" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
+  - echo "opcache.enable_cli=0" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
+  - echo "opcache.enable=0" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
 install:
   - echo "Code checkout disk usage"; du -chs .; ls -lRa
   - ./test/create_working_copy.sh
