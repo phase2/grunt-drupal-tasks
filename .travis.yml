@@ -1,6 +1,8 @@
 language: php
 php: [5.5, 5.4]
 before_install:
+  - php -i
+  - exit 0
   - composer self-update
   - echo "sendmail_path='true'" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
   - sed -i '/opcache.so/d' `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
