@@ -1,12 +1,13 @@
 sudo: false
 language: php
-php: [5.5, 5.4]
+php: 5.5.9
 before_install:
   - composer self-update
   - echo "sendmail_path='true'" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
   - sed -i '/opcache.so/d' `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
   - sed -i '/apc.so/d' `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
   - phpenv config-rm xdebug.ini
+  - php -i
 install:
   - echo "Code checkout disk usage"; du -chs .; ls -lRa
   - ./test/create_working_copy.sh
