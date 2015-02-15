@@ -276,6 +276,22 @@ directly to
 [grunt-contrib-compass](https://github.com/gruntjs/grunt-contrib-compass)
 for this theme.
 
+#### Setting Up Gem Dependencies
+
+In order for compass compilation to work, you will need to create a Gemfile
+at your project root. The presence of this Gemfile will activate the `grunt
+bundle-install` task and automatically add it to the build process.
+
+A typical Gemfile focused on SASS support might look like the following:
+
+```ruby
+source 'https://rubygems.org'
+
+gem 'sass', '~>3.3.0'
+gem 'compass', '~> 1.0.1'
+gem 'json', '~>1.8.2'
+```
+
 ### Validate Settings
 
 This is an example of the settings for the validate tasks:
