@@ -26,14 +26,13 @@ module.exports = function(grunt) {
    * }
    */
 
-  grunt.loadNpmTasks('grunt-contrib-compass');
-
   var config = grunt.config.get('config'),
     _ = require('lodash'),
     steps = [],
     parallelTasks = [];
 
   if (config.themes) {
+    grunt.loadNpmTasks('grunt-contrib-compass');
     for (var key in config.themes) {
       if (config.themes.hasOwnProperty(key) && config.themes[key].compass) {
         var theme = config.themes[key],
