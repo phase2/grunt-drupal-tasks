@@ -21,9 +21,9 @@
     "grunt-phpcs": "git+https://github.com/grayside/grunt-phpcs.git#0.3.0",
     "grunt-phplint": "0.0.5",
     "grunt-phpmd": "0.1.1",
-    "grunt-shell": "1.1.1",
+    "grunt-shell": "1.1.2",
     "lodash": "2.4.1",
-    "time-grunt": "1.0.0"
+    "time-grunt": "1.1.0"
   },
   "peerDependencies": {
     "grunt": ">= 0.4.5 < 0.5"
