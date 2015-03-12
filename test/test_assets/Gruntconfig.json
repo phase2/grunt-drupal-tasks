@@ -3,13 +3,6 @@
     "make": "src/project.make",
     "drupal": "src"
   },
-  "buildPaths": {
-    "build": "build",
-    "html": "build/html",
-    "package": "build/packages",
-    "reports": "build/reports",
-    "temp": "build/temp"
-  },
   "siteUrls": {
     "default": "http://project.local"
   },

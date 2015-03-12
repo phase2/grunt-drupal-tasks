@@ -123,7 +123,8 @@ module.exports = function(grunt) {
         logConcurrentOutput: true
       }
     });
-    grunt.registerTask('analyze', ['concurrent:analyze']);
+
+    grunt.registerTask('analyze', ['mkdir:init', 'concurrent:analyze']);
   }
 
   grunt.config('help.validate', {
