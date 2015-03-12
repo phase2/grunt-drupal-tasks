@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## NEXT
+
+- Ruby (bundler) will now install dependencies into `vendor/bundle`.
+- Ruby and PHP upstream binaries are placed or symlinked from `vendor/bin`.
+  This frees up `bin/` for custom project scripts.
+
+### Upgrade Notes
+
+- If you are using the default `Gruntconfig.json` example for bin paths on PHP
+  scripts, you should be fine.
+- You may need to run `rm -Rf .bundle` to clear bundler configuration to make
+  way for the new install location.
+
+
 ## v0.5.2 [2015/01/24]
 
 - Adding configuration for the Drush executable path, whether to trigger a fail
