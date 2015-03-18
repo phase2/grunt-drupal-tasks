@@ -7,7 +7,20 @@
 
 ### Upgrade Notes
 
-- Remove --concurrency flag from your Gruntconfig. It will no logner be respected.
+- Remove `--concurrency` flag from your Gruntconfig. It will no longer be respected.
+- Ruby (bundler) will now install dependencies into `vendor/bundle`.
+- Ruby and PHP upstream binaries are placed or symlinked from `vendor/bin`.
+  This frees up `bin/` for custom project scripts.
+- Moving more default Gruntconfig.json into code for a slimmer project Gruntconfig.
+
+### Upgrade Notes
+
+- If you are using the default `Gruntconfig.json` example for bin paths on PHP
+  scripts, you should be fine.
+- You may need to run `rm -Rf .bundle` to clear bundler configuration to make
+  way for the new install location.
+- Gruntconfig.json no longer needs the `buildPaths` config key. Elements of
+  `buildPaths` added to your project Gruntconfig will override default behavior.
 
 ## v0.5.2 [2015/01/24]
 

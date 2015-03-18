@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 module.exports = function(grunt) {
   // Initialize global configuration variables.
   var config = grunt.file.readJSON('Gruntconfig.json');
@@ -10,6 +12,17 @@ module.exports = function(grunt) {
   if (config.help) {
     grunt.config('help', config.help);
   }
+
+  // Set implicit global configuration.
+  var buildPaths = grunt.config('config.buildPaths');
+  buildPaths = _.extend({
+    build: 'build',
+    html: 'build/html',
+    package: 'build/packages',
+    reports: 'build/reports',
+    temp: 'build/temp'
+  });
+  grunt.config('config.buildPaths', buildPaths);
 
   // Wrap Grunt's loadNpmTasks() function to change the current directory to
   // grunt-drupal-tasks, so that module dependencies of it are found.
