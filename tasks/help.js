@@ -8,9 +8,9 @@ module.exports = function(grunt) {
    */
 
   grunt.loadNpmTasks('grunt-available-tasks');
-  var GDT = require('../lib/gdt')(grunt);
+  var Help = require('../lib/help')(grunt);
 
-  GDT.help.add({
+  Help.add({
     task: 'default',
     group: 'Build Process',
     description: 'The default build process that executes when "grunt" runs, which includes verifying dependencies and assembling the build directory.'

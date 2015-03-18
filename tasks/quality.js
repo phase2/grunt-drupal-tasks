@@ -16,7 +16,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-phplint');
   grunt.loadNpmTasks('grunt-phpcs');
   grunt.loadNpmTasks('grunt-phpmd');
-  var GDT = require('../lib/gdt')(grunt);
+  var Help = require('../lib/help')(grunt);
 
   // Task set aliases are registered at the end of the file based on these values.
   var validate = [];
@@ -127,7 +127,7 @@ module.exports = function(grunt) {
     grunt.registerTask('analyze', ['concurrent:analyze']);
   }
 
-  GDT.help.add([
+  Help.add([
     {
       task: 'validate',
       group: 'Testing & Code Quality',

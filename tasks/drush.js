@@ -8,7 +8,7 @@ module.exports = function(grunt) {
    */
   grunt.loadNpmTasks('grunt-drush');
   grunt.loadNpmTasks('grunt-newer');
-  var GDT = require('../lib/gdt')(grunt);
+  var Help = require('../lib/help')(grunt);
 
   // Provide a default path for drush.
   var cmd = grunt.config('config.drush.cmd') || process.cwd() + '/bin/drush';
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
     }
   });
 
-  GDT.help.add([
+  Help.add([
     {
       task: 'drushmake',
       group: 'Dependency Management'

@@ -7,7 +7,7 @@ module.exports = function(grunt) {
    *   Builds a deployment package in the build/package directory.
    */
   grunt.loadNpmTasks('grunt-contrib-compress');
-  var GDT = require('../lib/gdt')(grunt);
+  var Help = require('../lib/help')(grunt);
 
   var config = grunt.config.get('config'),
     srcFiles = (config.packages && config.packages.srcFiles && config.packages.srcFiles.length) ? config.packages.srcFiles : [],
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
     grunt.task.run(this.data);
   });
 
-  GDT.help.add({
+  Help.add({
     task: 'package',
     group: 'Operations'
   });

@@ -9,11 +9,11 @@ module.exports = function(grunt) {
   var config = grunt.config.get('config');
   if (require('fs').existsSync('./composer.json')) {
     grunt.loadNpmTasks('grunt-composer');
-    var GDT = require('../lib/gdt')(grunt);
+    var Help = require('../lib/help')(grunt);
 
     grunt.config(['composer', 'install'], {});
 
-    GDT.help.add({
+    Help.add({
       task: 'composer',
       group: 'Dependency Management',
       description: 'Install dependencies defined in this project\'s composer.json file.'

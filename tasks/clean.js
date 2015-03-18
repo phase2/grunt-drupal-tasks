@@ -10,7 +10,7 @@ module.exports = function(grunt) {
    *   Removes sites/default in the build/html directory.
    */
   grunt.loadNpmTasks('grunt-contrib-clean');
-  var GDT = require('../lib/gdt')(grunt);
+  var Help = require('../lib/help')(grunt);
 
   grunt.config('clean', {
     default: [
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
     ]
   });
 
-  GDT.help.add({
+  Help.add({
     task: 'clean',
     group: 'Utilities',
     description: 'Use "clean" to remove the build output directory.'
