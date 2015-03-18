@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 
   if (grunt.file.exists('Gemfile')) {
     grunt.config(['shell', 'bundle-install'], {
-      command: "bundle install --binstubs=gems/bin"
+      command: "bundle install --binstubs=vendor/bin --path=vendor/bundle"
     });
     grunt.registerTask('bundleInstall', ['shell:bundle-install']);
     grunt.registerTask('bundle-install', ['shell:bundle-install']);

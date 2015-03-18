@@ -10,7 +10,7 @@ Drupal project. To download this template, you can use the following two
 commands:
 
 1. In an empty directory, run:
-   `npm install grunt grunt-drupal-tasks`
+   `npm install grunt-drupal-tasks`
 
 2. Copy the contents of node_modules/grunt-drupal-tasks/example to your starting
    directory, by running:
@@ -231,7 +231,8 @@ This is an example of the settings for Drush tasks:
 ```
 
 **drush.cmd**: The path to the Drush executable that should be used for all
-Drush operations.
+Drush operations. If none is specified, the Drush executable found in the
+default PATH will be used.
 
 **drush.make.args**: An array of arguments to pass to Drush for the make
 operation.
@@ -274,6 +275,22 @@ enable with default compass options, or a configuration object to be passed
 directly to 
 [grunt-contrib-compass](https://github.com/gruntjs/grunt-contrib-compass)
 for this theme.
+
+#### Setting Up Gem Dependencies
+
+In order for compass compilation to work, you will need to create a Gemfile
+at your project root. The presence of this Gemfile will activate the `grunt
+bundle-install` task and automatically add it to the build process.
+
+A typical Gemfile focused on SASS support might look like the following:
+
+```ruby
+source 'https://rubygems.org'
+
+gem 'sass', '~>3.3.0'
+gem 'compass', '~> 1.0.1'
+gem 'json', '~>1.8.2'
+```
 
 ### Validate Settings
 

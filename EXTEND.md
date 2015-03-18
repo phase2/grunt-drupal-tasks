@@ -47,7 +47,7 @@ configuration element, or a redefinition of the entire task.
 
 #### Override a task's configuration
 
-In your project's `Gruntconfig.json`, use the `grunt.config.set()` function to
+In your project's `Gruntfile.js`, use the `grunt.config.set()` function to
 override the task's default configuration provided by Grunt Drupal Tasks.
 
 The following example changes the list of files scanned by the `phplint:all`
@@ -63,7 +63,7 @@ grunt.config.set('phplint', {
 
 #### Re-register the validate task
 
-In your project's `Gruntconfig.json`, use the `grunt.registerTask()` function to
+In your project's `Gruntfile.js`, use the `grunt.registerTask()` function to
 override task aliases, like default, validate, and analyze.
 
 The following example changes the list of tasks run by the `validate` command:

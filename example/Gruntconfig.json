@@ -3,13 +3,6 @@
     "make": "src/project.make",
     "drupal": "src"
   },
-  "buildPaths": {
-    "build": "build",
-    "html": "build/html",
-    "package": "build/packages",
-    "reports": "build/reports",
-    "temp": "build/temp"
-  },
   "siteUrls": {
     "default": "http://project.local"
   },
@@ -18,13 +11,13 @@
     "projFiles": ["README*", "bin/**"]
   },
   "phpcs": {
-    "path": "bin/phpcs"
+    "path": "vendor/bin/phpcs"
   },
   "phpmd": {
-    "path": "bin/phpmd"
+    "path": "vendor/bin/phpmd"
   },
   "drush": {
-    "cmd": "bin/drush",
+    "cmd": "vendor/bin/drush",
     "make": {
       "args": ["--concurrency=16"]
     }

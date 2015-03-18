@@ -1,6 +1,44 @@
 # CHANGELOG
 
-## v0.5.1
+## NEXT
+
+- Ruby (bundler) will now install dependencies into `vendor/bundle`.
+- Ruby and PHP upstream binaries are placed or symlinked from `vendor/bin`.
+  This frees up `bin/` for custom project scripts.
+- Moving more default Gruntconfig.json into code for a slimmer project Gruntconfig.
+
+### Upgrade Notes
+
+- If you are using the default `Gruntconfig.json` example for bin paths on PHP
+  scripts, you should be fine.
+- You may need to run `rm -Rf .bundle` to clear bundler configuration to make
+  way for the new install location.
+- Gruntconfig.json no longer needs the `buildPaths` config key. Elements of
+  `buildPaths` added to your project Gruntconfig will override default behavior.
+
+## v0.5.2 [2015/01/24]
+
+- Adding configuration for the Drush executable path, whether to trigger a fail
+for PHPCS warnings, and help text for custom tasks
+- Including dot files in `package` task results
+- Pinning npm dependencies to a specific version for stability
+- Adding tests for Compass theme compilation (and implicitly Bundler dependency
+installation)
+
+### Upgrade Notes
+
+- The example project's configuration will install a copy of Drush in the
+project's `bin/` directory, and use this copy for all Drush operations. To
+adopt this practice on existing projects, add the Drush dependency to your
+project's `composer.json` and specify the path in Gruntconfig.json with:
+
+```json
+  "drush": {
+    "cmd": "bin/drush"
+  }
+```
+
+## v0.5.1 [2015/01/10]
 
 - Critical bug fixes to Bundler and Drush support
 - Adding a script to support the `npm test` command for running an end-to-end
@@ -11,7 +49,7 @@ test on Grunt Drupal Tasks functionality similar to the Travis CI script
 - Update your project's package.json to require at least v0.5.1 of Grunt Drupal
 Tasks by using the `~0.5.1` version field value.
 
-## v0.5.0
+## v0.5.0 [2015/01/05]
 
 - Moving main Grunt Drupal Tasks library code from Gruntfile.js to bootstrap.js
 - Adding integration with OS notification features with grunt-notify

@@ -57,7 +57,7 @@ module.exports = function(grunt) {
             options: _.extend({
               config: './test/behat.yml',
               maxProcesses: 5,
-              bin: './bin/behat',
+              bin: 'vendor/bin/behat',
               debug: true,
               env: {
                 "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\", \"zombie\": {\"node_modules_path\": \"" + process.cwd() + "/node_modules/\"}}}}"
