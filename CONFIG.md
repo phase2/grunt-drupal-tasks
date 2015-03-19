@@ -341,22 +341,36 @@ this format, see: http://gruntjs.com/configuring-tasks#files
 from the project directory when building a package. The above includes README
 files and files under bin/ in the project's package.
 
-### Help Settings
+### Help Settings (Help API)
 
 If you add custom tasks to your project and want them exposed as part of the
-`help` task, you may add the following configuration to your `Gruntconfig.json`
-on a per task basis:
+`help` task, you may add a simple code snippet to your Gruntfile.js or any loaded
+task file.
 
-```
-{
-  "help": {
-    "task-name": {
-      "group": "Include Task in this Named Group",
-      "description": "Optional description that overrides the default description you would see in `grunt -h`"
-    }
+```js
+var Help = require('grunt-drupal-tasks/lib/help');
+
+Help.addItem('existing-task', 'Named Group', 'Optional description that avoids the default task description.');
+
+Help.add({
+  task: 'existing-task',
+  group: 'Named Group',
+  description: 'Optional description that avoids the default task description.'
+});
+
+Help.add([
+  {
+    task: 'existing-task',
+    group: 'Named Group',
+    description: 'Optional description that avoids the default task description.'
+  },
+  {
+    task: 'second-task',
+    group: 'Named Group',
+    description: 'A second registered task to register with the help system.'
   }
-}
+]);
 ```
 
-If you want to include your task in one of the existing groupings, copy the text
+If you want to include your task in one of the existing groups, copy the text
 exactly as seen in the output of the `grunt help` task.

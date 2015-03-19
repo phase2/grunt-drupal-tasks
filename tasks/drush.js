@@ -8,6 +8,7 @@ module.exports = function(grunt) {
    */
   grunt.loadNpmTasks('grunt-drush');
   grunt.loadNpmTasks('grunt-newer');
+  var Help = require('../lib/help')(grunt);
 
   var path = require('path'),
     _ = require('lodash');
@@ -58,11 +59,15 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.config('help.drushmake', {
-    group: 'Dependency Management'
-  });
-  grunt.config('help.newer', {
-    group: 'Dependency Management',
-    description: 'Use "newer:drushmake" to run the drushmake task only if the make file was updated.'
-  });
+  Help.add([
+    {
+      task: 'drushmake',
+      group: 'Dependency Management'
+    },
+    {
+      task: 'newer',
+      group: 'Dependency Management',
+      description: 'Use "newer:drushmake" to run the drushmake task only if the make file was updated.'
+    }
+  ]);
 };

@@ -7,12 +7,6 @@ module.exports = function(grunt) {
     config: config
   });
 
-  // Allow Gruntconfig.json to set default descriptions.
-  // tasks/zzz_help.js checks the root 'help' config namespace.
-  if (config.help) {
-    grunt.config('help', config.help);
-  }
-
   // Set implicit global configuration.
   var buildPaths = grunt.config('config.buildPaths');
   buildPaths = _.extend({
