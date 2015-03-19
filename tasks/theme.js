@@ -20,6 +20,10 @@ module.exports = function(grunt) {
    *       "sourcemap": true
    *     }
    *   },
+   *   "legionaire": {
+   *     "path": "<%= config.srcPaths.drupal %>/themes/legionaire",
+   *     "proxy": true
+   *   }
    *   "trojan": {
    *     "path": "<%= config.srcPaths.drupal %>/themes/trojan"
    *   }
@@ -47,14 +51,15 @@ module.exports = function(grunt) {
           }, options)
         });
 
-        steps.push('compass:' + key);
+        task = theme.proxy ? 'theme:' + key + ':compass' : 'compass:' + key;
+        steps.push(task);
 
         // Provide a watch handler
         grunt.config(['watch', 'compass-' + key], {
           files: [
             theme.path + '/**/*.scss'
           ],
-          tasks: ['compass:' + key]
+          tasks: [task]
         });
 
         // Add this watch to the parallel watch-theme task
@@ -72,6 +77,20 @@ module.exports = function(grunt) {
       });
 
       grunt.registerTask('watch-theme', ['concurrent:watch-theme']);
+
+      grunt.registerTask('theme', 'Proxies work to the theme-specific Grunt configuration.', function(theme, task) {
+        var path = grunt.config(['config', 'themes', theme, 'path']);
+        grunt.config(['shell', 'theme-dispatch'], {
+          command: 'grunt ' + task,
+          options: {
+            execOptions: {
+              cwd: path
+            }
+          }
+        });
+        grunt.task.run('shell:theme-dispatch');
+      });
+
       grunt.config('help.watch-theme', {
         group: 'Real-time Tooling',
         description: "Watch for changes that should rebuild frontend assets, such as CSS."
