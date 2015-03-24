@@ -34,7 +34,6 @@ module.exports = function(grunt) {
   // Define the default task to fully build and configure the project.
   var tasksDefault = [
     'validate',
-    'newer:composerinstall',
     'symlink:profiles',
     'symlink:modules',
     'symlink:themes',
@@ -44,6 +43,12 @@ module.exports = function(grunt) {
     'mkdir:files',
     'copy:static'
   ];
+  if (grunt.config.get(['composer', 'install'])) {
+    tasksDefault.splice(1, 0, 'newer:composerinstall');
+  }
+  if (grunt.config(['srcPaths.make'])) {
+    tasksDefault.splice(1, 0, 'newer:drushmake:default');
+  }
   if (grunt.task.exists('bundle-install')) {
     tasksDefault.unshift('bundle-install');
   }

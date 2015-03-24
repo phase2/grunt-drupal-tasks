@@ -28,6 +28,7 @@ module.exports = function(grunt) {
     // newer than the dest file specified.
     grunt.config('composerinstall', {
       default: {
+        args: [],
         src: './composer.json',
         dest: '<%= config.buildPaths.html %>'
       }
