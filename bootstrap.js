@@ -35,14 +35,7 @@ module.exports = function(grunt) {
   var tasksDefault = [
     'validate',
     'newer:drushmake:default',
-    'symlink:profiles',
-    'symlink:modules',
-    'symlink:themes',
-    'copy:defaults',
-    'clean:sites',
-    'symlink:sites',
-    'mkdir:files',
-    'copy:static'
+    'scaffold'
   ];
   if (grunt.config.get(['composer', 'install'])) {
     tasksDefault.unshift('composer:install');

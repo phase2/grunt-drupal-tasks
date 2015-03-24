@@ -59,6 +59,26 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('drush-load-status', 'Run drush status and load result into configuration.', function() {
+    // Using direct spawn functionality to capture stdout.
+    grunt.util.spawn({cmd: 'drush', args: [ '-r build/html', 'status', '--format=json' ]}, function(error, result, code) {
+      var json = {};
+      if (error) {
+        grunt.log.writeln('drush status failed');
+      }
+      else {
+        try {
+          json = JSON.parse(result);
+        }
+        catch (e) {
+          grunt.log.writeln('drush status did not produce valid JSON.');
+        }
+      }
+      grunt.config('drupal', json);
+      grunt.log.writeln('Detected Drupal ' + json.version + ' codebase.');
+    });
+  });
+
   Help.add([
     {
       task: 'drushmake',
