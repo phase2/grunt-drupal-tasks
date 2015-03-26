@@ -120,13 +120,6 @@ This is the minimum set of configuration options:
   "srcPaths": {
     "drupal": "src",
     "make": "src/project.make"
-  },
-  "buildPaths": {
-    "build": "build",
-    "html": "build/html",
-    "package": "build/packages",
-    "reports": "build/reports",
-    "temp": "build/temp"
   }
 }
 ```
@@ -145,6 +138,9 @@ src/
 ```
 
 **srcPaths.make**: The Drush make file used to assumble the Drupal project.
+
+The following build output paths are optional to specify in the project's
+Gruntconfig.json file.
 
 **buildPaths.build**: The directory that should be used for miscellaneous build
 artifacts. This can be the parent directory of the following build paths.
