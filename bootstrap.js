@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     package: 'build/packages',
     reports: 'build/reports',
     temp: 'build/temp'
-  });
+  }, buildPaths);
   grunt.config('config.buildPaths', buildPaths);
 
   // Wrap Grunt's loadNpmTasks() function to change the current directory to
