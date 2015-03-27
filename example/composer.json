@@ -1,15 +1,44 @@
 {
-    "name": "client/project",
-    "description": "{Project} drupal codebase for {client}.",
-    "require-dev": {
-        "behat/mink-zombie-driver": "~1.2",
-        "drupal/drupal-extension": "~3.0",
-        "drush/drush": "dev-master",
-        "phpmd/phpmd": "~2.1",
-        "squizlabs/php_codesniffer": "~1.5",
-        "drupal/coder": "7.2.3"
+  "name": "client/project",
+  "description": "{Project} drupal codebase for {client}.",
+  "repositories": [{
+    "type": "composer",
+    "url": "http://packagist.drupal-composer.org"
+  }],
+  "require": {
+    "roave/security-advisories": "dev-master",
+    "composer/installers": "~1.0",
+    "derhasi/composer-preserve-paths": "0.1.*",
+    "drupal/drupal": "7.*",
+    "drupal/features": "~7.2"
+  },
+  "require-dev": {
+    "behat/mink-zombie-driver": "~1.2",
+    "drupal/drupal-extension": "~3.0",
+    "drush/drush": "dev-master",
+    "phpmd/phpmd": "~2.1",
+    "squizlabs/php_codesniffer": "~1.5",
+    "drupal/coder": "7.2.3"
+  },
+  "config": {
+    "vendor-dir": "vendor"
+  },
+  "extra": {
+    "installer-paths": {
+      "build/html/": ["type:drupal-core"],
+      "build/html/sites/all/modules/contrib/{$name}/": ["type:drupal-module"],
+      "build/html/sites/all/themes/{$name}/": ["type:drupal-theme"],
+      "build/html/sites/all/libraries/{$name}/": ["type:drupal-library"],
+      "build/html/sites/all/drush/{$name}/": ["type:drupal-drush"],
+      "build/html/profiles/{$name}/": ["type:drupal-profile"]
     },
-    "require": {
-        "roave/security-advisories": "dev-master"
-    }
+    "preserve-paths": [
+      "build/html/sites/all/modules/contrib",
+      "build/html/sites/all/themes",
+      "build/html/sites/all/libraries",
+      "build/html/sites/all/drush",
+      "build/html/sites/default/settings.php",
+      "build/html/sites/default/files"
+    ]
+  }
 }
