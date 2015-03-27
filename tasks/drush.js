@@ -8,13 +8,15 @@ module.exports = function(grunt) {
    */
   grunt.loadNpmTasks('grunt-drush');
   grunt.loadNpmTasks('grunt-newer');
-  var Help = require('../lib/help')(grunt);
+
+  var Help = require('../lib/help')(grunt),
+    Drupal = require('../lib/drupal')(grunt);
 
   var path = require('path'),
     _ = require('lodash');
 
   // If no path is configured for Drush, fallback to the system path.
-  var cmd = grunt.config('config.drush.cmd') !== undefined ? {cmd: path.resolve(grunt.config('config.drush.cmd'))} : {};
+  var cmd = {cmd: Drupal.drushPath()};
 
   // Allow extra arguments for drush to be supplied.
   var args = ['make', '<%= config.srcPaths.make %>', '<%= config.buildPaths.temp %>'],
@@ -57,26 +59,6 @@ module.exports = function(grunt) {
       src: ['<%= config.srcPaths.make %>', '<%= config.srcPaths.drupal %>/**/*.make'],
       dest: '<%= config.buildPaths.html %>'
     }
-  });
-
-  grunt.registerTask('drush-load-status', 'Run drush status and load result into configuration.', function() {
-    // Using direct spawn functionality to capture stdout.
-    grunt.util.spawn({cmd: 'drush', args: [ '-r build/html', 'status', '--format=json' ]}, function(error, result, code) {
-      var json = {};
-      if (error) {
-        grunt.log.writeln('drush status failed');
-      }
-      else {
-        try {
-          json = JSON.parse(result);
-        }
-        catch (e) {
-          grunt.log.writeln('drush status did not produce valid JSON.');
-        }
-      }
-      grunt.config('drupal', json);
-      grunt.log.writeln('Detected Drupal ' + json.version + ' codebase.');
-    });
   });
 
   Help.add([
