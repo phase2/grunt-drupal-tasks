@@ -9,11 +9,12 @@ module.exports = function(grunt) {
       grunt.fail.fatal('Cannot apply scaffolding until after Drupal has been built.');
     }
 
-    var drupal = require('../lib/drupal')(grunt);
+    var done = this.async(),
+      drupal = require('../lib/drupal')(grunt);
     drupal.loadDrushStatus(function (err) {
       if (err) {
         grunt.fail.fatal('Cannot load Drush status for built Drupal docroot.');
-        return;
+        return done();
       }
 
       grunt.loadNpmTasks('grunt-contrib-symlink');
@@ -53,6 +54,8 @@ module.exports = function(grunt) {
         'mkdir:files',
         'copy:static'
       ]);
+
+      done();
     });
   });
 
