@@ -122,7 +122,15 @@ module.exports = function(grunt) {
     }
   }
 
-  grunt.registerTask('validate', validate);
+  grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
+    if (mode == 'newer') {
+      var newer = validate.map(function(item) { return 'newer:' + item; });
+      grunt.task.run(newer);
+    }
+    else {
+      grunt.task.run(validate);
+    }
+  });
 
   if (analyze.length < 2) {
     grunt.registerTask('analyze', analyze);
