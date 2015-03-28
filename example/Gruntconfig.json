@@ -17,10 +17,7 @@
     "path": "vendor/bin/phpmd"
   },
   "drush": {
-    "cmd": "vendor/bin/drush",
-    "make": {
-      "args": ["--concurrency=16"]
-    }
+    "cmd": "vendor/bin/drush"
   },
   "behat": {
     "flags": "--tags ~@wip"

@@ -2,6 +2,12 @@
 
 ## NEXT
 
+- Dynamically compute Drush Make concurrency based on system capability with a
+  new concurrency detection service.
+
+### Upgrade Notes
+
+- Remove `--concurrency` flag from your Gruntconfig. It will no longer be respected.
 - Ruby (bundler) will now install dependencies into `vendor/bundle`.
 - Ruby and PHP upstream binaries are placed or symlinked from `vendor/bin`.
   This frees up `bin/` for custom project scripts.

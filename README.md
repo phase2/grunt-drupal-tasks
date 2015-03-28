@@ -53,6 +53,19 @@ to view documentation tailored for your project.
 
 To build your Drupal site, run `grunt`.
 
+### Special Flags
+
+These flags are not yet documented as part of the `grunt help` command.
+
+* `--quiet`: Suppress desktop notifications.
+* `--timer`: Output execution time profile at the end of the task run.
+* `--concurrency`: Override the dynamic concurrency by Drush Make.
+
+### Environment Options
+
+These environment variables will override other options.
+* `GRUNT_DRUPAL_QUIET`: If evaluated truthy, will suppress all desktop notifications.
+
 ## Setting Up and Extending
 
 For information on setting up your project with these tools, see
