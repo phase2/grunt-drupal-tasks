@@ -37,6 +37,9 @@
     "grunt",
     "gruntplugin"
   ],
+  "bugs": "https://github.com/phase2/grunt-drupal-tasks/issues",
+  "homepage": "https://github.com/phase2/grunt-drupal-tasks",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/phase2/grunt-drupal-tasks.git"
