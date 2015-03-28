@@ -1,4 +1,5 @@
-var _ = require('lodash');
+var path = require('path'),
+  _ = require('lodash');
 
 module.exports = function(grunt) {
   // Initialize global configuration variables.
@@ -18,14 +19,19 @@ module.exports = function(grunt) {
   }, buildPaths);
   grunt.config('config.buildPaths', buildPaths);
 
-  // Wrap Grunt's loadNpmTasks() function to change the current directory to
-  // grunt-drupal-tasks, so that module dependencies of it are found.
+  // Wrap Grunt's loadNpmTasks() function to allow loading Grunt task modules
+  // that are dependencies of Grunt Drupal Tasks.
   grunt._loadNpmTasks = grunt.loadNpmTasks;
   grunt.loadNpmTasks = function (mod) {
-    var pathOrig = process.cwd();
-    process.chdir(__dirname);
+    var internalMod = grunt.file.exists(path.join(__dirname, 'node_modules', mod));
+    if (internalMod) {
+      var pathOrig = process.cwd();
+      process.chdir(__dirname);
+    }
     grunt._loadNpmTasks(mod);
-    process.chdir(pathOrig);
+    if (internalMod) {
+      process.chdir(pathOrig);
+    }
   };
 
   // Load all tasks from grunt-drupal-tasks.
