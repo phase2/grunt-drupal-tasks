@@ -16,6 +16,9 @@ commands:
    directory, by running:
    `cp -rf node_modules/grunt-drupal-tasks/example/* .`
 
+3. Rename the file `gitignore` to `.gitignore`, by running:
+   `mv gitignore .gitignore`
+
 The directory's contents should now look like this:
 
 ```
