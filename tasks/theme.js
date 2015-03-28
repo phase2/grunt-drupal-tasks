@@ -53,7 +53,8 @@ module.exports = function(grunt) {
         // Provide a watch handler
         grunt.config(['watch', 'compass-' + key], {
           files: [
-            theme.path + '/**/*.scss'
+            theme.path + '/**/*.scss',
+            theme.path + '/**/*.sass'
           ],
           tasks: ['compass:' + key]
         });
