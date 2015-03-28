@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       options: _.extend({}, cmd)
     },
     liteinstall: {
-      args: ['site-install', '-y', 'standard', '--db-url=sqlite://drupal:drupal@drupal.sqlite'],
+      args: ['site-install', '-y', 'standard', '--db-url=sqlite:/' + path.join(path.resolve(grunt.config('config.buildPaths.build')), 'drupal.sqlite')],
       options: _.extend({
         cwd: '<%= config.buildPaths.html %>'
       }, cmd)
