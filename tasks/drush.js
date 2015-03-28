@@ -8,13 +8,15 @@ module.exports = function(grunt) {
    */
   grunt.loadNpmTasks('grunt-drush');
   grunt.loadNpmTasks('grunt-newer');
-  var Help = require('../lib/help')(grunt);
+
+  var Help = require('../lib/help')(grunt),
+    Drupal = require('../lib/drupal')(grunt);
 
   var path = require('path'),
     _ = require('lodash');
 
   // If no path is configured for Drush, fallback to the system path.
-  var cmd = grunt.config('config.drush.cmd') !== undefined ? {cmd: path.resolve(grunt.config('config.drush.cmd'))} : {};
+  var cmd = {cmd: Drupal.drushPath()};
 
   // Allow extra arguments for drush to be supplied.
   var args = ['make', '<%= config.srcPaths.make %>', '<%= config.buildPaths.temp %>'],
