@@ -1,16 +1,16 @@
 {
   "name": "grunt-drupal-tasks",
   "description": "Grunt-based build and testing tasks for Drupal projects.",
-  "version": "0.5.2",
+  "version": "0.6.0-pre",
   "main": "bootstrap.js",
   "dependencies": {
-    "grunt-available-tasks": "0.5.4",
+    "grunt-available-tasks": "0.5.7",
     "grunt-composer": "0.4.4",
     "grunt-concurrent": "1.0.0",
     "grunt-contrib-clean": "0.6.0",
     "grunt-contrib-compass": "1.0.1",
     "grunt-contrib-compress": "0.13.0",
-    "grunt-contrib-copy": "0.7.0",
+    "grunt-contrib-copy": "0.8.0",
     "grunt-contrib-symlink": "0.3.0",
     "grunt-contrib-watch": "0.6.1",
     "grunt-drush": "0.0.6",
@@ -22,7 +22,7 @@
     "grunt-phplint": "0.0.5",
     "grunt-phpmd": "0.1.1",
     "grunt-shell": "1.1.2",
-    "lodash": "2.4.1",
+    "lodash": "3.6.0",
     "time-grunt": "1.1.0"
   },
   "peerDependencies": {
