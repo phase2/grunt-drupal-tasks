@@ -42,15 +42,15 @@ describe('grunt', function() {
       });
     });
 
-    // Ensure the build/html/sites/all/modules/custom directory is a symlink to
-    // ../../../../../src/modules.
-    it('it should link the build/html/sites/all/modules/custom directory', function(done) {
-      fs.lstat('build/html/sites/all/modules/custom', function (err, stats) {
+    // Ensure the build/html/modules/custom directory is a symlink to
+    // ../../../src/modules.
+    it('it should link the build/html/modules/custom directory', function(done) {
+      fs.lstat('build/html/modules/custom', function (err, stats) {
         assert.ok(stats.isSymbolicLink());
 
         if (stats.isSymbolicLink()) {
-          fs.readlink('build/html/sites/all/modules/custom', function (err, linkString) {
-            assert.equal(linkString, '../../../../../src/modules');
+          fs.readlink('build/html/modules/custom', function (err, linkString) {
+            assert.equal(linkString, '../../../src/modules');
             done();
           });
         }
@@ -60,11 +60,11 @@ describe('grunt', function() {
       });
     });
 
-    // Ensure the build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css
-    // file exists, which should be created by compass.
-    it('it should compile sass files', function(done) {
-      fs.exists('build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css', function (exists) {
-        assert.ok(exists);
+    // Ensure the build/html/themes/custom/example_theme/stylesheets/screen.css
+    // file exists, which should be created by Compass.
+    it('it should compile scss/sass files', function(done) {
+      fs.exists('build/html/themes/custom/example_theme/stylesheets/screen.css', function (exists) {
+        assert.ok(exists, 'compiled CSS file screen.css not found');
         done();
       });
     });
