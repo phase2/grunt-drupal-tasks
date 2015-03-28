@@ -1,5 +1,4 @@
-var path = require('path'),
-  _ = require('lodash');
+var _ = require('lodash');
 
 module.exports = function(grunt) {
   // Initialize global configuration variables.
@@ -23,7 +22,7 @@ module.exports = function(grunt) {
   // that are dependencies of Grunt Drupal Tasks.
   grunt._loadNpmTasks = grunt.loadNpmTasks;
   grunt.loadNpmTasks = function (mod) {
-    var internalMod = grunt.file.exists(path.join(__dirname, 'node_modules', mod));
+    var internalMod = grunt.file.exists(__dirname, 'node_modules', mod);
     if (internalMod) {
       var pathOrig = process.cwd();
       process.chdir(__dirname);
