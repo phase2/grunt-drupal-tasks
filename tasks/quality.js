@@ -37,7 +37,9 @@ module.exports = function(grunt) {
     '!<%= config.srcPaths.drupal %>/**/*.strongarm.inc'
   ];
 
-  validate.push('nice-package');
+  if (grunt.config('validate.package-json') === true) {
+    validate.push('nice-package');
+  }
 
   grunt.config('phplint', {
     all: defaultPatterns
