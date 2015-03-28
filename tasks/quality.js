@@ -16,6 +16,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-phplint');
   grunt.loadNpmTasks('grunt-phpcs');
   grunt.loadNpmTasks('grunt-phpmd');
+  grunt.loadNpmTasks('grunt-nice-package');
   var Help = require('../lib/help')(grunt);
 
   // Task set aliases are registered at the end of the file based on these values.
@@ -35,6 +36,8 @@ module.exports = function(grunt) {
     '!<%= config.srcPaths.drupal %>/**/*.panelizer.inc',
     '!<%= config.srcPaths.drupal %>/**/*.strongarm.inc'
   ];
+
+  validate.push('nice-package');
 
   grunt.config('phplint', {
     all: defaultPatterns
