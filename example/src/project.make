@@ -2,7 +2,7 @@ core = 7.x
 api = 2
 
 ; Drupal Core
-projects[drupal][version] = "7.33"
+projects[drupal][version] = "7.35"
 
 ; =====================================
 ; Contrib Modules
