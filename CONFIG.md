@@ -312,6 +312,34 @@ installs the Drupal Coder's standard, the path of which is shown above.
 **phpcs.dir**: An array of globbing pattern where phpcs should search for files.
 This can be used to replace the defaults supplied by grunt-drupal-tasks.
 
+This example placed in the Gruntconfig.json file ignores directories named 
+"pattern-lab" and a "bower_components" in addition to the defaults that come with
+grunt-drupal-tasks:
+
+```
+{
+  "phpcs": {
+    "path": "vendor/bin/phpcs",
+    "dir": [
+      "<%= config.srcPaths.drupal %>/**/*.php",
+      "<%= config.srcPaths.drupal %>/**/*.module",
+      "<%= config.srcPaths.drupal %>/**/*.inc",
+      "<%= config.srcPaths.drupal %>/**/*.install",
+      "<%= config.srcPaths.drupal %>/**/*.profile",
+      "!<%= config.srcPaths.drupal %>/sites/**",
+      "!<%= config.srcPaths.drupal %>/**/*.box.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.features.*inc",
+      "!<%= config.srcPaths.drupal %>/**/*.pages_default.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.panelizer.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.strongarm.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.css",
+      "!<%= config.srcPaths.drupal %>/**/*/pattern-lab/**/*",
+      "!<%= config.srcPaths.drupal %>/**/*/bower_components/**/*"
+    ]
+  }
+}
+```
+
 **phpcs.ignoreExitCode**: Set to `false` if you want validate to fail on PHPCS
 issues.
 
