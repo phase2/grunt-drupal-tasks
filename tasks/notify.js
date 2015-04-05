@@ -19,7 +19,9 @@ module.exports = function(grunt) {
       // configured notifyThreshold.
       success: true,
       threshold: grunt.config.get('config.notify.threshold') || 10,
-      duration: 5
+      duration: 5,
+      // Supposed to suppress notify_hooks log header, but not working.
+      gruntLogHeader: false
     }
   });
 

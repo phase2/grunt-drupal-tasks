@@ -86,7 +86,7 @@ module.exports = function(grunt) {
       Help.add({
         task: 'compile-theme',
         group: 'Asset & Code Compilation',
-        description: 'Run compilers for the theme, such as Compass.'
+        description: 'Run compilers for all themes (such as Compass).'
       });
     }
 

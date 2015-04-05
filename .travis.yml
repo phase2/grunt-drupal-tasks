@@ -13,6 +13,7 @@ install:
   - npm install -g mocha
 script:
   - export PATH=$PATH:`pwd`/bin
+  - grunt help
   - grunt --timer
   - echo "Example fully built disk usage"; du -chs .
   - grunt drush:liteinstall --timer

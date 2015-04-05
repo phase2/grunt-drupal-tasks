@@ -58,4 +58,6 @@ module.exports = function(grunt) {
   if (grunt.option('timer')) {
     require('time-grunt')(grunt);
   }
+
+  require('grunt-log-headers')(grunt);
 };
