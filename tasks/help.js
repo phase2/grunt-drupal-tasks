@@ -74,7 +74,6 @@ module.exports = function(grunt) {
     var queue = [
       gruntHelp.initOptions,
       gdt.cleanOptions,
-      gruntHelp.initTasks,
       gruntHelp.initWidths,
       gruntHelp.header,
       gdt.header,
