@@ -1,23 +1,27 @@
 language: php
 php:
   - 5.4
+env:
+  - GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js"
+  - GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js"
 before_install:
   - composer self-update
   - echo "sendmail_path='true'" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
 install:
-  - echo "Code checkout disk usage"; du -chs .; ls -lRa
-  - ./test/create_working_copy.sh
-  - cd test/working_copy
-  - echo "Example working copy disk usage"; du -chs .
   - npm install -g grunt-cli
   - npm install -g mocha
 script:
-  - export PATH=$PATH:`pwd`/bin
+  - echo "Code checkout disk usage"; du -chs .; ls -lRa
+  - ./test/create_working_copy.sh
+  - cd test/working_copy/
+  - echo "Working copy disk usage"; du -chs .
   - grunt help
-  - grunt --timer
-  - echo "Example fully built disk usage"; du -chs .
-  - grunt drush:liteinstall --timer
-  - grunt drush:runserver &
-  - until netstat -an 2>/dev/null | grep '8080.*LISTEN'; do sleep 0.2; done
-  - grunt test --timer
-  - mocha node_modules/grunt-drupal-tasks/test
+  - grunt --quiet --timer
+  - echo "Fully built disk usage"; du -chs .
+  - grunt drush:liteinstall --quiet
+  - grunt drush:runserver >/dev/null &
+  - until curl -I -XGET -s $GDT_TEST_URL 2>/dev/null | egrep -q '^HTTP.*200'; do sleep 0.5; done
+  - grunt test
+  - sleep 1; while (ps aux | grep '[b]ehat' > /dev/null); do sleep 1; done
+  - for pid in `ps aux | grep drush | grep runserver | awk '{print $2}'`; do echo "Stopping drush pid $pid"; kill -SIGINT $pid; done;
+  - mocha node_modules/grunt-drupal-tasks/test/build.js
