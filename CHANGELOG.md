@@ -1,20 +1,32 @@
 # CHANGELOG
 
-## NEXT
+## v0.6.0 [2015/03/??]
 
+- **Added automatic support for Drupal 8 based on drush detection of the Drupal version.**
+- Dynamically compute Drush Make concurrency based on system capability with a
+  new concurrency detection service.
 - Ruby (bundler) will now install dependencies into `vendor/bundle`.
 - Ruby and PHP upstream binaries are placed or symlinked from `vendor/bin`.
   This frees up `bin/` for custom project scripts.
-- Moving more default Gruntconfig.json into code for a slimmer project Gruntconfig.
+- Moved more default Gruntconfig.json into code for a slimmer project Gruntconfig.
+- Ensure reports directory is created before running analyze
+- Support for \*.sass files in compass watch.
+- Refactored `grunt help` task to be extensible from separate projects.
+- The docroot assembly tasks (such as the symlinking) performed after drush make
+  have been consolidated into a new `grunt scaffold` task.
 
 ### Upgrade Notes
 
+- Remove the Drush Make `--concurrency` option from your Gruntconfig. It will no
+  longer be respected.
 - If you are using the default `Gruntconfig.json` example for bin paths on PHP
   scripts, you should be fine.
 - You may need to run `rm -Rf .bundle` to clear bundler configuration to make
   way for the new install location.
 - Gruntconfig.json no longer needs the `buildPaths` config key. Elements of
   `buildPaths` added to your project Gruntconfig will override default behavior.
+- Configuration of `grunt help` for project-specific tasks via Gruntconfig.json
+  removed in favor of new [Help API](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#help-settings-help-api).
 
 ## v0.5.2 [2015/01/24]
 

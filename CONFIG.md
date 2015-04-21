@@ -16,6 +16,9 @@ commands:
    directory, by running:
    `cp -rf node_modules/grunt-drupal-tasks/example/* .`
 
+3. Rename the file `gitignore` to `.gitignore`, by running:
+   `mv gitignore .gitignore`
+
 The directory's contents should now look like this:
 
 ```
@@ -120,13 +123,6 @@ This is the minimum set of configuration options:
   "srcPaths": {
     "drupal": "src",
     "make": "src/project.make"
-  },
-  "buildPaths": {
-    "build": "build",
-    "html": "build/html",
-    "package": "build/packages",
-    "reports": "build/reports",
-    "temp": "build/temp"
   }
 }
 ```
@@ -145,6 +141,9 @@ src/
 ```
 
 **srcPaths.make**: The Drush make file used to assumble the Drupal project.
+
+The following build output paths are optional to specify in the project's
+Gruntconfig.json file.
 
 **buildPaths.build**: The directory that should be used for miscellaneous build
 artifacts. This can be the parent directory of the following build paths.
@@ -313,6 +312,34 @@ installs the Drupal Coder's standard, the path of which is shown above.
 **phpcs.dir**: An array of globbing pattern where phpcs should search for files.
 This can be used to replace the defaults supplied by grunt-drupal-tasks.
 
+This example placed in the Gruntconfig.json file ignores directories named 
+"pattern-lab" and a "bower_components" in addition to the defaults that come with
+grunt-drupal-tasks:
+
+```
+{
+  "phpcs": {
+    "path": "vendor/bin/phpcs",
+    "dir": [
+      "<%= config.srcPaths.drupal %>/**/*.php",
+      "<%= config.srcPaths.drupal %>/**/*.module",
+      "<%= config.srcPaths.drupal %>/**/*.inc",
+      "<%= config.srcPaths.drupal %>/**/*.install",
+      "<%= config.srcPaths.drupal %>/**/*.profile",
+      "!<%= config.srcPaths.drupal %>/sites/**",
+      "!<%= config.srcPaths.drupal %>/**/*.box.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.features.*inc",
+      "!<%= config.srcPaths.drupal %>/**/*.pages_default.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.panelizer.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.strongarm.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.css",
+      "!<%= config.srcPaths.drupal %>/**/*/pattern-lab/**/*",
+      "!<%= config.srcPaths.drupal %>/**/*/bower_components/**/*"
+    ]
+  }
+}
+```
+
 **phpcs.ignoreExitCode**: Set to `false` if you want validate to fail on PHPCS
 issues.
 
@@ -341,22 +368,36 @@ this format, see: http://gruntjs.com/configuring-tasks#files
 from the project directory when building a package. The above includes README
 files and files under bin/ in the project's package.
 
-### Help Settings
+### Help Settings (Help API)
 
 If you add custom tasks to your project and want them exposed as part of the
-`help` task, you may add the following configuration to your `Gruntconfig.json`
-on a per task basis:
+`help` task, you may add a simple code snippet to your Gruntfile.js or any loaded
+task file.
 
-```
-{
-  "help": {
-    "task-name": {
-      "group": "Include Task in this Named Group",
-      "description": "Optional description that overrides the default description you would see in `grunt -h`"
-    }
+```js
+var Help = require('grunt-drupal-tasks/lib/help');
+
+Help.addItem('existing-task', 'Named Group', 'Optional description that avoids the default task description.');
+
+Help.add({
+  task: 'existing-task',
+  group: 'Named Group',
+  description: 'Optional description that avoids the default task description.'
+});
+
+Help.add([
+  {
+    task: 'existing-task',
+    group: 'Named Group',
+    description: 'Optional description that avoids the default task description.'
+  },
+  {
+    task: 'second-task',
+    group: 'Named Group',
+    description: 'A second registered task to register with the help system.'
   }
-}
+]);
 ```
 
-If you want to include your task in one of the existing groupings, copy the text
+If you want to include your task in one of the existing groups, copy the text
 exactly as seen in the output of the `grunt help` task.

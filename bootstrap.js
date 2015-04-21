@@ -7,12 +7,6 @@ module.exports = function(grunt) {
     config: config
   });
 
-  // Allow Gruntconfig.json to set default descriptions.
-  // tasks/zzz_help.js checks the root 'help' config namespace.
-  if (config.help) {
-    grunt.config('help', config.help);
-  }
-
   // Set implicit global configuration.
   var buildPaths = grunt.config('config.buildPaths');
   buildPaths = _.extend({
@@ -21,17 +15,22 @@ module.exports = function(grunt) {
     package: 'build/packages',
     reports: 'build/reports',
     temp: 'build/temp'
-  });
+  }, buildPaths);
   grunt.config('config.buildPaths', buildPaths);
 
-  // Wrap Grunt's loadNpmTasks() function to change the current directory to
-  // grunt-drupal-tasks, so that module dependencies of it are found.
+  // Wrap Grunt's loadNpmTasks() function to allow loading Grunt task modules
+  // that are dependencies of Grunt Drupal Tasks.
   grunt._loadNpmTasks = grunt.loadNpmTasks;
   grunt.loadNpmTasks = function (mod) {
-    var pathOrig = process.cwd();
-    process.chdir(__dirname);
+    var internalMod = grunt.file.exists(__dirname, 'node_modules', mod);
+    if (internalMod) {
+      var pathOrig = process.cwd();
+      process.chdir(__dirname);
+    }
     grunt._loadNpmTasks(mod);
-    process.chdir(pathOrig);
+    if (internalMod) {
+      process.chdir(pathOrig);
+    }
   };
 
   // Load all tasks from grunt-drupal-tasks.
@@ -41,14 +40,7 @@ module.exports = function(grunt) {
   var tasksDefault = [
     'validate',
     'newer:drushmake:default',
-    'symlink:profiles',
-    'symlink:modules',
-    'symlink:themes',
-    'copy:defaults',
-    'clean:sites',
-    'symlink:sites',
-    'mkdir:files',
-    'copy:static'
+    'scaffold'
   ];
   if (grunt.config.get(['composer', 'install'])) {
     tasksDefault.unshift('composer:install');
@@ -66,4 +58,6 @@ module.exports = function(grunt) {
   if (grunt.option('timer')) {
     require('time-grunt')(grunt);
   }
+
+  require('grunt-log-headers')(grunt);
 };

@@ -30,14 +30,15 @@ module.exports = function(grunt) {
    * }
    */
 
-  grunt.loadNpmTasks('grunt-contrib-compass');
-
   var config = grunt.config.get('config'),
     _ = require('lodash'),
     steps = [],
     parallelTasks = [];
 
   if (config.themes) {
+    grunt.loadNpmTasks('grunt-contrib-compass');
+    var Help = require('../lib/help')(grunt);
+
     for (var key in config.themes) {
       if (config.themes.hasOwnProperty(key) && config.themes[key].compass) {
         var theme = config.themes[key],
@@ -57,7 +58,8 @@ module.exports = function(grunt) {
         // Provide a watch handler
         grunt.config(['watch', 'compass-' + key], {
           files: [
-            theme.path + '/**/*.scss'
+            theme.path + '/**/*.scss',
+            theme.path + '/**/*.sass'
           ],
           tasks: [task]
         });
@@ -92,6 +94,9 @@ module.exports = function(grunt) {
       });
 
       grunt.config('help.watch-theme', {
+
+      Help.add({
+        task: 'watch-theme',
         group: 'Real-time Tooling',
         description: "Watch for changes that should rebuild frontend assets, such as CSS."
       });
@@ -99,9 +104,10 @@ module.exports = function(grunt) {
 
     if (steps) {
       grunt.registerTask('compile-theme', steps);
-      grunt.config('help.compile-theme', {
+      Help.add({
+        task: 'compile-theme',
         group: 'Asset & Code Compilation',
-        description: 'Run compilers for the theme, such as Compass.'
+        description: 'Run compilers for all themes (such as Compass).'
       });
     }
 
