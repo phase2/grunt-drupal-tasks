@@ -275,6 +275,55 @@ directly to
 [grunt-contrib-compass](https://github.com/gruntjs/grunt-contrib-compass)
 for this theme.
 
+### Proxying Grunt Tasks
+
+Many themes come with their own Grunt integration. In those cases you can
+configure Grunt-Drupal-Tasks for awareness of that and remove the theme
+from most handling.
+
+In order to exclude your theme from handling, specify the `proxy` property in
+your Drupal project's Gruntconfig.json.
+
+```
+"legionaire": {
+  "path": "<%= config.srcPaths.drupal %>/themes/legionaire",
+  "proxy": true
+}
+```
+
+From this point on, whenever `grunt compile-theme` is run, `grunt compile`
+will be run inside your theme directory at the specified path.
+
+If you wish to customize the grunt task used, you can use a more complicated
+configuration:
+
+```
+"gladiator": {
+  "path": "<%= config.srcPaths.drupal %>/themes/gladiator",
+  "proxy": {
+    "default": "build",
+  }
+},
+```
+
+#### Proxying Theme Tasks
+
+If you have enabled theme proxying, you can issue simple grunt tasks to the theme
+from the grunt-drupal-tasks context by using a magical grunt task for the purpose:
+
+```
+grunt theme:<theme-name>:task
+```
+
+For a more concrete example, suppose we want to compile Sass for the gladiator theme.
+You need to know that for the Gladiator theme, the command to do that is simply "compass".
+
+```
+grunt theme:gladiator:compass
+```
+
+More complex task proxying is not currently supported.
+
 #### Setting Up Gem Dependencies
 
 In order for compass compilation to work, you will need to create a Gemfile
