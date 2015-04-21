@@ -23,7 +23,13 @@ module.exports = function(grunt) {
    *   "legionaire": {
    *     "path": "<%= config.srcPaths.drupal %>/themes/legionaire",
    *     "proxy": true
-   *   }
+   *   },
+   *   "gladiator": {
+   *     "path": "<%= config.srcPaths.drupal %>/themes/gladiator",
+   *     "proxy": {
+   *       "default": "build",
+   *     }
+   *   },
    *   "trojan": {
    *     "path": "<%= config.srcPaths.drupal %>/themes/trojan"
    *   }
@@ -40,32 +46,41 @@ module.exports = function(grunt) {
     var Help = require('../lib/help')(grunt);
 
     for (var key in config.themes) {
-      if (config.themes.hasOwnProperty(key) && config.themes[key].compass) {
-        var theme = config.themes[key],
-          options = (theme.compass && typeof theme.compass === 'object') ? theme.compass : {};
+      if (config.themes.hasOwnProperty(key)) {
+        var theme = config.themes[key];
+        if (!theme.proxy && config.themes[key].compass) {
+          var options = (theme.compass && typeof theme.compass === 'object') ? theme.compass : {};
 
-        grunt.config(['compass', key], {
-          options: _.extend({
-            basePath: theme.path,
-            config: theme.path + '/config.rb',
-            bundleExec: true
-          }, options)
-        });
+          grunt.config(['compass', key], {
+            options: _.extend({
+              basePath: theme.path,
+              config: theme.path + '/config.rb',
+              bundleExec: true
+            }, options)
+          });
 
-        task = theme.proxy ? 'theme:' + key + ':compass' : 'compass:' + key;
-        steps.push(task);
+          task = 'compass:' + key;
+          steps.push(task);
 
-        // Provide a watch handler
-        grunt.config(['watch', 'compass-' + key], {
-          files: [
-            theme.path + '/**/*.scss',
-            theme.path + '/**/*.sass'
-          ],
-          tasks: [task]
-        });
+          // Provide a watch handler
+          grunt.config(['watch', 'compass-' + key], {
+            files: [
+              theme.path + '/**/*.scss',
+              theme.path + '/**/*.sass'
+            ],
+            tasks: [task]
+          });
 
-        // Add this watch to the parallel watch-theme task
-        parallelTasks.push('watch:compass-' + key);
+          // Add this watch to the parallel watch-theme task
+          parallelTasks.push('watch:compass-' + key);
+        }
+
+        // If the proxy property is truthy let's add a callout to it as part of compile-theme.
+        if (theme.proxy) {
+          // If the proxy property is an object with a "default" parameter use that.
+          var command = theme.proxy.default || 'compile';
+          steps.push('theme:' + key + ':' + command);
+        }
       }
     }
 
@@ -79,21 +94,6 @@ module.exports = function(grunt) {
       });
 
       grunt.registerTask('watch-theme', ['concurrent:watch-theme']);
-
-      grunt.registerTask('theme', 'Proxies work to the theme-specific Grunt configuration.', function(theme, task) {
-        var path = grunt.config(['config', 'themes', theme, 'path']);
-        grunt.config(['shell', 'theme-dispatch'], {
-          command: 'grunt ' + task,
-          options: {
-            execOptions: {
-              cwd: path
-            }
-          }
-        });
-        grunt.task.run('shell:theme-dispatch');
-      });
-
-      grunt.config('help.watch-theme', {
 
       Help.add({
         task: 'watch-theme',
@@ -110,6 +110,23 @@ module.exports = function(grunt) {
         description: 'Run compilers for all themes (such as Compass).'
       });
     }
+
+    // Register a passthru task that can call out to theme-specific Grunt tooling.
+    grunt.registerTask('theme', 'Proxies work to the theme-specific Grunt configuration.', function(theme, task) {
+      // Fail if this is requested on behalf of a theme without proxying enabled or a path.
+      this.requiresConfig(['config', 'themes', theme, 'proxy'], ['config', 'themes', theme, 'path']);
+
+      var path = grunt.config(['config', 'themes', theme, 'path']);
+      grunt.config(['shell', 'theme-dispatch'], {
+        command: 'grunt ' + task,
+        options: {
+          execOptions: {
+            cwd: path
+          }
+        }
+      });
+      grunt.task.run('shell:theme-dispatch');
+    });
 
   }
 };
