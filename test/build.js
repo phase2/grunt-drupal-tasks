@@ -71,10 +71,3 @@ describe('grunt', function() {
 
   });
 });
-
-describe('Utility Functions', function() {
-  it('should have "concurrency" to recommend a safe limit greater than 2', function() {
-    var limit = require('../lib/util').concurrency;
-    assert(limit >= 2, 'concurrency limit not >= 2');
-  });
-});
