@@ -17,6 +17,11 @@
   "drush": {
     "cmd": "vendor/bin/drush"
   },
+  "performance": {
+    "pagespeed": {
+      "disabled": true,
+    }
+  },
   "behat": {
     "flags": "--tags ~@wip"
   }
