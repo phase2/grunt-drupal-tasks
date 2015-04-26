@@ -11,6 +11,12 @@ module.exports = function(grunt) {
   var domain = process.env.GRUNT_DRUPAL_DOMAIN || grunt.config('config.domain') || require('os').hostname();
   grunt.config('config.domain', domain);
 
+  // Specify a default URL for the project.
+  if (grunt.config('config.siteUrls') === undefined)
+    grunt.config('config.siteUrls', {});
+  var defaultUrl = grunt.config('config.siteUrls.default') || "http://<%= config.domain %>";
+  grunt.config('config.siteUrls.default', defaultUrl);
+
   // Set implicit global configuration.
   var buildPaths = grunt.config('config.buildPaths');
   buildPaths = _.extend({

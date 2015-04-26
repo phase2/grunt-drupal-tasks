@@ -4,10 +4,6 @@
     "drupal": "src"
   },
   "domain": "project.vm",
-  "siteUrls": {
-    "default": "http://<%= config.domain %>",
-    "subsite-project-vm": "https://subsite.<%= config.domain %>"
-  },
   "packages": {
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
     "projFiles": ["README*", "bin/**"]

@@ -6,6 +6,8 @@ module.exports = function(grunt) {
    * Dynamically adds Behat testing tasks based on configuration sets in the
    * Gruntconfig.json file.
    *
+   * For a complete understanding of the behat task, please review CONFIG.md.
+   *
    * Example:
    *   "config": {
    *     "buildPaths": {
