@@ -44,7 +44,7 @@ module.exports = function(grunt) {
     gdt.options = function() {
       var options = [
         [ '--quiet', 'Suppress desktop notifications.' ],
-        [ '--notify': 'Request a desktop notification despite timing or environment settings.' ],
+        [ '--notify', 'Request a desktop notification despite timing or environment settings.' ],
         [ '--timer', 'Output task execution timing info.' ],
         [ '--concurrency', 'Override the dynamic concurrency parameter used by Drush Make.' ]
       ];
