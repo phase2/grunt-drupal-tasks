@@ -1,7 +1,10 @@
 # Drupal Grunt Build and Testing Tasks
 
 Code Status (master branch):
-<a href="https://travis-ci.org/phase2/grunt-drupal-tasks"><img src="https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master"></a>
+[![Travis CI status](https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master)](https://travis-ci.org/phase2/grunt-drupal-tasks)
+[![Dependency Status](https://david-dm.org/phase2/grunt-drupal-tasks.svg)](https://david-dm.org/phase2/grunt-drupal-tasks)
+[![Peer Dependency Status](https://david-dm.org/phase2/grunt-drupal-tasks/peer-status.svg)](https://david-dm.org/phase2/grunt-drupal-tasks#peer-badge-embed)
+[![npm version](https://badge.fury.io/js/grunt-drupal-tasks.svg)](https://www.npmjs.com/package/grunt-drupal-tasks)
 
 ## Requirements
 
@@ -18,9 +21,9 @@ line interface, by running:
 npm install -g grunt-cli
 ```
 
-* Optional: The example included and some optional features require
-  <a href="https://getcomposer.org/download/">Composer</a> for installing
-  supporting tools, like Behat, PHP CodeSniffer, and more.
+* Some optional features, used in the included example and end-to-end test
+  suite, require additional tools, including <a href="http://bundler.io/">Bundler</a>,
+  <a href="https://getcomposer.org/download/">Composer</a>, Ruby, and RubyGems.
 
 ## Features
 
@@ -50,6 +53,19 @@ to view documentation tailored for your project.
 
 To build your Drupal site, run `grunt`.
 
+### Special Flags
+
+These flags are not yet documented as part of the `grunt help` command.
+
+* `--quiet`: Suppress desktop notifications.
+* `--timer`: Output execution time profile at the end of the task run.
+* `--concurrency`: Override the dynamic concurrency by Drush Make.
+
+### Environment Options
+
+These environment variables will override other options.
+* `GRUNT_DRUPAL_QUIET`: If evaluated truthy, will suppress all desktop notifications.
+
 ## Setting Up and Extending
 
 For information on setting up your project with these tools, see
@@ -57,3 +73,6 @@ For information on setting up your project with these tools, see
 
 For information on extending these tools or contributing changes, see
 <a href="https://github.com/phase2/grunt-drupal-tasks/blob/master/EXTEND.md">EXTEND.md</a>.
+
+For information on using these tools with a continuous integration (CI) system,
+see <a href="https://github.com/phase2/grunt-drupal-tasks/blob/master/CI.md">CI.md</a>.

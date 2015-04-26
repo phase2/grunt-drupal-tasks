@@ -26,21 +26,22 @@ module.exports = function(grunt) {
    * }
    */
 
-  grunt.loadNpmTasks('grunt-contrib-compass');
-
   var config = grunt.config.get('config'),
-    util = require('util'),
+    _ = require('lodash'),
     steps = [],
     parallelTasks = [];
 
   if (config.themes) {
+    grunt.loadNpmTasks('grunt-contrib-compass');
+    var Help = require('../lib/help')(grunt);
+
     for (var key in config.themes) {
       if (config.themes.hasOwnProperty(key) && config.themes[key].compass) {
         var theme = config.themes[key],
           options = (theme.compass && typeof theme.compass === 'object') ? theme.compass : {};
 
         grunt.config(['compass', key], {
-          options: util._extend({
+          options: _.extend({
             basePath: theme.path,
             config: theme.path + '/config.rb',
             bundleExec: true
@@ -52,36 +53,42 @@ module.exports = function(grunt) {
         // Provide a watch handler
         grunt.config(['watch', 'compass-' + key], {
           files: [
-            theme.path + '/**/*.scss'
+            theme.path + '/**/*.scss',
+            theme.path + '/**/*.sass'
           ],
           tasks: ['compass:' + key]
         });
 
         // Add this watch to the parallel watch-theme task
-        parallelTasks.push({
-          grunt: true,
-          args: ['watch:compass-' + key]
-        });
+        parallelTasks.push('watch:compass-' + key);
       }
     }
 
-    grunt.config(['parallel', 'watch-theme'], {
-      options: {
-        stream: true
-      },
-      tasks: parallelTasks
-    });
+    if (parallelTasks) {
+      grunt.loadNpmTasks('grunt-concurrent');
+      grunt.config(['concurrent', 'watch-theme'], {
+        tasks: parallelTasks,
+        options: {
+          logConcurrentOutput: true
+        }
+      });
 
-    grunt.registerTask('compile-theme', steps);
-    grunt.registerTask('watch-theme', ['parallel:watch-theme']);
+      grunt.registerTask('watch-theme', ['concurrent:watch-theme']);
+      Help.add({
+        task: 'watch-theme',
+        group: 'Real-time Tooling',
+        description: "Watch for changes that should rebuild frontend assets, such as CSS."
+      });
+    }
 
-    grunt.config('help.compile-theme', {
-      group: 'Asset & Code Compilation',
-      description: 'Run compilers for the theme, such as Compass.'
-    });
-    grunt.config('help.watch-theme', {
-      group: 'Real-time Tooling',
-      description: "Watch for changes that should rebuild frontend assets, such as CSS."
-    });
+    if (steps) {
+      grunt.registerTask('compile-theme', steps);
+      Help.add({
+        task: 'compile-theme',
+        group: 'Asset & Code Compilation',
+        description: 'Run compilers for all themes (such as Compass).'
+      });
+    }
+
   }
 };

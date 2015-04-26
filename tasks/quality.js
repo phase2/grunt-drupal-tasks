@@ -16,6 +16,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-phplint');
   grunt.loadNpmTasks('grunt-phpcs');
   grunt.loadNpmTasks('grunt-phpmd');
+  var Help = require('../lib/help')(grunt);
 
   // Task set aliases are registered at the end of the file based on these values.
   var validate = [];
@@ -37,13 +38,19 @@ module.exports = function(grunt) {
 
   grunt.config('phplint', {
     all: defaultPatterns
-  }); 
+  });
   validate.push('phplint:all');
 
   if (grunt.config.get('config.phpcs') != undefined) {
     var phpcs = grunt.config.get('config.phpcs.dir') || [
       '<%= config.srcPaths.drupal %>/**/*.css'
     ].concat(defaultPatterns);
+
+    var phpStandard = grunt.config('config.phpcs.standard')
+      || 'vendor/drupal/coder/coder_sniffer/Drupal';
+
+    var ignoreError = grunt.config('config.phpcs.ignoreExitCode');
+    ignoreError = ignoreError === undefined ? true : ignoreError;
 
     grunt.config('phpcs', {
       analyze: {
@@ -74,9 +81,9 @@ module.exports = function(grunt) {
       },
       options: {
         bin: '<%= config.phpcs.path %>',
-        standard: '<%= config.phpcs.standard %>',
+        standard: phpStandard,
         extensions: 'php,install,module,inc,profile',
-        ignoreExitCode: true,
+        ignoreExitCode: ignoreError,
         report: 'checkstyle',
         reportFile: '<%= config.buildPaths.reports %>/phpcs.xml'
       }
@@ -105,14 +112,32 @@ module.exports = function(grunt) {
   }
 
   grunt.registerTask('validate', validate);
-  grunt.registerTask('analyze', analyze);
 
-  grunt.config('help.validate', {
-    group: 'Testing & Code Quality',
-    description: 'Quick code health check for syntax errors and basic practices. (e.g. PHPCS w/ Drush Coder rules)'
-  });
-  grunt.config('help.analyze', {
-    group: 'Testing & Code Quality',
-    description: 'Static codebase analysis to detect problems. Outputs Jenkins-compatible reports. (e.g. PHPMD)'
-  });
+  if (analyze.length < 2) {
+    grunt.registerTask('analyze', analyze);
+  }
+  else {
+    grunt.loadNpmTasks('grunt-concurrent');
+    grunt.config(['concurrent', 'analyze'], {
+      tasks: analyze,
+      options: {
+        logConcurrentOutput: true
+      }
+    });
+
+    grunt.registerTask('analyze', ['mkdir:init', 'concurrent:analyze']);
+  }
+
+  Help.add([
+    {
+      task: 'validate',
+      group: 'Testing & Code Quality',
+      description: 'Quick code health check for syntax errors and basic practices. (e.g. PHPCS w/ Drush Coder rules)'
+    },
+    {
+      task: 'analyze',
+      group: 'Testing & Code Quality',
+      description: 'Static codebase analysis to detect problems. Outputs Jenkins-compatible reports. (e.g. PHPMD)'
+    }
+  ]);
 };

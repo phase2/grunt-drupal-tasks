@@ -3,10 +3,8 @@
     "make": "src/project.make",
     "drupal": "src"
   },
-  "domain": "project.vm",
   "siteUrls": {
-    "default": "http://<%= config.domain %>",
-    "subsite-project-vm": "https://subsite.<%= config.domain %>"
+    "default": "http://project.local"
   },
   "packages": {
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
@@ -23,5 +21,11 @@
   },
   "behat": {
     "flags": "--tags ~@wip"
+  },
+  "themes": {
+    "example_theme": {
+      "path": "<%= config.srcPaths.drupal %>/themes/example_theme",
+      "compass": true
+    }
   }
 }

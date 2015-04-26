@@ -10,21 +10,21 @@ Drupal project. To download this template, you can use the following two
 commands:
 
 1. In an empty directory, run:
-   `npm install grunt grunt-drupal-tasks`
+   `npm install grunt-drupal-tasks`
 
 2. Copy the contents of node_modules/grunt-drupal-tasks/example to your starting
    directory, by running:
    `cp -rf node_modules/grunt-drupal-tasks/example/* .`
+
+3. Rename the file `gitignore` to `.gitignore`, by running:
+   `mv gitignore .gitignore`
 
 The directory's contents should now look like this:
 
 ```
 Gruntconfig.json
 Gruntfile.js
-behat.yml
 composer.json
-features/
-  ...
 node_modules/
   ...
 package.json
@@ -36,6 +36,9 @@ src/
   sites/
   static/
   themes/
+test/
+  behat.yml
+  features/
 ```
 
 ## Add project code and configuration
@@ -80,7 +83,8 @@ install these tools. You can modify composer.json to include other dependencies
 for your project.
 
 To support Behat tests, the example includes a basic **behat.yml** configuration
-file and a **features/** directory for test cases.
+file and a **features/** directory for test cases inside the general **test/**
+directory.
 
 The example also includes **phpmd.xml** to provide some sensible defaults for
 Drupal development to the PHPMD utility.
@@ -119,13 +123,6 @@ This is the minimum set of configuration options:
   "srcPaths": {
     "drupal": "src",
     "make": "src/project.make"
-  },
-  "buildPaths": {
-    "build": "build",
-    "html": "build/html",
-    "package": "build/packages",
-    "reports": "build/reports",
-    "temp": "build/temp"
   }
 }
 ```
@@ -144,6 +141,9 @@ src/
 ```
 
 **srcPaths.make**: The Drush make file used to assumble the Drupal project.
+
+The following build output paths are optional to specify in the project's
+Gruntconfig.json file.
 
 **buildPaths.build**: The directory that should be used for miscellaneous build
 artifacts. This can be the parent directory of the following build paths.
@@ -194,7 +194,7 @@ This is an example of the settings for Behat tasks:
   "behat": {
     "flags": "--tags '~@javascript'",
     "subsite": {
-      "src": "./features/subsite/*.feature",
+      "src": "./test/features/subsite/*.feature",
       "debug": false
     }
   }
@@ -204,7 +204,8 @@ This is an example of the settings for Behat tasks:
 **siteUrls**: A map of Drupal subsite names to the URLs by which each can be
 accessed for testing by Behat.
 
-**behat.\<siteurl\>**: A map of Drupal subsite names to a configuration object, which will extend the defaults passed to
+**behat.\<siteurl\>**: A map of Drupal subsite names to a configuration object,
+which will extend the defaults passed to
 [grunt-parallel-behat](https://github.com/linusnorton/grunt-parallel-behat)
 
 **behat.flags**: A string with any command-line arguments and options that
@@ -220,6 +221,7 @@ This is an example of the settings for Drush tasks:
 ```
 {
   "drush": {
+    "cmd": "/usr/bin/drush",
     "make": {
       "args": ["--force-complete", "--working-copy"]
     }
@@ -227,8 +229,27 @@ This is an example of the settings for Drush tasks:
 }
 ```
 
+**drush.cmd**: The path to the Drush executable that should be used for all
+Drush operations. If none is specified, the Drush executable found in the
+default PATH will be used.
+
 **drush.make.args**: An array of arguments to pass to Drush for the make
 operation.
+
+### Notify Settings
+
+This is an example of the settings for the notify feature:
+
+```
+{
+  "notify": {
+    "threshold": 3
+  }
+}
+```
+
+**notify.threshold**: Minimum number of seconds a task must execute for a
+notification to be triggered when the task ends.
 
 ### Theme Settings
 
@@ -254,6 +275,22 @@ directly to
 [grunt-contrib-compass](https://github.com/gruntjs/grunt-contrib-compass)
 for this theme.
 
+#### Setting Up Gem Dependencies
+
+In order for compass compilation to work, you will need to create a Gemfile
+at your project root. The presence of this Gemfile will activate the `grunt
+bundle-install` task and automatically add it to the build process.
+
+A typical Gemfile focused on SASS support might look like the following:
+
+```ruby
+source 'https://rubygems.org'
+
+gem 'sass', '~>3.3.0'
+gem 'compass', '~> 1.0.1'
+gem 'json', '~>1.8.2'
+```
+
 ### Validate Settings
 
 This is an example of the settings for the validate tasks:
@@ -274,6 +311,37 @@ installs the Drupal Coder's standard, the path of which is shown above.
 
 **phpcs.dir**: An array of globbing pattern where phpcs should search for files.
 This can be used to replace the defaults supplied by grunt-drupal-tasks.
+
+This example placed in the Gruntconfig.json file ignores directories named 
+"pattern-lab" and a "bower_components" in addition to the defaults that come with
+grunt-drupal-tasks:
+
+```
+{
+  "phpcs": {
+    "path": "vendor/bin/phpcs",
+    "dir": [
+      "<%= config.srcPaths.drupal %>/**/*.php",
+      "<%= config.srcPaths.drupal %>/**/*.module",
+      "<%= config.srcPaths.drupal %>/**/*.inc",
+      "<%= config.srcPaths.drupal %>/**/*.install",
+      "<%= config.srcPaths.drupal %>/**/*.profile",
+      "!<%= config.srcPaths.drupal %>/sites/**",
+      "!<%= config.srcPaths.drupal %>/**/*.box.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.features.*inc",
+      "!<%= config.srcPaths.drupal %>/**/*.pages_default.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.panelizer.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.strongarm.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.css",
+      "!<%= config.srcPaths.drupal %>/**/*/pattern-lab/**/*",
+      "!<%= config.srcPaths.drupal %>/**/*/bower_components/**/*"
+    ]
+  }
+}
+```
+
+**phpcs.ignoreExitCode**: Set to `false` if you want validate to fail on PHPCS
+issues.
 
 > If there is no `phpcs` key in the configuration, the system will assume you
 are not using PHPCS and will suppress it from the system.
@@ -299,3 +367,37 @@ this format, see: http://gruntjs.com/configuring-tasks#files
 **packages.projFiles**: An array of files or file patterns to include or exclude
 from the project directory when building a package. The above includes README
 files and files under bin/ in the project's package.
+
+### Help Settings (Help API)
+
+If you add custom tasks to your project and want them exposed as part of the
+`help` task, you may add a simple code snippet to your Gruntfile.js or any loaded
+task file.
+
+```js
+var Help = require('grunt-drupal-tasks/lib/help');
+
+Help.addItem('existing-task', 'Named Group', 'Optional description that avoids the default task description.');
+
+Help.add({
+  task: 'existing-task',
+  group: 'Named Group',
+  description: 'Optional description that avoids the default task description.'
+});
+
+Help.add([
+  {
+    task: 'existing-task',
+    group: 'Named Group',
+    description: 'Optional description that avoids the default task description.'
+  },
+  {
+    task: 'second-task',
+    group: 'Named Group',
+    description: 'A second registered task to register with the help system.'
+  }
+]);
+```
+
+If you want to include your task in one of the existing groups, copy the text
+exactly as seen in the output of the `grunt help` task.

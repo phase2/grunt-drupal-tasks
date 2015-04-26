@@ -60,5 +60,21 @@ describe('grunt', function() {
       });
     });
 
+    // Ensure the build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css
+    // file exists, which should be created by compass.
+    it('it should compile sass files', function(done) {
+      fs.exists('build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css', function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+  });
+});
+
+describe('Utility Functions', function() {
+  it('should have "concurrency" to recommend a safe limit greater than 2', function() {
+    var limit = require('../lib/util').concurrency;
+    assert(limit >= 2, 'concurrency limit not >= 2');
   });
 });

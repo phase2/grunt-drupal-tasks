@@ -11,14 +11,14 @@ There are two ways to change the default build process (which is run when simply
 typing `grunt` into the command-line.)
 
 1. Replicate the definition of the default task you can see in this
-   grunt-drupal-tasks' Gruntfile.js. This will completely replace what currently
+   grunt-drupal-tasks' bootstrap.js. This will completely replace what currently
    exists.
 2. Use a slick workaround that allows you to keep the default task as it's been
    defined, but append or prepend your own operations. See below for a simple
    example.
 
 ```js
-grunt.task.rename('default', 'default-original');
+grunt.task.renameTask('default', 'default-original');
 grunt.registerTask('default', ['shell:custom', 'default-original']);
 ```
 
@@ -47,7 +47,7 @@ configuration element, or a redefinition of the entire task.
 
 #### Override a task's configuration
 
-In your project's `Gruntconfig.json`, use the `grunt.config.set()` function to
+In your project's `Gruntfile.js`, use the `grunt.config.set()` function to
 override the task's default configuration provided by Grunt Drupal Tasks.
 
 The following example changes the list of files scanned by the `phplint:all`
@@ -63,7 +63,7 @@ grunt.config.set('phplint', {
 
 #### Re-register the validate task
 
-In your project's `Gruntconfig.json`, use the `grunt.registerTask()` function to
+In your project's `Gruntfile.js`, use the `grunt.registerTask()` function to
 override task aliases, like default, validate, and analyze.
 
 The following example changes the list of tasks run by the `validate` command:
@@ -129,7 +129,7 @@ be:
   configuration.
 
 - If conditionally added to the build, make sure that condition checks that the
-  task is properly configured. Look at `Gruntfile.js` for examples of
+  task is properly configured. Look at `bootstrap.js` for examples of
   conditional steps.
 
 ### Things to Consider

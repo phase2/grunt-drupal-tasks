@@ -7,9 +7,12 @@ module.exports = function(grunt) {
    *   Builds a deployment package in the build/package directory.
    */
   grunt.loadNpmTasks('grunt-contrib-compress');
+  var Help = require('../lib/help')(grunt);
+
   var config = grunt.config.get('config'),
     srcFiles = (config.packages && config.packages.srcFiles && config.packages.srcFiles.length) ? config.packages.srcFiles : [],
     projFiles = (config.packages && config.packages.projFiles && config.packages.projFiles.length) ? config.packages.projFiles : [];
+
   grunt.config('compress', {
     package: {
       options: {
@@ -21,8 +24,9 @@ module.exports = function(grunt) {
       files: [
         {
           expand: true,
+          dot: true,
           cwd: '<%= config.buildPaths.html %>',
-          src: ['**'].concat(srcFiles),
+          src: ['**', '!**/.gitkeep'].concat(srcFiles),
           dest: 'docroot/'
         },
         {
@@ -41,7 +45,8 @@ module.exports = function(grunt) {
     grunt.task.run(this.data);
   });
 
-  grunt.config('help.package', {
+  Help.add({
+    task: 'package',
     group: 'Operations'
   });
 };

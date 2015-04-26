@@ -1,27 +1,36 @@
 {
   "name": "grunt-drupal-tasks",
   "description": "Grunt-based build and testing tasks for Drupal projects.",
-  "version": "0.4.1",
+  "version": "0.6.0",
+  "main": "bootstrap.js",
   "dependencies": {
-    "grunt": "~0.4.5",
-    "grunt-composer": "~0.2.0",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-copy": "~0.5.0",
-    "grunt-contrib-compass": "^1.0.1",
-    "grunt-contrib-symlink": "~0.2.0",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-drush": "~0.0.3",
-    "grunt-mkdir": "~0.1.1",
-    "grunt-newer": "~0.7.0",
-    "grunt-shell": "~0.7.0",
-    "grunt-parallel-behat": "git+https://github.com/arithmetric/grunt-parallel-behat.git",
-    "grunt-phplint": "~0.0.5",
+    "grunt-available-tasks": "0.5.7",
+    "grunt-composer": "0.4.4",
+    "grunt-concurrent": "1.0.0",
+    "grunt-contrib-clean": "0.6.0",
+    "grunt-contrib-compass": "1.0.1",
+    "grunt-contrib-compress": "0.13.0",
+    "grunt-contrib-copy": "0.8.0",
+    "grunt-contrib-symlink": "0.3.0",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-drush": "0.0.6",
+    "grunt-log-headers": "^1.0.1",
+    "grunt-mkdir": "0.1.2",
+    "grunt-newer": "1.1.0",
+    "grunt-notify": "git+https://github.com/grayside/grunt-notify.git#0.5.0",
+    "grunt-parallel-behat": "0.3.6",
     "grunt-phpcs": "git+https://github.com/grayside/grunt-phpcs.git#0.3.0",
-    "grunt-contrib-compress": "~0.9.1",
-    "grunt-phpmd": "~0.1.0",
-    "time-grunt": "^0.4.0",
-    "grunt-parallel": "^0.3.1",
-    "grunt-available-tasks": "~0.5.0"
+    "grunt-phplint": "0.0.5",
+    "grunt-phpmd": "0.1.1",
+    "grunt-shell": "1.1.2",
+    "lodash": "3.6.0",
+    "time-grunt": "1.1.0"
+  },
+  "peerDependencies": {
+    "grunt": ">= 0.4.5 < 0.5"
+  },
+  "engines": {
+    "node": ">=0.10.0"
   },
   "keywords": [
     "build",
@@ -29,8 +38,14 @@
     "grunt",
     "gruntplugin"
   ],
+  "bugs": "https://github.com/phase2/grunt-drupal-tasks/issues",
+  "homepage": "https://github.com/phase2/grunt-drupal-tasks",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url" : "https://github.com/phase2/grunt-drupal-tasks.git"
+    "url": "https://github.com/phase2/grunt-drupal-tasks.git"
+  },
+  "scripts": {
+    "test": "./test/test.sh"
   }
 }
