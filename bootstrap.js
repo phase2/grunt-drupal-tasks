@@ -8,7 +8,7 @@ module.exports = function(grunt) {
   });
 
   // Load environment-based values.
-  var domain = process.env.GRUNT_DRUPAL_DOMAIN || grunt.config('config.domain');
+  var domain = process.env.GRUNT_DRUPAL_DOMAIN || grunt.config('config.domain') || require('os').hostname();
   grunt.config('config.domain', domain);
 
   // Set implicit global configuration.
