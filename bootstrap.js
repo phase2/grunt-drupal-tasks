@@ -1,5 +1,3 @@
-var _ = require('lodash');
-
 module.exports = function(grunt) {
   // Initialize global configuration variables.
   var config = grunt.file.readJSON('Gruntconfig.json');
@@ -7,26 +5,9 @@ module.exports = function(grunt) {
     config: config
   });
 
-  // Load environment-based values.
-  var domain = process.env.GRUNT_DRUPAL_DOMAIN || grunt.config('config.domain') || require('os').hostname();
-  grunt.config('config.domain', domain);
-
-  // Specify a default URL for the project.
-  if (grunt.config('config.siteUrls') === undefined)
-    grunt.config('config.siteUrls', {});
-  var defaultUrl = grunt.config('config.siteUrls.default') || "http://<%= config.domain %>";
-  grunt.config('config.siteUrls.default', defaultUrl);
-
-  // Set implicit global configuration.
-  var buildPaths = grunt.config('config.buildPaths');
-  buildPaths = _.extend({
-    build: 'build',
-    html: 'build/html',
-    package: 'build/packages',
-    reports: 'build/reports',
-    temp: 'build/temp'
-  }, buildPaths);
-  grunt.config('config.buildPaths', buildPaths);
+  // Set up default global configuration.
+  var GDT = require('./lib/init')(grunt);
+  GDT.init();
 
   // Wrap Grunt's loadNpmTasks() function to allow loading Grunt task modules
   // that are dependencies of Grunt Drupal Tasks.
