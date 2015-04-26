@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   /**
    * Define "notify" tasks.
    */
-  if (grunt.option('quiet') || process.env.GRUNT_DRUPAL_QUIET) {
+  if (grunt.option('quiet') || (process.env.GRUNT_DRUPAL_QUIET && ! grunt.option('notify')) {
     return;
   }
 
@@ -18,6 +18,9 @@ module.exports = function(grunt) {
       // Only trigger success messages if the process has taken longer than the
       // configured notifyThreshold.
       success: true,
+      // The 'threshold' option is currently implemented to be triggered if
+      // enabled is falsy. If enabled is truthy the threshold is moot.
+      enabled: grunt.option('notify'),
       threshold: grunt.config.get('config.notify.threshold') || 10,
       duration: 5,
       // Supposed to suppress notify_hooks log header, but not working.
