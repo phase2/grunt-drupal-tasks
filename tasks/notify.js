@@ -3,12 +3,17 @@ module.exports = function(grunt) {
   /**
    * Define "notify" tasks.
    */
-  if (grunt.option('quiet') || (process.env.GRUNT_DRUPAL_QUIET && ! grunt.option('notify')) {
+  if ((grunt.option('quiet') || process.env.GRUNT_DRUPAL_QUIET) && !grunt.option('notify')) {
     return;
   }
 
   grunt.loadNpmTasks('grunt-notify');
   var guessProjectName = require('grunt-notify/lib/util/guessProjectName');
+
+  // Set the default threshold.
+  var threshold = grunt.config('config.notify.threshold') || 10;
+  // If the notify flag is used, drop the threshold to ensure notifications are triggered.
+  if (grunt.option('notify')) threshold = 0;
 
   grunt.config('notify_hooks', {
     options: {
@@ -21,7 +26,7 @@ module.exports = function(grunt) {
       // The 'threshold' option is currently implemented to be triggered if
       // enabled is falsy. If enabled is truthy the threshold is moot.
       enabled: grunt.option('notify'),
-      threshold: grunt.config.get('config.notify.threshold') || 10,
+      threshold: threshold,
       duration: 5,
       // Supposed to suppress notify_hooks log header, but not working.
       gruntLogHeader: false
