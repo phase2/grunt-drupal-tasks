@@ -24,7 +24,8 @@ module.exports = function(grunt) {
           expand: true,
           cwd: '<%= config.buildPaths.temp %>',
           src: ['**', '.**'],
-          dest: '<%= config.buildPaths.html %>'
+          dest: '<%= config.buildPaths.html %>',
+          dot: true
         }
       ]
     },
