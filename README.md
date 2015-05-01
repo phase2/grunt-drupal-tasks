@@ -58,6 +58,7 @@ To build your Drupal site, run `grunt`.
 These flags are not yet documented as part of the `grunt help` command.
 
 * `--quiet`: Suppress desktop notifications.
+* `--notify`: Request a desktop notification despite timing or environment settings.
 * `--timer`: Output execution time profile at the end of the task run.
 * `--concurrency`: Override the dynamic concurrency by Drush Make.
 
