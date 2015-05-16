@@ -66,10 +66,10 @@ These flags are not yet documented as part of the `grunt help` command.
 ### Environment Options
 
 These environment variables will override other options.
-* `GRUNT_DRUPAL_QUIET`: If evaluated truthy, will suppress all desktop
-notifications.
+
 * `GDT_DOMAIN`: Specify the base URL for live system testing. Falls back to a
 setting in the project's Gruntconfig.json, then hostname if not set.
+* `GDT_QUIET`: If evaluated truthy, will suppress all desktop notifications.
 
 ## Setting Up and Extending
 
