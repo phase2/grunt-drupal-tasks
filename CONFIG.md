@@ -3,11 +3,22 @@
 This is a guide for integrating Drupal Grunt Build and Testing Tasks with your
 Drupal project.
 
+## Start using Gadget
+
+The easiest way to start a new Drupal project with Grunt Drupal Tasks is to use
+*Gadget*, a tool which offers an interactive, text-based approach to building
+an initial project template.
+
+Once you have Gadget installed, start a new Drupal project by running `yo
+gadget` in an empty directory.
+
+For information on installing Gadget and other options, see:
+https://github.com/phase2/generator-gadget
+
 ## Start with the example
 
-It's recommended to use the included example as an initial scaffold for your
-Drupal project. To download this template, you can use the following two
-commands:
+This repository includes an example that you can use as an initial scaffold for
+your Drupal project. To find this template, you can use the following commands:
 
 1. In an empty directory, run:
    `npm install grunt-drupal-tasks`
