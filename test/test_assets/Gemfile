@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
 gem 'sass', '~> 3.4.9'
 gem 'compass', '~> 1.0.1'
+gem 'json', '~>1.8.2'
