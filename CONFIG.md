@@ -1,7 +1,6 @@
 # Set Up Your Drupal Project
 
-This is a guide for integrating Drupal Grunt Build and Testing Tasks with your
-Drupal project.
+This is a guide for integrating Grunt Drupal Tasks with your Drupal project.
 
 ## Start using Gadget
 
@@ -102,9 +101,9 @@ Drupal development to the PHPMD utility.
 
 ## Customize the tasks
 
-Drupal Grunt Build and Testing Tasks is designed to provide sensible default
-behaviors for Drupal projects, but allow these assumptions to be overridden.
-There are three ways to customize the build and testing tasks:
+Grunt Drupal Tasks is designed to provide sensible default behaviors for Drupal
+projects, but allow these assumptions to be overridden. There are three ways to
+customize the build and testing tasks:
 
 - **Gruntconfig.json** is a settings file that allows certain paths and optional
   features to be configured on a project-specific basis. See the next section
