@@ -13,9 +13,12 @@ module.exports = function(grunt) {
    *   Deeper inspection & analyze of codebase, not done on every build.
    *   Produces reports for Jenkins. May be a long-running task.
    */
+  grunt.loadNpmTasks('grunt-eslint');
+  grunt.loadNpmTasks('grunt-force-task');
   grunt.loadNpmTasks('grunt-phplint');
   grunt.loadNpmTasks('grunt-phpcs');
   grunt.loadNpmTasks('grunt-phpmd');
+
   var Help = require('../lib/help')(grunt);
 
   // Task set aliases are registered at the end of the file based on these values.
@@ -109,6 +112,25 @@ module.exports = function(grunt) {
       }
     });
     analyze.push('phpmd:custom');
+  }
+
+  if (grunt.config.get('config.eslint') != undefined) {
+    var eslintConfig = grunt.config.get('config.eslint'),
+      eslintTarget = eslintConfig.srcPaths || [
+          '<%= config.srcPaths.drupal %>/**/*.js',
+          '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+        ],
+      eslintConfigFile = eslintConfig.configFile || './.eslintrc',
+      eslintIgnoreError = eslintConfig.hasOwnProperty('ignoreError') ? eslintConfig.ignoreError : true,
+      eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
+    grunt.config('eslint', {
+      options: {
+        configFile: eslintConfigFile
+      },
+      target: eslintTarget
+    });
+    validate.push(eslintName);
+    analyze.push(eslintName);
   }
 
   grunt.registerTask('validate', validate);

@@ -315,6 +315,29 @@ This is an example of the settings for the validate tasks:
 }
 ```
 
+**eslint**: To enable eslint, set to `true` to use default options or an object
+with the following optional settings.
+
+**eslint.configFile**: The path to the eslint config file to use. If no value
+is specified, then `.eslintrc` in the project root is used.
+
+**eslint.ignoreError**: Set to `false` to trigger a Grunt error if validation
+fails, which will prevent subsequent tasks from executing.
+
+**eslint.srcPaths**: An array of glob patterns to include/exclude files for
+review by eslint. The following is used by default:
+
+```
+{
+  "eslint": {
+    "srcPaths": [
+      '<%= config.srcPaths.drupal %>/**/*.js',
+      '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+    ]
+  }
+}
+```
+
 **phpcs.path**: The path to the PHPCS executable.
 
 **phpcs.standard**: The PHPCS coding standard to use. The example composer.json
@@ -324,8 +347,8 @@ installs the Drupal Coder's standard, the path of which is shown above.
 This can be used to replace the defaults supplied by grunt-drupal-tasks.
 
 This example placed in the Gruntconfig.json file ignores directories named 
-"pattern-lab" and a "bower_components" in addition to the defaults that come with
-grunt-drupal-tasks:
+"pattern-lab" and a "bower_components" in addition to the defaults that come
+with grunt-drupal-tasks:
 
 ```
 {
