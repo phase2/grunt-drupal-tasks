@@ -13,7 +13,7 @@ rm -rf test/working_copy
 mkdir test/working_copy
 
 # Copy the example skeleton into working_copy
-cp -r example/* test/working_copy
+cp -r example/. test/working_copy
 
 # Copy the test assets into working_copy
 cd test/test_assets
