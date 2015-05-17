@@ -3,9 +3,7 @@
     "make": "src/project.make",
     "drupal": "src"
   },
-  "siteUrls": {
-    "default": "http://project.local"
-  },
+  "domain": "project.vm",
   "packages": {
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
     "projFiles": ["README*", "bin/**"]

@@ -1,5 +1,3 @@
-var _ = require('lodash');
-
 module.exports = function(grunt) {
   // Initialize global configuration variables.
   var config = grunt.file.readJSON('Gruntconfig.json');
@@ -7,16 +5,9 @@ module.exports = function(grunt) {
     config: config
   });
 
-  // Set implicit global configuration.
-  var buildPaths = grunt.config('config.buildPaths');
-  buildPaths = _.extend({
-    build: 'build',
-    html: 'build/html',
-    package: 'build/packages',
-    reports: 'build/reports',
-    temp: 'build/temp'
-  }, buildPaths);
-  grunt.config('config.buildPaths', buildPaths);
+  // Set up default global configuration.
+  var GDT = require('./lib/init')(grunt);
+  GDT.init();
 
   // Wrap Grunt's loadNpmTasks() function to allow loading Grunt task modules
   // that are dependencies of Grunt Drupal Tasks.

@@ -171,6 +171,26 @@ analysis and validation tools.
 **buildPaths.temp**: The directory that should be used for temporary build
 artifacts. This can be a subdirectory of buildPaths.html.
 
+**domain**: The domain of the site without protocol. It may also be a Base URL
+(with a path prefix) so long as the protocol is excluded. This domain is used
+to construct complete URLs for testing purposes. This may be overridden by the
+`GDT_DOMAIN` environment variable, and if neither is set will fall back to the
+environment's hostname. If a domain is specified, we recommend it is lined up
+with any standard set for local development, as development processes should
+not default to hitting a production or staging environment.
+
+**siteUrls**: (Optional) A map of Drupal subsite names to the URLs by which
+each can be accessed for end-to-end testing by tools such as Behat. For clarity
+please align the site names (keys) with any Drush Site Aliases. If no siteUrls
+are specified it will default to `http://<%= config.domain %>`.
+
+```
+  "siteUrls": {
+    "default": "http://dev-site.local",
+    "subsite": "http://sub.dev-site.local"
+  },
+```
+
 ### Analyze Settings
 
 This is an example of the settings for analyze tasks:
@@ -198,10 +218,6 @@ This is an example of the settings for Behat tasks:
 
 ```
 {
-  "siteUrls": {
-    "default": "http://dev-site.local",
-    "subsite": "http://sub.dev-site.local"
-  },
   "behat": {
     "flags": "--tags '~@javascript'",
     "subsite": {
@@ -211,9 +227,6 @@ This is an example of the settings for Behat tasks:
   }
 }
 ```
-
-**siteUrls**: A map of Drupal subsite names to the URLs by which each can be
-accessed for testing by Behat.
 
 **behat.\<siteurl\>**: A map of Drupal subsite names to a configuration object,
 which will extend the defaults passed to
