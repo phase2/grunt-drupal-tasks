@@ -1,4 +1,5 @@
-# Drupal Grunt Build and Testing Tasks
+# Grunt Drupal Tasks
+## A Grunt plugin to automate Drupal build and testing tasks
 
 Code Status (master branch):
 [![Travis CI status](https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master)](https://travis-ci.org/phase2/grunt-drupal-tasks)

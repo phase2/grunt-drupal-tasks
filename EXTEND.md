@@ -1,7 +1,7 @@
-# Extending Drupal Grunt Build and Testing Tasks
+# Extending Grunt Drupal Tasks
 
-This is a guide for advanced project-specific extensions to Drupal Grunt Build
-and Testing Tasks and for contributing changes to the core tasks.
+This is a guide for advanced project-specific extensions to Grunt Drupal Tasks
+and for contributing changes to the core tasks.
 
 ## Project-specific extensions
 
