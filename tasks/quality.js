@@ -54,35 +54,42 @@ module.exports = function(grunt) {
 
     grunt.config('phpcs', {
       analyze: {
-        dir: phpcs
+        src: phpcs
       },
       drupal: {
-        dir: phpcs
+        src: phpcs
       },
       validate: {
-        dir: phpcs,
-        report: grunt.config.get('config.phpcs.validateReport') || 'full',
-        reportFile: false,
+        src: phpcs,
+        options: {
+          report: grunt.config.get('config.phpcs.validateReport') || 'full',
+          reportFile: false
+        }
       },
       full: {
-        dir: phpcs,
-        report: 'full',
-        reportFile: false
+        src: phpcs,
+        options: {
+          report: 'full',
+          reportFile: false
+        }
       },
       summary: {
-        dir: phpcs,
-        report: 'summary',
-        reportFile: false
+        src: phpcs,
+        options: {
+          report: 'summary',
+          reportFile: false
+        }
       },
       gitblame: {
-        dir: phpcs,
-        report: 'gitblame',
-        reportFile: false
+        src: phpcs,
+        options: {
+          report: 'gitblame',
+          reportFile: false
+        }
       },
       options: {
         bin: '<%= config.phpcs.path %>',
         standard: phpStandard,
-        extensions: 'php,install,module,inc,profile',
         ignoreExitCode: ignoreError,
         report: 'checkstyle',
         reportFile: '<%= config.buildPaths.reports %>/phpcs.xml'
@@ -124,7 +131,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
     if (mode == 'newer') {
-      var newer = validate.map(function(item) { return 'newer:' + item; });
+      // Wrap each task configured for validate in the newer command.
+      // grunt-phplint already contains complex caching that does the same thing.
+      var newer = validate.map(function(item) { return item != 'phplint:all' ? 'newer:' + item : item; });
       grunt.task.run(newer);
     }
     else {
