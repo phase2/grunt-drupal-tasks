@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   /**
    * Define "notify" tasks.
    */
-  if ((grunt.option('quiet') || process.env.GRUNT_DRUPAL_QUIET) && !grunt.option('notify')) {
+  if ((grunt.option('quiet') || process.env.GDT_QUIET) && !grunt.option('notify')) {
     return;
   }
 

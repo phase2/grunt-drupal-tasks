@@ -11,16 +11,19 @@ if [ -d "test/working_copy/src/sites/default" ]; then chmod 755 test/working_cop
 # Initialize the working_copy directory
 rm -rf test/working_copy
 mkdir test/working_copy
+PATH_WORKING_COPY="`pwd`/test/working_copy"
 
 # Copy the example skeleton into working_copy
-cp -r example/. test/working_copy
+cp -r example/* $PATH_WORKING_COPY
 
 # Copy the test assets into working_copy
-cd test/test_assets
-for file in `find . -type f`; do mkdir -p ../working_copy/`dirname $file`; cp $file ../working_copy/$file; done;
+PATH_TEST_ASSETS="test/test_assets"
+if [[ $GDT_DRUPAL_CORE == "8" ]]; then PATH_TEST_ASSETS="test/test_assets_d8"; fi;
+cd $PATH_TEST_ASSETS
+for file in `find . -type f`; do mkdir -p $PATH_WORKING_COPY/`dirname $file`; cp $file $PATH_WORKING_COPY/$file; done;
 
 # Install dependencies of working_copy
-cd ../working_copy
+cd $PATH_WORKING_COPY
 npm install
 
 # Force installation of the checked out version of grunt-drupal-tasks
