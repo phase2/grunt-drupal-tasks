@@ -10,8 +10,9 @@ before_install:
 install:
   - npm install -g grunt-cli
   - npm install -g mocha
+  - ls -lRa
 script:
-  - echo "Code checkout disk usage"; du -chs .; ls -lRa
+  - echo "Code checkout disk usage"; du -chs .
   - ./test/create_working_copy.sh
   - cd test/working_copy/
   - echo "Working copy disk usage"; du -chs .
