@@ -3,7 +3,9 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 
 describe('grunt', function() {
+
   describe('default', function() {
+    var drupalCore = process.env['GDT_DRUPAL_CORE'];
 
     // Ensure the vendor directory exists.
     it('it should create the vendor directory', function(done) {
@@ -42,15 +44,16 @@ describe('grunt', function() {
       });
     });
 
-    // Ensure the build/html/sites/all/modules/custom directory is a symlink to
-    // ../../../../../src/modules.
-    it('it should link the build/html/sites/all/modules/custom directory', function(done) {
-      fs.lstat('build/html/sites/all/modules/custom', function (err, stats) {
+    // Ensure there is a symlink to src/modules.
+    var modulesSrc = (drupalCore == '8') ? '../../../src/modules' : '../../../../../src/modules',
+      modulesDest = (drupalCore == '8') ? 'build/html/modules/custom' : 'build/html/sites/all/modules/custom';
+    it('it should link the ' + modulesDest + ' directory', function(done) {
+      fs.lstat(modulesDest, function (err, stats) {
         assert.ok(stats.isSymbolicLink());
 
         if (stats.isSymbolicLink()) {
-          fs.readlink('build/html/sites/all/modules/custom', function (err, linkString) {
-            assert.equal(linkString, '../../../../../src/modules');
+          fs.readlink(modulesDest, function (err, linkString) {
+            assert.equal(linkString, modulesSrc);
             done();
           });
         }
@@ -62,8 +65,9 @@ describe('grunt', function() {
 
     // Ensure the build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css
     // file exists, which should be created by compass.
+    var sassDest = (drupalCore == '8') ? 'build/html/themes/custom/example_theme/stylesheets/screen.css' : 'build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css';
     it('it should compile sass files', function(done) {
-      fs.exists('build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css', function (exists) {
+      fs.exists(sassDest, function (exists) {
         assert.ok(exists);
         done();
       });
