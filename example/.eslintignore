@@ -1,0 +1,19 @@
+##
+# This file instructs eslint to skip certain directories in it's analysis.
+#
+# It is not needed by grunt-drupal-tasks but is intended to make direct use
+# of eslint more effective.
+#
+# @see http://eslint.org/docs/user-guide/configuring.html
+##
+
+# node_modules ignored by default
+
+# Ignore composer and bundler managed dependencies
+vendor/**/*
+
+# Ignore generated files and upstream dependencies via Drush Make
+build/**/*
+
+# Ignore JS in the Drupal files directory such as aggregations.
+src/sites/**/files/**/*.js
