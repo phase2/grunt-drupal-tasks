@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.6.1 [2015/05/17]
+
+- Adding documentation on Gadget, the Yeoman generator for Grunt Drupal Tasks.
+- Ensuring dot-files are copied from the temporary build (Drush output) and the
+static files directory.
+- Adding --notify option as a converse of --quiet.
+- Adding .editorconfig to the project example.
+
 ## v0.6.0 [2015/04/07]
 
 - **Added automatic support for Drupal 8 based on Drush detection of the Drupal
