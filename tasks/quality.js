@@ -111,12 +111,6 @@ module.exports = function(grunt) {
     analyze.push('phpmd:custom');
   }
 
-  // Hack to ensure performance.js is loaded first.
-  require('./performance')(grunt);
-  if (grunt.config('pagespeed') && !grunt.config('config.performance.pagespeed.disabled') {
-    analyze.push('pagespeed');
-  }
-
   grunt.registerTask('validate', validate);
 
   if (analyze.length < 2) {

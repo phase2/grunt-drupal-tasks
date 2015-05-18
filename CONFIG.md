@@ -221,7 +221,6 @@ are not using PHPMD and will suppress it from the system.
       "about",
     ],
     "pagespeed": {
-      "disabled": true,
       "threshold": {
         "desktop": 100,
         "mobile": 95
@@ -233,10 +232,7 @@ are not using PHPMD and will suppress it from the system.
 
 * **samplePaths**: An array of paths to iterate across for basic performance
   checks. Defaults to the site homepage.
-* **pagespeed.disabled**: Set to true to suppress use of pagespeed testing.
-  Good setting to leave in place early in projects when this testing is
-  premature.
-* **pagespeed.threshold**: Specify the score for desktop and mobile pagespeed
+* **pagespeed.threshold**: Specify the scores for desktop and mobile pagespeed
   evaluation. If the score is not met it will fail.
 
 ### Behat Settings
