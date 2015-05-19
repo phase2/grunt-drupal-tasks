@@ -22,6 +22,9 @@
   "behat": {
     "flags": "--tags ~@wip"
   },
+  "validate": {
+    "ignoreError": true
+  },
   "eslint": true,
   "themes": {
     "example_theme": {
