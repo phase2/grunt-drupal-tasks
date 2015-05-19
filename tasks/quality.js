@@ -52,8 +52,8 @@ module.exports = function(grunt) {
     var phpStandard = grunt.config('config.phpcs.standard')
       || 'vendor/drupal/coder/coder_sniffer/Drupal';
 
-    var ignoreError = grunt.config('config.phpcs.ignoreExitCode');
-    ignoreError = ignoreError === undefined ? true : ignoreError;
+    var ignoreError = grunt.config('config.validate.ignoreError');
+    ignoreError = ignoreError === undefined ? false : ignoreError;
 
     grunt.config('phpcs', {
       analyze: {
@@ -121,7 +121,7 @@ module.exports = function(grunt) {
           '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
         ],
       eslintConfigFile = eslintConfig.configFile || './.eslintrc',
-      eslintIgnoreError = eslintConfig.hasOwnProperty('ignoreError') ? eslintConfig.ignoreError : true,
+      eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
       eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
     grunt.config('eslint', {
       options: {

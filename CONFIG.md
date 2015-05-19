@@ -333,9 +333,6 @@ with the following optional settings.
 **eslint.configFile**: The path to the eslint config file to use. If no value
 is specified, then `.eslintrc` in the project root is used.
 
-**eslint.ignoreError**: Set to `false` to trigger a Grunt error if validation
-fails, which will prevent subsequent tasks from executing.
-
 **eslint.srcPaths**: An array of glob patterns to include/exclude files for
 review by eslint. The following is used by default:
 
@@ -386,11 +383,11 @@ with grunt-drupal-tasks:
 }
 ```
 
-**phpcs.ignoreExitCode**: Set to `false` if you want validate to fail on PHPCS
-issues.
-
 > If there is no `phpcs` key in the configuration, the system will assume you
 are not using PHPCS and will suppress it from the system.
+
+**validate.ignoreError**: Set to `true` to prevent failing the build if code
+quality validation fails (which also prevents other tasks from executing).
 
 ### Package Settings
 
