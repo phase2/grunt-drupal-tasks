@@ -14,6 +14,7 @@
     "grunt-contrib-symlink": "0.3.0",
     "grunt-contrib-watch": "0.6.1",
     "grunt-drush": "0.0.6",
+    "grunt-githooks": "^0.3.1",
     "grunt-log-headers": "^1.0.1",
     "grunt-mkdir": "0.1.2",
     "grunt-newer": "1.1.0",

@@ -42,6 +42,10 @@ module.exports = function(grunt) {
   if (grunt.task.exists('compile-theme')) {
     tasksDefault.push('compile-theme');
   }
+  if (!grunt.file.exists('build')) {
+    tasksDefault.unshift('setup');
+  }
+
   grunt.registerTask('default', tasksDefault);
 
   // If the "--timer" option is given, enable time-grunt to show how long each
