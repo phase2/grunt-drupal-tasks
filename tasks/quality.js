@@ -33,7 +33,8 @@ module.exports = function(grunt) {
     '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
     '!<%= config.srcPaths.drupal %>/**/*.pages_default.inc',
     '!<%= config.srcPaths.drupal %>/**/*.panelizer.inc',
-    '!<%= config.srcPaths.drupal %>/**/*.strongarm.inc'
+    '!<%= config.srcPaths.drupal %>/**/*.strongarm.inc',
+    '!<%= config.srcPaths.drupal %>/**/vendor/**'
   ];
 
   grunt.config('phplint', {
