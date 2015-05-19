@@ -324,8 +324,21 @@ This is an example of the settings for the validate tasks:
     "path": "bin/phpcs",
     "standard": "vendor/drupal/coder/coder_sniffer/Drupal"
   }
+  "phplint": {
+    "dir": [
+      "<%= config.srcPaths.drupal %>/**/*.php",
+      "<%= config.srcPaths.drupal %>/**/*.module",
+      "<%= config.srcPaths.drupal %>/**/*.inc",
+      "<%= config.srcPaths.drupal %>/**/*.install",
+      "<%= config.srcPaths.drupal %>/**/*.profile",
+      "!<%= config.srcPaths.drupal %>/**/vendor/**",
+    ]
+  }
 }
 ```
+
+> If there is no `phpcs` key in the configuration, the system will assume you
+are not using PHPCS and will suppress it from the system.
 
 **phpcs.path**: The path to the PHPCS executable.
 
@@ -366,8 +379,8 @@ grunt-drupal-tasks:
 **phpcs.ignoreExitCode**: Set to `false` if you want validate to fail on PHPCS
 issues.
 
-> If there is no `phpcs` key in the configuration, the system will assume you
-are not using PHPCS and will suppress it from the system.
+**phplint.dir**: An array of globbing patterns which phplint should include or
+exclude from PHP code syntax validation.
 
 ### Package Settings
 
