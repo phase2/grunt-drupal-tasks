@@ -300,12 +300,12 @@ for this theme.
 
 ### Proxying Grunt Tasks
 
-Many themes come with their own Grunt integration. In those cases you can
-configure Grunt-Drupal-Tasks for awareness of that and remove the theme
-from most handling.
+Many themes come with their own tooling, possibly grunt-based as well. In those
+cases you can configure Grunt-Drupal-Tasks for awareness of that and opt the
+theme out of most handling.
 
-In order to exclude your theme from handling, specify the `proxy` property in
-your Drupal project's Gruntconfig.json.
+In order to exclude your theme from grunt-drupal-tasks control, specify the
+`proxy` property in your Drupal project's Gruntconfig.json for the theme.
 
 ```
 "legionaire": {
@@ -321,10 +321,10 @@ If you wish to customize the grunt task used, you can use a more complicated
 configuration:
 
 ```
-"gladiator": {
-  "path": "<%= config.srcPaths.drupal %>/themes/gladiator",
+"cavalry": {
+  "path": "<%= config.srcPaths.drupal %>/themes/cavalry",
   "proxy": {
-    "default": "build",
+    "default": "bash bin/build.sh --development",
   }
 },
 ```
@@ -338,14 +338,15 @@ from the grunt-drupal-tasks context by using a magical grunt task for the purpos
 grunt theme:<theme-name>:task
 ```
 
-For a more concrete example, suppose we want to compile Sass for the gladiator theme.
-You need to know that for the Gladiator theme, the command to do that is simply "compass".
+For a more concrete example, suppose we want to compile Sass for the *gladiator*
+theme. You need to know that for the Gladiator theme the command is simply "compass".
 
 ```
 grunt theme:gladiator:compass
 ```
 
-More complex task proxying is not currently supported.
+More complex task proxying is not currently supported, and you cannot pass options
+or targets with this support.
 
 #### Setting Up Gem Dependencies
 

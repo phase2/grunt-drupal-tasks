@@ -1,10 +1,13 @@
 module.exports = function(grunt) {
 
   /**
-   * Define "Compass" tasks.
+   * Define "compile-theme" task.
    *
-   * Dynamically adds Compass compile tasks based on configuration sets in the
-   * package.json file.
+   * Individual themes "register" with grunt by adding a configuration object
+   * the themes section of configuration. Each theme should have at least a path.
+   * From there they may opt-in for compass compilation, or specify via the proxy
+   * behavior that grunt-drupal-tasks should outsource theme handling commands
+   * to tooling shipped with the theme.
    *
    * Example:
    *
@@ -27,7 +30,7 @@ module.exports = function(grunt) {
    *   "gladiator": {
    *     "path": "<%= config.srcPaths.drupal %>/themes/gladiator",
    *     "proxy": {
-   *       "default": "build",
+   *       "compile-theme": "grunt build",
    *     }
    *   },
    *   "trojan": {
@@ -76,9 +79,12 @@ module.exports = function(grunt) {
         }
 
         // If the proxy property is truthy let's add a callout to it as part of compile-theme.
+        // This is important to ensure the grunt-drupal-tasks `grunt compile-theme` is complete
+        // for purposes like continuous integration.
         if (theme.proxy) {
-          // If the proxy property is an object with a "default" parameter use that.
-          var command = theme.proxy.default || 'compile';
+          // If the proxy property is an object with the "compile-theme" property use that.
+          // Otherwise we default to 'grunt compile' as an emergent practice.
+          var command = theme.proxy.'compile-theme' || 'grunt compile';
           steps.push('theme:' + key + ':' + command);
         }
       }
@@ -118,7 +124,7 @@ module.exports = function(grunt) {
 
       var path = grunt.config(['config', 'themes', theme, 'path']);
       grunt.config(['shell', 'theme-dispatch'], {
-        command: 'grunt ' + task,
+        command: task,
         options: {
           execOptions: {
             cwd: path
