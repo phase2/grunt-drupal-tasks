@@ -1,28 +1,44 @@
 # CHANGELOG
 
-## v0.6.0 [2015/03/??]
+## v0.6.1 [2015/05/17]
 
-- **Added automatic support for Drupal 8 based on drush detection of the Drupal version.**
+- Adding documentation on Gadget, the Yeoman generator for Grunt Drupal Tasks.
+- Ensuring dot-files are copied from the temporary build (Drush output) and the
+static files directory.
+- Adding --notify option as a converse of --quiet.
+- Adding .editorconfig to the project example.
+
+## v0.6.0 [2015/04/07]
+
+- **Added automatic support for Drupal 8 based on Drush detection of the Drupal
+  version.**
 - Dynamically compute Drush Make concurrency based on system capability with a
   new concurrency detection service.
 - Ruby (bundler) will now install dependencies into `vendor/bundle`.
 - Ruby and PHP upstream binaries are placed or symlinked from `vendor/bin`.
   This frees up `bin/` for custom project scripts.
-- Moved more default Gruntconfig.json into code for a slimmer project Gruntconfig.
-- Ensure reports directory is created before running analyze
+- Adding default values for the buildPaths in the project Gruntconfig.json so
+  the buildPaths config is no longer required.
+- Ensure reports directory is created before running analyze.
 - Support for \*.sass files in compass watch.
 - Refactored `grunt help` task to be extensible from separate projects.
 - The docroot assembly tasks (such as the symlinking) performed after drush make
-  have been consolidated into a new `grunt scaffold` task.
+  have been consolidated into a new `scaffold` task.
+- Due to npm's behavior that strips .gitignore files from packages, the example
+  .gitignore is renamed to gitignore, and needs to be renamed manually after
+  installation.
 
 ### Upgrade Notes
 
 - Remove the Drush Make `--concurrency` option from your Gruntconfig. It will no
   longer be respected.
-- If you are using the default `Gruntconfig.json` example for bin paths on PHP
-  scripts, you should be fine.
-- You may need to run `rm -Rf .bundle` to clear bundler configuration to make
-  way for the new install location.
+- The example `composer.json` and `Gruntconfig.json` have been both updated
+  to support installing PHP component executables to `vendor/bin` instead
+  of `bin`. If you want to continue using `bin`, use caution when updating
+  these files.
+- Ruby bundle executables are moved to `vendor/bin` from `bin`. This change is
+  intrinsic to v0.6.0. You may need to run `rm -Rf .bundle` to clear Bundler
+  configuration to make way for the new install location.
 - Gruntconfig.json no longer needs the `buildPaths` config key. Elements of
   `buildPaths` added to your project Gruntconfig will override default behavior.
 - Configuration of `grunt help` for project-specific tasks via Gruntconfig.json

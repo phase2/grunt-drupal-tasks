@@ -1,13 +1,23 @@
 # Set Up Your Drupal Project
 
-This is a guide for integrating Drupal Grunt Build and Testing Tasks with your
-Drupal project.
+This is a guide for integrating Grunt Drupal Tasks with your Drupal project.
+
+## Start using Gadget
+
+The easiest way to start a new Drupal project with Grunt Drupal Tasks is to use
+*Gadget*, a tool which offers an interactive, text-based approach to building
+an initial project template.
+
+Once you have Gadget installed, start a new Drupal project by running `yo
+gadget` in an empty directory.
+
+For information on installing Gadget and other options, see:
+https://github.com/phase2/generator-gadget
 
 ## Start with the example
 
-It's recommended to use the included example as an initial scaffold for your
-Drupal project. To download this template, you can use the following two
-commands:
+This repository includes an example that you can use as an initial scaffold for
+your Drupal project. To find this template, you can use the following commands:
 
 1. In an empty directory, run:
    `npm install grunt-drupal-tasks`
@@ -91,9 +101,9 @@ Drupal development to the PHPMD utility.
 
 ## Customize the tasks
 
-Drupal Grunt Build and Testing Tasks is designed to provide sensible default
-behaviors for Drupal projects, but allow these assumptions to be overridden.
-There are three ways to customize the build and testing tasks:
+Grunt Drupal Tasks is designed to provide sensible default behaviors for Drupal
+projects, but allow these assumptions to be overridden. There are three ways to
+customize the build and testing tasks:
 
 - **Gruntconfig.json** is a settings file that allows certain paths and optional
   features to be configured on a project-specific basis. See the next section
@@ -160,6 +170,26 @@ analysis and validation tools.
 **buildPaths.temp**: The directory that should be used for temporary build
 artifacts. This can be a subdirectory of buildPaths.html.
 
+**domain**: The domain of the site without protocol. It may also be a Base URL
+(with a path prefix) so long as the protocol is excluded. This domain is used
+to construct complete URLs for testing purposes. This may be overridden by the
+`GDT_DOMAIN` environment variable, and if neither is set will fall back to the
+environment's hostname. If a domain is specified, we recommend it is lined up
+with any standard set for local development, as development processes should
+not default to hitting a production or staging environment.
+
+**siteUrls**: (Optional) A map of Drupal subsite names to the URLs by which
+each can be accessed for end-to-end testing by tools such as Behat. For clarity
+please align the site names (keys) with any Drush Site Aliases. If no siteUrls
+are specified it will default to `http://<%= config.domain %>`.
+
+```
+  "siteUrls": {
+    "default": "http://dev-site.local",
+    "subsite": "http://sub.dev-site.local"
+  },
+```
+
 ### Analyze Settings
 
 This is an example of the settings for analyze tasks:
@@ -187,10 +217,6 @@ This is an example of the settings for Behat tasks:
 
 ```
 {
-  "siteUrls": {
-    "default": "http://dev-site.local",
-    "subsite": "http://sub.dev-site.local"
-  },
   "behat": {
     "flags": "--tags '~@javascript'",
     "subsite": {
@@ -200,9 +226,6 @@ This is an example of the settings for Behat tasks:
   }
 }
 ```
-
-**siteUrls**: A map of Drupal subsite names to the URLs by which each can be
-accessed for testing by Behat.
 
 **behat.\<siteurl\>**: A map of Drupal subsite names to a configuration object,
 which will extend the defaults passed to
@@ -350,8 +373,21 @@ This is an example of the settings for the validate tasks:
     "path": "bin/phpcs",
     "standard": "vendor/drupal/coder/coder_sniffer/Drupal"
   }
+  "phplint": {
+    "dir": [
+      "<%= config.srcPaths.drupal %>/**/*.php",
+      "<%= config.srcPaths.drupal %>/**/*.module",
+      "<%= config.srcPaths.drupal %>/**/*.inc",
+      "<%= config.srcPaths.drupal %>/**/*.install",
+      "<%= config.srcPaths.drupal %>/**/*.profile",
+      "!<%= config.srcPaths.drupal %>/**/vendor/**",
+    ]
+  }
 }
 ```
+
+> If there is no `phpcs` key in the configuration, the system will assume you
+are not using PHPCS and will suppress it from the system.
 
 **phpcs.path**: The path to the PHPCS executable.
 
@@ -392,8 +428,8 @@ grunt-drupal-tasks:
 **phpcs.ignoreExitCode**: Set to `false` if you want validate to fail on PHPCS
 issues.
 
-> If there is no `phpcs` key in the configuration, the system will assume you
-are not using PHPCS and will suppress it from the system.
+**phplint.dir**: An array of globbing patterns which phplint should include or
+exclude from PHP code syntax validation.
 
 ### Package Settings
 

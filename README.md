@@ -1,4 +1,5 @@
-# Drupal Grunt Build and Testing Tasks
+# Grunt Drupal Tasks
+## A Grunt plugin to automate Drupal build and testing tasks
 
 Code Status (master branch):
 [![Travis CI status](https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master)](https://travis-ci.org/phase2/grunt-drupal-tasks)
@@ -58,13 +59,17 @@ To build your Drupal site, run `grunt`.
 These flags are not yet documented as part of the `grunt help` command.
 
 * `--quiet`: Suppress desktop notifications.
+* `--notify`: Request a desktop notification despite timing or environment settings.
 * `--timer`: Output execution time profile at the end of the task run.
 * `--concurrency`: Override the dynamic concurrency by Drush Make.
 
 ### Environment Options
 
 These environment variables will override other options.
-* `GRUNT_DRUPAL_QUIET`: If evaluated truthy, will suppress all desktop notifications.
+
+* `GDT_DOMAIN`: Specify the base URL for live system testing. Falls back to a
+setting in the project's Gruntconfig.json, then hostname if not set.
+* `GDT_QUIET`: If evaluated truthy, will suppress all desktop notifications.
 
 ## Setting Up and Extending
 
