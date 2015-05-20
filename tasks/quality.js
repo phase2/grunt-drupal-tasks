@@ -40,7 +40,7 @@ module.exports = function(grunt) {
   ];
 
   grunt.config('phplint', {
-    all: defaultPatterns
+    all: grunt.config.get('config.phplint.dir') ? grunt.config.get('config.phplint.dir') : defaultPatterns
   });
   validate.push('phplint:all');
 

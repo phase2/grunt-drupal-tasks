@@ -320,12 +320,32 @@ This is an example of the settings for the validate tasks:
 
 ```
 {
+  "eslint": {
+    "srcPaths": [
+      '<%= config.srcPaths.drupal %>/**/*.js',
+      '!<%= config.srcPaths.drupal %>/**/bower/**/*.js',
+      '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+    ]
+  },
   "phpcs": {
     "path": "bin/phpcs",
     "standard": "vendor/drupal/coder/coder_sniffer/Drupal"
   }
+  "phplint": {
+    "dir": [
+      "<%= config.srcPaths.drupal %>/**/*.php",
+      "<%= config.srcPaths.drupal %>/**/*.module",
+      "<%= config.srcPaths.drupal %>/**/*.inc",
+      "<%= config.srcPaths.drupal %>/**/*.install",
+      "<%= config.srcPaths.drupal %>/**/*.profile",
+      "!<%= config.srcPaths.drupal %>/**/vendor/**",
+    ]
+  }
 }
 ```
+
+> If there is no `phpcs` key in the configuration, the system will assume you
+are not using PHPCS and will suppress it from the system.
 
 **eslint**: To enable eslint, set to `true` to use default options or an object
 with the following optional settings.
@@ -383,8 +403,8 @@ with grunt-drupal-tasks:
 }
 ```
 
-> If there is no `phpcs` key in the configuration, the system will assume you
-are not using PHPCS and will suppress it from the system.
+**phplint.dir**: An array of globbing patterns which phplint should include or
+exclude from PHP code syntax validation.
 
 **validate.ignoreError**: Set to `true` to prevent failing the build if code
 quality validation fails (which also prevents other tasks from executing).
