@@ -211,6 +211,30 @@ This is an example of the settings for analyze tasks:
 > If there is no `phpmd` key in the configuration, the system will assume you
 are not using PHPMD and will suppress it from the system.
 
+### Performance Testing
+
+```
+{
+  "performance": {
+    "samplePaths": [
+      "/",
+      "about",
+    ],
+    "pagespeed": {
+      "threshold": {
+        "desktop": 100,
+        "mobile": 95
+      }
+    }
+  }
+}
+```
+
+* **samplePaths**: An array of paths to iterate across for basic performance
+  checks. Defaults to the site homepage.
+* **pagespeed.threshold**: Specify the scores for desktop and mobile pagespeed
+  evaluation. If the score is not met it will fail.
+
 ### Behat Settings
 
 This is an example of the settings for Behat tasks:
@@ -273,6 +297,12 @@ This is an example of the settings for the notify feature:
 
 **notify.threshold**: Minimum number of seconds a task must execute for a
 notification to be triggered when the task ends.
+
+
+#### Environment Variables
+
+**GDT_QUIET**: This will suppress all notifications from all tasks unless the
+`--notify` flag is used.
 
 ### Theme Settings
 
@@ -437,3 +467,23 @@ Help.add([
 
 If you want to include your task in one of the existing groups, copy the text
 exactly as seen in the output of the `grunt help` task.
+
+### External Tools
+
+There are a number of tools you might choose to use as part of build or testing
+that leverage remotely hosted services (Google Pagespeed, WebPageTest.org), in
+those cases you should run with one of the following options.
+
+_(Note that these options are all based on individual tasks implementing proper
+support, for a new task in your system consider this a standard implementation
+practice rather than a feature to be relied upon.)_
+
+#### Command Flag
+* **--web-ready**: This command-line option sets the system to treat the site
+as web accessible.
+
+#### Environment Variable
+
+* **GDT_WEB_READY**: All grunt commands will be treated as run with the
+`--web-ready` flag by default.
+
