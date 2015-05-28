@@ -33,23 +33,9 @@ module.exports = function(grunt) {
   make_args.push('--concurrency=' + limit);
   grunt.verbose.writeln('Configured for concurrency=' + limit);
 
-  grunt.config('drush', {
-    make: {
-      args: make_args,
-      options: _.extend({}, cmd)
-    },
-    liteinstall: {
-      args: ['site-install', '-y', 'standard', '--db-url=sqlite:/' + path.join(path.resolve(grunt.config('config.buildPaths.build')), 'drupal.sqlite')],
-      options: _.extend({
-        cwd: '<%= config.buildPaths.html %>'
-      }, cmd)
-    },
-    runserver: {
-      args: ['runserver', '8080'],
-      options: _.extend({
-        cwd: '<%= config.buildPaths.html %>'
-      }, cmd)
-    }
+  grunt.config(['drush', 'make'], {
+    args: make_args,
+    options: _.extend({}, cmd)
   });
 
   grunt.registerTask('drushmake', 'Prepare the build directory and run "drush make"', function() {

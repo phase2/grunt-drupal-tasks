@@ -70,7 +70,7 @@ make file and add your custom code and configuration in the directories under
   with a setting change in Gruntconfig.json (see below).
 
 - Include any sites directories (like "default"), optionally with settings.php
-  or other files, and if needed a multi-site sites.php in **src/sites/**. (The 
+  or other files, and if needed a multi-site sites.php in **src/sites/**. (The
   contents of src/sites/ are copied into sites/.)
 
 - Include any static files that should be copied into the Drupal docroot on
@@ -292,9 +292,9 @@ This is an example of the settings for theme tasks:
 **themes**: Defines each custom Drupal theme and enables features, like Sass
 processing by Compass.
 
-**themes.\<theme\>.compass**: Enable compass preprocessing. Either `true` to 
-enable with default compass options, or a configuration object to be passed 
-directly to 
+**themes.\<theme\>.compass**: Enable compass preprocessing. Either `true` to
+enable with default compass options, or a configuration object to be passed
+directly to
 [grunt-contrib-compass](https://github.com/gruntjs/grunt-contrib-compass)
 for this theme.
 
@@ -348,7 +348,7 @@ installs the Drupal Coder's standard, the path of which is shown above.
 **phpcs.dir**: An array of globbing pattern where phpcs should search for files.
 This can be used to replace the defaults supplied by grunt-drupal-tasks.
 
-This example placed in the Gruntconfig.json file ignores directories named 
+This example placed in the Gruntconfig.json file ignores directories named
 "pattern-lab" and a "bower_components" in addition to the defaults that come with
 grunt-drupal-tasks:
 
@@ -403,6 +403,39 @@ this format, see: http://gruntjs.com/configuring-tasks#files
 **packages.projFiles**: An array of files or file patterns to include or exclude
 from the project directory when building a package. The above includes README
 files and files under bin/ in the project's package.
+
+### Serve Settings
+
+The Serve task allows you to run Drupal using PHP's built-in webserver. This
+facilitates quick demos and low-overhead development for projects with extremely
+simple infrastructure requirements. When using this task it will take over the
+terminal window.
+
+```
+{
+  "serve": {
+    "profile": 'project_profile_name',
+    "port": 9043,
+    "concurrent": [
+      "watch-theme"
+    ]
+
+}
+```
+
+**serve.profile**: The profile to use with the drush:liteinstall task. Defaults
+to `standard` and may be overridden with `--profile` when the command is run.
+WARNING: drush:liteinstall is an internal task and is likely to be deprecated in
+a future release.
+
+**serve.port**: The port number to bind for the webserver. Only one service may
+occupy a port on a machine, so a project-specific port may be worthwhile. Defaults
+to `8080`.
+
+**serve.concurrent**: An array of grunt tasks to be run concurrently to the server.
+When run with `serve:demo` or `serve:test` these tasks are not used. By default
+they include 'watch-test' and 'watch-theme'. If you use this configuration to
+add tasks be sure to include these as they will be suppressed by any configuration.
 
 ### Help Settings (Help API)
 

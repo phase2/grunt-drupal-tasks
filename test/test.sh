@@ -8,7 +8,7 @@ run_tests () {
   cd test/working_copy/
   grunt --quiet
   grunt drush:liteinstall --quiet
-  grunt drush:runserver >/dev/null &
+  grunt serve:test >/dev/null &
   until curl -I -XGET -s $GDT_TEST_URL 2>/dev/null | egrep -q '^HTTP.*200'; do sleep 0.5; done
   grunt test
   sleep 1; while (ps aux | grep '[b]ehat' > /dev/null); do sleep 1; done
