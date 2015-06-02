@@ -4,18 +4,20 @@ module.exports = function(grunt) {
    * Define "compile-theme" task.
    *
    * Individual themes "register" with grunt by adding a configuration object
-   * the themes section of configuration. Each theme should have at least a path.
+   * the themes section of configuration. Each theme may specify a non-default path.
    * From there they may opt-in for compass compilation, or specify via the proxy
    * behavior that grunt-drupal-tasks should outsource theme handling commands
-   * to tooling shipped with the theme.
+   * to tooling shipped in the theme.
    *
    * Example:
    *
    * "themes": {
+   *   // Viking specifies a path and enables compass compilation.
    *   "viking": {
    *     "path": "<%= config.srcPaths.drupal %>/themes/viking",
    *     "compass": true
    *   },
+   *   // Spartan specifies a path and enables compass compilation with options.
    *   "spartan": {
    *     "path": "<%= config.srcPaths.drupal %>/themes/spartan",
    *     "compass": {
@@ -23,18 +25,25 @@ module.exports = function(grunt) {
    *       "sourcemap": true
    *     }
    *   },
+   *   // Legionare relies on the default path and attaches a task to our
+   *   // `compile-theme` task.
    *   "legionaire": {
-   *     "path": "<%= config.srcPaths.drupal %>/themes/legionaire",
-   *     "proxy": true
-   *   },
-   *   "gladiator": {
-   *     "path": "<%= config.srcPaths.drupal %>/themes/gladiator",
-   *     "proxy": {
-   *       "compile-theme": "grunt build",
+   *     "scripts": {
+   *       "compile-theme": "grunt compile"
    *     }
    *   },
+   *   // Gladiator specifies a path, enables compass compilation by GDT, and
+   *   // specifies a validate task to be run by `grunt themes:gladiator:validate`.
+   *   "gladiator": {
+   *     "path": "<%= config.srcPaths.drupal %>/themes/gladiator",
+   *     "compass": true,
+   *     "scripts": {
+   *       "validate": "gulp eslint",
+   *     }
+   *   },
+   *   // Trojan does not specify a path or define functionality. It is a stub
+   *   // the system will recognize and list as part of `grunt themes`.
    *   "trojan": {
-   *     "path": "<%= config.srcPaths.drupal %>/themes/trojan"
    *   }
    * }
    */
@@ -51,7 +60,8 @@ module.exports = function(grunt) {
     for (var key in config.themes) {
       if (config.themes.hasOwnProperty(key)) {
         var theme = config.themes[key];
-        if (!theme.proxy && config.themes[key].compass) {
+
+        if (config.themes[key].compass) {
           var options = (theme.compass && typeof theme.compass === 'object') ? theme.compass : {};
 
           grunt.config(['compass', key], {
@@ -78,14 +88,12 @@ module.exports = function(grunt) {
           parallelTasks.push('watch:compass-' + key);
         }
 
-        // If the proxy property is truthy let's add a callout to it as part of compile-theme.
-        // This is important to ensure the grunt-drupal-tasks `grunt compile-theme` is complete
-        // for purposes like continuous integration.
-        if (theme.proxy) {
-          // If the proxy property is an object with the "compile-theme" property use that.
-          // Otherwise we default to 'grunt compile' as an emergent practice.
-          var command = theme.proxy.'compile-theme' || 'grunt compile';
-          steps.push('theme:' + key + ':' + command);
+        // If the compile-theme delegation script is truthy trigger it as part of the
+        // compile theme task. This ensures developers not working directly with the
+        // theme and CI systems can still use the primary grunt implementation as a
+        // single authority for the build process.
+        if (theme.scripts && theme.scripts['compile-theme']) {
+          steps.push('theme:' + key + ':compile-theme');
         }
       }
     }
@@ -118,20 +126,28 @@ module.exports = function(grunt) {
     }
 
     // Register a passthru task that can call out to theme-specific Grunt tooling.
-    grunt.registerTask('theme', 'Proxies work to the theme-specific Grunt configuration.', function(theme, task) {
-      // Fail if this is requested on behalf of a theme without proxying enabled or a path.
-      this.requiresConfig(['config', 'themes', theme, 'proxy'], ['config', 'themes', theme, 'path']);
-
-      var path = grunt.config(['config', 'themes', theme, 'path']);
-      grunt.config(['shell', 'theme-dispatch'], {
-        command: task,
-        options: {
-          execOptions: {
-            cwd: path
-          }
+    grunt.registerTask('themes', 'Proxies tasks to theme-specific, pre-defined command-line operations.', function() {
+      var themes = grunt.config('config.themes');
+      if (!this.args[0]) {
+        for (key in themes) {
+          grunt.log.writeln(key + ' (' + themes[key].path + ')');
         }
-      });
-      grunt.task.run('shell:theme-dispatch');
+        return;
+      }
+
+      var theme = this.args[0];
+      this.requiresConfig(['config', 'themes', theme, 'path']);
+      var scripts = require('../lib/scripts')(grunt);
+      var task = scripts.handle(themes[theme], this.args[1], 'theme');
+
+      if (task) {
+        grunt.task.run(task);
+      }
+    });
+
+    Help.add({
+      task: 'themes',
+      group: 'Utilities'
     });
 
   }

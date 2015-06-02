@@ -111,6 +111,17 @@ module.exports = function(grunt) {
     analyze.push('phpmd:custom');
   }
 
+  // If any of the themes have code quality commands, attach them here.
+  var themes = grunt.config('config.themes');
+  for (var key in themes) {
+    if (themes[key].scripts && themes[key].scripts.validate) {
+      validate.push('themes:' + key + ':validate');
+    }
+    if (themes[key].scripts && themes[key].scripts.analyze) {
+      validate.push('themes:' + key + ':analyze');
+    }
+  }
+
   grunt.registerTask('validate', validate);
 
   if (analyze.length < 2) {
