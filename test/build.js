@@ -72,6 +72,16 @@ describe('grunt', function() {
         done();
       });
     });
-
   });
+
+  describe('themes configuration', function() {
+    it('should run theme scripts', function(done) {
+      exec('grunt themes:example_theme:write', function (error, stdout, stderr) {
+        var status = !error && stdout && stdout.match(/scripts\srun/)[0];
+        assert.ok(status);
+        done();
+      });
+    });
+  });
+
 });

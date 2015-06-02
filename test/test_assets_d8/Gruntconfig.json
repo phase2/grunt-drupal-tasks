@@ -25,7 +25,10 @@
   "themes": {
     "example_theme": {
       "path": "<%= config.srcPaths.drupal %>/themes/example_theme",
-      "compass": true
+      "compass": true,
+      "scripts": {
+        "write": "echo 'scripts run'"
+      }
     }
   }
 }
