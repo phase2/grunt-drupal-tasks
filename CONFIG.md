@@ -314,7 +314,7 @@ general project tasks.
   "scripts": {
     "compile-theme": "grunt compile"
     "validate": "grunt eslint",
-    "analyze": "echo 'No theme-specific analysis tools here!',
+    "analyze": "echo 'No theme-specific analysis tools here!'",
     "ls": "ls -lR"
   }
 }
