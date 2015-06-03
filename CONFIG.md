@@ -439,6 +439,39 @@ this format, see: http://gruntjs.com/configuring-tasks#files
 from the project directory when building a package. The above includes README
 files and files under bin/ in the project's package.
 
+### Serve Settings
+
+The Serve task allows you to run Drupal using PHP's built-in webserver. This
+facilitates quick demos and low-overhead development for projects with extremely
+simple infrastructure requirements. When using this task it will take over the
+terminal window.
+
+```
+{
+  "serve": {
+    "profile": 'project_profile_name',
+    "port": 9043,
+    "concurrent": [
+      "watch-theme"
+    ]
+
+}
+```
+
+**serve.profile**: The profile to use with the drush:liteinstall task. Defaults
+to `standard` and may be overridden with `--profile` when the command is run.
+WARNING: drush:liteinstall is an internal task and is likely to be deprecated in
+a future release.
+
+**serve.port**: The port number to bind for the webserver. Only one service may
+occupy a port on a machine, so a project-specific port may be worthwhile. Defaults
+to `8080`.
+
+**serve.concurrent**: An array of grunt tasks to be run concurrently to the server.
+When run with `serve:demo` or `serve:test` these tasks are not used. By default
+they include 'watch-test' and 'watch-theme'. If you use this configuration to
+add tasks be sure to include these as they will be suppressed by any configuration.
+
 ### Help Settings (Help API)
 
 If you add custom tasks to your project and want them exposed as part of the
