@@ -20,9 +20,10 @@ script:
   - grunt --quiet --timer
   - echo "Fully built disk usage"; du -chs .
   - grunt drush:liteinstall --quiet
-  - grunt drush:runserver >/dev/null &
+  - grunt serve:test >/dev/null &
   - until curl -I -XGET -s $GDT_TEST_URL 2>/dev/null | egrep -q '^HTTP.*200'; do sleep 0.5; done
   - grunt test
   - sleep 1; while (ps aux | grep '[b]ehat' > /dev/null); do sleep 1; done
   - for pid in `ps aux | grep drush | grep runserver | awk '{print $2}'`; do echo "Stopping drush pid $pid"; kill -SIGINT $pid; done;
   - mocha node_modules/grunt-drupal-tasks/test/build.js
+  - mocha node_modules/grunt-drupal-tasks/test/library.js
