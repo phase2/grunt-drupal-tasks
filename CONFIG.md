@@ -70,7 +70,7 @@ make file and add your custom code and configuration in the directories under
   with a setting change in Gruntconfig.json (see below).
 
 - Include any sites directories (like "default"), optionally with settings.php
-  or other files, and if needed a multi-site sites.php in **src/sites/**. (The 
+  or other files, and if needed a multi-site sites.php in **src/sites/**. (The
   contents of src/sites/ are copied into sites/.)
 
 - Include any static files that should be copied into the Drupal docroot on
@@ -292,11 +292,46 @@ This is an example of the settings for theme tasks:
 **themes**: Defines each custom Drupal theme and enables features, like Sass
 processing by Compass.
 
-**themes.\<theme\>.compass**: Enable compass preprocessing. Either `true` to 
-enable with default compass options, or a configuration object to be passed 
-directly to 
+**themes.\<theme\>.compass**: Enable compass preprocessing. Either `true` to
+enable with default compass options, or a configuration object to be passed
+directly to
 [grunt-contrib-compass](https://github.com/gruntjs/grunt-contrib-compass)
 for this theme.
+
+**themes.\<theme\>.path**: Specify the path to the theme. Defaults to
+`<%= config.srcPaths.drupal %>/themes/\<theme\>`.
+
+#### Theme Scripts
+
+Many themes come with their own tooling, possibly grunt-based as well. In those
+cases you can configure Grunt-Drupal-Tasks with the ability to trigger those
+tasks, and by magic naming attach some theme-specific functions to the more
+general project tasks.
+
+```
+"legionaire": {
+  "path": "<%= config.srcPaths.drupal %>/themes/legionaire",
+  "scripts": {
+    "compile-theme": "grunt compile"
+    "validate": "grunt eslint",
+    "analyze": "echo 'No theme-specific analysis tools here!'",
+    "ls": "ls -lR"
+  }
+}
+```
+
+`grunt themes` may be run to list all themes setup in your project Gruntconfig.json.
+`grunt themes:\<theme\>` will list all the options in the theme's scripts config
+as a means of providing usage documentation. `grunt themes:\<theme\>:\<task\>`
+will run the script keyed by `\<task\>` from the theme's directory.
+
+Three of the key names are magic: 'compile-theme', 'validate', and 'analyze'.
+When one of those three is specified, Grunt Drupal Tasks will automatically
+run the command as part of the actions it takes for `grunt compile-theme`,
+`grunt validate`, and `grunt analyze`.
+
+Note that if you also configure compass for the theme, the existence of a
+"compile-theme" script will be run alongside the Grunt Drupal Tasks compass.
 
 #### Setting Up Gem Dependencies
 
@@ -348,7 +383,7 @@ installs the Drupal Coder's standard, the path of which is shown above.
 **phpcs.dir**: An array of globbing pattern where phpcs should search for files.
 This can be used to replace the defaults supplied by grunt-drupal-tasks.
 
-This example placed in the Gruntconfig.json file ignores directories named 
+This example placed in the Gruntconfig.json file ignores directories named
 "pattern-lab" and a "bower_components" in addition to the defaults that come with
 grunt-drupal-tasks:
 
