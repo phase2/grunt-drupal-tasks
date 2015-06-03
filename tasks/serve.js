@@ -11,7 +11,6 @@ module.exports = function(grunt) {
    *   Run Drupal via the PHP webserver without running watch tasks or opening the browser.
    */
   grunt.loadNpmTasks('grunt-drush');
-  grunt.loadNpmTasks('grunt-newer');
 
   var Help = require('../lib/help')(grunt),
     Drupal = require('../lib/drupal')(grunt);
@@ -53,7 +52,7 @@ module.exports = function(grunt) {
       // Allow overriding the tasks run concurrently to the Drupal server.
       var serveTasks = grunt.config('serve.concurrent');
       if (!serveTasks) {
-        serveTasks = [ 'watch-test'];
+        serveTasks = ['watch-test'];
         if (grunt.task.exists('watch-theme')) {
           serveTasks.push('watch-theme');
         }
