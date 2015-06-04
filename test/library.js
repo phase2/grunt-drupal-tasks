@@ -25,3 +25,60 @@ describe('Utility Functions', function() {
     });
   });
 });
+
+describe('Initialization', function() {
+  var grunt = require('grunt');
+
+  describe('of magic configuration', function() {
+    it('should defer to the "GDT" namespace', function(done) {
+      grunt.config.init({
+        config: { test_a: 'Enterprise' },
+        gdt: { test_a: 'Victory' }
+      });
+      process.env['GDT_TEST_A'] = 'Yamaguchi'
+
+      var init = require('../lib/init')(grunt);
+      assert.equal(init.magic('test_a'), 'Victory');
+      done();
+    });
+    it('should defer to environment over normal project configuration', function(done) {
+      grunt.config.init({
+        config: { test_b: 'Enterprise' }
+      });
+      process.env['GDT_TEST_B'] = 'Yamaguchi'
+
+      var init = require('../lib/init')(grunt);
+      assert.equal(init.magic('test_b'), 'Yamaguchi');
+      done();
+    });
+    it('should fall back to the project configuration', function(done) {
+      grunt.config.init({
+        config: { test_c: 'Enterprise' }
+      });
+
+      var init = require('../lib/init')(grunt);
+      assert.equal(init.magic('test_c'), 'Enterprise');
+      done();
+    });
+    it('should allow override of the environment variable name', function(done) {
+      grunt.config.init({
+        config: { test_d: 'Enterprise' }
+      });
+      process.env['GDT_TEST_DELTA'] = 'Yamaguchi'
+
+      var init = require('../lib/init')(grunt);
+      assert.equal(init.magic('test_d', 'test_delta'), 'Yamaguchi');
+      done();
+    });
+    it('should allow override of the environment variable name without affecting priority', function(done) {
+      grunt.config.init({
+        config: { test_e: 'Enterprise' }
+      });
+
+      var init = require('../lib/init')(grunt);
+      assert.equal(init.magic('test_e', 'test_epsilon'), 'Enterprise');
+      done();
+    });
+  });
+
+});

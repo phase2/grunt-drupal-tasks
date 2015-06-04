@@ -19,5 +19,8 @@
   },
   "behat": {
     "flags": "--tags ~@wip"
+  },
+  "scripts": {
+    "update": "drush <%= config.alias %> updatedb -yv && drush <%= config.alias %> features-revert-all -yv"
   }
 }

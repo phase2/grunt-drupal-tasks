@@ -21,10 +21,8 @@ module.exports = function(grunt) {
   // If no path is configured for Drush, fallback to the system path.
   var cmd = {cmd: Drupal.drushPath()};
 
-  var profile = grunt.config('config.serve.profile') || 'standard';
-
   grunt.config(['drush', 'liteinstall'], {
-    args: ['site-install', '-yv', profile, '--db-url=sqlite:/' + path.join(path.resolve(grunt.config('config.buildPaths.build')), 'drupal.sqlite')],
+    args: ['site-install', '-yv', grunt.config('config.profile'), '--db-url=sqlite:/' + path.join(path.resolve(grunt.config('config.buildPaths.build')), 'drupal.sqlite')],
     options: _.extend({
       cwd: '<%= config.buildPaths.html %>'
     }, cmd)

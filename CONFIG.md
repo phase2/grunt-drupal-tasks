@@ -439,6 +439,38 @@ this format, see: http://gruntjs.com/configuring-tasks#files
 from the project directory when building a package. The above includes README
 files and files under bin/ in the project's package.
 
+### Project Operations
+
+Some of the most common use cases for any Drupal site are the basic operations
+of installation, running database updates, and clearing the cache. These are not
+difficult operations, but many developers appreciate the common shorthand a
+little grunt magic can provide.
+
+To keep this flexible the new Operations system offers nothing out of the box,
+but facilitates creating lightweight commands or callouts to the shell for more
+advanced scripts you want easily run on the project by the entire team.
+
+This should remind you of the **Themes Scripts** described above.
+
+```
+{
+  "scripts": {
+    "install": "drush <%= config.alias %> install <%= config.profile %> -yv"
+    "update": "drush <%= config.alias %> updatedb -yv && drush <%= config.alias %> features-revert-all -yv"
+  }
+}
+```
+
+Here you see two commands defined inside the top-level `scripts` configuration.
+`grunt install` demonstrates a straightforward installation of the project's
+profile. `grunt update` demonstrates running database updates and reverting all
+[Features](http://www.drupal.org/project/features). GDT does not ship either of
+these, though we are exploring how best to initialize a project with sensible
+default operations via [Gadget](https://github.com/phase2/generator-gadget).
+
+The Alias is specified in Gruntconfig or elsewhere per the rules for Magic
+Configuration below.
+
 ### Serve Settings
 
 The Serve task allows you to run Drupal using PHP's built-in webserver. This
@@ -448,8 +480,8 @@ terminal window.
 
 ```
 {
+  "profile": 'project_profile_name',
   "serve": {
-    "profile": 'project_profile_name',
     "port": 9043,
     "concurrent": [
       "watch-theme"
@@ -458,8 +490,9 @@ terminal window.
 }
 ```
 
-**serve.profile**: The profile to use with the drush:liteinstall task. Defaults
-to `standard` and may be overridden with `--profile` when the command is run.
+**profile**: The profile to use with the drush:liteinstall task. Defaults
+to `standard` and may be overridden with the environment variable `GDT_INSTALL_PROFILE`.
+with `--profile` when the command is run.
 WARNING: drush:liteinstall is an internal task and is likely to be deprecated in
 a future release.
 
@@ -505,3 +538,20 @@ Help.add([
 
 If you want to include your task in one of the existing groups, copy the text
 exactly as seen in the output of the `grunt help` task.
+
+### Magic Configuration
+
+The domain, profile, and alias configurations are all built using the same
+system that allows for maximum flexibility in project and environment
+configuration. In order of precedence it checks the following:
+
+1. The value of the configuration prefixed with "gdt.". This allows a project
+Gruntfile to dynamically specify the value before bootstrapping Grunt Drupal
+Tasks. This facilitates specification based on evaluating the local system,
+such as the naming of the repository's parent directory.
+2. The environment variable, especially useful for container environments:
+  * **alias**: `GDT_SITE_ALIAS`
+  * **domain**: `GDT_DOMAIN`
+  * **profile**: `GDT_INSTALL_PROFILE`
+3. The configuration placed in Gruntconfig.json. This is good for
+straightforward defaults.

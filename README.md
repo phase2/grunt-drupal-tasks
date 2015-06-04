@@ -70,6 +70,7 @@ These environment variables will override other options.
 * `GDT_DOMAIN`: Specify the base URL for live system testing. Falls back to a
 setting in the project's Gruntconfig.json, then hostname if not set.
 * `GDT_QUIET`: If evaluated truthy, will suppress all desktop notifications.
+* `GDT_SITE_ALIAS`: Configure the default Drush site alias for the project.
 
 ## Setting Up and Extending
 
