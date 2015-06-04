@@ -134,10 +134,17 @@ module.exports = function(grunt) {
       options: {
         configFile: eslintConfigFile
       },
-      target: eslintTarget
+      validate: eslintTarget,
+      analyze: {
+        options: {
+          format: 'checkstyle',
+          outputFile: '<%= config.buildPaths.reports %>/eslint.xml'
+        },
+        src: eslintTarget
+      }
     });
-    validate.push(eslintName);
-    analyze.push(eslintName);
+    validate.push(eslintName + ':validate');
+    analyze.push(eslintName + ':analyze');
   }
 
   // If any of the themes have code quality commands, attach them here.
