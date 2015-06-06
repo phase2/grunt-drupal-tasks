@@ -24,7 +24,7 @@ module.exports = function(grunt) {
       '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
       '!<%= config.srcPaths.drupal %>/sites/**'
     ],
-    tasks: ['validate']
+    tasks: ['validate:newer']
   });
 
   grunt.config(['concurrent', 'watch-test'], {
