@@ -22,12 +22,15 @@
   "behat": {
     "flags": "--tags ~@wip"
   },
+  "scripts": {
+    "echo": "echo 'operational scripts run'"
+  },
   "themes": {
     "example_theme": {
       "path": "<%= config.srcPaths.drupal %>/themes/example_theme",
       "compass": true,
       "scripts": {
-        "write": "echo 'scripts run'"
+        "echo": "echo 'theme scripts run'"
       }
     }
   }
