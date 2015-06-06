@@ -11,7 +11,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-githooks');
     grunt.config('githooks', {
       quality: {
-        'pre-commit': 'validate:newer'
+        'pre-commit': 'validate:staged'
       }
     });
     grunt.task.run([
