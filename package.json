@@ -24,6 +24,7 @@
     "grunt-phplint": "0.0.5",
     "grunt-phpmd": "0.1.1",
     "grunt-shell": "1.1.2",
+    "grunt-staged": "^0.1.0",
     "lodash": "3.6.0",
     "time-grunt": "1.1.0"
   },
