@@ -185,8 +185,9 @@ are specified it will default to `http://<%= config.domain %>`.
 
 ```
   "siteUrls": {
-    "default": "http://dev-site.local",
-    "subsite": "http://sub.dev-site.local"
+    "default": "http://<%= config.domain %>",
+    "subsite": "http://sub.<%= config.domain %>.local",
+    "external": "http://example.com"
   },
 ```
 
@@ -442,9 +443,12 @@ files and files under bin/ in the project's package.
 ### Serve Settings
 
 The Serve task allows you to run Drupal using PHP's built-in webserver. This
-facilitates quick demos and low-overhead development for projects with extremely
-simple infrastructure requirements. When using this task it will take over the
+facilitates quick demos and low-overhead development for projects with simple
+infrastructure requirements. When using this task it will take over the
 terminal window.
+
+`grunt serve` will not install the Drupal site. Run with `grunt serve:demo` to
+skip starting up watch tasks.
 
 ```
 {
