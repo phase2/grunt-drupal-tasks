@@ -8,6 +8,9 @@
 - Added theme scripts system to allow themes to own their [CLI destiny](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#theme-scripts).
 - Added `phplint.dir` setting to Gruntconfig to allow customization of linting paths.
 - Added validate:newer and switched watch configuration top-level use it. Speed increase!
+- [New settings for `grunt package`](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#package-settings)
+to make it easier to configure Acquia or Pantheon-compatible packages. Now
+produces a clean directory package for easy commit as-is to a release repository.
 
 ### Building GDT
 
@@ -18,6 +21,7 @@
 ### Breaking Changes
 
 - Renamed GRUNT_DRUPAL_QUIET to GDT_QUIET
+- `grunt package` no longer compresses by default. Use `grunt package:compress` to replicate existing behavior.
 
 ## v0.6.1 [2015/05/17]
 
