@@ -357,7 +357,7 @@ This is an example of the settings for the validate tasks:
 ```
 {
   "eslint": {
-    "srcPaths": [
+    "dir": [
       '<%= config.srcPaths.drupal %>/**/*.js',
       '!<%= config.srcPaths.drupal %>/**/bower/**/*.js',
       '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
