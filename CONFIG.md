@@ -185,8 +185,9 @@ are specified it will default to `http://<%= config.domain %>`.
 
 ```
   "siteUrls": {
-    "default": "http://dev-site.local",
-    "subsite": "http://sub.dev-site.local"
+    "default": "http://<%= config.domain %>",
+    "subsite": "http://sub.<%= config.domain %>.local",
+    "external": "http://example.com"
   },
 ```
 
@@ -446,6 +447,16 @@ quality validation fails (which also prevents other tasks from executing).
 
 ### Package Settings
 
+The `grunt package` task allows you to assemble and independently exported
+Drupal codebase. This is used to facilitate deployment of the minimal code
+needed to run Drupal in a formal environment such as Production.
+
+You can find the resulting package in `build/packages/package` by default as a
+standard directory, all symlinks from the grunt scaffolding dereferenced. If
+run with `grunt package:compress` it will also output `build/packages/package.tgz`
+as an easily stored archive. **Remember, this directory is wiped by `grunt clean`
+unless you configure your package directory to be outside the build directory.**
+
 This is an example of the settings for package tasks:
 
 ```
@@ -466,12 +477,22 @@ this format, see: http://gruntjs.com/configuring-tasks#files
 from the project directory when building a package. The above includes README
 files and files under bin/ in the project's package.
 
+**packages.dest.docroot**: Specify where within the package directory the `srcFiles`
+should be placed. Defaults to the package root. For Acquia set this to
+'/docroot'.
+
+**packages.dest.devResources**: Specify where within the package directory the
+`projFiles` should be placed. Defaults to package root.
+
 ### Serve Settings
 
 The Serve task allows you to run Drupal using PHP's built-in webserver. This
-facilitates quick demos and low-overhead development for projects with extremely
-simple infrastructure requirements. When using this task it will take over the
+facilitates quick demos and low-overhead development for projects with simple
+infrastructure requirements. When using this task it will take over the
 terminal window.
+
+`grunt serve` will not install the Drupal site. Run with `grunt serve:demo` to
+skip starting up watch tasks.
 
 ```
 {

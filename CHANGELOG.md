@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## Next [2015/??/??]
+
+### New Features
+
+- Added `grunt serve` task to [easily install and run the Drupal site](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#serve-settings) without external dependencies like Apache.
+- Added theme scripts system to allow themes to own their [CLI destiny](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#theme-scripts).
+- Added `phplint.dir` setting to Gruntconfig to allow customization of linting paths.
+- Added validate:newer and switched watch configuration top-level use it. Speed increase!
+- [New settings for `grunt package`](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#package-settings)
+to make it easier to configure Acquia or Pantheon-compatible packages. Now
+produces a clean directory package for easy commit as-is to a release repository.
+
+### Building GDT
+
+- Added Drupal 8 test coverage, Travis and `npm test` will now run tests against D7 and D8.
+- Added support for actions against configured URLs for multiple environments. (#32, #41, [documentation (domain & siteUrls)](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#core-settings))
+- Additional unit & integration tests. (So far we've only been running end-to-end tests.)
+
+### Breaking Changes
+
+- Renamed GRUNT_DRUPAL_QUIET to GDT_QUIET
+- `grunt package` no longer compresses by default. Use `grunt package:compress` to replicate existing behavior.
+
 ## v0.6.1 [2015/05/17]
 
 - Adding documentation on Gadget, the Yeoman generator for Grunt Drupal Tasks.
@@ -92,7 +115,7 @@ Tasks by using the `~0.5.1` version field value.
 ### Upgrade Notes
 
 - Change your project's Gruntfile.js to include grunt-drupal-tasks using
-`require('grunt-drupal-tasks')(grunt);` instead of 
+`require('grunt-drupal-tasks')(grunt);` instead of
 `require('grunt-drupal-tasks/Gruntfile')(grunt);`
 
 - By default, Behat expects test features and the behat.yml inside a top-level

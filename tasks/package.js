@@ -6,43 +6,65 @@ module.exports = function(grunt) {
    * grunt package
    *   Builds a deployment package in the build/package directory.
    */
-  grunt.loadNpmTasks('grunt-contrib-compress');
+
   var Help = require('../lib/help')(grunt);
 
-  var config = grunt.config.get('config'),
-    srcFiles = (config.packages && config.packages.srcFiles && config.packages.srcFiles.length) ? config.packages.srcFiles : [],
-    projFiles = (config.packages && config.packages.projFiles && config.packages.projFiles.length) ? config.packages.projFiles : [];
+  grunt.registerTask('package', 'Package the operational codebase for deployment. Use package:compress to create an archive.', function() {
+    var path = require('path');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.config('compress', {
-    package: {
-      options: {
-        archive: function () {
-          return grunt.config.get('config.buildPaths.package') + '/package.tgz';
-        },
-        mode: 'tgz'
-      },
+    var config = grunt.config.get('config.packages'),
+      srcFiles = ['**', '!**/.gitkeep'].concat((config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : '**'),
+      projFiles = (config && config.projFiles && config.projFiles.length) ? config.projFiles : [];
+
+    var destPath = grunt.config.get('config.buildPaths.package') + '/package';
+    var tasks = []
+
+    grunt.config('copy.package', {
       files: [
         {
           expand: true,
-          dot: true,
           cwd: '<%= config.buildPaths.html %>',
-          src: ['**', '!**/.gitkeep'].concat(srcFiles),
-          dest: 'docroot/'
+          src: srcFiles,
+          dest: destPath + (grunt.config.get('config.packages.dest.docroot') || ''),
+          dot: true
         },
         {
           expand: true,
-          src: projFiles
+          src: projFiles,
+          dest: destPath + (grunt.config.get('config.packages.dest.devResources') || ''),
+          dot: true
         }
-      ]
+      ],
+      options: {
+        gruntLogHeader: false
+      }
+    });
+
+    tasks.push('copy:package');
+
+    if (this.args[0] && this.args[0] == 'compress') {
+      grunt.loadNpmTasks('grunt-contrib-compress');
+      grunt.config('compress.package', {
+        options: {
+          archive: destPath + '.tgz',
+          mode: 'tgz',
+          gruntLogHeader: false
+        },
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: grunt.config.get('config.buildPaths.package'),
+            src: 'package/**',
+          }
+        ]
+      });
+
+      tasks.push('compress:package');
     }
-  });
 
-  grunt.config('package', {
-    tarball: ['compress:package']
-  });
-
-  grunt.registerMultiTask('package', 'Package the operational codebase for deployment.', function() {
-    grunt.task.run(this.data);
+    grunt.task.run(tasks);
   });
 
   Help.add({
