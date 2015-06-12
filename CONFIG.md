@@ -356,6 +356,13 @@ This is an example of the settings for the validate tasks:
 
 ```
 {
+  "eslint": {
+    "dir": [
+      '<%= config.srcPaths.drupal %>/**/*.js',
+      '!<%= config.srcPaths.drupal %>/**/bower/**/*.js',
+      '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+    ]
+  },
   "phpcs": {
     "path": "bin/phpcs",
     "standard": "vendor/drupal/coder/coder_sniffer/Drupal"
@@ -376,6 +383,26 @@ This is an example of the settings for the validate tasks:
 > If there is no `phpcs` key in the configuration, the system will assume you
 are not using PHPCS and will suppress it from the system.
 
+**eslint**: To enable eslint, set to `true` to use default options or an object
+with the following optional settings.
+
+**eslint.configFile**: The path to the eslint config file to use. If no value
+is specified, then `.eslintrc` in the project root is used.
+
+**eslint.dir**: An array of glob patterns to include/exclude files for
+review by eslint. The following is used by default:
+
+```
+{
+  "eslint": {
+    "dir": [
+      '<%= config.srcPaths.drupal %>/**/*.js',
+      '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+    ]
+  }
+}
+```
+
 **phpcs.path**: The path to the PHPCS executable.
 
 **phpcs.standard**: The PHPCS coding standard to use. The example composer.json
@@ -385,8 +412,8 @@ installs the Drupal Coder's standard, the path of which is shown above.
 This can be used to replace the defaults supplied by grunt-drupal-tasks.
 
 This example placed in the Gruntconfig.json file ignores directories named
-"pattern-lab" and a "bower_components" in addition to the defaults that come with
-grunt-drupal-tasks:
+"pattern-lab" and a "bower_components" in addition to the defaults that come
+with grunt-drupal-tasks:
 
 ```
 {
@@ -412,11 +439,11 @@ grunt-drupal-tasks:
 }
 ```
 
-**phpcs.ignoreExitCode**: Set to `false` if you want validate to fail on PHPCS
-issues.
-
 **phplint.dir**: An array of globbing patterns which phplint should include or
 exclude from PHP code syntax validation.
+
+**validate.ignoreError**: Set to `true` to prevent failing the build if code
+quality validation fails (which also prevents other tasks from executing).
 
 ### Package Settings
 
