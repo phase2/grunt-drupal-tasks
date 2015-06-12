@@ -388,13 +388,13 @@ with the following optional settings.
 **eslint.configFile**: The path to the eslint config file to use. If no value
 is specified, then `.eslintrc` in the project root is used.
 
-**eslint.srcPaths**: An array of glob patterns to include/exclude files for
+**eslint.dir**: An array of glob patterns to include/exclude files for
 review by eslint. The following is used by default:
 
 ```
 {
   "eslint": {
-    "srcPaths": [
+    "dir": [
       '<%= config.srcPaths.drupal %>/**/*.js',
       '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
     ]

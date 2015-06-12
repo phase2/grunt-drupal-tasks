@@ -123,7 +123,7 @@ module.exports = function(grunt) {
 
   if (grunt.config.get('config.eslint') != undefined) {
     var eslintConfig = grunt.config.get('config.eslint'),
-      eslintTarget = eslintConfig.srcPaths || [
+      eslintTarget = eslintConfig.dir || [
           '<%= config.srcPaths.drupal %>/**/*.js',
           '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
         ],
