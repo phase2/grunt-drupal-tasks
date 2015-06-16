@@ -4,6 +4,8 @@
 
 ### New Features
 
+- Added eslint JavaScript code quality checking to the validate and analyze
+tasks.
 - Added `grunt serve` task to [easily install and run the Drupal site](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#serve-settings)
 without external dependencies like Apache.
 - Added theme scripts system to allow running [theme-provided build scripts](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#theme-scripts)
