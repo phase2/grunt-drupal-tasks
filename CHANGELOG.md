@@ -1,27 +1,32 @@
 # CHANGELOG
 
-## Next [2015/??/??]
+## v0.7.0 [2015/06/16]
 
 ### New Features
 
-- Added `grunt serve` task to [easily install and run the Drupal site](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#serve-settings) without external dependencies like Apache.
-- Added theme scripts system to allow themes to own their [CLI destiny](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#theme-scripts).
-- Added `phplint.dir` setting to Gruntconfig to allow customization of linting paths.
-- Added validate:newer and switched watch configuration top-level use it. Speed increase!
+- Added `grunt serve` task to [easily install and run the Drupal site](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#serve-settings)
+without external dependencies like Apache.
+- Added theme scripts system to allow running [theme-provided build scripts](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#theme-scripts)
+as part of the GDT build process.
+- Added `phplint.dir` setting to Gruntconfig to allow customization of linting
+paths.
+- Added `grunt validate:newer` to validate only files changed since the last
+run, and using it for the `grunt watch` task for a speed increase!
 - [New settings for `grunt package`](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#package-settings)
-to make it easier to configure Acquia or Pantheon-compatible packages. Now
-produces a clean directory package for easy commit as-is to a release repository.
+to prepare output ready for commit to Acquia- and Pantheon-style release
+repositories.
+- Added Drupal 8 test coverage, Travis and `npm test` will now run tests
+against D7 and D8.
+- Added support for actions against configured URLs for multiple environments.
+See documentation for more information: https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#core-settings
+- Additional unit & integration tests.
 
-### Building GDT
+### Upgrade Notes
 
-- Added Drupal 8 test coverage, Travis and `npm test` will now run tests against D7 and D8.
-- Added support for actions against configured URLs for multiple environments. (#32, #41, [documentation (domain & siteUrls)](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#core-settings))
-- Additional unit & integration tests. (So far we've only been running end-to-end tests.)
-
-### Breaking Changes
-
-- Renamed GRUNT_DRUPAL_QUIET to GDT_QUIET
-- `grunt package` no longer compresses by default. Use `grunt package:compress` to replicate existing behavior.
+- The GRUNT_DRUPAL_QUIET environment variable to enable quiet mode is renamed
+to GDT_QUIET.
+- `grunt package` no longer compresses by default. Use `grunt package:compress`
+to replicate former behavior.
 
 ## v0.6.1 [2015/05/17]
 
