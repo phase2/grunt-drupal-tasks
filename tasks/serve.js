@@ -4,11 +4,12 @@ module.exports = function(grunt) {
    * Define tasks to quickly get Drupal running.
    *
    * grunt serve
-   *   Run Drupal via the PHP webserver and active watch tasks.
+   *   Run Drupal via the PHP webserver and activate watch tasks.
    * grunt serve:demo
    *   Run Drupal via the PHP webserver without running watch tasks.
    * grunt serve:test
-   *   Run Drupal via the PHP webserver without running watch tasks or opening the browser.
+   *   Run Drupal via the PHP webserver without running watch tasks or opening
+   *   the browser.
    */
   grunt.loadNpmTasks('grunt-drush');
 
@@ -30,13 +31,14 @@ module.exports = function(grunt) {
     }, cmd)
   });
 
+  grunt.config(['drush', 'serve'], {
+    args: ['runserver', ':' + (grunt.config('serve.port') || 8080)],
+    options: _.extend({
+      cwd: '<%= config.buildPaths.html %>'
+    }, cmd)
+  });
+
   grunt.registerTask('serve', 'Run Drupal using the PHP built-in webserver. serve:demo to run without watch tasks and serve:test for grunt-drupal-tasks development.', function() {
-    grunt.config(['drush', 'serve'], {
-      args: ['runserver', ':' + (grunt.config('serve.port') || 8080)],
-      options: _.extend({
-        cwd: '<%= config.buildPaths.html %>'
-      }, cmd)
-    });
 
     if (this.args[0] != 'test') {
       // Unlike the test version, this one allows port overriding and opens the site in a new tab.
