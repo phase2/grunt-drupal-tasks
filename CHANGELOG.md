@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v0.7.1 [2015/06/24]
+
+- Fixing error with 'grunt serve' due to drush:serve not being defined.
+- Ensuring that Behat is run with the Grunt process's environment variables.
+
 ## v0.7.0 [2015/06/16]
 
 ### New Features
