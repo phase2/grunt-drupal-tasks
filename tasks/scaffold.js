@@ -19,6 +19,10 @@ module.exports = function(grunt) {
 
       grunt.loadNpmTasks('grunt-contrib-symlink');
 
+      grunt.config(['symlink', 'libraries'], {
+        src: '<%= config.srcPaths.drupal %>/libraries',
+        dest: drupal.libraryPath(),
+      });
       grunt.config(['symlink', 'modules'], {
         src: '<%= config.srcPaths.drupal %>/modules',
         dest: path.join(drupal.modulePath(), 'custom')
@@ -46,6 +50,7 @@ module.exports = function(grunt) {
 
       grunt.task.run([
         'symlink:profiles',
+        'symlink:libraries',
         'symlink:modules',
         'symlink:themes',
         'copy:defaults',
