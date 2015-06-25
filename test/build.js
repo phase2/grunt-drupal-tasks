@@ -63,6 +63,25 @@ describe('grunt', function() {
       });
     });
 
+    // Ensure there is a symlink to src/libraries.
+    var librariesSrc = (drupalCore == '8') ? '../../../src/libraries' : '../../../../src/libraries',
+      librariesDest = (drupalCore == '8') ? 'build/html/libraries' : 'build/html/sites/all/libraries';
+    it('it should link the ' + librariesDest + ' directory', function(done) {
+      fs.lstat(librariesDest, function (err, stats) {
+        assert.ok(stats.isSymbolicLink());
+
+        if (stats.isSymbolicLink()) {
+          fs.readlink(librariesDest, function (err, linkString) {
+            assert.equal(linkString, librariesSrc);
+            done();
+          });
+        }
+        else {
+          done();
+        }
+      });
+    });
+
     // Ensure the build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css
     // file exists, which should be created by compass.
     var sassDest = (drupalCore == '8') ? 'build/html/themes/custom/example_theme/stylesheets/screen.css' : 'build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css';
