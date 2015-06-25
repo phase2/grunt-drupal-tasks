@@ -20,7 +20,9 @@ module.exports = function(grunt) {
       grunt.loadNpmTasks('grunt-contrib-symlink');
 
       grunt.config(['symlink', 'libraries'], {
-        src: '<%= config.srcPaths.drupal %>/libraries',
+        expand: true,
+        cwd: '<%= config.srcPaths.drupal %>/libraries',
+        src: ['*'],
         dest: drupal.libraryPath(),
       });
       grunt.config(['symlink', 'modules'], {
