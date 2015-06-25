@@ -64,7 +64,7 @@ describe('grunt', function() {
     });
 
     // Ensure there is a symlink to src/libraries.
-    var librariesSrc = (drupalCore == '8') ? '../../../src/libraries' : '../../../../src/libraries',
+    var librariesSrc = (drupalCore == '8') ? '../../src/libraries' : '../../../../src/libraries',
       librariesDest = (drupalCore == '8') ? 'build/html/libraries' : 'build/html/sites/all/libraries';
     it('it should link the ' + librariesDest + ' directory', function(done) {
       fs.lstat(librariesDest, function (err, stats) {
