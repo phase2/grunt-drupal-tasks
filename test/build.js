@@ -63,16 +63,18 @@ describe('grunt', function() {
       });
     });
 
-    // Ensure there is a symlink to src/libraries.
-    var librariesSrc = (drupalCore == '8') ? '../../src/libraries' : '../../../../src/libraries',
-      librariesDest = (drupalCore == '8') ? 'build/html/libraries' : 'build/html/sites/all/libraries';
-    it('it should link the ' + librariesDest + ' directory', function(done) {
-      fs.lstat(librariesDest, function (err, stats) {
+    // Ensure there is a symlink for libs in src/libraries.
+    var librariesSrc = (drupalCore == '8') ? '../../../src/libraries' : '../../../../../src/libraries',
+      exampleLibSrc = librariesSrc + '/example_lib',
+      librariesDest = (drupalCore == '8') ? 'build/html/libraries' : 'build/html/sites/all/libraries',
+      exampleLibDest = librariesDest + '/example_lib';
+    it('it should link libraries in the ' + librariesDest + ' directory', function(done) {
+      fs.lstat(exampleLibDest, function (err, stats) {
         assert.ok(stats.isSymbolicLink());
 
         if (stats.isSymbolicLink()) {
-          fs.readlink(librariesDest, function (err, linkString) {
-            assert.equal(linkString, librariesSrc);
+          fs.readlink(exampleLibDest, function (err, linkString) {
+            assert.equal(linkString, exampleLibSrc);
             done();
           });
         }
