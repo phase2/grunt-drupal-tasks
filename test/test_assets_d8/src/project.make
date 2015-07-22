@@ -2,7 +2,7 @@ core = 8.x
 api = 2
 
 ; Drupal Core
-projects[drupal][version] = "8.0.0-beta9"
+projects[drupal][version] = "8.0.0-beta12"
 
 ; =====================================
 ; Contrib Modules
