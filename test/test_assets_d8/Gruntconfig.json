@@ -22,6 +22,10 @@
   "behat": {
     "flags": "--tags ~@wip"
   },
+  "validate": {
+    "ignoreError": true
+  },
+  "eslint": true,
   "scripts": {
     "echo": "echo 'operational scripts run'"
   },

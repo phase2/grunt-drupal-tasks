@@ -26,6 +26,13 @@ npm install -g grunt-cli
   suite, require additional tools, including <a href="http://bundler.io/">Bundler</a>,
   <a href="https://getcomposer.org/download/">Composer</a>, Ruby, and RubyGems.
 
+## Quickstart
+
+We have a [Yeoman](http://yeoman.io) generator that can quickly take you from an
+empty directory to a running Drupal site using this toolchain.
+
+Please welcome [Gadget](https://github.com/phase2/generator-gadget)!
+
 ## Features
 
 This project is built on the tools of the Grunt community to provide scripted

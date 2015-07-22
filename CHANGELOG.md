@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## v0.7.1 [2015/06/24]
+
+- Fixing error with 'grunt serve' due to drush:serve not being defined.
+- Ensuring that Behat is run with the Grunt process's environment variables.
+
+## v0.7.0 [2015/06/16]
+
+### New Features
+
+- Added eslint JavaScript code quality checking to the validate and analyze
+tasks.
+- Added `grunt serve` task to [easily install and run the Drupal site](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#serve-settings)
+without external dependencies like Apache.
+- Added theme scripts system to allow running [theme-provided build scripts](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#theme-scripts)
+as part of the GDT build process.
+- Added `phplint.dir` setting to Gruntconfig to allow customization of linting
+paths.
+- Added `grunt validate:newer` to validate only files changed since the last
+run, and using it for the `grunt watch` task for a speed increase!
+- [New settings for `grunt package`](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#package-settings)
+to prepare output ready for commit to Acquia- and Pantheon-style release
+repositories.
+- Added Drupal 8 test coverage, Travis and `npm test` will now run tests
+against D7 and D8.
+- Added support for actions against configured URLs for multiple environments.
+See documentation for more information: https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#core-settings
+- Additional unit & integration tests.
+
+### Upgrade Notes
+
+- The GRUNT_DRUPAL_QUIET environment variable to enable quiet mode is renamed
+to GDT_QUIET.
+- `grunt package` no longer compresses by default. Use `grunt package:compress`
+to replicate former behavior.
+
 ## v0.6.1 [2015/05/17]
 
 - Adding documentation on Gadget, the Yeoman generator for Grunt Drupal Tasks.
@@ -92,7 +127,7 @@ Tasks by using the `~0.5.1` version field value.
 ### Upgrade Notes
 
 - Change your project's Gruntfile.js to include grunt-drupal-tasks using
-`require('grunt-drupal-tasks')(grunt);` instead of 
+`require('grunt-drupal-tasks')(grunt);` instead of
 `require('grunt-drupal-tasks/Gruntfile')(grunt);`
 
 - By default, Behat expects test features and the behat.yml inside a top-level
