@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.8.0 [2015/07/24]
+
+- Fixed bug in theme proxying feature.
+- Updated Travis CI test configuration to use improved infrastructure and test
+additional PHP versions.
+- Added default scaffold task to symlink any directories in `src/libraries` to
+`build/html/sites/all/libraries` (for D7) or `build/html/libraries` (for D8).
+
 ## v0.7.1 [2015/06/24]
 
 - Fixing error with 'grunt serve' due to drush:serve not being defined.
