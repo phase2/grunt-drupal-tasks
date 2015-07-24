@@ -93,7 +93,7 @@ module.exports = function(grunt) {
         // theme and CI systems can still use the primary grunt implementation as a
         // single authority for the build process.
         if (theme.scripts && theme.scripts['compile-theme']) {
-          steps.push('theme:' + key + ':compile-theme');
+          steps.push('themes:' + key + ':compile-theme');
         }
       }
     }
