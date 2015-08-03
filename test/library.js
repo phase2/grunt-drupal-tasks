@@ -35,7 +35,7 @@ describe('Initialization', function() {
         config: { test_a: 'Enterprise' },
         gdt: { test_a: 'Victory' }
       });
-      process.env['GDT_TEST_A'] = 'Yamaguchi'
+      process.env['GDT_TEST_A'] = 'Yamaguchi';
 
       var init = require('../lib/init')(grunt);
       assert.equal(init.magic('test_a'), 'Victory');
@@ -45,7 +45,7 @@ describe('Initialization', function() {
       grunt.config.init({
         config: { test_b: 'Enterprise' }
       });
-      process.env['GDT_TEST_B'] = 'Yamaguchi'
+      process.env['GDT_TEST_B'] = 'Yamaguchi';
 
       var init = require('../lib/init')(grunt);
       assert.equal(init.magic('test_b'), 'Yamaguchi');
@@ -64,7 +64,7 @@ describe('Initialization', function() {
       grunt.config.init({
         config: { test_d: 'Enterprise' }
       });
-      process.env['GDT_TEST_DELTA'] = 'Yamaguchi'
+      process.env['GDT_TEST_DELTA'] = 'Yamaguchi';
 
       var init = require('../lib/init')(grunt);
       assert.equal(init.magic('test_d', 'test_delta'), 'Yamaguchi');

@@ -181,7 +181,8 @@ not default to hitting a production or staging environment.
 **siteUrls**: (Optional) A map of Drupal subsite names to the URLs by which
 each can be accessed for end-to-end testing by tools such as Behat. For clarity
 please align the site names (keys) with any Drush Site Aliases. If no siteUrls
-are specified it will default to `http://<%= config.domain %>`.
+are specified it will default to `http://<%= config.domain %>`. The environment
+variable override is `GDT_SITEURLS`.
 
 ```
   "siteUrls": {
@@ -513,8 +514,16 @@ profile. `grunt update` demonstrates running database updates and reverting all
 these, though we are exploring how best to initialize a project with sensible
 default operations via [Gadget](https://github.com/phase2/generator-gadget).
 
-The Alias is specified in Gruntconfig or elsewhere per the rules for Magic
-Configuration below.
+The Alias and Profile is specified per the rules for **Magic Configuration**.
+
+**alias**: The Drush Site Alias. This is computed as a helper for use in
+project oeprations, but is not yet applied as part of other tasks. Defaults to
+`@<domain>`. The environment variable is `GDT_SITE_ALIAS`.
+
+**profile**: The Drupal installation profile, this will be used to configure the
+behavior of the drush:liteinstall task. Defaults to `standard`.
+WARNING: drush:liteinstall is an internal task and is likely to be deprecated in
+a future release. The environment variable is `GDT_INSTALL_PROFILE`
 
 ### Serve Settings
 
@@ -538,12 +547,6 @@ skip starting up watch tasks.
 }
 ```
 
-**profile**: The profile to use with the drush:liteinstall task. Defaults
-to `standard` and may be overridden with the environment variable `GDT_INSTALL_PROFILE`.
-with `--profile` when the command is run.
-WARNING: drush:liteinstall is an internal task and is likely to be deprecated in
-a future release.
-
 **serve.port**: The port number to bind for the webserver. Only one service may
 occupy a port on a machine, so a project-specific port may be worthwhile. Defaults
 to `8080`.
@@ -553,53 +556,75 @@ When run with `serve:demo` or `serve:test` these tasks are not used. By default
 they include 'watch-test' and 'watch-theme'. If you use this configuration to
 add tasks be sure to include these as they will be suppressed by any configuration.
 
-### Help Settings (Help API)
-
-If you add custom tasks to your project and want them exposed as part of the
-`help` task, you may add a simple code snippet to your Gruntfile.js or any loaded
-task file.
-
-```js
-var Help = require('grunt-drupal-tasks/lib/help');
-
-Help.addItem('existing-task', 'Named Group', 'Optional description that avoids the default task description.');
-
-Help.add({
-  task: 'existing-task',
-  group: 'Named Group',
-  description: 'Optional description that avoids the default task description.'
-});
-
-Help.add([
-  {
-    task: 'existing-task',
-    group: 'Named Group',
-    description: 'Optional description that avoids the default task description.'
-  },
-  {
-    task: 'second-task',
-    group: 'Named Group',
-    description: 'A second registered task to register with the help system.'
-  }
-]);
-```
-
-If you want to include your task in one of the existing groups, copy the text
-exactly as seen in the output of the `grunt help` task.
-
 ### Magic Configuration
 
-The domain, profile, and alias configurations are all built using the same
+The domain, profile, alias, and siteUrls configurations are all built using the same
 system that allows for maximum flexibility in project and environment
-configuration. In order of precedence it checks the following:
+configuration. Note that all configuration is subject to the Project Gruntfile override.
+In order of precedence it checks the following:
 
-1. The value of the configuration prefixed with "gdt.". This allows a project
+#### Priority 1: Project Gruntfile.js
+
+The value of the configuration prefixed with `gdt.`. This allows a project
 Gruntfile to dynamically specify the value before bootstrapping Grunt Drupal
-Tasks. This facilitates specification based on evaluating the local system,
-such as the naming of the repository's parent directory.
-2. The environment variable, especially useful for container environments:
-  * **alias**: `GDT_SITE_ALIAS`
-  * **domain**: `GDT_DOMAIN`
-  * **profile**: `GDT_INSTALL_PROFILE`
-3. The configuration placed in Gruntconfig.json. This is good for
-straightforward defaults.
+Tasks. This is valuable because the code of grunt-drupal-tasks sets up many
+behaviors based on that configuration that would be difficult to replicate
+after the bootstrap.
+
+This can be done with any configuration you might place into your Gruntconfig.json,
+and is merged recursively as an override to whatever you place in that file.
+
+For example:
+
+  * **alias**: `gdt.alias`
+  * **domain**: `gdt.domain`
+  * **profile**: `gdt.profile`
+  * **siteUrls**: `gdt.siteUrls`
+
+Suppose your environment is set up with the following directory structure:
+
+>  * project.example.com
+    * project-repository
+      * Gruntfile.js
+      * Gruntconfig.json
+      * src/
+      * ...
+   * project2.example.net
+     * ...
+
+Given this structure, you will not want to use environment variables because
+each of your projects might need different values in the host machine. However,
+a little logic in the project Gruntfile.js can allow you to dynamically derive
+your development domain or Drush site alias.
+
+For example, here is a Gruntfile that derives the site alias and domain
+based on the parent directory name of the project repository.
+
+```js
+var path = require('path');
+module.exports = function(grunt) {
+  var name = path.basename(path.resolve(__dirname, '..'));
+  // Set domain to "project.example.com". If nothing else sets the `alias`
+  // it will default to @project.example.com.
+  grunt.initConfig({ gdt: { domain: name });
+  // Load all plugins and tasks defined by the grunt-drupal-tasks package.
+  require('grunt-drupal-tasks')(grunt);
+};
+```
+
+#### Priority 2: Environment Variable
+
+Each magic configuration property can also be set via an Environment Variable.
+
+Environment Variables are extremely powerful, but only useful where the environment
+contains only a single project using Grunt Drupal Tasks. This is more effectived
+for dedicated environments, such as official production and staging servers, or virtual
+and containerized environments.
+
+The specific environment variable name is covered as part of the property
+descriptions.
+
+#### Priority 3: Project Gruntconfig.json
+
+The configuration placed in Gruntconfig.json. This is good for straightforward defaults
+and is how all *non-magical* configuration works.
