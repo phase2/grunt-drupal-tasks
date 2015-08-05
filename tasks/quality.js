@@ -13,9 +13,12 @@ module.exports = function(grunt) {
    *   Deeper inspection & analyze of codebase, not done on every build.
    *   Produces reports for Jenkins. May be a long-running task.
    */
+  grunt.loadNpmTasks('grunt-eslint');
+  grunt.loadNpmTasks('grunt-force-task');
   grunt.loadNpmTasks('grunt-phplint');
   grunt.loadNpmTasks('grunt-phpcs');
   grunt.loadNpmTasks('grunt-phpmd');
+
   var Help = require('../lib/help')(grunt);
 
   // Task set aliases are registered at the end of the file based on these values.
@@ -49,8 +52,9 @@ module.exports = function(grunt) {
     var phpStandard = grunt.config('config.phpcs.standard')
       || 'vendor/drupal/coder/coder_sniffer/Drupal';
 
-    var ignoreError = grunt.config('config.phpcs.ignoreExitCode');
-    ignoreError = ignoreError === undefined ? true : ignoreError;
+    // Support deprecated config.phpcs.ignoreExitCode value until 1.0.
+    var ignoreError = grunt.config('config.validate.ignoreError') || grunt.config('config.phpcs.ignoreExitCode');
+    ignoreError = ignoreError === undefined ? false : ignoreError;
 
     grunt.config('phpcs', {
       analyze: {
@@ -116,6 +120,32 @@ module.exports = function(grunt) {
       }
     });
     analyze.push('phpmd:custom');
+  }
+
+  if (grunt.config.get('config.eslint') != undefined) {
+    var eslintConfig = grunt.config.get('config.eslint'),
+      eslintTarget = eslintConfig.dir || [
+          '<%= config.srcPaths.drupal %>/**/*.js',
+          '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+        ],
+      eslintConfigFile = eslintConfig.configFile || './.eslintrc',
+      eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
+      eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
+    grunt.config('eslint', {
+      options: {
+        configFile: eslintConfigFile
+      },
+      validate: eslintTarget,
+      analyze: {
+        options: {
+          format: 'checkstyle',
+          outputFile: '<%= config.buildPaths.reports %>/eslint.xml'
+        },
+        src: eslintTarget
+      }
+    });
+    validate.push(eslintName + ':validate');
+    analyze.push(eslintName + ':analyze');
   }
 
   // If any of the themes have code quality commands, attach them here.

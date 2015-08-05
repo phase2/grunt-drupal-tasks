@@ -14,7 +14,7 @@ mkdir test/working_copy
 PATH_WORKING_COPY="`pwd`/test/working_copy"
 
 # Copy the example skeleton into working_copy
-cp -r example/* $PATH_WORKING_COPY
+cp -r example/. $PATH_WORKING_COPY
 
 # Copy the test assets into working_copy
 PATH_TEST_ASSETS="test/test_assets"

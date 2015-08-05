@@ -19,5 +19,6 @@
   },
   "behat": {
     "flags": "--tags ~@wip"
-  }
+  },
+  "eslint": true
 }

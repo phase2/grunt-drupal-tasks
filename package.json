@@ -1,23 +1,25 @@
 {
   "name": "grunt-drupal-tasks",
   "description": "A Grunt plugin to automate Drupal build and testing tasks.",
-  "version": "0.6.1",
+  "version": "0.8.0",
   "main": "bootstrap.js",
   "dependencies": {
     "grunt-available-tasks": "0.5.7",
     "grunt-composer": "0.4.4",
     "grunt-concurrent": "1.0.0",
     "grunt-contrib-clean": "0.6.0",
-    "grunt-contrib-compass": "1.0.1",
+    "grunt-contrib-compass": "1.0.3",
     "grunt-contrib-compress": "0.13.0",
     "grunt-contrib-copy": "0.8.0",
     "grunt-contrib-symlink": "0.3.0",
     "grunt-contrib-watch": "0.6.1",
     "grunt-drush": "0.0.6",
     "grunt-githooks": "^0.3.1",
-    "grunt-log-headers": "^1.0.1",
+    "grunt-eslint": "13.0.0",
+    "grunt-force-task": "1.0.0",
+    "grunt-log-headers": "1.0.1",
     "grunt-mkdir": "0.1.2",
-    "grunt-newer": "1.1.0",
+    "grunt-newer": "1.1.1",
     "grunt-notify": "git+https://github.com/grayside/grunt-notify.git#0.5.0",
     "grunt-parallel-behat": "0.3.6",
     "grunt-phpcs": "git+https://github.com/grayside/grunt-phpcs.git#0.5.0-fork2",
@@ -25,8 +27,8 @@
     "grunt-phpmd": "0.1.1",
     "grunt-shell": "1.1.2",
     "grunt-staged": "^0.1.0",
-    "lodash": "3.6.0",
-    "time-grunt": "1.1.0"
+    "lodash": "3.9.3",
+    "time-grunt": "1.2.1"
   },
   "peerDependencies": {
     "grunt": ">= 0.4.5 < 0.5"
