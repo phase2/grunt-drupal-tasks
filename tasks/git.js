@@ -10,7 +10,7 @@ module.exports = function(grunt) {
    */
 
 
-  if (!grunt.file.exists('build') && !grunt.file.exists('.git/hooks/pre-comit')) {
+  if (!grunt.file.exists('build') && !grunt.file.exists('.git/hooks/pre-comit') && !grunt.config('config.validate.ignoreError')) {
     grunt.log.writeln('Run `grunt git-setup` to perform one-time repo upgrades, such as adding a pre-commit code scanner.');
   }
 
