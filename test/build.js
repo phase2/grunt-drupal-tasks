@@ -121,4 +121,16 @@ describe('grunt', function() {
     });
   });
 
+  describe('grunt task', function() {
+    it('"git-setup" may be run to install git hooks.', function(done) {
+      exec('grunt git-setup', function(error, stdout, stderr) {
+        fs.exists('./.git/hooks/pre-commit', function(exists) {
+          assert.ok(!error && exists);
+          done();
+        });
+      });
+    });
+
+  });
+
 });

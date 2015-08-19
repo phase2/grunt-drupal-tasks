@@ -48,6 +48,7 @@ provides:
   * Compass compilation
   * Behat testing
 * Deployment packaging
+* Git Hook management
 * Extensibility: Add or override with your plugins or configuration.
 
 We are continuously working to improve this toolchain, adding functionality that
