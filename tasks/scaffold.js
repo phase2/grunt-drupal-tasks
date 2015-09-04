@@ -13,7 +13,7 @@ module.exports = function(grunt) {
       drupal = require('../lib/drupal')(grunt);
     drupal.loadDrushStatus(function (err) {
       if (err) {
-        grunt.fail.fatal('Cannot load Drush status for built Drupal docroot.');
+        grunt.fail.fatal('Cannot load Drush status for built Drupal docroot.\n\n' + err);
         return done();
       }
 
