@@ -484,6 +484,27 @@ should be placed. Defaults to the package root. For Acquia set this to
 **packages.dest.devResources**: Specify where within the package directory the
 `projFiles` should be placed. Defaults to package root.
 
+### Install settings
+
+The `install` task will either install Drupal via the configured `profile`, or if
+a path to a database is configured, load this database:
+
+To specify a profile other than the `standard` profile:
+
+```json
+{
+  "serve": {
+    "profile": "openatrium"
+```
+
+to specify a database to load:
+
+```json
+{
+  "install": {
+    "db": "path/to/project.sql.gz"
+```
+
 ### Serve Settings
 
 The Serve task allows you to run Drupal using PHP's built-in webserver. This
