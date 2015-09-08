@@ -484,7 +484,6 @@ should be placed. Defaults to the package root. For Acquia set this to '/docroot
 **packages.dest.devResources**: Specify where within the package directory the
 `projFiles` should be placed. Defaults to package root.
 
-
 ### Project Operations
 
 Some of the most common use cases for any Drupal site are the basic operations
@@ -525,6 +524,31 @@ behavior of the drush:liteinstall task. Defaults to `standard`.
 WARNING: drush:liteinstall is an internal task and is likely to be deprecated in
 a future release. The environment variable is `GDT_INSTALL_PROFILE`
 
+### Install settings
+
+The `install` task will either install Drupal via the configured `profile`, or if
+a path to a database is configured, load this database:
+
+To specify a profile other than the `standard` profile:
+
+```json
+{
+  "serve": {
+    "profile": "openatrium"
+  }
+}
+```
+
+to specify a database to load:
+
+```json
+{
+  "install": {
+    "db": "path/to/project.sql.gz"
+  }
+}
+```
+
 ### Serve Settings
 
 The Serve task allows you to run Drupal using PHP's built-in webserver. This
@@ -543,7 +567,7 @@ skip starting up watch tasks.
     "concurrent": [
       "watch-theme"
     ]
-
+  }
 }
 ```
 
