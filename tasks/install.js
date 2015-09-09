@@ -22,7 +22,7 @@ module.exports = function(grunt) {
   // If no path is configured for Drush, fallback to the system path.
   var cmd = {cmd: Drupal.drushPath()};
 
-  var profile = grunt.config('config.serve.profile') || 'standard';
+  var profile = grunt.config('config.project.profile') || 'standard';
 
   grunt.config(['drush', 'install'], {
     args: ['site-install', '-yv', profile],
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     }, cmd)
   });
   grunt.config(['shell', 'loaddb'], {
-    command: 'gzip -dc <%= config.install.db %> | <%= config.install.dbConnection %>'
+    command: 'gzip -dc <%= config.project.db %> | <%= config.project.dbConnection %>'
   });
 
   grunt.registerTask('install', 'Install Drupal with the configured profile, or from a database dump file if one exists.', function() {
