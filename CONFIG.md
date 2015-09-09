@@ -533,7 +533,7 @@ To specify a profile other than the `standard` profile:
 
 ```json
 {
-  "serve": {
+  "project": {
     "profile": "openatrium"
   }
 }
@@ -543,11 +543,16 @@ to specify a database to load:
 
 ```json
 {
-  "install": {
+  "project": {
     "db": "path/to/project.sql.gz"
   }
 }
 ```
+
+**project.profile** The profile to use with `grunt:install` or `grunt:serve` tasks. Defaults to `standard` and may be overridden with `--profile` when the install task is run.
+
+**project.db** If specified, this database will be loaded instead of running a site installation. If the file referenced is not present `grunt install` will fall back
+to a standard `drush site-install`.
 
 ### Serve Settings
 
@@ -559,9 +564,11 @@ terminal window.
 `grunt serve` will not install the Drupal site. Run with `grunt serve:demo` to
 skip starting up watch tasks.
 
-```
+```json
 {
-  "profile": 'project_profile_name',
+  "project": {
+    "profile": 'project_profile_name'
+  },
   "serve": {
     "port": 9043,
     "concurrent": [
