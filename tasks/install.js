@@ -24,8 +24,13 @@ module.exports = function(grunt) {
 
   var profile = grunt.config('config.project.profile') || 'standard';
 
+  var dbUrl = grunt.option('db-url') || false;
+  if (dbUrl) {
+    dbUrl = '--db-url=' + dbUrl;
+  }
+
   grunt.config(['drush', 'install'], {
-    args: ['site-install', '-yv', profile],
+    args: ['site-install', '-yv', profile, dbUrl],
     options: _.extend({
       cwd: '<%= config.buildPaths.html %>'
     }, cmd)
