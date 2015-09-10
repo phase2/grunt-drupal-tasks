@@ -27,7 +27,7 @@ script:
   - grunt help
   - grunt --quiet --timer
   - echo "Fully built disk usage"; du -chs .
-  - grunt install --quiet --db-url=sqlite:/`pwd`/.ht.sqlite
+  - grunt install --db-url=sqlite:/`pwd`/.ht.sqlite --quiet
   - grunt serve:test >/dev/null &
   - until curl -I -XGET -s $GDT_TEST_URL 2>/dev/null | egrep -q '^HTTP.*200'; do sleep 0.5; done
   - grunt test
