@@ -36,6 +36,7 @@ module.exports = function(grunt) {
   if (grunt.task.exists('bundle-install')) {
     tasksDefault.push('bundle-install');
   }
+  // If the "--no-validate" option is given, skip adding "validate" to task array.
   if (!grunt.option('no-validate')) {
     tasksDefault.push('validate');
   }
