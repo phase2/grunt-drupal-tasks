@@ -28,17 +28,19 @@ module.exports = function(grunt) {
   grunt.loadTasks(__dirname + '/tasks');
 
   // Define the default task to fully build and configure the project.
-  var tasksDefault = [
-    'validate',
-    'newer:drushmake:default',
-    'scaffold'
-  ];
+  var tasksDefault = [];
+  
   if (grunt.config.get(['composer', 'install'])) {
-    tasksDefault.unshift('composer:install');
+    tasksDefault.push('composer:install');
   }
   if (grunt.task.exists('bundle-install')) {
-    tasksDefault.unshift('bundle-install');
+    tasksDefault.push('bundle-install');
   }
+  if (!grunt.option('no-validate')) {
+    tasksDefault.push('validate');
+  }
+  tasksDefault.push('newer:drushmake:default');
+  tasksDefault.push('scaffold');
   if (grunt.task.exists('compile-theme')) {
     tasksDefault.push('compile-theme');
   }
