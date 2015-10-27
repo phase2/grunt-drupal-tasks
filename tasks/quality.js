@@ -156,6 +156,10 @@ module.exports = function(grunt) {
   var themes = grunt.config('config.themes');
   for (var key in themes) {
     if (themes[key].scripts && themes[key].scripts.validate) {
+      // If the theme has a validate task of it's own, then let's exclude it from our validate.
+      var eslintSettings = grunt.config.get('eslint.validate');
+      eslintSettings.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/**/*.js');
+      grunt.config.set('eslint.validate', eslintSettings);
       validate.push('themes:' + key + ':validate');
     }
     if (themes[key].scripts && themes[key].scripts.analyze) {
