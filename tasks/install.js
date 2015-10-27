@@ -61,13 +61,18 @@ module.exports = function(grunt) {
           // Drop current database.
           'drush:sql-drop',
           // Load new database.
-          'shell:loaddb'
+          'shell:loaddb',
+          // Run any pending database updates.
+          'drush:updb'
         ]);
         done();
       });
     }
     else {
-      grunt.task.run('drush:install');
+      grunt.task.run([
+        // Run site install.
+        'drush:install'
+      ]);
       done();
     }
   });
