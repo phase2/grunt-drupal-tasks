@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 
   // `config.serve.profile` is deprecated.
   if (grunt.config('config.serve.profile')) {
-    grunt.log.warn('The `serve.profile` parameter is deprecated and will be removed in future versions. Use `install.profile` instead.');
+    grunt.log.warn('The `serve.profile` parameter is deprecated and will be removed in future versions. Use `project.profile` instead.');
   }
   var profile = grunt.config('config.project.profile') || grunt.config('config.serve.profile') || 'standard';
 
