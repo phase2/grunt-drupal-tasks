@@ -46,8 +46,8 @@ module.exports = function(grunt) {
 
   if (grunt.config.get('config.phpcs') != undefined) {
     var phpcs = grunt.config.get('config.phpcs.dir') || [
-      '<%= config.srcPaths.drupal %>/**/*.css'
-    ].concat(defaultPatterns);
+        '<%= config.srcPaths.drupal %>/**/*.css'
+      ].concat(defaultPatterns);
 
     var phpStandard = grunt.config('config.phpcs.standard')
       || 'vendor/drupal/coder/coder_sniffer/Drupal';
@@ -56,52 +56,56 @@ module.exports = function(grunt) {
     var ignoreError = grunt.config('config.validate.ignoreError') || grunt.config('config.phpcs.ignoreExitCode');
     ignoreError = ignoreError === undefined ? false : ignoreError;
 
-    grunt.config('phpcs', {
-      analyze: {
-        src: phpcs
-      },
-      drupal: {
-        src: phpcs
-      },
-      validate: {
-        src: phpcs,
-        options: {
-          report: grunt.config.get('config.phpcs.validateReport') || 'full',
-          reportFile: false
-        }
-      },
-      full: {
-        src: phpcs,
-        options: {
-          report: 'full',
-          reportFile: false
-        }
-      },
-      summary: {
-        src: phpcs,
-        options: {
-          report: 'summary',
-          reportFile: false
-        }
-      },
-      gitblame: {
-        src: phpcs,
-        options: {
-          report: 'gitblame',
-          reportFile: false
-        }
-      },
-      options: {
-        bin: '<%= config.phpcs.path %>',
-        standard: phpStandard,
-        ignoreExitCode: ignoreError,
-        report: 'checkstyle',
-        reportFile: '<%= config.buildPaths.reports %>/phpcs.xml'
-      }
-    });
+    if (grunt.file.expand(phpcs).length !== 0) {
 
-    validate.push('phpcs:validate');
-    analyze.push('phpcs:analyze');
+      grunt.config('phpcs', {
+        analyze: {
+          src: phpcs
+        },
+        drupal: {
+          src: phpcs
+        },
+        validate: {
+          src: phpcs,
+          options: {
+            report: grunt.config.get('config.phpcs.validateReport') || 'full',
+            reportFile: false
+          }
+        },
+        full: {
+          src: phpcs,
+          options: {
+            report: 'full',
+            reportFile: false
+          }
+        },
+        summary: {
+          src: phpcs,
+          options: {
+            report: 'summary',
+            reportFile: false
+          }
+        },
+        gitblame: {
+          src: phpcs,
+          options: {
+            report: 'gitblame',
+            reportFile: false
+          }
+        },
+        options: {
+          bin: '<%= config.phpcs.path %>',
+          standard: phpStandard,
+          ignoreExitCode: ignoreError,
+          report: 'checkstyle',
+          reportFile: '<%= config.buildPaths.reports %>/phpcs.xml'
+        }
+      });
+
+      validate.push('phpcs:validate');
+      analyze.push('phpcs:analyze');
+    }
+
   }
 
   if (grunt.config.get('config.phpmd') != undefined) {
