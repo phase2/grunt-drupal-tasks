@@ -1,24 +1,19 @@
 {
   "srcPaths": {
     "make": "src/project.make",
-    "drupal": "src"
+    "drupal": "src",
+    "devroot": "devroot"
   },
   "domain": "project.vm",
-  "packages": {
-    "default": {
-      "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
-      "projFiles": ["README*", "bin/**"]
-    },
-    "acquia": {
-      "srcFiles": ["**", ".**", "!sites/default/**", "!sites/*/files/**", "!??/**", "!sites/all/modules/dev/**", "!sites/*/settings.php", "!sites/*/settings.db.inc", "!sites/*/settings.local.inc", "!.htaccess", "!.gitignore", "!.gitkeep"],
-      "sharedFiles": ["**", "!files/**", "!default.settings.php", "settings.php", "!settings.local.inc"],
-      "projFiles": ["README*", "bin/**"],
-      "root": "build/packages/acquia",
-      "paths": {
-        "docroot": "build/packages/acquia/docroot",
-        "shared": "build/packages/acquia/shared"
-      }
+  "buildPaths": {
+    "package": {
+      "default": "build/packages/package",
+      "acquia": "build/packages/acquia"
     }
+  },
+  "packages": {
+    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
+    "projFiles": ["README*", "bin/**"]
   },
   "phpcs": {
     "path": "vendor/bin/phpcs"
@@ -34,4 +29,3 @@
   },
   "eslint": true
 }
-
