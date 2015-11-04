@@ -13,21 +13,18 @@ module.exports = function(grunt) {
     var path = require('path');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    var config = grunt.config.get('config.packages.default'),
+    var config = grunt.config.get('config.packages'),
       srcFiles = ['**', '!**/.gitkeep'].concat((config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : '**'),
       projFiles = (config && config.projFiles && config.projFiles.length) ? config.projFiles : [];
 
-    var packageTarget = (grunt.config.get('config.buildPaths.packageTarget') || 'default');
-    var destPath = grunt.config.get('config.buildPaths.package.' + packageTarget);
-    var tasks = []
-
-    // If we are working with an acquia package, all repo-root files other than /docroot
-    // will be in /devroot. "Project" files should come from there.
-    var cwd = '';
-    if (packageTarget == 'acquia') {
-      cwd = '<%= config.srcPaths.devroot %>';
-      projFiles += ['**'];
+    // Look for a package target spec, build destination path.
+    var packageTarget = grunt.option('target') || process.env.GRUNT_PACKAGE_TARGET;
+    if (!packageTarget) {
+      packageTarget = (grunt.config.get('config.buildPaths.packageTarget') || 'package');
     }
+
+    var destPath = grunt.config.get('config.buildPaths.packages') + '/' + packageTarget;
+    var tasks = [];
 
     grunt.config('copy.package', {
       files: [
