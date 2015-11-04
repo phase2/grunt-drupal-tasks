@@ -23,8 +23,7 @@ module.exports = function(grunt) {
       '<%= config.buildPaths.temp %>'
     ],
     packages: [
-      '<%= config.buildPaths.package.default %>',
-      '<%= config.buildPaths.package.acquia %>'
+      '<%= config.buildPaths.packages %>/**'
     ]
   });
 
