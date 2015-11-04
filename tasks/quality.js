@@ -168,15 +168,14 @@ module.exports = function(grunt) {
   }
 
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
-    if (mode == 'newer') {
+    if (mode == 'newer' || mode == 'staged') {
+      // This works because grunt-newer and grunt-staged have consisting naming.
+      grunt.loadNpmTasks('grunt-' + mode);
       // Wrap each task configured for validate in the newer command.
       // grunt-phplint already contains complex caching that does the same thing.
-      var newer = validate.map(function(item) { return item != 'phplint:all' ? 'newer:' + item : item; });
-      grunt.task.run(newer);
+      validate = validate.map(function(item) { return item != 'phplint:all' ? mode + ':' + item : item; });
     }
-    else {
-      grunt.task.run(validate);
-    }
+    grunt.task.run(validate);
   });
 
   if (analyze.length < 2) {
