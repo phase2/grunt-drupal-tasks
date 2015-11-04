@@ -68,7 +68,7 @@ module.exports = function(grunt) {
           { 
             expand: true,
             dot: true,
-            cwd: grunt.config.get('config.buildPaths.package.' + packageTarget),
+            cwd: grunt.config.get('config.buildPaths.packages') + '/' + packageTarget,
             src: ['**'],
           }
         ]
