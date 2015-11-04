@@ -451,6 +451,8 @@ The `grunt package` task allows you to assemble and independently exported
 Drupal codebase. This is used to facilitate deployment of the minimal code
 needed to run Drupal in a formal environment such as Production.
 
+#### Default Packaging
+
 You can find the resulting package in `build/packages/package` by default as a
 standard directory, all symlinks from the grunt scaffolding dereferenced. If
 run with `grunt package:compress` it will also output `build/packages/package.tgz`
@@ -468,6 +470,8 @@ This is an example of the settings for package tasks:
 }
 ```
 
+##### Packaging Customization
+
 **packages.srcFiles**: An array of files or file patterns to include or exclude
 from the build output when building a package. The above excludes files within
 any sites/*/files directory, and Drupal's xmlrpc.php and PHP Filter. For more on
@@ -483,6 +487,38 @@ should be placed. Defaults to the package root. For Acquia set this to
 
 **packages.dest.devResources**: Specify where within the package directory the
 `projFiles` should be placed. Defaults to package root.
+
+Also, the `package` command takes a `--target` parameter. Usage such as 
+
+    grunt package --target=MY_TARGET
+
+will yeild a `MY_TARGET` directory in the `packages` directory. This also works for the `package:compress` option.
+
+##### Packaging for Acquia
+
+Support for Acquia packaging is baked into the `package` command. You'll just need to place a few directories in the right place, and make a few additions to your additions to your local `Gruntconfig.json` file. First be sure your `hooks` and `bin` directories are placed at the repository root. 
+
+Also, you'll need to set **packages.dest.docroot** as mentioned above to '/docroot':
+
+    ...
+    "packages": {
+      "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
+      "projFiles": ["README*", "bin/**", "hooks/**"],
+      "dest": {
+        "docroot": "/docroot"
+      }
+    }
+    ...
+
+Then, you can either pass in a target name (`--target=TARGET_NAME`, for example) when you use the `package` command, or you can add spec in your local configuration:
+
+    ...
+    "buildPaths": {
+      "packages": "build/packages",
+      "packageTarget": "TARGET_NAME"
+    }
+    ...
+
 
 ### Serve Settings
 
