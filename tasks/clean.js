@@ -21,6 +21,9 @@ module.exports = function(grunt) {
     ],
     temp: [
       '<%= config.buildPaths.temp %>'
+    ],
+    packages: [
+      '<%= config.buildPaths.packages %>/**'
     ]
   });
 

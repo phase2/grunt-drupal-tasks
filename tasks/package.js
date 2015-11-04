@@ -17,8 +17,14 @@ module.exports = function(grunt) {
       srcFiles = ['**', '!**/.gitkeep'].concat((config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : '**'),
       projFiles = (config && config.projFiles && config.projFiles.length) ? config.projFiles : [];
 
-    var destPath = grunt.config.get('config.buildPaths.package') + '/package';
-    var tasks = []
+    // Look for a package target spec, build destination path.
+    var packageTarget = grunt.option('target') || process.env.GRUNT_PACKAGE_TARGET;
+    if (!packageTarget) {
+      packageTarget = (grunt.config.get('config.buildPaths.packageTarget') || 'package');
+    }
+
+    var destPath = grunt.config.get('config.buildPaths.packages') + '/' + packageTarget;
+    var tasks = [];
 
     grunt.config('copy.package', {
       files: [
@@ -34,6 +40,12 @@ module.exports = function(grunt) {
           src: projFiles,
           dest: destPath + (grunt.config.get('config.packages.dest.devResources') || ''),
           dot: true
+        },
+        {
+          expand: true,
+          src: grunt.config.get('config.srcPaths.make'),
+          dest: destPath + (grunt.config.get('config.packages.dest.devResources') || ''),
+          flatten: true
         }
       ],
       options: {
@@ -41,6 +53,7 @@ module.exports = function(grunt) {
       }
     });
 
+    tasks.push('clean:packages');
     tasks.push('copy:package');
 
     if (this.args[0] && this.args[0] == 'compress') {
@@ -52,11 +65,11 @@ module.exports = function(grunt) {
           gruntLogHeader: false
         },
         files: [
-          {
+          { 
             expand: true,
             dot: true,
-            cwd: grunt.config.get('config.buildPaths.package'),
-            src: 'package/**',
+            cwd: grunt.config.get('config.buildPaths.packages') + '/' + packageTarget,
+            src: ['**'],
           }
         ]
       });
@@ -71,4 +84,5 @@ module.exports = function(grunt) {
     task: 'package',
     group: 'Operations'
   });
+
 };

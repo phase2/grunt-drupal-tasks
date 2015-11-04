@@ -1,12 +1,15 @@
 {
   "srcPaths": {
-    "make": "src/project.make",
+    "make": "src/*.make",
     "drupal": "src"
   },
   "domain": "project.vm",
+  "buildPaths": {
+    "packages": "build/packages"
+  },
   "packages": {
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
-    "projFiles": ["README*", "bin/**"]
+    "projFiles": ["README*", "bin/**", "hooks/**"]
   },
   "phpcs": {
     "path": "vendor/bin/phpcs"
