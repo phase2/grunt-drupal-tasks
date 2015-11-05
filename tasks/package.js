@@ -40,12 +40,6 @@ module.exports = function(grunt) {
           src: projFiles,
           dest: destPath + (grunt.config.get('config.packages.dest.devResources') || ''),
           dot: true
-        },
-        {
-          expand: true,
-          src: grunt.config.get('config.srcPaths.make'),
-          dest: destPath + (grunt.config.get('config.packages.dest.devResources') || ''),
-          flatten: true
         }
       ],
       options: {
