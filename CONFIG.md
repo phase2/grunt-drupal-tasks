@@ -484,6 +484,31 @@ should be placed. Defaults to the package root. For Acquia set this to
 **packages.dest.devResources**: Specify where within the package directory the
 `projFiles` should be placed. Defaults to package root.
 
+### Install settings
+
+The `install` task will either install Drupal via the configured `profile`, or if
+a path to a database is configured, load this database:
+
+To specify a profile other than the `standard` profile:
+
+```json
+{
+  "project": {
+    "profile": "openatrium"
+```
+
+to specify a database to load:
+
+```json
+{
+  "project": {
+    "db": "path/to/project.sql.gz"
+```
+
+**project.profile** The profile to use with `drush:site-install` internal task. Defaults to `standard` and may be overridden
+with `--profile` when the install task is run.
+**project.db** If specified, this database will be loaded instead of running a site installation.
+
 ### Serve Settings
 
 The Serve task allows you to run Drupal using PHP's built-in webserver. This
@@ -494,10 +519,12 @@ terminal window.
 `grunt serve` will not install the Drupal site. Run with `grunt serve:demo` to
 skip starting up watch tasks.
 
-```
+```json
 {
+  "project": {
+    "profile": 'project_profile_name'
+  },
   "serve": {
-    "profile": 'project_profile_name',
     "port": 9043,
     "concurrent": [
       "watch-theme"
@@ -506,7 +533,7 @@ skip starting up watch tasks.
 }
 ```
 
-**serve.profile**: The profile to use with the drush:liteinstall task. Defaults
+**serve.profile**: \[DEPRECATED - use **project.profile** instead\] The profile to use with the drush:liteinstall task. Defaults
 to `standard` and may be overridden with `--profile` when the command is run.
 WARNING: drush:liteinstall is an internal task and is likely to be deprecated in
 a future release.
