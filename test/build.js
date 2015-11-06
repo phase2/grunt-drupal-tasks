@@ -98,7 +98,7 @@ describe('grunt', function() {
   describe('Script dispatching', function() {
     it('should pass commands along to themes', function(done) {
       exec('grunt themes:example_theme:echo', function (error, stdout, stderr) {
-        var status = !error && stdout && stdout.match(/theme\sscripts\srun/)[0];
+        var status = !error && stdout && stdout.match(/theme\sscripts\srun/)[0] && stdout.match(/run in example_theme/)[0];
         assert.ok(status);
         done();
       });
@@ -107,6 +107,14 @@ describe('grunt', function() {
     it('should run project operation scripts', function(done) {
       exec('grunt echo', function (error, stdout, stderr) {
         var status = !error && stdout && stdout.match(/operational\sscripts\srun/)[0];
+        assert.ok(status);
+        done();
+      });
+    });
+
+    it('should run pre-op and post-op scripts', function(done) {
+      exec('grunt echo', function (error, stdout, stderr) {
+        var status = !error && stdout && stdout.match(/pre\-op script/)[0] && stdout.match(/post\-op script/)[0];
         assert.ok(status);
         done();
       });

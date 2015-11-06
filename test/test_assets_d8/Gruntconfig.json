@@ -27,14 +27,16 @@
   },
   "eslint": true,
   "scripts": {
-    "echo": "echo 'operational scripts run'"
+    "pre-echo": "echo 'pre-op script'",
+    "echo": "echo 'operational scripts run'",
+    "post-echo": "echo 'post-op script'"
   },
   "themes": {
     "example_theme": {
       "path": "<%= config.srcPaths.drupal %>/themes/example_theme",
       "compass": true,
       "scripts": {
-        "echo": "echo 'theme scripts run'"
+        "echo": "echo 'theme scripts run in '$(basename $(pwd))"
       }
     }
   }
