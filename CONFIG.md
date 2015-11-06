@@ -335,6 +335,9 @@ run the command as part of the actions it takes for `grunt compile-theme`,
 Note that if you also configure compass for the theme, the existence of a
 "compile-theme" script will be run alongside the Grunt Drupal Tasks compass.
 
+Note that Theme Scripts support the `pre-` and `post-` operations explained in
+Project Operations.
+
 #### Setting Up Gem Dependencies
 
 In order for compass compilation to work, you will need to create a Gemfile
@@ -500,29 +503,30 @@ This should remind you of the **Themes Scripts** described above.
 ```
 {
   "scripts": {
-    "install": "drush <%= config.alias %> install <%= config.profile %> -yv"
-    "update": "drush <%= config.alias %> updatedb -yv && drush <%= config.alias %> features-revert-all -yv"
+    "update": "drush <%= config.alias %> updatedb -yv && drush <%= config.alias %> features-revert-all -yv",
+    "reset": "drush <%= config.alias %> registry-rebuild && drush <%= config.alias %> cc all"
   }
 }
 ```
 
 Here you see two commands defined inside the top-level `scripts` configuration.
-`grunt install` demonstrates a straightforward installation of the project's
-profile. `grunt update` demonstrates running database updates and reverting all
-[Features](http://www.drupal.org/project/features). GDT does not ship either of
-these, though we are exploring how best to initialize a project with sensible
-default operations via [Gadget](https://github.com/phase2/generator-gadget).
+
+* `grunt update` demonstrates running database updates and reverting all
+[Features](http://www.drupal.org/project/features).
+* `grunt reset` demonstrates a thorough reset of the file registry and Drupal caches.
 
 The Alias and Profile is specified per the rules for **Magic Configuration**.
 
 **alias**: The Drush Site Alias. This is computed as a helper for use in
-project oeprations, but is not yet applied as part of other tasks. Defaults to
-`@<domain>`. The environment variable is `GDT_SITE_ALIAS`.
+project operations, but is not yet applied as part of other tasks. Defaults to
+`@<domain>`. The environment variable to override is `GDT_SITE_ALIAS`.
 
-**profile**: The Drupal installation profile, this will be used to configure the
-behavior of the drush:liteinstall task. Defaults to `standard`.
-WARNING: drush:liteinstall is an internal task and is likely to be deprecated in
-a future release. The environment variable is `GDT_INSTALL_PROFILE`
+#### Pre and Post Operations
+
+Similar to `npm run`, the operations defined in your Gruntconfig will support
+`pre-` and `post-` variants. If the main script exists the pre-script will be
+triggered first and the post-script will be triggered after. This allows you to
+easily extend any project operation with separate grunt, bash, or other tasks.
 
 ### Install settings
 
@@ -549,10 +553,18 @@ to specify a database to load:
 }
 ```
 
-**project.profile** The profile to use with `grunt:install` or `grunt:serve` tasks. Defaults to `standard` and may be overridden with `--profile` when the install task is run.
+**project.profile** The Drupal installation profile, this will be used to configure the behavior of the `grunt install` and `grunt serve` tasks. Defaults to `standard`.
+The environment variable is `GDT_INSTALL_PROFILE`
 
 **project.db** If specified, this database will be loaded instead of running a site installation. If the file referenced is not present `grunt install` will fall back
 to a standard `drush site-install`.
+
+#### Pre and Post Installation
+
+The install task has a unique implementation of support for the pre and post
+scripts otherwise made available for themes and project operations. This allows
+you to implement simple directives or scripts to prepare for installation or
+perform non-standardized operations after the main installation routine.
 
 ### Serve Settings
 
@@ -578,6 +590,8 @@ skip starting up watch tasks.
 }
 ```
 
+**serve.profile**: DEPRECATED - use **project.profile** instead.
+
 **serve.port**: The port number to bind for the webserver. Only one service may
 occupy a port on a machine, so a project-specific port may be worthwhile. Defaults
 to `8080`.
@@ -589,9 +603,10 @@ add tasks be sure to include these as they will be suppressed by any configurati
 
 ### Magic Configuration
 
-The domain, profile, alias, and siteUrls configurations are all built using the same
-system that allows for maximum flexibility in project and environment
-configuration. Note that all configuration is subject to the Project Gruntfile override.
+The domain, project.profile, alias, and siteUrls configurations are all built
+using the same system that allows for maximum flexibility in project and
+environment configuration. Note that all configuration is subject to the Project Gruntfile override.
+
 In order of precedence it checks the following:
 
 #### Priority 1: Project Gruntfile.js
