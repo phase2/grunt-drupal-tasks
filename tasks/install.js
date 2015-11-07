@@ -47,41 +47,42 @@ module.exports = function(grunt) {
 
   grunt.registerTask('install', 'Install Drupal with the configured profile, or from a database dump file if one exists.', function() {
     var done = this.async();
-    var ops = require('../lib/scripts')(grunt)
-      .eventify(grunt.config('config.scripts'), this.name, 'ops');
 
     // Check for a database file first.
-    var dbPath = grunt.config('config.install.db');
+    var dbPath = grunt.config('config.project.db');
     if (dbPath && grunt.file.exists(dbPath)) {
       Drupal.loadDatabaseConnection(function(error) {
         if (error) {
           grunt.fail.fatal(error);
           done();
         }
-        grunt.task.run([
-          // Run configured pre-install tasks.
-          ops.pre,
+
+        var tasks = [
           // Drop current database.
           'drush:sql-drop',
           // Load new database.
           'shell:loaddb',
           // Run any pending database updates.
           'drush:updb',
-          // Run configured post-install tasks.
-          ops.post
-        ]);
+        ];
+
+        tasks = require('../lib/scripts')(grunt)
+          .eventify(grunt.config('config.scripts'), this.name, 'ops', tasks);
+
+        grunt.task.run(tasks);
         done();
       });
     }
     else {
-      grunt.task.run([
-        // Run configured pre-install tasks.
-        ops.pre,
+      var tasks = [
         // Run site install.
-        'drush:install',
-        // Run configured post-install tasks.
-        ops.post
-      ]);
+        'drush:install'
+      ];
+
+      tasks = require('../lib/scripts')(grunt)
+        .eventify(grunt.config('config.scripts'), this.name, 'ops', tasks);
+
+      grunt.task.run(tasks);
       done();
     }
   });
@@ -90,6 +91,6 @@ module.exports = function(grunt) {
     {
       task: 'install',
       group: 'Operations'
-    },
+    }
   ]);
 };
