@@ -41,6 +41,12 @@ module.exports = function(grunt) {
       cwd: '<%= config.buildPaths.html %>'
     }, cmd)
   });
+  grunt.config(['drush', 'updb'], {
+    args: ['updatedb', '-y' ],
+    options: _.extend({
+      cwd: '<%= config.buildPaths.html %>'
+    }, cmd)
+  });
   grunt.config(['shell', 'loaddb'], {
     command: 'gzip -dc <%= config.project.db %> | <%= config.project.dbConnection %>'
   });
@@ -50,7 +56,7 @@ module.exports = function(grunt) {
     var done = this.async();
 
     // Check for a database file first.
-    var dbPath = grunt.config('config.install.db');
+    var dbPath = grunt.config('config.project.db');
     if (dbPath && grunt.file.exists(dbPath)) {
       Drupal.loadDatabaseConnection(function(error) {
         if (error) {
