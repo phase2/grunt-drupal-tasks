@@ -4,18 +4,18 @@
   "version": "0.8.0",
   "main": "bootstrap.js",
   "dependencies": {
-    "grunt-available-tasks": "0.5.7",
+    "grunt-available-tasks": "0.6.1",
     "grunt-composer": "0.4.4",
-    "grunt-concurrent": "1.0.0",
+    "grunt-concurrent": "2.0.4",
     "grunt-contrib-clean": "0.6.0",
-    "grunt-contrib-compass": "1.0.3",
-    "grunt-contrib-compress": "0.13.0",
-    "grunt-contrib-copy": "0.8.0",
+    "grunt-contrib-compass": "1.0.4",
+    "grunt-contrib-compress": "0.14.0",
+    "grunt-contrib-copy": "0.8.2",
     "grunt-contrib-symlink": "0.3.0",
     "grunt-contrib-watch": "0.6.1",
-    "grunt-drush": "0.0.6",
+    "grunt-drush": "0.0.7",
     "grunt-githooks": "^0.3.1",
-    "grunt-eslint": "13.0.0",
+    "grunt-eslint": "17.3.1",
     "grunt-force-task": "1.0.0",
     "grunt-githooks": "^0.3.1",
     "grunt-log-headers": "^1.0.1",
@@ -28,8 +28,8 @@
     "grunt-phpmd": "0.1.1",
     "grunt-shell": "1.1.2",
     "grunt-staged": "^0.1.0",
-    "lodash": "3.9.3",
-    "time-grunt": "1.2.1"
+    "lodash": "3.10.1",
+    "time-grunt": "1.2.2"
   },
   "peerDependencies": {
     "grunt": ">= 0.4.5 < 0.5"
