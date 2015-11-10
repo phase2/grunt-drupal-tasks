@@ -322,10 +322,11 @@ general project tasks.
 }
 ```
 
-`grunt themes` may be run to list all themes setup in your project Gruntconfig.json.
-`grunt themes:\<theme\>` will list all the options in the theme's scripts config
-as a means of providing usage documentation. `grunt themes:\<theme\>:\<task\>`
-will run the script keyed by `\<task\>` from the theme's directory.
+`grunt themes` may be run to list all themes setup in your project
+Gruntconfig.json. `grunt themes:\<theme\>` will list all the options in the
+theme's scripts config as a means of providing usage documentation.
+`grunt themes:\<theme\>:\<task\>` will run the script keyed by `\<task\>` from
+the theme's directory.
 
 Three of the key names are magic: 'compile-theme', 'validate', and 'analyze'.
 When one of those three is specified, Grunt Drupal Tasks will automatically
@@ -457,9 +458,10 @@ needed to run Drupal in a formal environment such as Production.
 
 You can find the resulting package in `build/packages/package` by default as a
 standard directory, all symlinks from the grunt scaffolding dereferenced. If
-run with `grunt package:compress` it will also output `build/packages/package.tgz`
-as an easily stored archive. **Remember, this directory is wiped by `grunt clean`
-unless you configure your package directory to be outside the build directory.**
+run with `grunt package:compress` it will also output
+`build/packages/package.tgz` as an easily stored archive. **Remember, this
+directory is wiped by `grunt clean` unless you configure your package directory
+to be outside the build directory.**
 
 This is an example of the settings for package tasks:
 
@@ -481,8 +483,9 @@ this format, see: http://gruntjs.com/configuring-tasks#files
 from the project directory when building a package. The above includes README
 files and files under bin/ in the project's package.
 
-**packages.dest.docroot**: Specify where within the package directory the `srcFiles`
-should be placed. Defaults to the package root. For Acquia set this to '/docroot'.
+**packages.dest.docroot**: Specify where within the package directory the
+`srcFiles` should be placed. Defaults to the package root. For Acquia set this
+to '/docroot'.
 
 **packages.dest.devResources**: Specify where within the package directory the
 `projFiles` should be placed. Defaults to package root.
@@ -513,7 +516,8 @@ Here you see two commands defined inside the top-level `scripts` configuration.
 
 * `grunt update` demonstrates running database updates and reverting all
 [Features](http://www.drupal.org/project/features).
-* `grunt reset` demonstrates a thorough reset of the file registry and Drupal caches.
+* `grunt reset` demonstrates a thorough reset of the file registry and Drupal
+caches.
 
 The Alias and Profile is specified per the rules for **Magic Configuration**.
 
@@ -530,8 +534,8 @@ easily extend any project operation with separate grunt, bash, or other tasks.
 
 ### Install settings
 
-The `install` task will either install Drupal via the configured `profile`, or if
-a path to a database is configured, load this database:
+The `install` task will either install Drupal via the configured `profile`, or
+if a path to a database is configured, load this database:
 
 To specify a profile other than the `standard` profile:
 
@@ -553,11 +557,13 @@ to specify a database to load:
 }
 ```
 
-**project.profile** The Drupal installation profile, this will be used to configure the behavior of the `grunt install` and `grunt serve` tasks. Defaults to `standard`.
-The environment variable is `GDT_INSTALL_PROFILE`
+**project.profile** The Drupal installation profile, this will be used to
+configure the behavior of the `grunt install` and `grunt serve` tasks. Defaults
+to `standard`. The environment variable is `GDT_INSTALL_PROFILE`
 
-**project.db** If specified, this database will be loaded instead of running a site installation. If the file referenced is not present `grunt install` will fall back
-to a standard `drush site-install`.
+**project.db** If specified, this database will be loaded instead of running a
+site installation. If the file referenced is not present `grunt install` will
+fall back to a standard `drush site-install`.
 
 #### Pre and Post Installation
 
@@ -593,19 +599,21 @@ skip starting up watch tasks.
 **serve.profile**: DEPRECATED - use **project.profile** instead.
 
 **serve.port**: The port number to bind for the webserver. Only one service may
-occupy a port on a machine, so a project-specific port may be worthwhile. Defaults
-to `8080`.
+occupy a port on a machine, so a project-specific port may be worthwhile.
+Defaults to `8080`.
 
-**serve.concurrent**: An array of grunt tasks to be run concurrently to the server.
-When run with `serve:demo` or `serve:test` these tasks are not used. By default
-they include 'watch-test' and 'watch-theme'. If you use this configuration to
-add tasks be sure to include these as they will be suppressed by any configuration.
+**serve.concurrent**: An array of grunt tasks to be run concurrently to the
+server. When run with `serve:demo` or `serve:test` these tasks are not used. By
+default they include 'watch-test' and 'watch-theme'. If you use this
+configuration to add tasks be sure to include these as they will be suppressed
+by any configuration.
 
 ### Magic Configuration
 
 The domain, project.profile, alias, and siteUrls configurations are all built
 using the same system that allows for maximum flexibility in project and
-environment configuration. Note that all configuration is subject to the Project Gruntfile override.
+environment configuration. Note that all configuration is subject to the Project
+Gruntfile override.
 
 In order of precedence it checks the following:
 
@@ -617,8 +625,9 @@ Tasks. This is valuable because the code of grunt-drupal-tasks sets up many
 behaviors based on that configuration that would be difficult to replicate
 after the bootstrap.
 
-This can be done with any configuration you might place into your Gruntconfig.json,
-and is merged recursively as an override to whatever you place in that file.
+This can be done with any configuration you might place into your
+Gruntconfig.json, and is merged recursively as an override to whatever you place
+in that file.
 
 For example:
 
@@ -662,17 +671,18 @@ module.exports = function(grunt) {
 
 Each magic configuration property can also be set via an Environment Variable.
 
-Environment Variables are extremely powerful, but only useful where the environment
-contains only a single project using Grunt Drupal Tasks. This is more effectived
-for dedicated environments, such as official production and staging servers, or virtual
-and containerized environments.
+Environment Variables are extremely powerful, but only useful where the
+environment contains only a single project using Grunt Drupal Tasks. This is
+more effective for dedicated environments, such as official production and
+staging servers, or virtual and containerized environments.
 
 The specific environment variable name is covered as part of the property
 descriptions.
 
 #### Priority 3: Project Gruntconfig.json
 
-The configuration placed in Gruntconfig.json. This is good for straightforward defaults and is how all *non-magical* configuration works.
+The configuration placed in Gruntconfig.json. This is good for straightforward
+defaults and is how all *non-magical* configuration works.
 
 If you want to include your task in one of the existing groups, copy the text
 exactly as seen in the output of the `grunt help` task.
@@ -686,15 +696,15 @@ that will block developer's from committing work if it does not get approved by
 a script.
 
 Git hook scripts need to be manually installed on a per-repository basis, so
-Grunt Drupal Tasks facilitates by allowing easy configuration of the grunt-githooks
-plugin as part of our `grunt git-setup` task.
+Grunt Drupal Tasks facilitates by allowing easy configuration of the
+grunt-githooks plugin as part of our `grunt git-setup` task.
 
 #### Default Task
 
-By default, Grunt Drupal Tasks installs a special variant of the `validate` task.
-This version, specifically invoked by `validate:staged` attempts to minimize the
-number of files scanned by checking only those that have changed since the last
-successful commit.
+By default, Grunt Drupal Tasks installs a special variant of the `validate`
+task. This version, specifically invoked by `validate:staged` attempts to
+minimize the number of files scanned by checking only those that have changed
+since the last successful commit.
 
 #### Configuring Additional Tasks
 

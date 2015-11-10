@@ -76,8 +76,8 @@ grunt.registerTask('validate', taskList);
 ### Customizing Help Output (Help API)
 
 If you add custom tasks to your project and want them exposed as part of the
-`help` task, you may add a simple code snippet to your Gruntfile.js or any loaded
-task file.
+`help` task, you may add a simple code snippet to your Gruntfile.js or any
+loaded task file.
 
 ```js
 var Help = require('grunt-drupal-tasks/lib/help');
@@ -114,9 +114,10 @@ have some Bash scripts laying around that you want to keep. Sometimes Bash
 or PHP are simply better for managing a Drupal system, other times you want to
 keep the up-front time of integrating the Grunt tools minimal.
 
-The preferred approach is to configure your scripts via the **Project Operations**
-system. This allows you to run your script via `grunt custom-install`, and pass
-any grunt-derived configuration you might need to the script.
+The preferred approach is to configure your scripts via the **Project
+Operations** system. This allows you to run your script via
+`grunt custom-install`, and pass any grunt-derived configuration you might need
+to the script.
 
 If you want to automatically load your scripts, here is a script based on
 [grunt-shell](https://github.com/sindresorhus/grunt-shell) you can use.
