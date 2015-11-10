@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v0.9.0-pre [2015/11/xx]
+
+- Added the ability to [define scripts for common project operations](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#project-operations).
+- Added `grunt install` task to [easily install the site cleanly or with an
+imported database](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#install-settings).
+- Added optional [integration with Git Hooks](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#adding-git-hooks)
+to support running Grunt tasks when git operations are run. When enabled, the
+validation task is run against changed code before a commit is made.
+- If index.php is missing from the build destination, then the Drush make task
+is always run (and the "newer" feature is disabled).
+- PHPCS is not run if there are no source files to prevent an issue with it
+hanging and failing.
+
+### Upgrade Notes
+
+- Themes with a validate task configured are excluded by default from the Grunt
+Drupal Tasks validate task.
+
 ## v0.8.0 [2015/07/24]
 
 - Fixed bug in theme proxying feature.
