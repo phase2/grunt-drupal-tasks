@@ -52,7 +52,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('install', 'Install Drupal with the configured profile, or from a database dump file if one exists.', function() {
-
     var done = this.async();
 
     // Check for a database file first.
@@ -63,22 +62,33 @@ module.exports = function(grunt) {
           grunt.fail.fatal(error);
           done();
         }
-        grunt.task.run([
+
+        var tasks = [
           // Drop current database.
           'drush:sql-drop',
           // Load new database.
           'shell:loaddb',
           // Run any pending database updates.
-          'drush:updb'
-        ]);
+          'drush:updb',
+        ];
+
+        tasks = require('../lib/scripts')(grunt)
+          .eventify(grunt.config('config.scripts'), this.name, 'ops', tasks);
+
+        grunt.task.run(tasks);
         done();
       });
     }
     else {
-      grunt.task.run([
+      var tasks = [
         // Run site install.
         'drush:install'
-      ]);
+      ];
+
+      tasks = require('../lib/scripts')(grunt)
+        .eventify(grunt.config('config.scripts'), this.name, 'ops', tasks);
+
+      grunt.task.run(tasks);
       done();
     }
   });
@@ -87,6 +97,6 @@ module.exports = function(grunt) {
     {
       task: 'install',
       group: 'Operations'
-    },
+    }
   ]);
 };

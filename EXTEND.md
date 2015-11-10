@@ -73,17 +73,58 @@ var taskList = ['phpcs:full'];
 grunt.registerTask('validate', taskList);
 ```
 
+### Customizing Help Output (Help API)
+
+If you add custom tasks to your project and want them exposed as part of the
+`help` task, you may add a simple code snippet to your Gruntfile.js or any
+loaded task file.
+
+```js
+var Help = require('grunt-drupal-tasks/lib/help');
+
+Help.addItem('existing-task', 'Named Group', 'Optional description that avoids the default task description.');
+
+Help.add({
+  task: 'existing-task',
+  group: 'Named Group',
+  description: 'Optional description that avoids the default task description.'
+});
+
+Help.add([
+  {
+    task: 'existing-task',
+    group: 'Named Group',
+    description: 'Optional description that avoids the default task description.'
+  },
+  {
+    task: 'second-task',
+    group: 'Named Group',
+    description: 'A second registered task to register with the help system.'
+  }
+]);
+```
+
+If you want to include your task in one of the existing groups, copy the text
+exactly as seen in the output of the `grunt help` task.
+
 ### Leveraging Bash Scripts
 
 If you have an existing project or a kit of useful project utilities, you may
-have some Bash scripts laying around that you want to keep. You can fold them
-into the grunt tools and worry about reimplementing them later using something
-like the simple wrapper script based on
-[grunt-shell](https://github.com/sindresorhus/grunt-shell) displayed below.
+have some Bash scripts laying around that you want to keep. Sometimes Bash
+or PHP are simply better for managing a Drupal system, other times you want to
+keep the up-front time of integrating the Grunt tools minimal.
+
+The preferred approach is to configure your scripts via the **Project
+Operations** system. This allows you to run your script via
+`grunt custom-install`, and pass any grunt-derived configuration you might need
+to the script.
+
+If you want to automatically load your scripts, here is a script based on
+[grunt-shell](https://github.com/sindresorhus/grunt-shell) you can use.
 
 ```js
 module.exports = function(grunt) {
- 
+
 /**
  * Define "bin" wrapper tasks.
  */
@@ -99,6 +140,7 @@ if (files) {
   }
 };
 ```
+
 This particular snippet requires your bash scripts end in `.sh` and be located
 in the directory `root:bin/`.
 

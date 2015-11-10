@@ -1,11 +1,15 @@
 module.exports = function(grunt) {
   // Initialize global configuration variables.
   var config = grunt.file.readJSON('Gruntconfig.json');
-  grunt.initConfig({
-    config: config
-  });
+  if (grunt.config.getRaw() === undefined) {
+    grunt.initConfig({
+      config: config
+    });
+  }
+  else {
+    grunt.config.set('config', config);
+  }
 
-  // Set up default global configuration.
   var GDT = require('./lib/init')(grunt);
   GDT.init();
 
