@@ -79,6 +79,15 @@ describe('Initialization', function() {
       assert.equal(init.magic('test_e', 'test_epsilon'), 'Enterprise');
       done();
     });
+    it('should allow a nested value to be overridden', function(done) {
+      grunt.config.init({
+        config: { nested: { item: 'a' } }
+      });
+
+      var init = require('../lib/init')(grunt);
+      assert.equal(init.magic(['nested', 'item'], 'nested_item'), 'a');
+      done();
+    });
   });
 
 });
