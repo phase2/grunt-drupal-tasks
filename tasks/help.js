@@ -46,7 +46,8 @@ module.exports = function(grunt) {
         [ '--quiet', 'Suppress desktop notifications.' ],
         [ '--notify', 'Request a desktop notification despite timing or environment settings.' ],
         [ '--timer', 'Output task execution timing info.' ],
-        [ '--concurrency', 'Override the dynamic concurrency parameter used by Drush Make.' ]
+        [ '--concurrency', 'Override the dynamic concurrency parameter used by Drush Make.' ],
+        [ '--db-url', 'Pass thru your Drupal database credentials for site installation.' ]
       ];
       gruntHelp.table(options);
     };
