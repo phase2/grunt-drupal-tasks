@@ -49,6 +49,11 @@ module.exports = function(grunt) {
         [ '--concurrency', 'Override the dynamic concurrency parameter used by Drush Make.' ],
         [ '--db-url', 'Pass thru your Drupal database credentials for site installation.' ]
       ];
+
+      if (grunt.config('config.project.db')) {
+        options.push('--no-db-load', 'Perform a clean site installation even if a database restore path is configured');
+      }
+
       gruntHelp.table(options);
     };
 
