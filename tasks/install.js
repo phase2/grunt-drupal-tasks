@@ -56,7 +56,7 @@ module.exports = function(grunt) {
 
     // Check for a database file first.
     var dbPath = grunt.config('config.project.db');
-    if (dbPath && grunt.file.exists(dbPath)) {
+    if (!grunt.option('no-db-load') && dbPath && grunt.file.exists(dbPath)) {
       Drupal.loadDatabaseConnection(function(error) {
         if (error) {
           grunt.fail.fatal(error);

@@ -7,9 +7,10 @@
 imported database](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#install-settings).
 - Added optional [integration with Git Hooks](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#adding-git-hooks)
 to support running Grunt tasks when git operations are run. When enabled, the
-validation task is run against changed code before a commit is made.
+validation task is run against staged code before a commit is made.
 - If index.php is missing from the build destination, then the Drush make task
-is always run (and the "newer" feature is disabled).
+is always run (and the "newer" feature is disabled). This facilitates certain VM
+configurations.
 - PHPCS is not run if there are no source files to prevent an issue with it
 hanging and failing.
 
