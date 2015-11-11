@@ -48,7 +48,8 @@ module.exports = function(grunt) {
     }, cmd)
   });
   grunt.config(['shell', 'loaddb'], {
-    command: 'gzip -dc <%= config.project.db %> | <%= config.project.dbConnection %>'
+    // Use the pv command if available.
+    command: '<%= config.project.gunzipCommand %> | <%= config.project.dbConnection %>'
   });
 
   grunt.registerTask('install', 'Install Drupal with the configured profile, or from a database dump file if one exists.', function() {
