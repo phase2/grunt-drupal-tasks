@@ -69,13 +69,5 @@ module.exports = function(grunt) {
         );
       }
     }
-
-    grunt.registerTask('test', ['behat']);
-
-    Help.add({
-      task: 'test',
-      group: 'Testing & Code Quality',
-      description: 'Run the Behat tests included with this project.'
-    });
   }
 };
