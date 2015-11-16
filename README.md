@@ -9,7 +9,9 @@ Code Status (master branch):
 
 ## Requirements
 
-* Install _Node.js v0.10.0 or better_ either using a
+> Note that Grunt Drupal Tasks can not make use of Node v4 or greater nor npm v3 or greater at this time
+
+* Install _Node.js v0.10.0 or better but not outside of the v0.x.x series_ either using a
 <a href="https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager">package manager</a>
 like apt-get, brew, or yum or a
 <a href="http://nodejs.org/download/">standalone installer</a>.
