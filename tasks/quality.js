@@ -135,21 +135,24 @@ module.exports = function(grunt) {
       eslintConfigFile = eslintConfig.configFile || './.eslintrc',
       eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
       eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
-    grunt.config('eslint', {
-      options: {
-        configFile: eslintConfigFile
-      },
-      validate: eslintTarget,
-      analyze: {
+    
+    if (grunt.file.expand(eslintTarget).length !== 0) {
+      grunt.config('eslint', {
         options: {
-          format: 'checkstyle',
-          outputFile: '<%= config.buildPaths.reports %>/eslint.xml'
+          configFile: eslintConfigFile
         },
-        src: eslintTarget
-      }
-    });
-    validate.push(eslintName + ':validate');
-    analyze.push(eslintName + ':analyze');
+        validate: eslintTarget,
+        analyze: {
+          options: {
+            format: 'checkstyle',
+            outputFile: '<%= config.buildPaths.reports %>/eslint.xml'
+          },
+          src: eslintTarget
+        }
+      });
+      validate.push(eslintName + ':validate');
+      analyze.push(eslintName + ':analyze');
+    }
   }
 
   // If any of the themes have code quality commands, attach them here.
