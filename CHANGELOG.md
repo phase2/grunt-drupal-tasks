@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v0.9.0-pre [2015/11/xx]
+## v0.9.0 [2015/11/18]
 
 - Added the ability to [define scripts for common project operations](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#project-operations).
 - Added `grunt install` task to [easily install the site cleanly or with an
@@ -11,8 +11,7 @@ validation task is run against staged code before a commit is made.
 - If index.php is missing from the build destination, then the Drush make task
 is always run (and the "newer" feature is disabled). This facilitates certain VM
 configurations.
-- PHPCS is not run if there are no source files to prevent an issue with it
-hanging and failing.
+- PHPCS and eslint tasks are skipped if there are no source files.
 
 ### Upgrade Notes
 
