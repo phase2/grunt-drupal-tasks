@@ -126,7 +126,7 @@ module.exports = function(grunt) {
     analyze.push('phpmd:custom');
   }
 
-  if (grunt.config.get('config.eslint') != undefined) {
+  if (grunt.config.get('config.eslint')) {
     var eslintConfig = grunt.config.get('config.eslint'),
       eslintTarget = eslintConfig.dir || [
           '<%= config.srcPaths.drupal %>/**/*.js',
