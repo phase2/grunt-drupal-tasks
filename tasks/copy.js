@@ -8,37 +8,43 @@ module.exports = function(grunt) {
    */
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.config('copy.static', {
+    options: {
+      mode: true
+    },
     files: [
       {
         expand: true,
         cwd: '<%= config.srcPaths.drupal %>/static',
         src: ['**', '.**'],
         dest: '<%= config.buildPaths.html %>',
-        dot: true,
-        mode: true
+        dot: true
       }
     ]
   });
   grunt.config('copy.tempbuild', {
+    options: {
+      mode: true
+    },
     files: [
       {
         expand: true,
         cwd: '<%= config.buildPaths.temp %>',
         src: ['**', '.**'],
         dest: '<%= config.buildPaths.html %>',
-        dot: true,
-        mode: true
+        dot: true
       }
     ]
   });
   grunt.config('copy.defaults', {
+    options: {
+      mode: true
+    },
     files: [
       {
         expand: true,
         cwd: '<%= config.buildPaths.html %>/sites/default',
         src: ['default*'],
-        dest: '<%= config.srcPaths.drupal %>/sites/default',
-        mode: true
+        dest: '<%= config.srcPaths.drupal %>/sites/default'
       }
     ]
   });
