@@ -44,7 +44,7 @@ module.exports = function(grunt) {
   });
   validate.push('phplint:all');
 
-  if (grunt.config.get('config.phpcs') != undefined) {
+  if (grunt.config.get('config.phpcs')) {
     var phpcs = grunt.config.get('config.phpcs.dir') || [
         '<%= config.srcPaths.drupal %>/**/*.css'
       ].concat(defaultPatterns);
@@ -108,7 +108,7 @@ module.exports = function(grunt) {
 
   }
 
-  if (grunt.config.get('config.phpmd') != undefined) {
+  if (grunt.config.get('config.phpmd')) {
     var phpmdConfig = grunt.config.get('config.phpmd.configPath') || 'phpmd.xml';
     grunt.config('phpmd', {
       custom: {
@@ -126,7 +126,7 @@ module.exports = function(grunt) {
     analyze.push('phpmd:custom');
   }
 
-  if (grunt.config.get('config.eslint') != undefined) {
+  if (grunt.config.get('config.eslint')) {
     var eslintConfig = grunt.config.get('config.eslint'),
       eslintTarget = eslintConfig.dir || [
           '<%= config.srcPaths.drupal %>/**/*.js',
