@@ -14,7 +14,8 @@ module.exports = function(grunt) {
         cwd: '<%= config.srcPaths.drupal %>/static',
         src: ['**', '.**'],
         dest: '<%= config.buildPaths.html %>',
-        dot: true
+        dot: true,
+        mode: true
       }
     ]
   });
@@ -25,7 +26,8 @@ module.exports = function(grunt) {
         cwd: '<%= config.buildPaths.temp %>',
         src: ['**', '.**'],
         dest: '<%= config.buildPaths.html %>',
-        dot: true
+        dot: true,
+        mode: true
       }
     ]
   });
@@ -35,7 +37,8 @@ module.exports = function(grunt) {
         expand: true,
         cwd: '<%= config.buildPaths.html %>/sites/default',
         src: ['default*'],
-        dest: '<%= config.srcPaths.drupal %>/sites/default'
+        dest: '<%= config.srcPaths.drupal %>/sites/default',
+        mode: true
       }
     ]
   });
