@@ -1,16 +1,22 @@
 module.exports = function(grunt) {
 
+  var Drupal = require('../lib/drupal')(grunt);
+
+  // Default to Drupal 8 unless Drupal 7 is explicitly defined.
+  var script = Drupal.majorVersion() == 7 ? './scripts/run-tests.sh' : './core/scripts/run-tests.sh';
+  var testLocation = Drupal.majorVersion() == 7 ? './sites/all/modules/custom' : './modules/custom';
+
   grunt.config('test', {
     behat: true,
-    drupal: []
+    drupal: {
+      command: []
+    }
   });
 
   grunt.config(['shell', 'testdrupal'], {
-    // @todo Only make this available on Drupal 8+, or change command.
-    // @todo Make configurable.
     // @todo The phpunit binary (./vendor/bin/phpunit) needs to be executable, GDT changes this somehow during build.
     // @todo Need to incorporate actual site URL in this command.
-    command: 'php ./core/scripts/run-tests.sh --verbose --color --concurrency 4 --directory ./modules/custom',
+    command: grunt.config.get('config.testing.drupal.command') || 'php ' + script + ' --verbose --color --concurrency 4 --directory ' + testLocation,
     options: {
       execOptions: {
         cwd: '<%= config.buildPaths.html %>'
