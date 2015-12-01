@@ -8,6 +8,9 @@ module.exports = function(grunt) {
    */
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.config('copy.static', {
+    options: {
+      mode: true
+    },
     files: [
       {
         expand: true,
@@ -19,6 +22,9 @@ module.exports = function(grunt) {
     ]
   });
   grunt.config('copy.tempbuild', {
+    options: {
+      mode: true
+    },
     files: [
       {
         expand: true,
@@ -30,6 +36,9 @@ module.exports = function(grunt) {
     ]
   });
   grunt.config('copy.defaults', {
+    options: {
+      mode: true
+    },
     files: [
       {
         expand: true,

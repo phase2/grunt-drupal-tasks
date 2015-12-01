@@ -37,7 +37,8 @@ module.exports = function(grunt) {
         }
       ],
       options: {
-        gruntLogHeader: false
+        gruntLogHeader: false,
+        mode: true
       }
     });
 
