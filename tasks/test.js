@@ -5,6 +5,7 @@ module.exports = function(grunt) {
   // Default to Drupal 8 unless Drupal 7 is explicitly defined.
   var script = Drupal.majorVersion() == 7 ? './scripts/run-tests.sh' : './core/scripts/run-tests.sh';
   var testLocation = Drupal.majorVersion() == 7 ? './sites/all/modules/custom' : './modules/custom';
+  var domain = process.env.GDT_DOMAIN || grunt.config('config.domain') || require('os').hostname();
 
   grunt.config('test', {
     behat: true,
@@ -14,9 +15,7 @@ module.exports = function(grunt) {
   });
 
   grunt.config(['shell', 'testdrupal'], {
-    // @todo The phpunit binary (./vendor/bin/phpunit) needs to be executable, GDT changes this somehow during build.
-    // @todo Need to incorporate actual site URL in this command.
-    command: grunt.config.get('config.testing.drupal.command') || 'php ' + script + ' --verbose --color --concurrency 4 --directory ' + testLocation,
+    command: grunt.config.get('config.testing.drupal.command') || 'php ' + script + ' --verbose --color --concurrency 4 --directory ' + testLocation + ' --url ' + domain,
     options: {
       execOptions: {
         cwd: '<%= config.buildPaths.html %>'
