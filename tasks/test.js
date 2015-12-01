@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
 
   var Drupal = require('../lib/drupal')(grunt);
+  var Help = require('../lib/help')(grunt);
 
   // Default to Drupal 8 unless Drupal 7 is explicitly defined.
   var script = Drupal.majorVersion() == 7 ? './scripts/run-tests.sh' : './core/scripts/run-tests.sh';
