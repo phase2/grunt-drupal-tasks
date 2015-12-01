@@ -26,8 +26,6 @@ module.exports = function(grunt) {
    *   }
    */
   grunt.loadNpmTasks('grunt-parallel-behat');
-  var Help = require('../lib/help')(grunt);
-
   var config = grunt.config.get('config'),
     flags = '',
     _ = require('lodash');
