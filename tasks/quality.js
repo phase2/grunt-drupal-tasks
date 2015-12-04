@@ -126,16 +126,31 @@ module.exports = function(grunt) {
     analyze.push('phpmd:custom');
   }
 
+  var themes = grunt.config('config.themes');
   if (grunt.config.get('config.eslint')) {
     var eslintConfig = grunt.config.get('config.eslint'),
       eslintTarget = eslintConfig.dir || [
           '<%= config.srcPaths.drupal %>/**/*.js',
           '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
         ],
+      eslintTargetAnalyze = eslintTarget,
       eslintConfigFile = eslintConfig.configFile || './.eslintrc',
       eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
       eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
-    
+
+    for (var key in themes) {
+      if (themes[key].scripts && themes[key].scripts.validate) {
+        // If the theme has a validate task of it's own, then exclude its
+        // javascript files from our validate process.
+        eslintTarget.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/**/*.js');
+      }
+      if (themes[key].scripts && themes[key].scripts.analyze) {
+        // If the theme has an analyze task of it's own, then exclude its
+        // javascript files from our analyze process.
+        eslintTargetAnalyze.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/**/*.js');
+      }
+    }
+
     if (grunt.file.expand(eslintTarget).length !== 0) {
       grunt.config('eslint', {
         options: {
@@ -147,7 +162,7 @@ module.exports = function(grunt) {
             format: 'checkstyle',
             outputFile: '<%= config.buildPaths.reports %>/eslint.xml'
           },
-          src: eslintTarget
+          src: eslintTargetAnalyze
         }
       });
       validate.push(eslintName + ':validate');
@@ -156,13 +171,8 @@ module.exports = function(grunt) {
   }
 
   // If any of the themes have code quality commands, attach them here.
-  var themes = grunt.config('config.themes');
   for (var key in themes) {
     if (themes[key].scripts && themes[key].scripts.validate) {
-      // If the theme has a validate task of it's own, then let's exclude it from our validate.
-      var eslintSettings = grunt.config.get('eslint.validate');
-      eslintSettings.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/**/*.js');
-      grunt.config.set('eslint.validate', eslintSettings);
       validate.push('themes:' + key + ':validate');
     }
     if (themes[key].scripts && themes[key].scripts.analyze) {
