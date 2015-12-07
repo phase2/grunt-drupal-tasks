@@ -36,7 +36,7 @@ module.exports = function(grunt) {
   });
 
   grunt.config(['drush', 'serve'], {
-    args: ['runserver', ':' + (grunt.config('serve.port') || 8080)],
+    args: ['runserver', ':' + (grunt.config('config.serve.port') || 8080)],
     options: _.extend({
       cwd: '<%= config.buildPaths.html %>'
     }, cmd)
@@ -46,7 +46,7 @@ module.exports = function(grunt) {
 
     if (this.args[0] != 'test') {
       // Unlike the test version, this one allows port overriding and opens the site in a new tab.
-      grunt.config('drush.serve.args', ['runserver', ':' + (grunt.config('serve.port') || 8080) + '/' ]);
+      grunt.config('drush.serve.args', ['runserver', ':' + (grunt.config('config.serve.port') || 8080) + '/' ]);
     }
 
     if (this.args.length) {
