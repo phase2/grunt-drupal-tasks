@@ -14,7 +14,7 @@
     "grunt-contrib-symlink": "0.3.0",
     "grunt-contrib-watch": "0.6.1",
     "grunt-drush": "0.0.7",
-    "grunt-githooks": "^0.3.1",
+    "grunt-githooks": "^0.4.0",
     "grunt-eslint": "17.3.1",
     "grunt-force-task": "1.0.0",
     "grunt-githooks": "^0.3.1",
