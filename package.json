@@ -6,7 +6,7 @@
   "dependencies": {
     "grunt-available-tasks": "0.6.1",
     "grunt-composer": "0.4.4",
-    "grunt-concurrent": "2.0.4",
+    "grunt-concurrent": "2.1.0",
     "grunt-contrib-clean": "0.6.0",
     "grunt-contrib-compass": "1.0.4",
     "grunt-contrib-compress": "0.14.0",
