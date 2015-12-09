@@ -17,7 +17,6 @@
     "grunt-githooks": "^0.4.0",
     "grunt-eslint": "17.3.1",
     "grunt-force-task": "1.0.0",
-    "grunt-githooks": "^0.3.1",
     "grunt-log-headers": "^1.0.1",
     "grunt-mkdir": "0.1.2",
     "grunt-newer": "1.1.1",
