@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.9.1 [2015/12/10]
+
+- Add config option to specify command runner in git hook scripts.
+- Fixed Gruntconfig.json interpretation for disabling tasks and specifying port
+for the serve task.
+- Fixed error when using a theme's validate script.
+- Configured copy operations during build to ensure file modes are preserved.
+
 ## v0.9.0 [2015/11/18]
 
 - Added the ability to [define scripts for common project operations](https://github.com/phase2/grunt-drupal-tasks/blob/master/CONFIG.md#project-operations).
