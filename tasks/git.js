@@ -25,6 +25,9 @@ module.exports = function(grunt) {
 
     // Githooks task may be configured via Gruntconfig.
     grunt.config('githooks', {
+      options: {
+        command: grunt.config('config.git.hook-command') || 'grunt'
+      },
       gdt: {
         'pre-commit': _.unique(tasks).join(' ')
       }

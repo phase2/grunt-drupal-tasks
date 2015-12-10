@@ -706,9 +706,12 @@ task. This version, specifically invoked by `validate:staged` attempts to
 minimize the number of files scanned by checking only those that have changed
 since the last successful commit.
 
-#### Configuring Additional Tasks
+#### Configuring Git Hooks
 
-**config.git.hooks**: An array of grunt tasks to run on pre-commit.
+**config.git.hooks**: An array of grunt tasks to run on pre-commit in addition to `validate:staged`.
+
+**config.git.hook-command**: A substitute for a simple `grunt` command to handle the individual grunt tasks.
+Allows specification of more complex bin paths or execution wrappers such as `time` or `docker-compose`.
 
 #### Overriding a Commit Rejection
 
