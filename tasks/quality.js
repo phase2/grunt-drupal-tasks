@@ -26,18 +26,16 @@ module.exports = function(grunt) {
   var analyze = [];
 
   var defaultPatterns = [
-    '<%= config.srcPaths.drupal %>/**/*.php',
-    '<%= config.srcPaths.drupal %>/**/*.module',
-    '<%= config.srcPaths.drupal %>/**/*.inc',
-    '<%= config.srcPaths.drupal %>/**/*.install',
-    '<%= config.srcPaths.drupal %>/**/*.profile',
-    '!<%= config.srcPaths.drupal %>/sites/**',
-    '!<%= config.srcPaths.drupal %>/**/*.box.inc',
-    '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
-    '!<%= config.srcPaths.drupal %>/**/*.pages_default.inc',
-    '!<%= config.srcPaths.drupal %>/**/*.panelizer.inc',
-    '!<%= config.srcPaths.drupal %>/**/*.strongarm.inc'
-  ];
+      "<%= config.srcPaths.drupal %>/{libraries,modules,profiles,static}/**/*.{php,module,inc,install,profile}",
+      "<%= config.srcPaths.drupal %>/themes/*/{templates,src}/**/*.{php,module,inc,install,profile}",
+      "<%= config.srcPaths.drupal %>/themes/*/template.php",
+      "!<%= config.srcPaths.drupal %>/**/*.box.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.features.*inc",
+      "!<%= config.srcPaths.drupal %>/**/*.pages_default.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.panelizer.inc",
+      "!<%= config.srcPaths.drupal %>/**/*.strongarm.inc"
+    ]
+;
 
   grunt.config('phplint', {
     all: grunt.config.get('config.phplint.dir') ? grunt.config.get('config.phplint.dir') : defaultPatterns
