@@ -53,6 +53,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('install', 'Install Drupal with the configured profile, or from a database dump file if one exists.', function() {
     var done = this.async();
+    var name = this.name;
 
     // Check for a database file first.
     var dbPath = grunt.config('config.project.db');
@@ -73,7 +74,7 @@ module.exports = function(grunt) {
         ];
 
         tasks = require('../lib/scripts')(grunt)
-          .eventify(grunt.config('config.scripts'), this.name, 'ops', tasks);
+          .eventify(grunt.config('config.scripts'), name, 'ops', tasks);
 
         grunt.task.run(tasks);
         done();
@@ -86,7 +87,7 @@ module.exports = function(grunt) {
       ];
 
       tasks = require('../lib/scripts')(grunt)
-        .eventify(grunt.config('config.scripts'), this.name, 'ops', tasks);
+        .eventify(grunt.config('config.scripts'), name, 'ops', tasks);
 
       grunt.task.run(tasks);
       done();
