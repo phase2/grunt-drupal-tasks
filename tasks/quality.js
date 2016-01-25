@@ -156,7 +156,14 @@ module.exports = function(grunt) {
       }
     }
 
-    if (grunt.file.expand(eslintTarget).length !== 0) {
+    // Process eslint.dir paths from config for template placeholders.
+    var eslintPaths = _.map(eslintTarget, function (item) {
+      return grunt.template.process(item);
+    });
+
+    // Only enable eslint if at least one source file is identified when the
+    // configured paths are expanded.
+    if (grunt.file.expand(eslintPaths).length) {
       grunt.config('eslint', {
         options: {
           configFile: eslintConfigFile
