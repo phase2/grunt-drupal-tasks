@@ -19,7 +19,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-phpcs');
   grunt.loadNpmTasks('grunt-phpmd');
 
-  var Help = require('../lib/help')(grunt);
+  var Help = require('../lib/help')(grunt),
+    _ = require('lodash');
 
   // Task set aliases are registered at the end of the file based on these values.
   var validate = [];
@@ -56,8 +57,14 @@ module.exports = function(grunt) {
     var ignoreError = grunt.config('config.validate.ignoreError') || grunt.config('config.phpcs.ignoreExitCode');
     ignoreError = ignoreError === undefined ? false : ignoreError;
 
-    if (grunt.file.expand(phpcs).length !== 0) {
+    // Process phpcs.dir paths from config for template placeholders.
+    var phpcsPaths = _.map(phpcs, function (item) {
+      return grunt.template.process(item);
+    });
 
+    // Only enable phpcs if at least one source file is identified when the
+    // configured paths are expanded.
+    if (grunt.file.expand(phpcsPaths).length) {
       grunt.config('phpcs', {
         analyze: {
           src: phpcs
@@ -101,11 +108,9 @@ module.exports = function(grunt) {
           reportFile: '<%= config.buildPaths.reports %>/phpcs.xml'
         }
       });
-
       validate.push('phpcs:validate');
       analyze.push('phpcs:analyze');
     }
-
   }
 
   if (grunt.config.get('config.phpmd')) {
