@@ -32,9 +32,12 @@ module.exports = function(grunt) {
   grunt.loadTasks(__dirname + '/tasks');
 
   // Define the default task to fully build and configure the project.
-  var tasksDefault = [
-    'validate'
-  ];
+  var tasksDefault = [];
+
+  // If the "--no-validate" option is given, skip adding "validate" to task array.
+  if (!grunt.option('no-validate')) {
+    tasksDefault.push('validate');
+  }
 
   // If build/html exists, but is empty, skip the newer check.
   // This facilitates situations where the build/html is generated as a mounted
