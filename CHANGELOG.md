@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v0.9.2 [2016/01/27]
+
+- Added `--no-validate` command line option to skip running the `grunt:validate`
+tasks, including PHPCS and eslint.
+- Fixed bug that prevented phpcs and eslint from running
+- Fixed bug that caused scope error for this.name.
+- Updated dependencies. Added npm shrinkwrap file to ensure consistency between
+installations.
+
 ## v0.9.1 [2015/12/10]
 
 - Add config option to specify command runner in git hook scripts.
