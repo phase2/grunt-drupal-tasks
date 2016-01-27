@@ -72,6 +72,7 @@ These flags are not yet documented as part of the `grunt help` command.
 * `--notify`: Request a desktop notification despite timing or environment settings.
 * `--timer`: Output execution time profile at the end of the task run.
 * `--concurrency`: Override the dynamic concurrency by Drush Make.
+* `--no-validate`: Skip `grunt:validate` in the default `grunt` task.
 
 ### Environment Options
 
