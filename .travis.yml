@@ -6,8 +6,8 @@ php:
   - 7
 sudo: false
 env:
-  - NVM_NODE_VERSION="0.12" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js"
-  - NVM_NODE_VERSION="4.2" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js"
+  - NVM_NODE_VERSION="0.12" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js" CXX=g++-4.8
+  - NVM_NODE_VERSION="4.2" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
 addons:
  apt:
    sources:
