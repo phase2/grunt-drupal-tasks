@@ -188,7 +188,7 @@ module.exports = function(grunt) {
     }
     var eslint = grunt.config.get('eslint.validate');
     if (eslint) {
-      if (filesToProcess(eslint.validate)) {
+      if (filesToProcess(eslint)) {
         validate.push('eslint:validate');
       }
     }
