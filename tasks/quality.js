@@ -175,20 +175,24 @@ module.exports = function(grunt) {
       return grunt.template.process(item);
     });
 
-    // If this is evaluated to truthy at least one file matched.
-    return grunt.file.expand(paths).length;
+    // If length is evaluated to truthy at least one file matched.
+    return grunt.file.expand(paths);
   }
 
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
     var phpcs = grunt.config.get('phpcs.validate');
     if (phpcs) {
-      if (filesToProcess(phpcs.src)) {
+      var files = filesToProcess(phpcs.src);
+      if (files.length) {
+        grunt.config.set('phpcs.validate.src', files);
         validate.push('phpcs:validate');
       }
     }
     var eslint = grunt.config.get('eslint.validate');
     if (eslint) {
-      if (filesToProcess(eslint.validate)) {
+      var files = filesToProcess(eslint);
+      if (files.length) {
+        grunt.config.set('eslint.validate', files);
         validate.push('eslint:validate');
       }
     }
@@ -209,14 +213,14 @@ module.exports = function(grunt) {
   grunt.registerTask('analyze', 'Generate reports on code quality for use by Jenkins or other visualization tools.', function() {
     var phpcs = grunt.config.get('phpcs.analyze');
     if (phpcs) {
-      if (filesToProcess(phpcs.src)) {
+      if (filesToProcess(phpcs.src).length) {
         analyze.push('phpcs:analyze');
       }
     }
     var eslint = grunt.config.get('eslint.analyze');
     if (eslint) {
       // The eslint:analyze task has a deeper configuration structure than eslint:validate.
-      if (filesToProcess(eslint.src)) {
+      if (filesToProcess(eslint.src).length) {
         analyze.push('eslint:analyze');
       }
     }
