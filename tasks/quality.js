@@ -27,17 +27,11 @@ module.exports = function(grunt) {
   var analyze = [];
 
   var defaultPatterns = [
-    '<%= config.srcPaths.drupal %>/**/*.php',
-    '<%= config.srcPaths.drupal %>/**/*.module',
-    '<%= config.srcPaths.drupal %>/**/*.inc',
-    '<%= config.srcPaths.drupal %>/**/*.install',
-    '<%= config.srcPaths.drupal %>/**/*.profile',
-    '!<%= config.srcPaths.drupal %>/sites/**',
-    '!<%= config.srcPaths.drupal %>/**/*.box.inc',
-    '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
-    '!<%= config.srcPaths.drupal %>/**/*.pages_default.inc',
-    '!<%= config.srcPaths.drupal %>/**/*.panelizer.inc',
-    '!<%= config.srcPaths.drupal %>/**/*.strongarm.inc'
+    '<%= config.srcPaths.drupal %>/{modules,profiles}/**/*.{php,module,inc,install,profile}',
+    '!<%= config.srcPaths.drupal %>/{modules,profiles}/**/*.{box,pages_default,views_default,panelizer,strongarm}.inc',
+    '!<%= config.srcPaths.drupal %>/{modules,profiles}/**/*.features.*inc',
+    '!<%= config.srcPaths.drupal %>/{modules,profiles}/**/*.tpl.php',
+    '!<%= config.srcPaths.drupal %>/{modules,profiles}/**/vendor/**'
   ];
 
   grunt.config('phplint', {
@@ -46,9 +40,7 @@ module.exports = function(grunt) {
   validate.push('phplint:all');
 
   if (grunt.config.get('config.phpcs')) {
-    var phpcs = grunt.config.get('config.phpcs.dir') || [
-        '<%= config.srcPaths.drupal %>/**/*.css'
-      ].concat(defaultPatterns);
+    var phpcs = grunt.config.get('config.phpcs.dir') || defaultPatterns;
 
     var phpStandard = grunt.config('config.phpcs.standard')
       || 'vendor/drupal/coder/coder_sniffer/Drupal';
@@ -135,8 +127,8 @@ module.exports = function(grunt) {
   if (grunt.config.get('config.eslint')) {
     var eslintConfig = grunt.config.get('config.eslint'),
       eslintTarget = eslintConfig.dir || [
-          '<%= config.srcPaths.drupal %>/**/*.js',
-          '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+          '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
+          '<%= config.srcPaths.drupal %>/{modules,profiles}/**/*.js'
         ],
       eslintTargetAnalyze = eslintTarget,
       eslintConfigFile = eslintConfig.configFile || './.eslintrc',
@@ -147,12 +139,12 @@ module.exports = function(grunt) {
       if (themes[key].scripts && themes[key].scripts.validate) {
         // If the theme has a validate task of it's own, then exclude its
         // javascript files from our validate process.
-        eslintTarget.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/**/*.js');
+        eslintTarget.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/js/**/*.js');
       }
       if (themes[key].scripts && themes[key].scripts.analyze) {
         // If the theme has an analyze task of it's own, then exclude its
         // javascript files from our analyze process.
-        eslintTargetAnalyze.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/**/*.js');
+        eslintTargetAnalyze.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/js/**/*.js');
       }
     }
 
