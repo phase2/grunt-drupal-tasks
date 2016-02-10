@@ -373,10 +373,10 @@ This is an example of the settings for the validate tasks:
   }
   "phplint": {
     "dir": [
-      '<%= config.srcPaths.drupal %>/themes/atmos_energy/template.php',
-      '<%= config.srcPaths.drupal %>/themes/atmos_energy/templates/**/*.php',
-      '<%= config.srcPaths.drupal %>/themes/atmos_energy/includes/**/*.{inc,php}',
       '<%= config.srcPaths.drupal %>/sites/**/*.{php,inc}',
+      '<%= config.srcPaths.drupal %>/themes/*/template.php',
+      '<%= config.srcPaths.drupal %>/themes/*/templates/**/*.php',
+      '<%= config.srcPaths.drupal %>/themes/*/includes/**/*.{inc,php}',
       '<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{php,module,inc,install,profile}',
       '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{box,pages_default,views_default,panelizer,strongarm}.inc',
       '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.features.*inc',
@@ -403,7 +403,7 @@ review by eslint. The following is used by default:
   "eslint": {
     "dir": [
       'src/themes/*/js/**/*.js',
-      'src/{modules,profiles}/**/*.js'
+      'src/{modules,profiles,libraries}/**/*.js'
     ]
   }
 }
