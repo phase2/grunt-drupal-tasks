@@ -25,23 +25,38 @@ module.exports = function(grunt) {
   // Task set aliases are registered at the end of the file based on these values.
   var validate = [];
   var analyze = [];
+  var themes = grunt.config('config.themes');
 
   var defaultPatterns = [
-    '<%= config.srcPaths.drupal %>/{modules,profiles}/**/*.{php,module,inc,install,profile}',
-    '!<%= config.srcPaths.drupal %>/{modules,profiles}/**/*.{box,pages_default,views_default,panelizer,strongarm}.inc',
-    '!<%= config.srcPaths.drupal %>/{modules,profiles}/**/*.features.*inc',
-    '!<%= config.srcPaths.drupal %>/{modules,profiles}/**/*.tpl.php',
-    '!<%= config.srcPaths.drupal %>/{modules,profiles}/**/vendor/**'
+    '<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{php,module,inc,install,profile}',
+    '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{box,pages_default,views_default,panelizer,strongarm}.inc',
+    '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.features.*inc',
+    '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/vendor/**'
   ];
 
+  // Include common sites and theme locations in phplint validation.
+  var phplintPatterns = defaultPatterns.slice(0);
+  phplintPatterns.unshift('<%= config.srcPaths.drupal %>/sites/**/*.{php,inc}');
+
+  for (var key in themes) {
+    phplintPatterns.unshift.apply(phplintPatterns, [
+      '<%= config.srcPaths.drupal %>/themes/' + key + '/template.php',
+      '<%= config.srcPaths.drupal %>/themes/' + key + '/templates/**/*.php',
+      '<%= config.srcPaths.drupal %>/themes/' + key + '/includes/**/*.{inc,php}'
+    ]);
+  }
+
   grunt.config('phplint', {
-    all: grunt.config.get('config.phplint.dir') ? grunt.config.get('config.phplint.dir') : defaultPatterns
+    all: grunt.config.get('config.phplint.dir') ? grunt.config.get('config.phplint.dir') : phplintPatterns
   });
   validate.push('phplint:all');
 
-  if (grunt.config.get('config.phpcs')) {
-    var phpcs = grunt.config.get('config.phpcs.dir') || defaultPatterns;
+  // Exclude templates by default from phpcs validation.
+  var phpcsPatterns = defaultPatterns.slice(0);
+  phpcsPatterns.push('!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.tpl.php');
 
+  if (grunt.config.get('config.phpcs')) {
+    var phpcs = grunt.config.get('config.phpcs.dir') || phpcsPatterns;
     var phpStandard = grunt.config('config.phpcs.standard')
       || 'vendor/drupal/coder/coder_sniffer/Drupal';
 
@@ -56,37 +71,38 @@ module.exports = function(grunt) {
 
     // Only enable phpcs if at least one source file is identified when the
     // configured paths are expanded.
-    if (grunt.file.expand(phpcsPaths).length) {
+    phpcsPaths = grunt.file.expand(phpcsPaths);
+    if (phpcsPaths.length) {
       grunt.config('phpcs', {
         analyze: {
-          src: phpcs
+          src: phpcsPaths
         },
         drupal: {
-          src: phpcs
+          src: phpcsPaths
         },
         validate: {
-          src: phpcs,
+          src: phpcsPaths,
           options: {
             report: grunt.config.get('config.phpcs.validateReport') || 'full',
             reportFile: false
           }
         },
         full: {
-          src: phpcs,
+          src: phpcsPaths,
           options: {
             report: 'full',
             reportFile: false
           }
         },
         summary: {
-          src: phpcs,
+          src: phpcsPaths,
           options: {
             report: 'summary',
             reportFile: false
           }
         },
         gitblame: {
-          src: phpcs,
+          src: phpcsPaths,
           options: {
             report: 'gitblame',
             reportFile: false
@@ -123,7 +139,6 @@ module.exports = function(grunt) {
     analyze.push('phpmd:custom');
   }
 
-  var themes = grunt.config('config.themes');
   if (grunt.config.get('config.eslint')) {
     var eslintConfig = grunt.config.get('config.eslint'),
       eslintTarget = eslintConfig.dir || [
@@ -155,12 +170,13 @@ module.exports = function(grunt) {
 
     // Only enable eslint if at least one source file is identified when the
     // configured paths are expanded.
-    if (grunt.file.expand(eslintPaths).length) {
+    eslintPaths = grunt.file.expand(eslintPaths);
+    if (eslintPaths.length) {
       grunt.config('eslint', {
         options: {
           configFile: eslintConfigFile
         },
-        validate: eslintTarget,
+        validate: eslintPaths,
         analyze: {
           options: {
             format: 'checkstyle',
