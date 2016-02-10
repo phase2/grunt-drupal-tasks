@@ -36,15 +36,12 @@ module.exports = function(grunt) {
 
   // Include common sites and theme locations in phplint validation.
   var phplintPatterns = defaultPatterns.slice(0);
-  phplintPatterns.unshift('<%= config.srcPaths.drupal %>/sites/**/*.{php,inc}');
-
-  for (var key in themes) {
-    phplintPatterns.unshift.apply(phplintPatterns, [
-      '<%= config.srcPaths.drupal %>/themes/' + key + '/template.php',
-      '<%= config.srcPaths.drupal %>/themes/' + key + '/templates/**/*.php',
-      '<%= config.srcPaths.drupal %>/themes/' + key + '/includes/**/*.{inc,php}'
-    ]);
-  }
+  phplintPatterns.unshift.apply(phplintPatterns, [
+    '<%= config.srcPaths.drupal %>/sites/**/*.{php,inc}',
+    '<%= config.srcPaths.drupal %>/themes/*/template.php',
+    '<%= config.srcPaths.drupal %>/themes/*/templates/**/*.php',
+    '<%= config.srcPaths.drupal %>/themes/*/includes/**/*.{inc,php}'
+  ]);
 
   grunt.config('phplint', {
     all: grunt.config.get('config.phplint.dir') ? grunt.config.get('config.phplint.dir') : phplintPatterns
@@ -143,7 +140,7 @@ module.exports = function(grunt) {
     var eslintConfig = grunt.config.get('config.eslint'),
       eslintTarget = eslintConfig.dir || [
           '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
-          '<%= config.srcPaths.drupal %>/{modules,profiles}/**/*.js'
+          '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
         ],
       eslintTargetAnalyze = eslintTarget,
       eslintConfigFile = eslintConfig.configFile || './.eslintrc',
