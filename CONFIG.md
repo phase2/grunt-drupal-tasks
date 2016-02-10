@@ -364,7 +364,7 @@ This is an example of the settings for the validate tasks:
   "eslint": {
     "dir": [
       '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
-      '<%= config.srcPaths.drupal %>/{modules,profiles}/**/*.js'
+      '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
     ]
   },
   "phpcs": {
@@ -402,8 +402,8 @@ review by eslint. The following is used by default:
 {
   "eslint": {
     "dir": [
-      'src/themes/*/js/**/*.js',
-      'src/{modules,profiles,libraries}/**/*.js'
+      '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
+      '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
     ]
   }
 }
