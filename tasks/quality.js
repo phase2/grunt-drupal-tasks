@@ -128,9 +128,7 @@ module.exports = function(grunt) {
           '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
         ],
       eslintTargetAnalyze = eslintTarget,
-      eslintConfigFile = eslintConfig.configFile || './.eslintrc',
-      eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
-      eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
+      eslintConfigFile = eslintConfig.configFile || './.eslintrc';
 
     for (var key in themes) {
       if (themes[key].scripts && themes[key].scripts.validate) {
@@ -188,12 +186,14 @@ module.exports = function(grunt) {
         validate.push('phpcs:validate');
       }
     }
-    var eslint = grunt.config.get('eslint.validate');
+    var eslint = grunt.config.get('eslint.validate'),
+      eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
+      eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
     if (eslint) {
       var files = filesToProcess(eslint);
       if (files.length) {
         grunt.config.set('eslint.validate', files);
-        validate.push('eslint:validate');
+        validate.push(eslintName + ':validate');
       }
     }
 
@@ -217,11 +217,13 @@ module.exports = function(grunt) {
         analyze.push('phpcs:analyze');
       }
     }
-    var eslint = grunt.config.get('eslint.analyze');
+    var eslint = grunt.config.get('eslint.analyze'),
+      eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
+      eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
     if (eslint) {
       // The eslint:analyze task has a deeper configuration structure than eslint:validate.
       if (filesToProcess(eslint.src).length) {
-        analyze.push('eslint:analyze');
+        analyze.push(eslintName + ':analyze');
       }
     }
 
