@@ -57,60 +57,49 @@ module.exports = function(grunt) {
     var ignoreError = grunt.config('config.validate.ignoreError') || grunt.config('config.phpcs.ignoreExitCode');
     ignoreError = ignoreError === undefined ? false : ignoreError;
 
-    // Process phpcs.dir paths from config for template placeholders.
-    var phpcsPaths = _.map(phpcs, function (item) {
-      return grunt.template.process(item);
-    });
-
-    // Only enable phpcs if at least one source file is identified when the
-    // configured paths are expanded.
-    if (grunt.file.expand(phpcsPaths).length) {
-      grunt.config('phpcs', {
-        analyze: {
-          src: phpcs
-        },
-        drupal: {
-          src: phpcs
-        },
-        validate: {
-          src: phpcs,
-          options: {
-            report: grunt.config.get('config.phpcs.validateReport') || 'full',
-            reportFile: false
-          }
-        },
-        full: {
-          src: phpcs,
-          options: {
-            report: 'full',
-            reportFile: false
-          }
-        },
-        summary: {
-          src: phpcs,
-          options: {
-            report: 'summary',
-            reportFile: false
-          }
-        },
-        gitblame: {
-          src: phpcs,
-          options: {
-            report: 'gitblame',
-            reportFile: false
-          }
-        },
+    grunt.config('phpcs', {
+      analyze: {
+        src: phpcs
+      },
+      drupal: {
+        src: phpcs
+      },
+      validate: {
+        src: phpcs,
         options: {
-          bin: '<%= config.phpcs.path %>',
-          standard: phpStandard,
-          ignoreExitCode: ignoreError,
-          report: 'checkstyle',
-          reportFile: '<%= config.buildPaths.reports %>/phpcs.xml'
+          report: grunt.config.get('config.phpcs.validateReport') || 'full',
+          reportFile: false
         }
-      });
-      validate.push('phpcs:validate');
-      analyze.push('phpcs:analyze');
-    }
+      },
+      full: {
+        src: phpcs,
+        options: {
+          report: 'full',
+          reportFile: false
+        }
+      },
+      summary: {
+        src: phpcs,
+        options: {
+          report: 'summary',
+          reportFile: false
+        }
+      },
+      gitblame: {
+        src: phpcs,
+        options: {
+          report: 'gitblame',
+          reportFile: false
+        }
+      },
+      options: {
+        bin: '<%= config.phpcs.path %>',
+        standard: phpStandard,
+        ignoreExitCode: ignoreError,
+        report: 'checkstyle',
+        reportFile: '<%= config.buildPaths.reports %>/phpcs.xml'
+      }
+    });
   }
 
   if (grunt.config.get('config.phpmd')) {
@@ -139,9 +128,7 @@ module.exports = function(grunt) {
           '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
         ],
       eslintTargetAnalyze = eslintTarget,
-      eslintConfigFile = eslintConfig.configFile || './.eslintrc',
-      eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
-      eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
+      eslintConfigFile = eslintConfig.configFile || './.eslintrc';
 
     for (var key in themes) {
       if (themes[key].scripts && themes[key].scripts.validate) {
@@ -156,30 +143,19 @@ module.exports = function(grunt) {
       }
     }
 
-    // Process eslint.dir paths from config for template placeholders.
-    var eslintPaths = _.map(eslintTarget, function (item) {
-      return grunt.template.process(item);
-    });
-
-    // Only enable eslint if at least one source file is identified when the
-    // configured paths are expanded.
-    if (grunt.file.expand(eslintPaths).length) {
-      grunt.config('eslint', {
+    grunt.config('eslint', {
+      options: {
+        configFile: eslintConfigFile
+      },
+      validate: eslintTarget,
+      analyze: {
         options: {
-          configFile: eslintConfigFile
+          format: 'checkstyle',
+          outputFile: '<%= config.buildPaths.reports %>/eslint.xml'
         },
-        validate: eslintTarget,
-        analyze: {
-          options: {
-            format: 'checkstyle',
-            outputFile: '<%= config.buildPaths.reports %>/eslint.xml'
-          },
-          src: eslintTargetAnalyze
-        }
-      });
-      validate.push(eslintName + ':validate');
-      analyze.push(eslintName + ':analyze');
-    }
+        src: eslintTargetAnalyze
+      }
+    });
   }
 
   // If any of the themes have code quality commands, attach them here.
@@ -192,7 +168,31 @@ module.exports = function(grunt) {
     }
   }
 
+  var filesToProcess = function(patterns) {
+    var paths = _.map(patterns, function (item) {
+      return grunt.template.process(item);
+    });
+
+    // If this is evaluated to truthy at least one file matched.
+    return grunt.file.expand(paths).length;
+  }
+
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
+    var phpcs = grunt.config.get('phpcs.validate');
+    if (phpcs) {
+      if (filesToProcess(phpcs.src)) {
+        validate.push('phpcs:validate');
+      }
+    }
+    var eslint = grunt.config.get('eslint.validate'),
+      eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
+      eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
+    if (eslint) {
+      if (filesToProcess(eslint)) {
+        validate.push(eslintName + ':validate');
+      }
+    }
+
     if (mode == 'newer' || mode == 'staged') {
       // This works because grunt-newer and grunt-staged have consisting naming.
       grunt.loadNpmTasks('grunt-' + mode);
@@ -200,23 +200,48 @@ module.exports = function(grunt) {
       // grunt-phplint already contains complex caching that does the same thing.
       validate = validate.map(function(item) { return item != 'phplint:all' ? mode + ':' + item : item; });
     }
-    grunt.task.run(validate);
+
+    if (validate.length) {
+      grunt.task.run(validate);
+    }
   });
 
-  if (analyze.length < 2) {
-    grunt.registerTask('analyze', analyze);
-  }
-  else {
-    grunt.loadNpmTasks('grunt-concurrent');
-    grunt.config(['concurrent', 'analyze'], {
-      tasks: analyze,
-      options: {
-        logConcurrentOutput: true
+  grunt.registerTask('analyze', 'Generate reports on code quality for use by Jenkins or other visualization tools.', function() {
+    var phpcs = grunt.config.get('phpcs.analyze');
+    if (phpcs) {
+      if (filesToProcess(phpcs.src)) {
+        analyze.push('phpcs:analyze');
       }
-    });
+    }
+    var eslint = grunt.config.get('eslint.analyze'),
+      eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
+      eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
+    if (eslint) {
+      // The eslint:analyze task has a deeper configuration structure than eslint:validate.
+      if (filesToProcess(eslint.src)) {
+        analyze.push(eslintName + ':analyze');
+      }
+    }
 
-    grunt.registerTask('analyze', ['mkdir:init', 'concurrent:analyze']);
-  }
+    if (analyze.length) {
+      if (analyze.length > 1) {
+        grunt.loadNpmTasks('grunt-concurrent');
+        grunt.config(['concurrent', 'analyze'], {
+          tasks: analyze,
+          options: {
+            logConcurrentOutput: true
+          }
+        });
+        var tasks = ['concurrent:analyze']
+      }
+      else {
+        var tasks = analyze;
+      }
+
+      tasks.unshift('mkdir:init');
+      grunt.task.run(tasks);
+    }
+  });
 
   Help.add([
     {
