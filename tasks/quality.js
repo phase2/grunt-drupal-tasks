@@ -216,7 +216,9 @@ module.exports = function(grunt) {
   grunt.registerTask('analyze', 'Generate reports on code quality for use by Jenkins or other visualization tools.', function() {
     var phpcs = grunt.config.get('phpcs.analyze');
     if (phpcs) {
-      if (filesToProcess(phpcs.src).length) {
+      var files = filesToProcess(phpcs.src);
+      if (files.length) {
+        grunt.config.set('phpcs.analyze', files);
         analyze.push('phpcs:analyze');
       }
     }
@@ -225,7 +227,9 @@ module.exports = function(grunt) {
       eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
     if (eslint) {
       // The eslint:analyze task has a deeper configuration structure than eslint:validate.
-      if (filesToProcess(eslint.src).length) {
+      var files = filesToProcess(eslint.src);
+      if (files.length) {
+        grunt.config.set('eslint.analyze', files);
         analyze.push(eslintName + ':analyze');
       }
     }
