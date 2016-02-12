@@ -176,14 +176,16 @@ module.exports = function(grunt) {
       return grunt.template.process(item);
     });
 
-    // If this is evaluated to truthy at least one file matched.
+    // If length is evaluated to truthy at least one file matched.
     return grunt.file.expand(paths);
   }
 
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
     var phpcs = grunt.config.get('phpcs.validate');
     if (phpcs) {
-      if (filesToProcess(phpcs.src)) {
+      var files = filesToProcess(phpcs.src);
+      if (files.length) {
+        grunt.config.set('phpcs.validate.src', files);
         validate.push('phpcs:validate');
       }
     }
@@ -191,7 +193,9 @@ module.exports = function(grunt) {
       eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
       eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
     if (eslint) {
-      if (filesToProcess(eslint)) {
+      var files = filesToProcess(eslint);
+      if (files.length) {
+        grunt.config.set('eslint.validate', files);
         validate.push(eslintName + ':validate');
       }
     }
@@ -212,7 +216,9 @@ module.exports = function(grunt) {
   grunt.registerTask('analyze', 'Generate reports on code quality for use by Jenkins or other visualization tools.', function() {
     var phpcs = grunt.config.get('phpcs.analyze');
     if (phpcs) {
-      if (filesToProcess(phpcs.src)) {
+      var files = filesToProcess(phpcs.src);
+      if (files.length) {
+        grunt.config.set('phpcs.analyze', files);
         analyze.push('phpcs:analyze');
       }
     }
@@ -221,7 +227,9 @@ module.exports = function(grunt) {
       eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
     if (eslint) {
       // The eslint:analyze task has a deeper configuration structure than eslint:validate.
-      if (filesToProcess(eslint.src)) {
+      var files = filesToProcess(eslint.src);
+      if (files.length) {
+        grunt.config.set('eslint.analyze', files);
         analyze.push(eslintName + ':analyze');
       }
     }
