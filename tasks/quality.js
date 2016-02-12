@@ -27,29 +27,32 @@ module.exports = function(grunt) {
   var analyze = [];
 
   var defaultPatterns = [
-    '<%= config.srcPaths.drupal %>/**/*.php',
-    '<%= config.srcPaths.drupal %>/**/*.module',
-    '<%= config.srcPaths.drupal %>/**/*.inc',
-    '<%= config.srcPaths.drupal %>/**/*.install',
-    '<%= config.srcPaths.drupal %>/**/*.profile',
-    '!<%= config.srcPaths.drupal %>/sites/**',
-    '!<%= config.srcPaths.drupal %>/**/*.box.inc',
-    '!<%= config.srcPaths.drupal %>/**/*.features.*inc',
-    '!<%= config.srcPaths.drupal %>/**/*.pages_default.inc',
-    '!<%= config.srcPaths.drupal %>/**/*.panelizer.inc',
-    '!<%= config.srcPaths.drupal %>/**/*.strongarm.inc'
+    '<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{php,module,inc,install,profile}',
+    '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{box,pages_default,views_default,panelizer,strongarm}.inc',
+    '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.features.*inc',
+    '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/vendor/**'
   ];
 
+  // Include common sites and theme locations in phplint validation.
+  var phplintPatterns = defaultPatterns.slice(0);
+  phplintPatterns.unshift.apply(phplintPatterns, [
+    '<%= config.srcPaths.drupal %>/sites/**/*.{php,inc}',
+    '<%= config.srcPaths.drupal %>/themes/*/template.php',
+    '<%= config.srcPaths.drupal %>/themes/*/templates/**/*.php',
+    '<%= config.srcPaths.drupal %>/themes/*/includes/**/*.{inc,php}'
+  ]);
+
   grunt.config('phplint', {
-    all: grunt.config.get('config.phplint.dir') ? grunt.config.get('config.phplint.dir') : defaultPatterns
+    all: grunt.config.get('config.phplint.dir') ? grunt.config.get('config.phplint.dir') : phplintPatterns
   });
   validate.push('phplint:all');
 
-  if (grunt.config.get('config.phpcs')) {
-    var phpcs = grunt.config.get('config.phpcs.dir') || [
-        '<%= config.srcPaths.drupal %>/**/*.css'
-      ].concat(defaultPatterns);
+  // Exclude templates by default from phpcs validation.
+  var phpcsPatterns = defaultPatterns.slice(0);
+  phpcsPatterns.push('!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.tpl.php');
 
+  if (grunt.config.get('config.phpcs')) {
+    var phpcs = grunt.config.get('config.phpcs.dir') || phpcsPatterns;
     var phpStandard = grunt.config('config.phpcs.standard')
       || 'vendor/drupal/coder/coder_sniffer/Drupal';
 
@@ -124,8 +127,8 @@ module.exports = function(grunt) {
   if (grunt.config.get('config.eslint')) {
     var eslintConfig = grunt.config.get('config.eslint'),
       eslintTarget = eslintConfig.dir || [
-          '<%= config.srcPaths.drupal %>/**/*.js',
-          '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+          '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
+          '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
         ],
       eslintTargetAnalyze = eslintTarget,
       eslintConfigFile = eslintConfig.configFile || './.eslintrc';
@@ -134,12 +137,12 @@ module.exports = function(grunt) {
       if (themes[key].scripts && themes[key].scripts.validate) {
         // If the theme has a validate task of it's own, then exclude its
         // javascript files from our validate process.
-        eslintTarget.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/**/*.js');
+        eslintTarget.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/js/**/*.js');
       }
       if (themes[key].scripts && themes[key].scripts.analyze) {
         // If the theme has an analyze task of it's own, then exclude its
         // javascript files from our analyze process.
-        eslintTargetAnalyze.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/**/*.js');
+        eslintTargetAnalyze.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/js/**/*.js');
       }
     }
 
@@ -173,14 +176,16 @@ module.exports = function(grunt) {
       return grunt.template.process(item);
     });
 
-    // If this is evaluated to truthy at least one file matched.
-    return grunt.file.expand(paths).length;
+    // If length is evaluated to truthy at least one file matched.
+    return grunt.file.expand(paths);
   }
 
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
     var phpcs = grunt.config.get('phpcs.validate');
     if (phpcs) {
-      if (filesToProcess(phpcs.src)) {
+      var files = filesToProcess(phpcs.src);
+      if (files.length) {
+        grunt.config.set('phpcs.validate.src', files);
         validate.push('phpcs:validate');
       }
     }
@@ -188,7 +193,9 @@ module.exports = function(grunt) {
       eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
       eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
     if (eslint) {
-      if (filesToProcess(eslint)) {
+      var files = filesToProcess(eslint);
+      if (files.length) {
+        grunt.config.set('eslint.validate', files);
         validate.push(eslintName + ':validate');
       }
     }
@@ -209,7 +216,9 @@ module.exports = function(grunt) {
   grunt.registerTask('analyze', 'Generate reports on code quality for use by Jenkins or other visualization tools.', function() {
     var phpcs = grunt.config.get('phpcs.analyze');
     if (phpcs) {
-      if (filesToProcess(phpcs.src)) {
+      var files = filesToProcess(phpcs.src);
+      if (files.length) {
+        grunt.config.set('phpcs.analyze', files);
         analyze.push('phpcs:analyze');
       }
     }
@@ -218,7 +227,9 @@ module.exports = function(grunt) {
       eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
     if (eslint) {
       // The eslint:analyze task has a deeper configuration structure than eslint:validate.
-      if (filesToProcess(eslint.src)) {
+      var files = filesToProcess(eslint.src);
+      if (files.length) {
+        grunt.config.set('eslint.analyze', files);
         analyze.push(eslintName + ':analyze');
       }
     }

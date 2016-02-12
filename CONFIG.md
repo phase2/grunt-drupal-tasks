@@ -363,9 +363,8 @@ This is an example of the settings for the validate tasks:
 {
   "eslint": {
     "dir": [
-      '<%= config.srcPaths.drupal %>/**/*.js',
-      '!<%= config.srcPaths.drupal %>/**/bower/**/*.js',
-      '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+      '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
+      '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
     ]
   },
   "phpcs": {
@@ -374,12 +373,14 @@ This is an example of the settings for the validate tasks:
   }
   "phplint": {
     "dir": [
-      "<%= config.srcPaths.drupal %>/**/*.php",
-      "<%= config.srcPaths.drupal %>/**/*.module",
-      "<%= config.srcPaths.drupal %>/**/*.inc",
-      "<%= config.srcPaths.drupal %>/**/*.install",
-      "<%= config.srcPaths.drupal %>/**/*.profile",
-      "!<%= config.srcPaths.drupal %>/**/vendor/**",
+      '<%= config.srcPaths.drupal %>/sites/**/*.{php,inc}',
+      '<%= config.srcPaths.drupal %>/themes/*/template.php',
+      '<%= config.srcPaths.drupal %>/themes/*/templates/**/*.php',
+      '<%= config.srcPaths.drupal %>/themes/*/includes/**/*.{inc,php}',
+      '<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{php,module,inc,install,profile}',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{box,pages_default,views_default,panelizer,strongarm}.inc',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.features.*inc',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/vendor/**'
     ]
   }
 }
@@ -401,8 +402,8 @@ review by eslint. The following is used by default:
 {
   "eslint": {
     "dir": [
-      '<%= config.srcPaths.drupal %>/**/*.js',
-      '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+      '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
+      '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
     ]
   }
 }
@@ -425,20 +426,11 @@ with grunt-drupal-tasks:
   "phpcs": {
     "path": "vendor/bin/phpcs",
     "dir": [
-      "<%= config.srcPaths.drupal %>/**/*.php",
-      "<%= config.srcPaths.drupal %>/**/*.module",
-      "<%= config.srcPaths.drupal %>/**/*.inc",
-      "<%= config.srcPaths.drupal %>/**/*.install",
-      "<%= config.srcPaths.drupal %>/**/*.profile",
-      "!<%= config.srcPaths.drupal %>/sites/**",
-      "!<%= config.srcPaths.drupal %>/**/*.box.inc",
-      "!<%= config.srcPaths.drupal %>/**/*.features.*inc",
-      "!<%= config.srcPaths.drupal %>/**/*.pages_default.inc",
-      "!<%= config.srcPaths.drupal %>/**/*.panelizer.inc",
-      "!<%= config.srcPaths.drupal %>/**/*.strongarm.inc",
-      "!<%= config.srcPaths.drupal %>/**/*.css",
-      "!<%= config.srcPaths.drupal %>/**/*/pattern-lab/**/*",
-      "!<%= config.srcPaths.drupal %>/**/*/bower_components/**/*"
+      '<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{php,module,inc,install,profile}',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{box,pages_default,views_default,panelizer,strongarm}.inc',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.features.*inc',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/vendor/**',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.tpl.php'
     ]
   }
 }
