@@ -1,0 +1,18 @@
+{
+    "name": "client/project",
+    "description": "{Project} drupal codebase for {client}.",
+    "require-dev": {
+        "behat/mink-zombie-driver": "~1.2",
+        "drupal/drupal-extension": "~3.0",
+        "drush/drush": "dev-master",
+        "phpmd/phpmd": "~2.1",
+        "squizlabs/php_codesniffer": "~1.5",
+        "drupal/coder": "7.2.3",
+        "guzzlehttp/guzzle" : "^6.0@dev",
+        "symfony/dependency-injection": "2.7.*",
+        "symfony/event-dispatcher": "2.7.*"
+    },
+    "require": {
+        "roave/security-advisories": "dev-master"
+    }
+}
