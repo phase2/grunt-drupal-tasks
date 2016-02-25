@@ -131,7 +131,7 @@ module.exports = function(grunt) {
           '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
         ],
       eslintTargetAnalyze = eslintTarget,
-      eslintConfigFile = eslintConfig.configFile || './.eslintrc';
+      eslintConfigFile = eslintConfig.configFile || process.cwd() + '/.eslintrc';
 
     for (var key in themes) {
       if (themes[key].scripts && themes[key].scripts.validate) {
