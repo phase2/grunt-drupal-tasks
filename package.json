@@ -18,7 +18,7 @@
     "grunt-force-task": "^1.0.0",
     "grunt-githooks": "~0.5.0",
     "grunt-log-headers": "^1.0.1",
-    "grunt-mkdir": "~0.1.2",
+    "grunt-mkdir": "^1.0.0",
     "grunt-newer": "^1.1.1",
     "grunt-notify": "git+https://github.com/grayside/grunt-notify.git#0.5.0",
     "grunt-parallel-behat": "~0.4.1",
