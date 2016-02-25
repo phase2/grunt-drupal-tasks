@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v0.9.3 [2016/02/25]
+
+- Improved performance for code style quality checks by limiting file scans.
+- Updated default file patterns for code style quality checks.
+- Added Travis CI test coverage for more versions of Node.js.
+- Fixed Drupal 8 tests by adding a D8-specific composer.json file.
+
 ## v0.9.2 [2016/01/27]
 
 - Added `--no-validate` command line option to skip running the `grunt:validate`
