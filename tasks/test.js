@@ -26,7 +26,7 @@ module.exports = function(grunt) {
       var domain = process.env.GDT_DOMAIN || grunt.config('config.domain') || require('os').hostname();
 
       grunt.config(['shell', 'testdrupal'], {
-        command: grunt.config.get('config.testing.drupal.command') || 'php ' + script + ' --verbose --color --concurrency 4 --directory ' + testLocation + ' --url ' + domain,
+        command: grunt.config.get('config.testing.drupal.command') || 'php ' + script + ' --verbose --color --concurrency 4 --directory ' + testLocation + ' --url ' + domain + ' --php `which php`',
         options: {
           execOptions: {
             cwd: '<%= config.buildPaths.html %>'
