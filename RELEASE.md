@@ -1,5 +1,8 @@
 # Releasing New Versions of Grunt Drupal Tasks
 
+The following documents the standard process to release a new version of Grunt
+Drupal Tasks:
+
 - If dependencies have changed, update `shrinkwrap.json`.
 
     Delete the existing `shrinkwrap.json` and run `npm shrinkwrap`.
@@ -12,13 +15,17 @@
     Summarize changes and note any modifications needed to upgrade existing
     instances.
 
-- Update the version in `package.json`. Decide whether the next release is a
-major, minor, or patch level.
+- Update the version in `package.json`.
+
+    Decide whether the next release is a major, minor, or patch level according
+    to the semver specification.
 
     If updating to a new major or minor version, then also update the version of
     Grunt Drupal Tasks required in `example/package.json`.
 
-- Once all updates are committed, tag a new version using `git tag -a v0.9.3 -m
-"Version 0.9.3."` and push the tag.
+- Tag a new version.
+
+    Once all updates are committed, tag a new version using `git tag -a v0.9.3
+    -m "Version 0.9.3."` and push the tag.
 
 - Run `npm publish` to publish the release to npm.
