@@ -1,7 +1,7 @@
 {
   "name": "grunt-drupal-tasks",
   "description": "A Grunt plugin to automate Drupal build and testing tasks.",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "main": "bootstrap.js",
   "dependencies": {
     "grunt-available-tasks": "~0.6.1",
