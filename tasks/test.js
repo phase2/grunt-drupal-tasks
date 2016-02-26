@@ -21,8 +21,16 @@ module.exports = function(grunt) {
         return done();
       }
 
-      var script = Drupal.majorVersion() == 7 ? './scripts/run-tests.sh' : './core/scripts/run-tests.sh';
-      var testLocation = Drupal.majorVersion() == 7 ? './sites/all/modules/custom' : './modules/custom';
+      // Only run Drupal tests on D8 and higher. For D7, there is no option to run tests in a directory, so projects
+      // wishing to do this would add a separate task and hard-code the test groups that need to run.
+      var majorVersion = Drupal.majorVersion();
+      if (majorVersion != 8 && self.target == 'drupal') {
+        grunt.verbose.write('Running Drupal tests by directory is unsupported in Drupal 7. Create a custom task to run test groups as needed.');
+        return done();
+      }
+
+      var script = './core/scripts/run-tests.sh';
+      var testLocation = './modules/custom';
       var domain = process.env.GDT_DOMAIN || grunt.config('config.domain') || require('os').hostname();
 
       grunt.config(['shell', 'testdrupal'], {
