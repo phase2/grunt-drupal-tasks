@@ -26,8 +26,6 @@ module.exports = function(grunt) {
    *   }
    */
   grunt.loadNpmTasks('grunt-parallel-behat');
-  var Help = require('../lib/help')(grunt);
-
   var config = grunt.config.get('config'),
     flags = '',
     _ = require('lodash');
@@ -69,13 +67,5 @@ module.exports = function(grunt) {
         );
       }
     }
-
-    grunt.registerTask('test', ['behat']);
-
-    Help.add({
-      task: 'test',
-      group: 'Testing & Code Quality',
-      description: 'Run the Behat tests included with this project.'
-    });
   }
 };
