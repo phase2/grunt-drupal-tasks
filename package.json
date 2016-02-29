@@ -11,7 +11,7 @@
     "grunt-contrib-compass": "^1.0.4",
     "grunt-contrib-compress": "^1.0.0",
     "grunt-contrib-copy": "~0.8.2",
-    "grunt-contrib-symlink": "~0.3.0",
+    "grunt-contrib-symlink": "^1.0.0",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-drush": "~0.0.7",
     "grunt-eslint": "^18.0.0",

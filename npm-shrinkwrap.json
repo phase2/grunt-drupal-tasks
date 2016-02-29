@@ -1659,9 +1659,9 @@
       }
     },
     "grunt-contrib-symlink": {
-      "version": "0.3.0",
-      "from": "grunt-contrib-symlink@>=0.3.0 <0.4.0",
-      "resolved": "https://registry.npmjs.org/grunt-contrib-symlink/-/grunt-contrib-symlink-0.3.0.tgz"
+      "version": "1.0.0",
+      "from": "grunt-contrib-symlink@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/grunt-contrib-symlink/-/grunt-contrib-symlink-1.0.0.tgz"
     },
     "grunt-contrib-watch": {
       "version": "0.6.1",
