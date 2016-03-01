@@ -17,7 +17,10 @@ test_script:
   # Output useful info for debugging.
   - node --version && npm --version
   - npm install -g grunt-cli mocha
+  - bash ./test/create_working_copy.sh
+  - cd test/working_copy/
   - grunt help
+  - grunt --quiet --timer
   - mocha node_modules/grunt-drupal-tasks/test/library.js
 build: off
 matrix:
