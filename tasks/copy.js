@@ -26,6 +26,21 @@ module.exports = function(grunt) {
     ]
   });
 
+  grunt.config('copy.tempbuild', {
+    options: {
+      mode: true
+    },
+    files: [
+      {
+        expand: true,
+        cwd: '<%= config.buildPaths.temp %>',
+        src: ['**', '.**'],
+        dest: '<%= config.buildPaths.html %>',
+        dot: true
+      }
+    ]
+  });
+
   grunt.config('copy.defaults', {
     options: {
       mode: true
