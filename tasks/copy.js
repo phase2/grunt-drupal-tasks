@@ -9,6 +9,8 @@ module.exports = function(grunt) {
    *   Duplicate Drupal docroot from temporary location to the final build target.
    */
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-rsync');
+
   grunt.config('copy.static', {
     options: {
       mode: true
