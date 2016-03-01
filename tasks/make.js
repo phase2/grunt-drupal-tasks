@@ -10,7 +10,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-newer');
 
   var Help = require('../lib/help')(grunt),
-    Drupal = require('../lib/drupal')(grunt);
+    Drupal = require('../lib/drupal')(grunt),
+    gdt = require('../lib/util');
 
   var path = require('path'),
     _ = require('lodash');
@@ -39,7 +40,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('drushmake', 'Prepare the build directory and run "drush make"', function() {
-    grunt.task.run('mkdir:init', 'clean:temp', 'drush:make', 'clean:default', 'copy:tempbuild', 'clean:temp');
+    grunt.task.run(this.options().tasks);
   });
 
   // The "drushmake" task will run make only if the src file specified here is
@@ -48,7 +49,17 @@ module.exports = function(grunt) {
   grunt.config('drushmake', {
     default: {
       src: ['<%= config.srcPaths.make %>', '<%= config.srcPaths.drupal %>/**/*.make'],
-      dest: '<%= config.buildPaths.html %>'
+      dest: '<%= config.buildPaths.html %>',
+    },
+    options: {
+      tasks: [
+        'mkdir:init',
+        'clean:temp',
+        'drush:make',
+        'clean:default',
+        gdt.canRsync ? 'rsync.tempbuild' : 'copy:tempbuild',
+        'clean:temp'
+      ]
     }
   });
 
