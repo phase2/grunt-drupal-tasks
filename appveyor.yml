@@ -1,0 +1,26 @@
+init:
+  # Fix line endings on Windows
+  - git config --global core.autocrlf true
+environment:
+  matrix:
+    - nodejs_version: "0.12"
+    - nodejs_version: "4"
+    - nodejs_version: "5"
+platform:
+  - x86
+  - x64
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - npm install -g npm
+  - npm install
+test_script:
+  # Output useful info for debugging.
+  - node --version && npm --version
+  - npm install -g grunt-cli mocha
+  - grunt help
+  - mocha node_modules/grunt-drupal-tasks/test/library.js
+build: off
+matrix:
+  fast_finish: true
+cache:
+  - node_modules -> package.json
