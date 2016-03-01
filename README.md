@@ -1,6 +1,8 @@
 # Grunt Drupal Tasks
 ## A Grunt plugin to automate Drupal build and testing tasks
 
+[![Join the chat at https://gitter.im/phase2/grunt-drupal-tasks](https://badges.gitter.im/phase2/grunt-drupal-tasks.svg)](https://gitter.im/phase2/grunt-drupal-tasks?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Code Status (master branch):
 [![Travis CI status](https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master)](https://travis-ci.org/phase2/grunt-drupal-tasks)
 [![Dependency Status](https://david-dm.org/phase2/grunt-drupal-tasks.svg)](https://david-dm.org/phase2/grunt-drupal-tasks)
