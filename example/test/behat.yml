@@ -8,10 +8,12 @@ default:
   extensions:
     Behat\MinkExtension:
       goutte: ~
-      selenium2: ~
-      zombie: ~
+      # PhantomJS uses the Selenium2 mink driver.
+      # To run: `vendor/bin/phantomjs --webdriver=8643`
+      selenium2:
+        wd_host:  "http://localhost:8643/wd/hub"
       base_url: http://127.0.0.1:8080
-      javascript_session: 'zombie'
+      javascript_session: 'selenium2'
     Drupal\DrupalExtension:
       blackbox: ~
       drush:

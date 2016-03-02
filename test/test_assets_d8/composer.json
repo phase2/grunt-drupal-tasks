@@ -1,0 +1,26 @@
+{
+    "name": "client/project",
+    "description": "{Project} drupal codebase for {client}.",
+    "require-dev": {
+        "behat/mink-zombie-driver": "~1.2",
+        "drupal/drupal-extension": "~3.0",
+        "drush/drush": "dev-master",
+        "phpmd/phpmd": "~2.1",
+        "drupal/coder": "^8.2",
+        "guzzlehttp/guzzle" : "^6.0@dev",
+        "jakoch/phantomjs-installer": "2.1.1",
+        "symfony/dependency-injection": "2.7.*",
+        "symfony/event-dispatcher": "2.7.*"
+    },
+    "require": {
+        "roave/security-advisories": "dev-master"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ],
+        "post-update-cmd": [
+            "PhantomInstaller\\Installer::installPhantomJS"
+        ]
+    }
+}
