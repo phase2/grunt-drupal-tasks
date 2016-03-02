@@ -48,6 +48,7 @@ script:
   - grunt install --db-url=sqlite:/`pwd`/.ht.sqlite --quiet
   - grunt serve:test >/dev/null &
   - until curl -I -XGET -s $GDT_TEST_URL 2>/dev/null | egrep -q '^HTTP.*200'; do sleep 0.5; done
+  - vendor/bin/phantomjs --webdriver=8643 2&>/dev/null &
   - vendor/bin/drush --root=build/html en -y simpletest
   - grunt test
   - sleep 1; while (ps aux | grep '[b]ehat' > /dev/null); do sleep 1; done
