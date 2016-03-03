@@ -54,11 +54,13 @@ module.exports = function(grunt) {
   });
 
   // rsync-based alternative to copy:tempbuild.
-  grunt.config('rsync.tempbuild.options', {
-    args: [
-      '-ahW',
-      '--stats'
-    ],
+  grunt.config('rsync.tempbuild', {
+    'options', {
+      args: [
+        '-ahW',
+        '--stats'
+      ],
+    },
     src: '<%= config.buildPaths.temp %>/',
     dest: '<%= config.buildPaths.html %>'
   });
