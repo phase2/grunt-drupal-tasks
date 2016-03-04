@@ -51,7 +51,7 @@ module.exports = function(grunt) {
       args: [
         '-ahW',
         '--stats'
-      ]
+      ],
       src: '<%= config.buildPaths.temp %>/',
       dest: '<%= config.buildPaths.html %>'
     },
