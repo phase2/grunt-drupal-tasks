@@ -52,9 +52,9 @@ module.exports = function(grunt) {
         '-ahW',
         '--stats'
       ]
+      src: '<%= config.buildPaths.temp %>/',
+      dest: '<%= config.buildPaths.html %>'
     },
-    src: '<%= config.buildPaths.temp %>/',
-    dest: '<%= config.buildPaths.html %>'
   });
 
   grunt.config('copy.defaults', {
