@@ -57,7 +57,7 @@ module.exports = function(grunt) {
         'clean:temp',
         'drush:make',
         'clean:default',
-        gdt.canRsync ? 'rsync.tempbuild' : 'copy:tempbuild',
+        gdt.canRsync ? 'rsync:tempbuild' : 'copy:tempbuild',
         'clean:temp'
       ]
     }
