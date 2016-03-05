@@ -26,12 +26,17 @@
     "ignoreError": true
   },
   "eslint": true,
+  "scripts": {
+    "pre-echo": "echo 'pre-op script'",
+    "echo": "echo 'operational scripts run'",
+    "post-echo": "echo 'post-op script'"
+  },
   "themes": {
     "example_theme": {
       "path": "<%= config.srcPaths.drupal %>/themes/example_theme",
       "compass": true,
       "scripts": {
-        "write": "echo 'scripts run'"
+        "echo": "echo 'theme scripts run in '$(basename $(pwd))"
       }
     }
   }

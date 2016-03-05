@@ -95,12 +95,47 @@ describe('grunt', function() {
     });
   });
 
-  describe('themes configuration', function() {
-    it('should run theme scripts', function(done) {
-      exec('grunt themes:example_theme:write', function (error, stdout, stderr) {
-        var status = !error && stdout && stdout.match(/scripts\srun/)[0];
+  describe('Script dispatching', function() {
+    it('should pass commands along to themes', function(done) {
+      exec('grunt themes:example_theme:echo', function (error, stdout, stderr) {
+        var status = !error && stdout && stdout.match(/theme\sscripts\srun/)[0] && stdout.match(/run in example_theme/)[0];
         assert.ok(status);
         done();
+      });
+    });
+
+    it('should run project operation scripts', function(done) {
+      exec('grunt echo', function (error, stdout, stderr) {
+        var status = !error && stdout && stdout.match(/operational\sscripts\srun/)[0];
+        assert.ok(status);
+        done();
+      });
+    });
+
+    it('should run pre-op and post-op scripts', function(done) {
+      exec('grunt echo', function (error, stdout, stderr) {
+        var status = !error && stdout && stdout.match(/pre\-op script/)[0] && stdout.match(/post\-op script/)[0];
+        assert.ok(status);
+        done();
+      });
+    });
+
+    it('should include project operation scripts in help output', function(done) {
+      exec('grunt help', function (error, stdout, stderr) {
+        var status = !error && stdout && stdout.match(/Perform\sthe\sconfigured\s"echo"\stask/)[0];
+        assert.ok(status);
+        done();
+      });
+    });
+  });
+
+  describe('grunt task', function() {
+    it('"git-setup" may be run to install git hooks.', function(done) {
+      exec('grunt git-setup', function(error, stdout, stderr) {
+        fs.exists('./.git/hooks/pre-commit', function(exists) {
+          assert.ok(!error && exists);
+          done();
+        });
       });
     });
   });

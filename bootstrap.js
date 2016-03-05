@@ -1,11 +1,15 @@
 module.exports = function(grunt) {
   // Initialize global configuration variables.
   var config = grunt.file.readJSON('Gruntconfig.json');
-  grunt.initConfig({
-    config: config
-  });
+  if (grunt.config.getRaw() === undefined) {
+    grunt.initConfig({
+      config: config
+    });
+  }
+  else {
+    grunt.config.set('config', config);
+  }
 
-  // Set up default global configuration.
   var GDT = require('./lib/init')(grunt);
   GDT.init();
 
@@ -28,11 +32,29 @@ module.exports = function(grunt) {
   grunt.loadTasks(__dirname + '/tasks');
 
   // Define the default task to fully build and configure the project.
-  var tasksDefault = [
-    'validate',
-    'newer:drushmake:default',
-    'scaffold'
-  ];
+  var tasksDefault = [];
+
+  // If the "--no-validate" option is given, skip adding "validate" to task array.
+  if (!grunt.option('no-validate')) {
+    tasksDefault.push('validate');
+  }
+
+  // If build/html exists, but is empty, skip the newer check.
+  // This facilitates situations where the build/html is generated as a mounted
+  // directory point with a newer timestamp than the Drush Makefiles.
+  //
+  // We do not use the grunt-newer .cache with drushmake so skipping newer for
+  // any one run does not impact later behavior.
+  if (grunt.file.exists(grunt.config.get('config.buildPaths.html') + '/index.php')) {
+    tasksDefault.push('newer:drushmake:default');
+  }
+  else {
+    tasksDefault.push('drushmake:default');
+  }
+
+  // Wire up the generated docroot to our custom code.
+  tasksDefault.push('scaffold');
+
   if (grunt.config.get(['composer', 'install'])) {
     tasksDefault.unshift('composer:install');
   }
@@ -42,6 +64,7 @@ module.exports = function(grunt) {
   if (grunt.task.exists('compile-theme')) {
     tasksDefault.push('compile-theme');
   }
+
   grunt.registerTask('default', tasksDefault);
 
   // If the "--timer" option is given, enable time-grunt to show how long each

@@ -181,7 +181,8 @@ not default to hitting a production or staging environment.
 **siteUrls**: (Optional) A map of Drupal subsite names to the URLs by which
 each can be accessed for end-to-end testing by tools such as Behat. For clarity
 please align the site names (keys) with any Drush Site Aliases. If no siteUrls
-are specified it will default to `http://<%= config.domain %>`.
+are specified it will default to `http://<%= config.domain %>`. The environment
+variable override is `GDT_SITEURLS`.
 
 ```
   "siteUrls": {
@@ -321,10 +322,11 @@ general project tasks.
 }
 ```
 
-`grunt themes` may be run to list all themes setup in your project Gruntconfig.json.
-`grunt themes:\<theme\>` will list all the options in the theme's scripts config
-as a means of providing usage documentation. `grunt themes:\<theme\>:\<task\>`
-will run the script keyed by `\<task\>` from the theme's directory.
+`grunt themes` may be run to list all themes setup in your project
+Gruntconfig.json. `grunt themes:\<theme\>` will list all the options in the
+theme's scripts config as a means of providing usage documentation.
+`grunt themes:\<theme\>:\<task\>` will run the script keyed by `\<task\>` from
+the theme's directory.
 
 Three of the key names are magic: 'compile-theme', 'validate', and 'analyze'.
 When one of those three is specified, Grunt Drupal Tasks will automatically
@@ -333,6 +335,9 @@ run the command as part of the actions it takes for `grunt compile-theme`,
 
 Note that if you also configure compass for the theme, the existence of a
 "compile-theme" script will be run alongside the Grunt Drupal Tasks compass.
+
+Note that Theme Scripts support the `pre-` and `post-` operations explained in
+Project Operations.
 
 #### Setting Up Gem Dependencies
 
@@ -358,9 +363,8 @@ This is an example of the settings for the validate tasks:
 {
   "eslint": {
     "dir": [
-      '<%= config.srcPaths.drupal %>/**/*.js',
-      '!<%= config.srcPaths.drupal %>/**/bower/**/*.js',
-      '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+      '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
+      '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
     ]
   },
   "phpcs": {
@@ -369,12 +373,14 @@ This is an example of the settings for the validate tasks:
   }
   "phplint": {
     "dir": [
-      "<%= config.srcPaths.drupal %>/**/*.php",
-      "<%= config.srcPaths.drupal %>/**/*.module",
-      "<%= config.srcPaths.drupal %>/**/*.inc",
-      "<%= config.srcPaths.drupal %>/**/*.install",
-      "<%= config.srcPaths.drupal %>/**/*.profile",
-      "!<%= config.srcPaths.drupal %>/**/vendor/**",
+      '<%= config.srcPaths.drupal %>/sites/**/*.{php,inc}',
+      '<%= config.srcPaths.drupal %>/themes/*/template.php',
+      '<%= config.srcPaths.drupal %>/themes/*/templates/**/*.php',
+      '<%= config.srcPaths.drupal %>/themes/*/includes/**/*.{inc,php}',
+      '<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{php,module,inc,install,profile}',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{box,pages_default,views_default,panelizer,strongarm}.inc',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.features.*inc',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/vendor/**'
     ]
   }
 }
@@ -396,8 +402,8 @@ review by eslint. The following is used by default:
 {
   "eslint": {
     "dir": [
-      '<%= config.srcPaths.drupal %>/**/*.js',
-      '!<%= config.srcPaths.drupal %>/sites/**/files/**/*.js'
+      '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
+      '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
     ]
   }
 }
@@ -420,20 +426,11 @@ with grunt-drupal-tasks:
   "phpcs": {
     "path": "vendor/bin/phpcs",
     "dir": [
-      "<%= config.srcPaths.drupal %>/**/*.php",
-      "<%= config.srcPaths.drupal %>/**/*.module",
-      "<%= config.srcPaths.drupal %>/**/*.inc",
-      "<%= config.srcPaths.drupal %>/**/*.install",
-      "<%= config.srcPaths.drupal %>/**/*.profile",
-      "!<%= config.srcPaths.drupal %>/sites/**",
-      "!<%= config.srcPaths.drupal %>/**/*.box.inc",
-      "!<%= config.srcPaths.drupal %>/**/*.features.*inc",
-      "!<%= config.srcPaths.drupal %>/**/*.pages_default.inc",
-      "!<%= config.srcPaths.drupal %>/**/*.panelizer.inc",
-      "!<%= config.srcPaths.drupal %>/**/*.strongarm.inc",
-      "!<%= config.srcPaths.drupal %>/**/*.css",
-      "!<%= config.srcPaths.drupal %>/**/*/pattern-lab/**/*",
-      "!<%= config.srcPaths.drupal %>/**/*/bower_components/**/*"
+      '<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{php,module,inc,install,profile}',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.{box,pages_default,views_default,panelizer,strongarm}.inc',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.features.*inc',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/vendor/**',
+      '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.tpl.php'
     ]
   }
 }
@@ -455,9 +452,10 @@ needed to run Drupal in a formal environment such as Production.
 
 You can find the resulting package in `build/packages/package` by default as a
 standard directory, all symlinks from the grunt scaffolding dereferenced. If
-run with `grunt package:compress` it will also output `build/packages/package.tgz`
-as an easily stored archive. **Remember, this directory is wiped by `grunt clean`
-unless you configure your package directory to be outside the build directory.**
+run with `grunt package:compress` it will also output
+`build/packages/package.tgz` as an easily stored archive. **Remember, this
+directory is wiped by `grunt clean` unless you configure your package directory
+to be outside the build directory.**
 
 This is an example of the settings for package tasks:
 
@@ -481,44 +479,120 @@ this format, see: http://gruntjs.com/configuring-tasks#files
 from the project directory when building a package. The above includes README
 files and files under bin/ in the project's package.
 
-**packages.dest.docroot**: Specify where within the package directory the `srcFiles`
-should be placed. Defaults to the package root. For Acquia set this to
-'/docroot'.
+**packages.dest.docroot**: Specify where within the package directory the
+`srcFiles` should be placed. Defaults to the package root. For Acquia set this
+to '/docroot'.
 
 **packages.dest.devResources**: Specify where within the package directory the
 `projFiles` should be placed. Defaults to package root.
 
-Also, the `package` command takes a `--target` parameter. Usage such as 
+**packages.name**: The default name of the package, used as the path within the
+packages directory. This can be overridden by calling grunt package with the `--name`
+parameter.
 
-    grunt package --target=MY_TARGET
-
-will yeild a `MY_TARGET` directory in the `packages` directory. This also works for the `package:compress` option.
 
 ##### Packaging for Acquia
 
-Support for Acquia packaging is baked into the `package` command. You'll just need to place a few directories in the right place, and make a few additions to your additions to your local `Gruntconfig.json` file. First be sure your `hooks` and `bin` directories are placed at the repository root. 
+The `package` command has the flexibility to support many different use cases,
+include structure for PaaS services such as Acquia. This is currently handled
+by convention rather than specific coded support.
 
-Also, you'll need to set **packages.dest.docroot** as mentioned above to '/docroot':
+The example configuration below for your Gruntconfig.json file structures an Acquia
+repository with support for custom hooks and scripts.
 
-    ...
-    "packages": {
-      "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
-      "projFiles": ["README*", "bin/**", "hooks/**"],
-      "dest": {
-        "docroot": "/docroot"
-      }
+```
+{
+  "packages": {
+    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
+    "projFiles": ["README*", "bin/**", "hooks/**"],
+    "dest": {
+      "docroot": "/docroot"
     }
-    ...
+  }
+}
+```
 
-Then, you can either pass in a target name (`--target=TARGET_NAME`, for example) when you use the `package` command, or you can add spec in your local configuration:
+### Project Operations
 
-    ...
-    "buildPaths": {
-      "packages": "build/packages",
-      "packageTarget": "TARGET_NAME"
-    }
-    ...
+Some of the most common use cases for any Drupal site are the basic operations
+of installation, running database updates, and clearing the cache. These are not
+difficult operations, but many developers appreciate the common shorthand a
+little grunt magic can provide.
 
+To keep this flexible the new Operations system offers nothing out of the box,
+but facilitates creating lightweight commands or callouts to the shell for more
+advanced scripts you want easily run on the project by the entire team.
+
+This should remind you of the **Themes Scripts** described above.
+
+```
+{
+  "scripts": {
+    "update": "drush <%= config.alias %> updatedb -yv && drush <%= config.alias %> features-revert-all -yv",
+    "reset": "drush <%= config.alias %> registry-rebuild && drush <%= config.alias %> cc all"
+  }
+}
+```
+
+Here you see two commands defined inside the top-level `scripts` configuration.
+
+* `grunt update` demonstrates running database updates and reverting all
+[Features](http://www.drupal.org/project/features).
+* `grunt reset` demonstrates a thorough reset of the file registry and Drupal
+caches.
+
+The Alias and Profile is specified per the rules for **Magic Configuration**.
+
+**alias**: The Drush Site Alias. This is computed as a helper for use in
+project operations, but is not yet applied as part of other tasks. Defaults to
+`@<domain>`. The environment variable to override is `GDT_SITE_ALIAS`.
+
+#### Pre and Post Operations
+
+Similar to `npm run`, the operations defined in your Gruntconfig will support
+`pre-` and `post-` variants. If the main script exists the pre-script will be
+triggered first and the post-script will be triggered after. This allows you to
+easily extend any project operation with separate grunt, bash, or other tasks.
+
+### Install settings
+
+The `install` task will either install Drupal via the configured `profile`, or
+if a path to a database is configured, load this database:
+
+To specify a profile other than the `standard` profile:
+
+```json
+{
+  "project": {
+    "profile": "openatrium"
+  }
+}
+```
+
+to specify a database to load:
+
+```json
+{
+  "project": {
+    "db": "path/to/project.sql.gz"
+  }
+}
+```
+
+**project.profile** The Drupal installation profile, this will be used to
+configure the behavior of the `grunt install` and `grunt serve` tasks. Defaults
+to `standard`. The environment variable is `GDT_INSTALL_PROFILE`
+
+**project.db** If specified, this database will be loaded instead of running a
+site installation. If the file referenced is not present `grunt install` will
+fall back to a standard `drush site-install`.
+
+#### Pre and Post Installation
+
+The install task has a unique implementation of support for the pre and post
+scripts otherwise made available for themes and project operations. This allows
+you to implement simple directives or scripts to prepare for installation or
+perform non-standardized operations after the main installation routine.
 
 ### Serve Settings
 
@@ -530,62 +604,143 @@ terminal window.
 `grunt serve` will not install the Drupal site. Run with `grunt serve:demo` to
 skip starting up watch tasks.
 
-```
+```json
 {
+  "project": {
+    "profile": 'project_profile_name'
+  },
   "serve": {
-    "profile": 'project_profile_name',
     "port": 9043,
     "concurrent": [
       "watch-theme"
     ]
-
+  }
 }
 ```
 
-**serve.profile**: The profile to use with the drush:liteinstall task. Defaults
-to `standard` and may be overridden with `--profile` when the command is run.
-WARNING: drush:liteinstall is an internal task and is likely to be deprecated in
-a future release.
+**serve.profile**: DEPRECATED - use **project.profile** instead.
 
 **serve.port**: The port number to bind for the webserver. Only one service may
-occupy a port on a machine, so a project-specific port may be worthwhile. Defaults
-to `8080`.
+occupy a port on a machine, so a project-specific port may be worthwhile.
+Defaults to `8080`.
 
-**serve.concurrent**: An array of grunt tasks to be run concurrently to the server.
-When run with `serve:demo` or `serve:test` these tasks are not used. By default
-they include 'watch-test' and 'watch-theme'. If you use this configuration to
-add tasks be sure to include these as they will be suppressed by any configuration.
+**serve.concurrent**: An array of grunt tasks to be run concurrently to the
+server. When run with `serve:demo` or `serve:test` these tasks are not used. By
+default they include 'watch-test' and 'watch-theme'. If you use this
+configuration to add tasks be sure to include these as they will be suppressed
+by any configuration.
 
-### Help Settings (Help API)
+### Magic Configuration
 
-If you add custom tasks to your project and want them exposed as part of the
-`help` task, you may add a simple code snippet to your Gruntfile.js or any loaded
-task file.
+The domain, project.profile, alias, and siteUrls configurations are all built
+using the same system that allows for maximum flexibility in project and
+environment configuration. Note that all configuration is subject to the Project
+Gruntfile override.
+
+In order of precedence it checks the following:
+
+#### Priority 1: Project Gruntfile.js
+
+The value of the configuration prefixed with `gdt.`. This allows a project
+Gruntfile to dynamically specify the value before bootstrapping Grunt Drupal
+Tasks. This is valuable because the code of grunt-drupal-tasks sets up many
+behaviors based on that configuration that would be difficult to replicate
+after the bootstrap.
+
+This can be done with any configuration you might place into your
+Gruntconfig.json, and is merged recursively as an override to whatever you place
+in that file.
+
+For example:
+
+  * **alias**: `gdt.alias`
+  * **domain**: `gdt.domain`
+  * **profile**: `gdt.profile`
+  * **siteUrls**: `gdt.siteUrls`
+
+Suppose your environment is set up with the following directory structure:
+
+>  * project.example.com
+    * project-repository
+      * Gruntfile.js
+      * Gruntconfig.json
+      * src/
+      * ...
+   * project2.example.net
+     * ...
+
+Given this structure, you will not want to use environment variables because
+each of your projects might need different values in the host machine. However,
+a little logic in the project Gruntfile.js can allow you to dynamically derive
+your development domain or Drush site alias.
+
+For example, here is a Gruntfile that derives the site alias and domain
+based on the parent directory name of the project repository.
 
 ```js
-var Help = require('grunt-drupal-tasks/lib/help');
-
-Help.addItem('existing-task', 'Named Group', 'Optional description that avoids the default task description.');
-
-Help.add({
-  task: 'existing-task',
-  group: 'Named Group',
-  description: 'Optional description that avoids the default task description.'
-});
-
-Help.add([
-  {
-    task: 'existing-task',
-    group: 'Named Group',
-    description: 'Optional description that avoids the default task description.'
-  },
-  {
-    task: 'second-task',
-    group: 'Named Group',
-    description: 'A second registered task to register with the help system.'
-  }
-]);
+var path = require('path');
+module.exports = function(grunt) {
+  var name = path.basename(path.resolve(__dirname, '..'));
+  // Set domain to "project.example.com". If nothing else sets the `alias`
+  // it will default to @project.example.com.
+  grunt.initConfig({ gdt: { domain: name });
+  // Load all plugins and tasks defined by the grunt-drupal-tasks package.
+  require('grunt-drupal-tasks')(grunt);
+};
 ```
+
+#### Priority 2: Environment Variable
+
+Each magic configuration property can also be set via an Environment Variable.
+
+Environment Variables are extremely powerful, but only useful where the
+environment contains only a single project using Grunt Drupal Tasks. This is
+more effective for dedicated environments, such as official production and
+staging servers, or virtual and containerized environments.
+
+The specific environment variable name is covered as part of the property
+descriptions.
+
+#### Priority 3: Project Gruntconfig.json
+
+The configuration placed in Gruntconfig.json. This is good for straightforward
+defaults and is how all *non-magical* configuration works.
 
 If you want to include your task in one of the existing groups, copy the text
 exactly as seen in the output of the `grunt help` task.
+
+### Adding Git Hooks
+
+The [Git Hook system](http://git-scm.com/docs/githooks) (not to be confused with
+the Drupal Hook system), triggers events on certain git interactions. The git
+**pre-commit** hook allows us to add a validation step to the commit process
+that will block developer's from committing work if it does not get approved by
+a script.
+
+Git hook scripts need to be manually installed on a per-repository basis, so
+Grunt Drupal Tasks facilitates by allowing easy configuration of the
+grunt-githooks plugin as part of our `grunt git-setup` task.
+
+#### Default Task
+
+By default, Grunt Drupal Tasks installs a special variant of the `validate`
+task. This version, specifically invoked by `validate:staged` attempts to
+minimize the number of files scanned by checking only those that have changed
+since the last successful commit.
+
+#### Configuring Git Hooks
+
+**config.git.hooks**: An array of grunt tasks to run on pre-commit in addition to `validate:staged`.
+
+**config.git.hook-command**: A substitute for a simple `grunt` command to handle the individual grunt tasks.
+Allows specification of more complex bin paths or execution wrappers such as `time` or `docker-compose`.
+
+#### Overriding a Commit Rejection
+
+Using the `-f` flag with your git commit will override the pre-commit script
+even if it fails the commit will proceed.
+
+#### Further Git Reading
+
+* [Customizing Git - Git Hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
+* [githooks.com](http://githooks.com)

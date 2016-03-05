@@ -23,5 +23,8 @@
   "behat": {
     "flags": "--tags ~@wip"
   },
-  "eslint": true
+  "eslint": true,
+  "scripts": {
+    "update": "<%= config.drush.cmd %> <%= config.alias %> features-revert-all -yv"
+  }
 }

@@ -46,8 +46,15 @@ module.exports = function(grunt) {
         [ '--quiet', 'Suppress desktop notifications.' ],
         [ '--notify', 'Request a desktop notification despite timing or environment settings.' ],
         [ '--timer', 'Output task execution timing info.' ],
-        [ '--concurrency', 'Override the dynamic concurrency parameter used by Drush Make.' ]
+        [ '--concurrency', 'Override the dynamic concurrency parameter used by Drush Make.' ],
+        [ '--no-validate', 'Skip `grunt:validate` in the default `grunt` task.' ],
+        [ '--db-url', 'Pass thru your Drupal database credentials for site installation.' ]
       ];
+
+      if (grunt.config('config.project.db')) {
+        options.push('--no-db-load', 'Perform a clean site installation even if a database restore path is configured');
+      }
+
       gruntHelp.table(options);
     };
 

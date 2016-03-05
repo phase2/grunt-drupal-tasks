@@ -6,6 +6,7 @@ tests are meant both to verify the Drupal install as well as Behat test features
   Scenario: Ensure the Login link is available for anonymous users.
     Given I am an anonymous user
      When I am on the homepage
+      And I click "Log in"
      Then I should see an "input#edit-name" element
       And I should see an "input#edit-pass" element
 
@@ -14,7 +15,7 @@ tests are meant both to verify the Drupal install as well as Behat test features
     Given I am logged in as a user with the "authenticated user" role
      When I click "Log out"
      Then I should be on the homepage
-      And I should see "User login"
+      And I should see "Log in"
 
   @api @javascript
   Scenario: Ensure the Reports page is loaded into an overlay when the Reports

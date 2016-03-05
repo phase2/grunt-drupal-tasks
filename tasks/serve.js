@@ -22,7 +22,11 @@ module.exports = function(grunt) {
   // If no path is configured for Drush, fallback to the system path.
   var cmd = {cmd: Drupal.drushPath()};
 
-  var profile = grunt.config('config.serve.profile') || 'standard';
+  // `config.serve.profile` is deprecated.
+  if (grunt.config('config.serve.profile')) {
+    grunt.log.warn('The `serve.profile` parameter is deprecated and will be removed in future versions. Use `project.profile` instead.');
+  }
+  var profile = grunt.config('config.project.profile') || grunt.config('config.serve.profile') || 'standard';
 
   grunt.config(['drush', 'liteinstall'], {
     args: ['site-install', '-yv', profile, '--db-url=sqlite:/' + path.join(path.resolve(grunt.config('config.buildPaths.build')), 'drupal.sqlite')],
@@ -32,7 +36,7 @@ module.exports = function(grunt) {
   });
 
   grunt.config(['drush', 'serve'], {
-    args: ['runserver', ':' + (grunt.config('serve.port') || 8080)],
+    args: ['runserver', ':' + (grunt.config('config.serve.port') || 8080)],
     options: _.extend({
       cwd: '<%= config.buildPaths.html %>'
     }, cmd)
@@ -42,7 +46,7 @@ module.exports = function(grunt) {
 
     if (this.args[0] != 'test') {
       // Unlike the test version, this one allows port overriding and opens the site in a new tab.
-      grunt.config('drush.serve.args', ['runserver', ':' + (grunt.config('serve.port') || 8080) + '/' ]);
+      grunt.config('drush.serve.args', ['runserver', ':' + (grunt.config('config.serve.port') || 8080) + '/' ]);
     }
 
     if (this.args.length) {
