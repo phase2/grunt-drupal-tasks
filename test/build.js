@@ -140,4 +140,31 @@ describe('grunt', function() {
     });
   });
 
+  describe('Packaging', function() {
+    it ('should place the build codebase in build/packages/package by default', function(done) {
+      exec('grunt package', function(error, stdout, stderr) {
+        fs.exists('build/packages/package/index.php', function(exists) {
+          assert.ok(!error && exists);
+          done();
+        });
+      });
+    });
+    it ('should allow override of grunt package destination with --name', function(done) {
+      exec('grunt package --name=upstream', function(error, stdout, stderr) {
+        fs.exists('build/packages/upstream/index.php', function(exists) {
+          assert.ok(!error && exists);
+          done();
+        });
+      });
+    });
+    it ('should compress the package with grunt package:compress', function(done) {
+      exec('grunt package:compress --name=archive', function(error, stdout, stderr) {
+        fs.exists('build/packages/archive.tgz', function(exists) {
+          assert.ok(!error && exists);
+          done();
+        });
+      });
+    });
+  });
+
 });
