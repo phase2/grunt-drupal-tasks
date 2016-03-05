@@ -45,7 +45,7 @@ module.exports = function(grunt) {
       var options = [
         [ '--concurrency', 'Override the dynamic concurrency parameter used by Drush Make.' ],
         [ '--db-url', 'Pass thru your Drupal database credentials for site installation.' ],
-        [ '--name', 'Override the name of the package exported by "grunt package".' ]
+        [ '--name', 'Override the name of the package exported by "grunt package".' ],
         [ '--notify', 'Request a desktop notification despite timing or environment settings.' ],
         [ '--no-validate', 'Skip `grunt:validate` in the default `grunt` task.' ],
         [ '--quiet', 'Suppress desktop notifications.' ],

@@ -44,6 +44,8 @@ module.exports = function(grunt) {
       }
     });
 
+    grunt.config.set('clean.packages', [ destPath ]);
+
     tasks.push('clean:packages');
     tasks.push('copy:package');
 
@@ -59,7 +61,7 @@ module.exports = function(grunt) {
           { 
             expand: true,
             dot: true,
-            cwd: grunt.config.get('config.buildPaths.packages') + '/' + packageTarget,
+            cwd: grunt.config.get('config.buildPaths.packages') + '/' + packageName,
             src: ['**'],
           }
         ]

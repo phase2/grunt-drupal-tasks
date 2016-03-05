@@ -21,14 +21,11 @@ module.exports = function(grunt) {
     ],
     temp: [
       '<%= config.buildPaths.temp %>'
-    ],
-    packages: [
-      '<%= config.buildPaths.packages %>/**'
     ]
   });
 
   Help.add({
-    task: 'clean',
+    task: 'clean:default',
     group: 'Utilities',
     description: 'Use "clean" to remove the build output directory.'
   });

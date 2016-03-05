@@ -165,6 +165,13 @@ describe('grunt', function() {
         });
       });
     });
+    it ('should only clean the package with the current name', function(done) {
+      // Two package operations have occurred since this was created.
+      fs.exists('build/packages/package', function(exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
   });
 
 });
