@@ -43,12 +43,13 @@ module.exports = function(grunt) {
 
     gdt.options = function() {
       var options = [
-        [ '--quiet', 'Suppress desktop notifications.' ],
-        [ '--notify', 'Request a desktop notification despite timing or environment settings.' ],
-        [ '--timer', 'Output task execution timing info.' ],
         [ '--concurrency', 'Override the dynamic concurrency parameter used by Drush Make.' ],
+        [ '--db-url', 'Pass thru your Drupal database credentials for site installation.' ],
+        [ '--name', 'Override the name of the package exported by "grunt package".' ]
+        [ '--notify', 'Request a desktop notification despite timing or environment settings.' ],
         [ '--no-validate', 'Skip `grunt:validate` in the default `grunt` task.' ],
-        [ '--db-url', 'Pass thru your Drupal database credentials for site installation.' ]
+        [ '--quiet', 'Suppress desktop notifications.' ],
+        [ '--timer', 'Output task execution timing info.' ]
       ];
 
       if (grunt.config('config.project.db')) {
