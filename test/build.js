@@ -1,5 +1,5 @@
 var assert = require('assert');
-var fs = require('fs');
+var fs = require('fs-extra');
 var exec = require('child_process').exec;
 
 describe('grunt', function() {
@@ -141,6 +141,17 @@ describe('grunt', function() {
   });
 
   describe('Packaging', function() {
+
+    // Package commands can take excessive time (> 10 minutes for D8).
+    // Before testing them, remove the bulk of the Drupal codebase.
+    before(function(done) {
+      fs.move('build/html/core', 'build/cache/core', function(err) {
+        fs.move('build/html/modules', 'build/cache/modules', function(err) {
+          done();
+        });
+      });
+    });
+
     it ('should place the build codebase in build/packages/package by default', function(done) {
       exec('grunt package', function(error, stdout, stderr) {
         fs.exists('build/packages/package/index.php', function(exists) {
@@ -172,6 +183,15 @@ describe('grunt', function() {
         done();
       });
     });
+
+    after(function(done) {
+      fs.move('build/cache/core', 'build/html/core', function(err) {
+        fs.move('build/cache/modules', 'build/html/modules', function(err) {
+          done();
+        });
+      });
+    });
+
   });
 
 });
