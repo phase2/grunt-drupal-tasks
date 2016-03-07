@@ -5,6 +5,7 @@ Code Status (master branch):
 [![Travis CI status](https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master)](https://travis-ci.org/phase2/grunt-drupal-tasks)
 [![Dependency Status](https://david-dm.org/phase2/grunt-drupal-tasks.svg)](https://david-dm.org/phase2/grunt-drupal-tasks)
 [![npm version](https://badge.fury.io/js/grunt-drupal-tasks.svg)](https://www.npmjs.com/package/grunt-drupal-tasks)
+[![#grunt-drupal-tasks on Freenode IRC](https://img.shields.io/badge/Freenode%20IRC-%23grunt--drupal--tasks-blue.svg)](https://webchat.freenode.net/?channels=grunt-drupal-tasks)
 
 ## Requirements
 
