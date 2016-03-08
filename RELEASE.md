@@ -3,10 +3,6 @@
 The following documents the standard process to release a new version of Grunt
 Drupal Tasks:
 
-- If dependencies have changed, update `shrinkwrap.json`.
-
-    Delete the existing `shrinkwrap.json` and run `npm shrinkwrap`.
-
 - Update the `CHANGELOG.md` file.
 
     Use `git log v0.9.2...HEAD --oneline` to get a summary of commit messages
@@ -22,6 +18,14 @@ Drupal Tasks:
 
     If updating to a new major or minor version, then also update the version of
     Grunt Drupal Tasks required in `example/package.json`.
+
+- Update `npm-shrinkwrap.json`.
+
+    This is most important when dependencies have been updated, but since this
+    file contains the version of Grunt Drupal Tasks, it should be updated as
+    part of the release process.
+
+    Delete the existing `npm-shrinkwrap.json` and run `npm shrinkwrap`.
 
 - Tag a new version.
 
