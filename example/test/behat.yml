@@ -21,6 +21,8 @@ default:
       drupal:
         drupal_root: './build/html'
       api_driver: 'drupal'
+      region_map:
+        header: "#header"
 
 ci:
   formatter:
