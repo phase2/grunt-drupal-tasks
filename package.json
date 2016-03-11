@@ -4,6 +4,7 @@
   "version": "0.9.3",
   "main": "bootstrap.js",
   "dependencies": {
+    "fs-extra": "^0.26.5",
     "grunt-available-tasks": "~0.6.1",
     "grunt-composer": "~0.4.4",
     "grunt-concurrent": "^2.1.0",
@@ -48,8 +49,5 @@
   },
   "scripts": {
     "test": "./test/test.sh"
-  },
-  "devDependencies": {
-    "fs-extra": "^0.26.5"
   }
 }
