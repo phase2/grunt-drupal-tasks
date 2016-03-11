@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## v0.10.0 [2016/03/08]
+
+- Replaced copy with rsync to move the temporary build output as part of the
+default build process. For Windows environments, copy is still used.
+- Added support for running tests included with custom modules for Drupal 8.
+- Updated default phplint patterns to skip `*.panels_default.inc` files.
+- Removed peer dependency on Grunt in package.json. This prevents issues when
+updating to the forthcoming Grunt 1.0.0.
+- Updating Node.js engines requirement in package.json to v0.12.0 or later.
+- Updated dependencies.
+
+### Upgrade Notes
+
+- Node.js v0.10.x is no longer supported.
+- Project configurations that override the default `drushmake` task should be
+updated to use `rsync:tempbuild` instead of `copy:tempbuild` on non-Windows
+environments. The `canRsync` function from `lib/util.js` should be used to
+determine if rsync is supported in an environment.
+
 ## v0.9.3 [2016/02/25]
 
 - Improved performance for code style quality checks by limiting file scans.

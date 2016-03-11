@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         command: grunt.config('config.git.hook-command') || 'grunt'
       },
       gdt: {
-        'pre-commit': _.unique(tasks).join(' ')
+        'pre-commit': _.uniq(tasks).join(' ')
       }
     });
 
