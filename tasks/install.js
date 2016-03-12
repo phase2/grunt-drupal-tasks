@@ -14,37 +14,33 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-drush');
 
   var Help = require('../lib/help')(grunt),
-    Drupal = require('../lib/drupal')(grunt);
-
-  var path = require('path'),
+    Drupal = require('../lib/drupal')(grunt),
+    path = require('path'),
     _ = require('lodash');
 
   // If no path is configured for Drush, fallback to the system path.
-  var cmd = {cmd: Drupal.drushPath()};
+  var cmd = {cmd: Drupal.drushPath()},
+    args = [ '--root=<%= config.buildPaths.html %>' ],
+    profile = grunt.config('config.project.profile') || 'standard',
+    dbUrl = grunt.option('db-url') || '';
 
-  var profile = grunt.config('config.project.profile') || 'standard';
-
-  var dbUrl = grunt.option('db-url') || false;
   if (dbUrl) {
     dbUrl = '--db-url=' + dbUrl;
   }
 
   grunt.config(['drush', 'install'], {
-    args: ['site-install', '-yv', profile, dbUrl],
+    args: args.concat(['site-install', '-yv', profile, dbUrl]),
     options: _.extend({
-      cwd: '<%= config.buildPaths.html %>'
     }, cmd)
   });
   grunt.config(['drush', 'sql-drop'], {
-    args:['sql-drop', '-y'],
+    args: args.concat(['sql-drop', '-y']),
     options: _.extend({
-      cwd: '<%= config.buildPaths.html %>'
     }, cmd)
   });
   grunt.config(['drush', 'updb'], {
-    args: ['updatedb', '-y' ],
+    args: args.concat(['updatedb', '-y' ]),
     options: _.extend({
-      cwd: '<%= config.buildPaths.html %>'
     }, cmd)
   });
   grunt.config(['shell', 'loaddb'], {
