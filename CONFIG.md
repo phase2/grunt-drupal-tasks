@@ -284,21 +284,14 @@ This is an example of the settings for theme tasks:
 {
   "themes": {
     "spartan": {
-      "path": "<%= config.srcPaths.drupal %>/themes/spartan",
-      "compass": true
+      "path": "<%= config.srcPaths.drupal %>/themes/spartan"
     }
   }
 }
 ```
 
-**themes**: Defines each custom Drupal theme and enables features, like Sass
-processing by Compass.
-
-**themes.\<theme\>.compass**: Enable compass preprocessing. Either `true` to
-enable with default compass options, or a configuration object to be passed
-directly to
-[grunt-contrib-compass](https://github.com/gruntjs/grunt-contrib-compass)
-for this theme.
+**themes**: Defines each custom Drupal theme and enables features, like
+integration with theme scripts.
 
 **themes.\<theme\>.path**: Specify the path to the theme. Defaults to
 `<%= config.srcPaths.drupal %>/themes/\<theme\>`.
@@ -333,27 +326,8 @@ When one of those three is specified, Grunt Drupal Tasks will automatically
 run the command as part of the actions it takes for `grunt compile-theme`,
 `grunt validate`, and `grunt analyze`.
 
-Note that if you also configure compass for the theme, the existence of a
-"compile-theme" script will be run alongside the Grunt Drupal Tasks compass.
-
 Note that Theme Scripts support the `pre-` and `post-` operations explained in
 Project Operations.
-
-#### Setting Up Gem Dependencies
-
-In order for compass compilation to work, you will need to create a Gemfile
-at your project root. The presence of this Gemfile will activate the `grunt
-bundle-install` task and automatically add it to the build process.
-
-A typical Gemfile focused on SASS support might look like the following:
-
-```ruby
-source 'https://rubygems.org'
-
-gem 'sass', '~>3.3.0'
-gem 'compass', '~> 1.0.1'
-gem 'json', '~>1.8.2'
-```
 
 ### Validate Settings
 

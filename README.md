@@ -24,9 +24,8 @@ line interface, by running:
 npm install -g grunt-cli
 ```
 
-* Some optional features, used in the included example and end-to-end test
-  suite, require additional tools, including <a href="http://bundler.io/">Bundler</a>,
-  <a href="https://getcomposer.org/download/">Composer</a>, Ruby, and RubyGems.
+* Some optional features, used in the included example and end-to-end test suite
+  require additional tools, like <a href="https://getcomposer.org/download/">Composer</a>.
 
 ## Quickstart
 
@@ -45,9 +44,8 @@ provides:
 * CI portability (used with Jenkins so far)
 * Opt-in for a number of great enhancements:
   * Composer dependency management for PHP
-  * Bundler dependency management for Ruby
   * PHP code quality & static analysis checks
-  * Compass compilation
+  * Theme script integration
   * Behat testing
 * Deployment packaging
 * Git Hook management
