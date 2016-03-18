@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## v0.10.1 [2016/03/17]
+
+- Using Drush --root option by default to ensure the docroot is identified.
+- Updating example project to install Drush 8.x instead of dev-master.
+- Removing the theme validate step from the validate:staged special command,
+due to incompatibilities.
+
 ## v0.10.0 [2016/03/08]
 
 - Replaced copy with rsync to move the temporary build output as part of the
