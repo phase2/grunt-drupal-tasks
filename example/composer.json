@@ -7,7 +7,7 @@
         "drush/drush": "8.x",
         "phpmd/phpmd": "~2.1",
         "squizlabs/php_codesniffer": "2.*",
-        "drupal/coder": "8.2.6"
+        "drupal/coder": "~8.2"
     },
     "require": {
         "roave/security-advisories": "dev-master"
