@@ -38,7 +38,7 @@ before_install:
   - composer self-update
   - echo "sendmail_path='true'" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
 install:
-  - npm install -g grunt-cli@^1.0.0-rc1
+  - npm install -g grunt-cli@^1.0.0
   - npm install -g mocha
   - ls -lRa
 script:
