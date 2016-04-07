@@ -1,8 +1,14 @@
 {
     "name": "client/project",
     "description": "{Project} drupal codebase for {client}.",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/arithmetric/MinkZombieDriver"
+        }
+    ],
     "require-dev": {
-        "behat/mink-zombie-driver": "~1.2",
+        "behat/mink-zombie-driver": "dev-feature/fix_tough_cookie_req",
         "drupal/drupal-extension": "~3.0",
         "drush/drush": "dev-master",
         "phpmd/phpmd": "~2.1",
