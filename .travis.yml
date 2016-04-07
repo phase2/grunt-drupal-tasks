@@ -1,7 +1,6 @@
 sudo: false
 language: php
 php:
-  - 5.4
   - 5.5
   - 5.6
   - 7
@@ -18,10 +17,6 @@ env:
   - NVM_NODE_VERSION="node" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
 matrix:
   exclude:
-    - php: 5.4
-      env: NVM_NODE_VERSION="4.3" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
-    - php: 5.4
-      env: NVM_NODE_VERSION="node" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
     - php: 7
       env: NVM_NODE_VERSION="4.3" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js" CXX=g++-4.8
 before_install:
