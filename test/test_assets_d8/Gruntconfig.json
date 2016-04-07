@@ -35,7 +35,6 @@
   "themes": {
     "example_theme": {
       "path": "<%= config.srcPaths.drupal %>/themes/example_theme",
-      "compass": true,
       "scripts": {
         "echo": "echo 'theme scripts run in '$(basename $(pwd))"
       }

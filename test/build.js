@@ -83,16 +83,6 @@ describe('grunt', function() {
         }
       });
     });
-
-    // Ensure the build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css
-    // file exists, which should be created by compass.
-    var sassDest = (drupalCore == '8') ? 'build/html/themes/custom/example_theme/stylesheets/screen.css' : 'build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css';
-    it('it should compile sass files', function(done) {
-      fs.exists(sassDest, function (exists) {
-        assert.ok(exists);
-        done();
-      });
-    });
   });
 
   describe('Script dispatching', function() {
@@ -139,5 +129,4 @@ describe('grunt', function() {
       });
     });
   });
-
 });
