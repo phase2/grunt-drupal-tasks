@@ -16,13 +16,12 @@ tests are meant both to verify the Drupal install as well as Behat test features
      Then I should be on the homepage
       And I should see "User login"
 
-  @api @javascript 
-  Scenario: Ensure the Reports page is loaded into an overlay when the Reports
-  menu item is clicked.
-    Given I am logged in as a user with the "administrator" role
-     When I am on the homepage
-      And I click "Reports"
-     Then I should be on "#overlay=admin/reports"
+  @api @javascript
+  Scenario: Ensure as a logged in user, I can log out (with JS capable driver).
+    Given I am logged in as a user with the "authenticated user" role
+     When I click "Log out"
+     Then I should be on the homepage
+      And I should see "User login"
 
   @wip
   Scenario: This is a broken test scenario, which should be excluded with the
