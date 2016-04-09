@@ -8,7 +8,7 @@
         }
     ],
     "require-dev": {
-        "behat/mink-zombie-driver": "dev-feature/fix_tough_cookie_req",
+        "behat/mink-zombie-driver": "dev-feature/test_remove_tough_cookie",
         "drupal/drupal-extension": "~3.0",
         "drush/drush": "dev-master",
         "phpmd/phpmd": "~2.1",
