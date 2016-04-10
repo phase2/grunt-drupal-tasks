@@ -33,6 +33,7 @@ module.exports = function(grunt) {
       var testLocation = './modules/custom';
       var domain = process.env.GDT_DOMAIN || grunt.config('config.domain') || require('os').hostname();
 
+      grunt.loadNpmTasks('grunt-shell');
       grunt.config(['shell', 'testdrupal'], {
         command: grunt.config.get('config.testing.drupal.command') || 'php ' + script + ' --verbose --color --concurrency 4 --directory ' + testLocation + ' --url ' + domain + ' --php `which php`',
         options: {
