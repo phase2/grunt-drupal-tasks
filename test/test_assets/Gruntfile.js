@@ -5,7 +5,9 @@ module.exports = function(grunt) {
         "make": "src/project.make",
         "drupal": "src"
       },
-      "domain": "project.vm",
+      "siteUrls": {
+        "default": "http://project.local"
+      },
       "packages": {
         "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
         "projFiles": ["README*", "bin/**"]
@@ -22,9 +24,22 @@ module.exports = function(grunt) {
       "behat": {
         "flags": "--tags ~@wip"
       },
+      "validate": {
+        "ignoreError": true
+      },
       "eslint": true,
       "scripts": {
-        "update": "<%= config.drush.cmd %> <%= config.alias %> features-revert-all -yv"
+        "pre-echo": "echo 'pre-op script'",
+        "echo": "echo 'operational scripts run'",
+        "post-echo": "echo 'post-op script'"
+      },
+      "themes": {
+        "example_theme": {
+          "path": "<%= config.srcPaths.drupal %>/themes/example_theme",
+          "scripts": {
+            "echo": "echo 'theme scripts run in '$(basename $(pwd))"
+          }
+        }
       }
     }
   });
