@@ -9,11 +9,13 @@ Code Status (master branch):
 ## Requirements
 
 > Note that Grunt Drupal Tasks is intended to be compatible with Node.js v4 and
-v0.12 and npm v2. Grunt Drupal Tasks may not work with Node.js v5 and npm v3.
+later and PHP v5.5 and later. See the version 0.x series for compatibility with
+earlier versions of Node.js and PHP.
 
-* Install _Node.js v0.12.x or v4.3.x_ either using a
+* Install _Node.js v4.2.x or later_ using
+<a href="https://github.com/creationix/nvm">nvm</a>, a
 <a href="https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager">package manager</a>
-like apt-get, brew, or yum or a
+like apt-get, brew, or yum, or a
 <a href="http://nodejs.org/download/">standalone installer</a>.
 
 * Once _Node.js_ is installed, use _npm_ to install

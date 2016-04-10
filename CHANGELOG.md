@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## v1.0.0-pre
+
+- Dropped support for Node.js v0.12 and earlier and PHP v5.4 and earlier.
+- Removed built-in support for Compass theme compilation and Ruby bundle
+installation.
+- Updated dependencies.
+
+### Upgrade Notes
+
+- Node.js v4 or later is required. Grunt Drupal Tasks is now compatible with
+Node.js v5.
+- PHP v5.5 or later is required.
+- Use of the built-in Compass theme compilation steps must be replaced by custom
+handling at the project- or theme-level.
+
 ## v0.10.1 [2016/03/17]
 
 - Using Drush --root option by default to ensure the docroot is identified.
