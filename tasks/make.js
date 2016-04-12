@@ -50,7 +50,7 @@ module.exports = function(grunt) {
     default: {
       src: [
         '<%= config.srcPaths.make %>',
-        '<%= config.srcPaths.drupal %>/**/*.{make,make.yml}'
+        '<%= config.srcPaths.drupal %>/*.{make,make.yml}'
       ],
       dest: '<%= config.buildPaths.html %>',
     },
