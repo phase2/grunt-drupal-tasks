@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## v0.11.0 [2016/04/12]
+
+- Updated example to use Grunt v1.x. Resolved peer dependency compatibility
+issues with dependencies.
+- Adding default options to use with `composer install` to improve performance
+and cacheability.
+- Added support for processing `*.make.yml` as Drush make files.
+- Fixed issue on Windows where copy:tempbuild was never called.
+- Updated dependencies in example project and for the plugin itself.
+
+### Upgrade Notes
+
+- Grunt should be a dependency in the `package.json` file of projects that use
+Grunt Drupal Tasks. It is recommended to update this to use Grunt `^1.0.0`. If
+projects include any dependency that specifies Grunt as a peer dependency and is
+limited to version `< 0.5`, then you may encounter an incompatible peer
+dependency error when running `npm install`. The recommended solution is to
+upgrade dependencies to versions that are compatible with Grunt v1.x.
+
 ## v0.10.1 [2016/03/17]
 
 - Using Drush --root option by default to ensure the docroot is identified.
