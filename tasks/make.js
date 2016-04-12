@@ -48,7 +48,11 @@ module.exports = function(grunt) {
   // source directory to catch make files included from the primary one.
   grunt.config('drushmake', {
     default: {
-      src: ['<%= config.srcPaths.make %>', '<%= config.srcPaths.drupal %>/**/*.make'],
+      src: [
+        '<%= config.srcPaths.make %>',
+        '<%= config.srcPaths.drupal %>/*.make',
+        '<%= config.srcPaths.drupal %>/*.make.yml'
+      ],
       dest: '<%= config.buildPaths.html %>',
     },
     options: {
