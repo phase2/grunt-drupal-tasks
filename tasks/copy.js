@@ -26,7 +26,8 @@ module.exports = function(grunt) {
         cwd: '<%= config.srcPaths.drupal %>/static',
         src: ['**', '.**'],
         dest: '<%= config.buildPaths.html %>',
-        dot: true
+        dot: true,
+        follow: true
       }
     ]
   });
@@ -41,7 +42,8 @@ module.exports = function(grunt) {
         cwd: '<%= config.buildPaths.temp %>',
         src: ['**', '.**'],
         dest: '<%= config.buildPaths.html %>',
-        dot: true
+        dot: true,
+        follow: true
       }
     ]
   });
