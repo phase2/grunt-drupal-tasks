@@ -111,7 +111,7 @@ describe('grunt', function() {
       });
     });
 
-    // Ensure a custom library file is available under build.
+    // Ensure a custom library file is available under package.
     var librariesPackageDest = (drupalCore == '8') ? 'build/packages/package/libraries/example_lib/example.md' : 'build/packages/package/sites/all/libraries/example_lib/example.md';
     it('custom library file should exist in package', function(done) {
       fs.exists(librariesPackageDest, function (exists) {
