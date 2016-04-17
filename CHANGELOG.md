@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.11.1 [2016/04/17]
+
+- Fixed `grunt package` regression that custom code from the packaged outputs.
+
 ## v0.11.0 [2016/04/12]
 
 - Updated example to use Grunt v1.x. Resolved peer dependency compatibility
