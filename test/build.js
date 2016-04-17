@@ -84,6 +84,60 @@ describe('grunt', function() {
       });
     });
 
+    // Ensure a custom library file is available under build.
+    var librariesBuildDest = (drupalCore == '8') ? 'build/html/libraries/example_lib/example.md' : 'build/html/sites/all/libraries/example_lib/example.md';
+    it('custom library file should exist in build', function(done) {
+      fs.exists(librariesBuildDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    // Ensure a custom module file is available under build.
+    var modulesBuildDest = (drupalCore == '8') ? 'build/html/modules/custom/test.php' : 'build/html/sites/all/modules/custom/test.php';
+    it('custom module file should exist in build', function(done) {
+      fs.exists(modulesBuildDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    // Ensure a custom theme file is available under build.
+    var themesBuildDest = (drupalCore == '8') ? 'build/html/themes/custom/example_theme/config.rb' : 'build/html/sites/all/themes/custom/example_theme/config.rb';
+    it('custom theme file should exist in build', function(done) {
+      fs.exists(themesBuildDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    // Ensure a custom library file is available under package.
+    var librariesPackageDest = (drupalCore == '8') ? 'build/packages/package/libraries/example_lib/example.md' : 'build/packages/package/sites/all/libraries/example_lib/example.md';
+    it('custom library file should exist in package', function(done) {
+      fs.exists(librariesPackageDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    // Ensure a custom module file is available under package.
+    var modulesPackageDest = (drupalCore == '8') ? 'build/packages/package/modules/custom/test.php' : 'build/packages/package/sites/all/modules/custom/test.php';
+    it('custom module file should exist in package', function(done) {
+      fs.exists(modulesPackageDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    // Ensure a custom theme file is available under package.
+    var themesPackageDest = (drupalCore == '8') ? 'build/packages/package/themes/custom/example_theme/config.rb' : 'build/packages/package/sites/all/themes/custom/example_theme/config.rb';
+    it('custom theme file should exist in package', function(done) {
+      fs.exists(themesPackageDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
     // Ensure the build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css
     // file exists, which should be created by compass.
     var sassDest = (drupalCore == '8') ? 'build/html/themes/custom/example_theme/stylesheets/screen.css' : 'build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css';
