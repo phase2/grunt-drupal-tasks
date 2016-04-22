@@ -17,8 +17,10 @@ module.exports = function(grunt) {
       srcFiles = ['**', '!**/.gitkeep'].concat((config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : '**'),
       projFiles = (config && config.projFiles && config.projFiles.length) ? config.projFiles : [];
 
-    var destPath = grunt.config.get('config.buildPaths.package') + '/package';
-    var tasks = []
+    // Look for a package target spec, build destination path.
+    var packageName = grunt.option('name') || config.name || 'package';
+    var destPath = grunt.config.get('config.buildPaths.packages') + '/' + packageName;
+    var tasks = [];
 
     grunt.config('copy.package', {
       files: [
@@ -44,6 +46,9 @@ module.exports = function(grunt) {
       }
     });
 
+    grunt.config.set('clean.packages', [ destPath ]);
+
+    tasks.push('clean:packages');
     tasks.push('copy:package');
 
     if (this.args[0] && this.args[0] == 'compress') {
@@ -55,11 +60,11 @@ module.exports = function(grunt) {
           gruntLogHeader: false
         },
         files: [
-          {
+          { 
             expand: true,
             dot: true,
-            cwd: grunt.config.get('config.buildPaths.package'),
-            src: 'package/**',
+            cwd: grunt.config.get('config.buildPaths.packages') + '/' + packageName,
+            src: ['**'],
           }
         ]
       });
@@ -74,4 +79,5 @@ module.exports = function(grunt) {
     task: 'package',
     group: 'Operations'
   });
+
 };

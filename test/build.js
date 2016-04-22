@@ -1,5 +1,5 @@
 var assert = require('assert');
-var fs = require('fs');
+var fs = require('fs-extra');
 var exec = require('child_process').exec;
 
 describe('grunt', function() {
@@ -194,4 +194,58 @@ describe('grunt', function() {
     });
   });
 
+  describe('Packaging', function() {
+    // Package commands can take excessive time (> 10 minutes for D8).
+    // Before testing them, remove the bulk of the Drupal codebase.
+    before(function(done) {
+      fs.move('build/html/core', 'build/cache/core', function(err) {
+        fs.move('build/html/modules', 'build/cache/modules', function(err) {
+          done();
+        });
+      });
+    });
+
+    it('should place the build codebase in build/packages/package by default', function(done) {
+      exec('grunt package', function(error, stdout, stderr) {
+        fs.exists('build/packages/package/index.php', function(exists) {
+          assert.ok(!error && exists);
+          done();
+        });
+      });
+    });
+
+    it('should allow override of grunt package destination with --name', function(done) {
+      exec('grunt package --name=upstream', function(error, stdout, stderr) {
+        fs.exists('build/packages/upstream/index.php', function(exists) {
+          assert.ok(!error && exists);
+          done();
+        });
+      });
+    });
+
+    it('should compress the package with grunt package:compress', function(done) {
+      exec('grunt package:compress --name=archive', function(error, stdout, stderr) {
+        fs.exists('build/packages/archive.tgz', function(exists) {
+          assert.ok(!error && exists);
+          done();
+        });
+      });
+    });
+
+    it('should only clean the package with the current name', function(done) {
+      // Two package operations have occurred since this was created.
+      fs.exists('build/packages/package', function(exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    after(function(done) {
+      fs.move('build/cache/core', 'build/html/core', function(err) {
+        fs.move('build/cache/modules', 'build/html/modules', function(err) {
+          done();
+        });
+      });
+    });
+  });
 });
