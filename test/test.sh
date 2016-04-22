@@ -13,6 +13,7 @@ run_tests () {
   grunt test
   sleep 1; while (ps aux | grep '[b]ehat' > /dev/null); do sleep 1; done
   for pid in `ps aux | grep drush | grep runserver | awk '{print $2}'`; do echo "Stopping drush pid $pid"; kill -SIGINT $pid; done;
+  grunt package --quiet
   # end-to-end tests
   mocha --timeout 10000 node_modules/grunt-drupal-tasks/test/build.js
   # unit tests

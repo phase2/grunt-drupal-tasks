@@ -25,7 +25,7 @@ module.exports = function(grunt) {
   });
 
   Help.add({
-    task: 'clean',
+    task: 'clean:default',
     group: 'Utilities',
     description: 'Use "clean" to remove the build output directory.'
   });
