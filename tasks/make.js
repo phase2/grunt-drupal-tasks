@@ -48,7 +48,10 @@ module.exports = function(grunt) {
   // source directory to catch make files included from the primary one.
   grunt.config('drushmake', {
     default: {
-      src: ['<%= config.srcPaths.make %>', '<%= config.srcPaths.drupal %>/**/*.make'],
+      src: [
+        '<%= config.srcPaths.make %>',
+        '<%= config.srcPaths.drupal %>/**/*.{make,make.yml}'
+      ],
       dest: '<%= config.buildPaths.html %>',
     },
     options: {
@@ -57,7 +60,7 @@ module.exports = function(grunt) {
         'clean:temp',
         'drush:make',
         'clean:default',
-        gdt.canRsync ? 'rsync:tempbuild' : 'copy:tempbuild',
+        gdt.canRsync() ? 'rsync:tempbuild' : 'copy:tempbuild',
         'clean:temp'
       ]
     }

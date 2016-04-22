@@ -205,7 +205,11 @@ module.exports = function(grunt) {
       grunt.loadNpmTasks('grunt-' + mode);
       // Wrap each task configured for validate in the newer command.
       // grunt-phplint already contains complex caching that does the same thing.
-      validate = validate.map(function(item) { return item != 'phplint:all' ? mode + ':' + item : item; });
+      validate = validate.filter(function(item) {
+        return item.indexOf('themes:') !== 0;
+      }).map(function(item) {
+        return item != 'phplint:all' ? mode + ':' + item : item;
+      });
     }
 
     if (validate.length) {

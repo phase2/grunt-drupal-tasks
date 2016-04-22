@@ -29,13 +29,15 @@ module.exports = function(grunt) {
           cwd: '<%= config.buildPaths.html %>',
           src: srcFiles,
           dest: destPath + (grunt.config.get('config.packages.dest.docroot') || ''),
-          dot: true
+          dot: true,
+          follow: true
         },
         {
           expand: true,
           src: projFiles,
           dest: destPath + (grunt.config.get('config.packages.dest.devResources') || ''),
-          dot: true
+          dot: true,
+          follow: true
         }
       ],
       options: {

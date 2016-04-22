@@ -38,7 +38,7 @@ before_install:
   - composer self-update
   - echo "sendmail_path='true'" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
 install:
-  - npm install -g grunt-cli
+  - npm install -g grunt-cli@^1.0.0
   - npm install -g mocha
   - ls -lRa
 script:
@@ -46,6 +46,7 @@ script:
   - ./test/create_working_copy.sh
   - cd test/working_copy/
   - echo "Working copy disk usage"; du -chs .
+  - grunt --version
   - grunt help
   - grunt --quiet --timer
   - echo "Fully built disk usage"; du -chs .
@@ -56,5 +57,6 @@ script:
   - grunt test
   - sleep 1; while (ps aux | grep '[b]ehat' > /dev/null); do sleep 1; done
   - for pid in `ps aux | grep drush | grep runserver | awk '{print $2}'`; do echo "Stopping drush pid $pid"; kill -SIGINT $pid; done;
+  - grunt package --quiet
   - mocha --timeout 10000 node_modules/grunt-drupal-tasks/test/build.js
   - mocha node_modules/grunt-drupal-tasks/test/library.js

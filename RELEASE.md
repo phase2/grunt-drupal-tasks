@@ -25,7 +25,8 @@ Drupal Tasks:
     file contains the version of Grunt Drupal Tasks, it should be updated as
     part of the release process.
 
-    Delete the existing `npm-shrinkwrap.json` and run `npm shrinkwrap`.
+    First, delete `npm-shrinkwrap.json` and `node_modules`. Then, run `npm i &&
+    npm shrinkwrap`.
 
 - Tag a new version.
 

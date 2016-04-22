@@ -11,7 +11,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-composer');
     var Help = require('../lib/help')(grunt);
 
-    grunt.config(['composer', 'install'], {});
+    grunt.config(['composer', 'install'], {
+      options: {
+        flags: [
+          'no-interaction',
+          'no-progress',
+          'prefer-dist'
+        ],
+      }
+    });
 
     Help.add({
       task: 'composer',
