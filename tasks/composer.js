@@ -21,10 +21,38 @@ module.exports = function(grunt) {
       }
     });
 
+    grunt.config(['composer', 'drupal-install'], {
+      options: {
+        flags: [
+          'no-interaction',
+          'no-progress',
+          'prefer-dist'
+        ],
+        cwd: 'build/html'
+      }
+    });
+
     Help.add({
-      task: 'composer',
+      task: 'composer:install',
       group: 'Dependency Management',
-      description: 'Install dependencies defined in this project\'s composer.json file.'
+      description: 'Install development dependencies defined in this project\'s composer.json file.'
     });
   }
+
+  grunt.registerTask('composer-drupal', 'Install Drupal dependencies and update autoloader.', function() {
+    grunt.task.requires('drushmake:default');
+    grunt.task.requires('scaffold');
+
+    var done = this.async();
+    var drupal = require('../lib/drupal')(grunt);
+    drupal.loadDrushStatus(function (err, status) {
+      if (err) {
+        grunt.fail.fatal('Cannot load Drush status for built Drupal docroot.\n\n' + err);
+      }
+      else if (require('semver').gte(status['drupal-version'], '8.1')) {
+        grunt.task.run('composer:drupal-install');
+      }
+      done();
+    });
+  });
 };
