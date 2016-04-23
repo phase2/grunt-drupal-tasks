@@ -103,7 +103,7 @@ describe('grunt', function() {
     });
 
     // Ensure a custom theme file is available under build.
-    var themesBuildDest = (drupalCore == '8') ? 'build/html/themes/custom/example_theme/config.rb' : 'build/html/sites/all/themes/custom/example_theme/config.rb';
+    var themesBuildDest = (drupalCore == '8') ? 'build/html/themes/custom/example_theme/example_theme.info' : 'build/html/sites/all/themes/custom/example_theme/example_theme.info';
     it('custom theme file should exist in build', function(done) {
       fs.exists(themesBuildDest, function (exists) {
         assert.ok(exists);
@@ -130,19 +130,9 @@ describe('grunt', function() {
     });
 
     // Ensure a custom theme file is available under package.
-    var themesPackageDest = (drupalCore == '8') ? 'build/packages/package/themes/custom/example_theme/config.rb' : 'build/packages/package/sites/all/themes/custom/example_theme/config.rb';
+    var themesPackageDest = (drupalCore == '8') ? 'build/packages/package/themes/custom/example_theme/example_theme.info' : 'build/packages/package/sites/all/themes/custom/example_theme/example_theme.info';
     it('custom theme file should exist in package', function(done) {
       fs.exists(themesPackageDest, function (exists) {
-        assert.ok(exists);
-        done();
-      });
-    });
-
-    // Ensure the build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css
-    // file exists, which should be created by compass.
-    var sassDest = (drupalCore == '8') ? 'build/html/themes/custom/example_theme/stylesheets/screen.css' : 'build/html/sites/all/themes/custom/example_theme/stylesheets/screen.css';
-    it('it should compile sass files', function(done) {
-      fs.exists(sassDest, function (exists) {
         assert.ok(exists);
         done();
       });
