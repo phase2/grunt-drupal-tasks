@@ -53,7 +53,7 @@
     "url": "https://github.com/phase2/grunt-drupal-tasks.git"
   },
   "scripts": {
-    "lint": "eslint .; true",
+    "lint": "eslint .",
     "test": "./test/test.sh"
   }
 }

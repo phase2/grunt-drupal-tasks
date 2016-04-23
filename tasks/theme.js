@@ -1,11 +1,10 @@
 module.exports = function(grunt) {
-
   /**
    * Define "compile-theme" task.
    *
    * Individual themes "register" with grunt by adding a configuration object
-   * the themes section of configuration. Each theme may specify a non-default path.
-   * From there they may specify commands that should be passed to scripts
+   * the themes section of configuration. Each theme may specify a non-default
+   * path. From there they may specify commands that should be passed to scripts
    * provided with the theme.
    *
    * Example:
@@ -32,9 +31,8 @@ module.exports = function(grunt) {
    *   }
    * }
    */
-
-  var config = grunt.config.get('config'),
-    steps = [];
+  var config = grunt.config.get('config');
+  var steps = [];
 
   if (config.themes) {
     var Help = require('../lib/help')(grunt);
@@ -43,10 +41,10 @@ module.exports = function(grunt) {
       if (config.themes.hasOwnProperty(key)) {
         var theme = config.themes[key];
 
-        // If the compile-theme delegation script is truthy trigger it as part of the
-        // compile theme task. This ensures developers not working directly with the
-        // theme and CI systems can still use the primary grunt implementation as a
-        // single authority for the build process.
+        // If the compile-theme delegation script is truthy trigger it as part
+        // of the compile theme task. This ensures developers not working
+        // directly with the theme and CI systems can still use the primary
+        // grunt implementation as a single authority for the build process.
         if (theme.scripts && theme.scripts['compile-theme']) {
           steps.push('themes:' + key + ':compile-theme');
         }
@@ -62,14 +60,14 @@ module.exports = function(grunt) {
       });
     }
 
-    // Register a passthru task that can call out to theme-specific Grunt tooling.
+    // Register a passthru task that calls out to theme-specific Grunt tooling.
     grunt.registerTask('themes', 'Proxies tasks to theme-specific, pre-defined command-line operations.', function() {
       var themes = grunt.config('config.themes');
       if (!this.args[0]) {
-        for (key in themes) {
-          grunt.log.writeln(key + ' (' + themes[key].path + ')');
-        }
-        return;
+        var _ = require('lodash');
+        _.each(themes, function(theme, key) {
+          grunt.log.writeln(key + ' (' + theme.path + ')');
+        });
       }
 
       var theme = this.args[0];
@@ -86,6 +84,5 @@ module.exports = function(grunt) {
       task: 'themes',
       group: 'Utilities'
     });
-
   }
 };
