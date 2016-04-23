@@ -103,7 +103,7 @@ describe('grunt', function() {
     });
 
     // Ensure a custom theme file is available under build.
-    var themesBuildDest = (drupalCore == '8') ? 'build/html/themes/custom/example_theme/example_theme.info' : 'build/html/sites/all/themes/custom/example_theme/example_theme.info';
+    var themesBuildDest = (drupalCore == '8') ? 'build/html/themes/custom/example_theme/example_theme.info.yml' : 'build/html/sites/all/themes/custom/example_theme/example_theme.info';
     it('custom theme file should exist in build', function(done) {
       fs.exists(themesBuildDest, function (exists) {
         assert.ok(exists);
@@ -130,7 +130,7 @@ describe('grunt', function() {
     });
 
     // Ensure a custom theme file is available under package.
-    var themesPackageDest = (drupalCore == '8') ? 'build/packages/package/themes/custom/example_theme/example_theme.info' : 'build/packages/package/sites/all/themes/custom/example_theme/example_theme.info';
+    var themesPackageDest = (drupalCore == '8') ? 'build/packages/package/themes/custom/example_theme/example_theme.info.yml' : 'build/packages/package/sites/all/themes/custom/example_theme/example_theme.info';
     it('custom theme file should exist in package', function(done) {
       fs.exists(themesPackageDest, function (exists) {
         assert.ok(exists);
