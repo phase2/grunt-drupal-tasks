@@ -49,7 +49,7 @@ module.exports = function(grunt) {
       if (err) {
         grunt.fail.fatal('Cannot load Drush status for built Drupal docroot.\n\n' + err);
       }
-      else if (require('semver').gte(status['drupal-version'], '8.1')) {
+      else if (require('semver').gte(status['drupal-version'], '8.1.0')) {
         grunt.task.run('composer:drupal-install');
       }
       done();
