@@ -4,11 +4,11 @@
     "repositories": [
         {
             "type": "git",
-            "url": "https://github.com/arithmetric/MinkZombieDriver"
+            "url": "https://github.com/minkphp/MinkZombieDriver"
         }
     ],
     "require-dev": {
-        "behat/mink-zombie-driver": "dev-feature/test_remove_tough_cookie",
+        "behat/mink-zombie-driver": "dev-master#dd32fbd6988881dbab583225b65b787a893bb131",
         "drupal/drupal-extension": "~3.0",
         "drush/drush": "^8",
         "drupal/coder": "^8.2",
