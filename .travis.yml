@@ -17,6 +17,13 @@ env:
   - NVM_NODE_VERSION="5" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
   - NVM_NODE_VERSION="6" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
 matrix:
+  allow_failures:
+    - php: 5.5
+      env: NVM_NODE_VERSION="6" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
+    - php: 5.6
+      env: NVM_NODE_VERSION="6" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
+    - php: 7
+      env: NVM_NODE_VERSION="6" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
   exclude:
     - php: 7
       env: NVM_NODE_VERSION="4.3" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js" CXX=g++-4.8
@@ -47,5 +54,5 @@ script:
   - sleep 1; while (ps aux | grep '[b]ehat' > /dev/null); do sleep 1; done
   - for pid in `ps aux | grep drush | grep runserver | awk '{print $2}'`; do echo "Stopping drush pid $pid"; kill -SIGINT $pid; done;
   - grunt package --quiet
-  - mocha --timeout 10000 node_modules/grunt-drupal-tasks/test/build.js
+  - mocha --timeout 30000 node_modules/grunt-drupal-tasks/test/build.js
   - mocha node_modules/grunt-drupal-tasks/test/library.js
