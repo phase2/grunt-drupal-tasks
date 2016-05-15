@@ -1,8 +1,14 @@
 {
     "name": "client/project",
     "description": "{Project} drupal codebase for {client}.",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/minkphp/MinkZombieDriver"
+        }
+    ],
     "require-dev": {
-        "behat/mink-zombie-driver": "~1.2",
+        "behat/mink-zombie-driver": "dev-master#dd32fbd6988881dbab583225b65b787a893bb131",
         "drupal/drupal-extension": "~3.0",
         "drush/drush": "^8",
         "drupal/coder": "^8.2",

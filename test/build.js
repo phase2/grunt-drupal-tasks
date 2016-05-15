@@ -1,5 +1,5 @@
 var assert = require('assert');
-var fs = require('fs');
+var fs = require('fs-extra');
 var exec = require('child_process').exec;
 
 describe('grunt', function() {
@@ -83,6 +83,60 @@ describe('grunt', function() {
         }
       });
     });
+
+    // Ensure a custom library file is available under build.
+    var librariesBuildDest = (drupalCore == '8') ? 'build/html/libraries/example_lib/example.md' : 'build/html/sites/all/libraries/example_lib/example.md';
+    it('custom library file should exist in build', function(done) {
+      fs.exists(librariesBuildDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    // Ensure a custom module file is available under build.
+    var modulesBuildDest = (drupalCore == '8') ? 'build/html/modules/custom/test.php' : 'build/html/sites/all/modules/custom/test.php';
+    it('custom module file should exist in build', function(done) {
+      fs.exists(modulesBuildDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    // Ensure a custom theme file is available under build.
+    var themesBuildDest = (drupalCore == '8') ? 'build/html/themes/custom/example_theme/example_theme.info.yml' : 'build/html/sites/all/themes/custom/example_theme/example_theme.info';
+    it('custom theme file should exist in build', function(done) {
+      fs.exists(themesBuildDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    // Ensure a custom library file is available under package.
+    var librariesPackageDest = (drupalCore == '8') ? 'build/packages/package/libraries/example_lib/example.md' : 'build/packages/package/sites/all/libraries/example_lib/example.md';
+    it('custom library file should exist in package', function(done) {
+      fs.exists(librariesPackageDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    // Ensure a custom module file is available under package.
+    var modulesPackageDest = (drupalCore == '8') ? 'build/packages/package/modules/custom/test.php' : 'build/packages/package/sites/all/modules/custom/test.php';
+    it('custom module file should exist in package', function(done) {
+      fs.exists(modulesPackageDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    // Ensure a custom theme file is available under package.
+    var themesPackageDest = (drupalCore == '8') ? 'build/packages/package/themes/custom/example_theme/example_theme.info.yml' : 'build/packages/package/sites/all/themes/custom/example_theme/example_theme.info';
+    it('custom theme file should exist in package', function(done) {
+      fs.exists(themesPackageDest, function (exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
   });
 
   describe('Script dispatching', function() {
@@ -124,6 +178,61 @@ describe('grunt', function() {
       exec('grunt git-setup', function(error, stdout, stderr) {
         fs.exists('./.git/hooks/pre-commit', function(exists) {
           assert.ok(!error && exists);
+          done();
+        });
+      });
+    });
+  });
+
+  describe('Packaging', function() {
+    // Package commands can take excessive time (> 10 minutes for D8).
+    // Before testing them, remove the bulk of the Drupal codebase.
+    before(function(done) {
+      fs.move('build/html/core', 'build/cache/core', function(err) {
+        fs.move('build/html/modules', 'build/cache/modules', function(err) {
+          done();
+        });
+      });
+    });
+
+    it('should place the build codebase in build/packages/package by default', function(done) {
+      exec('grunt package', function(error, stdout, stderr) {
+        fs.exists('build/packages/package/index.php', function(exists) {
+          assert.ok(!error && exists);
+          done();
+        });
+      });
+    });
+
+    it('should allow override of grunt package destination with --name', function(done) {
+      exec('grunt package --name=upstream', function(error, stdout, stderr) {
+        fs.exists('build/packages/upstream/index.php', function(exists) {
+          assert.ok(!error && exists);
+          done();
+        });
+      });
+    });
+
+    it('should compress the package with grunt package:compress', function(done) {
+      exec('grunt package:compress --name=archive', function(error, stdout, stderr) {
+        fs.exists('build/packages/archive.tgz', function(exists) {
+          assert.ok(!error && exists);
+          done();
+        });
+      });
+    });
+
+    it('should only clean the package with the current name', function(done) {
+      // Two package operations have occurred since this was created.
+      fs.exists('build/packages/package', function(exists) {
+        assert.ok(exists);
+        done();
+      });
+    });
+
+    after(function(done) {
+      fs.move('build/cache/core', 'build/html/core', function(err) {
+        fs.move('build/cache/modules', 'build/html/modules', function(err) {
           done();
         });
       });
