@@ -4,7 +4,7 @@
     "require-dev": {
         "behat/mink-zombie-driver": "~1.2",
         "drupal/drupal-extension": "~3.0",
-        "drush/drush": "dev-master",
+        "drush/drush": "^8",
         "phpmd/phpmd": "~2.1",
         "drupal/coder": "^8.2",
         "guzzlehttp/guzzle" : "^6.0@dev",
