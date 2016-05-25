@@ -44,13 +44,19 @@ module.exports = function(grunt) {
   });
 
   // The "drushmake" task will run make only if the src file specified here is
-  // newer than the dest file specified. This includes all make files in the
-  // source directory to catch make files included from the primary one.
+  // newer than the dest file specified. This includes scanning recursively into
+  // the source directory for common places included makefiles might be located.
   grunt.config('drushmake', {
     default: {
       src: [
+        // Check the configured makefile.
         '<%= config.srcPaths.make %>',
-        '<%= config.srcPaths.drupal %>/**/*.{make,make.yml}'
+        // Check files at the immediate root of the Drupal source files.
+        '<%= config.srcPaths.drupal %>/*.{make,make.yml}'
+        // Recursively check inside modules, profiles, and libraries.
+        '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.{make,make.yml}'
+        // Check at the immediate root of each theme.
+        '<%= config.srcPaths.drupal %>/themes/*/*.{make,make.yml}'
       ],
       dest: '<%= config.buildPaths.html %>',
     },
