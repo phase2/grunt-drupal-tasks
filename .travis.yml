@@ -36,6 +36,7 @@ before_install:
 install:
   - npm install -g grunt-cli@^1.0.0
   - npm install -g mocha
+  - npm install
   - ls -lRa
 script:
   - echo "Code checkout disk usage"; du -chs .
