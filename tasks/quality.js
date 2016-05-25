@@ -36,7 +36,8 @@ module.exports = function(grunt) {
   // Include common sites and theme locations in phplint validation.
   var phplintPatterns = defaultPatterns.slice(0);
   phplintPatterns.unshift.apply(phplintPatterns, [
-    '<%= config.srcPaths.drupal %>/sites/**/*.{php,inc}',
+    '<%= config.srcPaths.drupal %>/sites/*/*.{php,inc}',
+    '<%= config.srcPaths.drupal %>/sites/*/*/*.{php,inc}',
     '<%= config.srcPaths.drupal %>/themes/*/template.php',
     '<%= config.srcPaths.drupal %>/themes/*/templates/**/*.php',
     '<%= config.srcPaths.drupal %>/themes/*/includes/**/*.{inc,php}'
