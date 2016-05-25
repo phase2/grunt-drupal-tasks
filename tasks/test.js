@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-
   var Drupal = require('../lib/drupal')(grunt);
   var Help = require('../lib/help')(grunt);
 
@@ -11,7 +10,7 @@ module.exports = function(grunt) {
   });
 
   // @todo Would rather display as 'alias for test:behat, test:drupal, etc'.
-  grunt.registerMultiTask('test', 'Run all configured tests.', function(args) {
+  grunt.registerMultiTask('test', 'Run all configured tests.', function() {
     var self = this;
     var done = this.async();
 
@@ -21,21 +20,27 @@ module.exports = function(grunt) {
         return done();
       }
 
-      // Only run Drupal tests on D8 and higher. For D7, there is no option to run tests in a directory, so projects
-      // wishing to do this would add a separate task and hard-code the test groups that need to run.
+      // Only run Drupal tests on D8 and higher. For D7, there is no option to
+      // run tests in a directory, so projects wishing to do this would add a
+      // separate task and hard-code the test groups that need to run.
       var majorVersion = Drupal.majorVersion();
-      if (majorVersion != 8 && self.target == 'drupal') {
-        grunt.verbose.write('Running Drupal tests by directory is unsupported in Drupal 7. Create a custom task to run test groups as needed.');
+      if (majorVersion !== 8 && self.target === 'drupal') {
+        grunt.verbose.write('Running Drupal tests by directory is ' +
+          'unsupported in Drupal 7. Create a custom task to run test groups ' +
+          'as needed.');
         return done();
       }
 
       var script = './core/scripts/run-tests.sh';
       var testLocation = './modules/custom';
-      var domain = process.env.GDT_DOMAIN || grunt.config('config.domain') || require('os').hostname();
+      var domain = process.env.GDT_DOMAIN || grunt.config('config.domain') ||
+        require('os').hostname();
 
       grunt.loadNpmTasks('grunt-shell');
       grunt.config(['shell', 'testdrupal'], {
-        command: grunt.config.get('config.testing.drupal.command') || 'php ' + script + ' --verbose --color --concurrency 4 --directory ' + testLocation + ' --url ' + domain + ' --php `which php`',
+        command: grunt.config.get('config.testing.drupal.command') || 'php ' +
+          script + ' --verbose --color --concurrency 4 --directory ' +
+          testLocation + ' --url ' + domain + ' --php `which php`',
         options: {
           execOptions: {
             cwd: '<%= config.buildPaths.html %>'
@@ -51,11 +56,12 @@ module.exports = function(grunt) {
         case 'drupal':
           grunt.task.run('shell:testdrupal');
           break;
+
+        default:
       }
 
       done();
     });
-
   });
 
   Help.add({
@@ -63,4 +69,4 @@ module.exports = function(grunt) {
     group: 'Testing & Code Quality',
     description: 'Run custom module and Behat tests included with this project.'
   });
-}
+};

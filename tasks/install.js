@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-
   /**
    * Define tasks to quickly get Drupal running.
    *
@@ -13,16 +12,16 @@ module.exports = function(grunt) {
    */
   grunt.loadNpmTasks('grunt-drush');
 
-  var Help = require('../lib/help')(grunt),
-    Drupal = require('../lib/drupal')(grunt),
-    path = require('path'),
-    _ = require('lodash');
+  var Help = require('../lib/help')(grunt);
+  var Drupal = require('../lib/drupal')(grunt);
+
+  var _ = require('lodash');
 
   // If no path is configured for Drush, fallback to the system path.
-  var cmd = {cmd: Drupal.drushPath()},
-    args = [ '--root=<%= config.buildPaths.html %>' ],
-    profile = grunt.config('config.project.profile') || 'standard',
-    dbUrl = grunt.option('db-url') || '';
+  var cmd = {cmd: Drupal.drushPath()};
+  var args = ['--root=<%= config.buildPaths.html %>'];
+  var profile = grunt.config('config.project.profile') || 'standard';
+  var dbUrl = grunt.option('db-url') || '';
 
   if (dbUrl) {
     dbUrl = '--db-url=' + dbUrl;
@@ -39,7 +38,7 @@ module.exports = function(grunt) {
     }, cmd)
   });
   grunt.config(['drush', 'updb'], {
-    args: args.concat(['updatedb', '-y' ]),
+    args: args.concat(['updatedb', '-y']),
     options: _.extend({
     }, cmd)
   });
@@ -66,7 +65,7 @@ module.exports = function(grunt) {
           // Load new database.
           'shell:loaddb',
           // Run any pending database updates.
-          'drush:updb',
+          'drush:updb'
         ];
 
         tasks = require('../lib/scripts')(grunt)
@@ -75,8 +74,7 @@ module.exports = function(grunt) {
         grunt.task.run(tasks);
         done();
       });
-    }
-    else {
+    } else {
       var tasks = [
         // Run site install.
         'drush:install'

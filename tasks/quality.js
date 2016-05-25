@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-
   /**
    * Define "validate" and "analyze" tasks, and include required plugins.
    *
@@ -19,8 +18,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-phpcs');
   grunt.loadNpmTasks('grunt-phpmd');
 
-  var Help = require('../lib/help')(grunt),
-    _ = require('lodash');
+  var Help = require('../lib/help')(grunt);
+  var _ = require('lodash');
 
   // Task set aliases are registered at the end of the file based on these values.
   var validate = [];
@@ -35,7 +34,7 @@ module.exports = function(grunt) {
 
   // Include common sites and theme locations in phplint validation.
   var phplintPatterns = defaultPatterns.slice(0);
-  phplintPatterns.unshift.apply(phplintPatterns, [
+  phplintPatterns.unshift([
     '<%= config.srcPaths.drupal %>/sites/*/*.{php,inc}',
     '<%= config.srcPaths.drupal %>/sites/*/*/*.{php,inc}',
     '<%= config.srcPaths.drupal %>/themes/*/template.php',
@@ -54,11 +53,12 @@ module.exports = function(grunt) {
 
   if (grunt.config.get('config.phpcs')) {
     var phpcs = grunt.config.get('config.phpcs.dir') || phpcsPatterns;
-    var phpStandard = grunt.config('config.phpcs.standard')
-      || 'vendor/drupal/coder/coder_sniffer/Drupal,vendor/drupal/coder/coder_sniffer/DrupalPractice';
+    var phpStandard = grunt.config('config.phpcs.standard') ||
+      'vendor/drupal/coder/coder_sniffer/Drupal,vendor/drupal/coder/coder_sniffer/DrupalPractice';
 
     // Support deprecated config.phpcs.ignoreExitCode value until 1.0.
-    var ignoreError = grunt.config('config.validate.ignoreError') || grunt.config('config.phpcs.ignoreExitCode');
+    var ignoreError = grunt.config('config.validate.ignoreError') ||
+      grunt.config('config.phpcs.ignoreExitCode');
     ignoreError = ignoreError === undefined ? false : ignoreError;
 
     grunt.config('phpcs', {
@@ -126,26 +126,26 @@ module.exports = function(grunt) {
 
   var themes = grunt.config('config.themes');
   if (grunt.config.get('config.eslint')) {
-    var eslintConfig = grunt.config.get('config.eslint'),
-      eslintTarget = eslintConfig.dir || [
-          '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
-          '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
-        ],
-      eslintTargetAnalyze = eslintTarget,
-      eslintConfigFile = eslintConfig.configFile || process.cwd() + '/.eslintrc';
+    var eslintConfig = grunt.config.get('config.eslint');
+    var eslintTarget = eslintConfig.dir || [
+      '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
+      '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
+    ];
+    var eslintTargetAnalyze = eslintTarget;
+    var eslintConfigFile = eslintConfig.configFile || process.cwd() + '/.eslintrc';
 
-    for (var key in themes) {
-      if (themes[key].scripts && themes[key].scripts.validate) {
+    _.each(themes, function(theme, key) {
+      if (theme.scripts && theme.scripts.validate) {
         // If the theme has a validate task of it's own, then exclude its
         // javascript files from our validate process.
         eslintTarget.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/js/**/*.js');
       }
-      if (themes[key].scripts && themes[key].scripts.analyze) {
+      if (theme.scripts && theme.scripts.analyze) {
         // If the theme has an analyze task of it's own, then exclude its
         // javascript files from our analyze process.
         eslintTargetAnalyze.push('!<%= config.srcPaths.drupal %>/themes/' + key + '/js/**/*.js');
       }
-    }
+    });
 
     grunt.config('eslint', {
       options: {
@@ -173,43 +173,44 @@ module.exports = function(grunt) {
   }
 
   var filesToProcess = function(patterns) {
-    var paths = _.map(patterns, function (item) {
+    var paths = _.map(patterns, function(item) {
       return grunt.template.process(item);
     });
 
     // If length is evaluated to truthy at least one file matched.
     return grunt.file.expand(paths);
-  }
+  };
 
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
     var phpcs = grunt.config.get('phpcs.validate');
+    var files;
     if (phpcs) {
-      var files = filesToProcess(phpcs.src);
+      files = filesToProcess(phpcs.src);
       if (files.length) {
         grunt.config.set('phpcs.validate.src', files);
         validate.push('phpcs:validate');
       }
     }
-    var eslint = grunt.config.get('eslint.validate'),
-      eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
-      eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
+    var eslint = grunt.config.get('eslint.validate');
+    var eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError');
+    var eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
     if (eslint) {
-      var files = filesToProcess(eslint);
+      files = filesToProcess(eslint);
       if (files.length) {
         grunt.config.set('eslint.validate', files);
         validate.push(eslintName + ':validate');
       }
     }
 
-    if (mode == 'newer' || mode == 'staged') {
+    if (mode === 'newer' || mode === 'staged') {
       // This works because grunt-newer and grunt-staged have consisting naming.
       grunt.loadNpmTasks('grunt-' + mode);
       // Wrap each task configured for validate in the newer command.
-      // grunt-phplint already contains complex caching that does the same thing.
+      // grunt-phplint contains complex caching that does the same thing.
       validate = validate.filter(function(item) {
         return item.indexOf('themes:') !== 0;
       }).map(function(item) {
-        return item != 'phplint:all' ? mode + ':' + item : item;
+        return item === 'phplint:all' ? item : mode + ':' + item;
       });
     }
 
@@ -220,19 +221,21 @@ module.exports = function(grunt) {
 
   grunt.registerTask('analyze', 'Generate reports on code quality for use by Jenkins or other visualization tools.', function() {
     var phpcs = grunt.config.get('phpcs.analyze');
+    var files;
     if (phpcs) {
-      var files = filesToProcess(phpcs.src);
+      files = filesToProcess(phpcs.src);
       if (files.length) {
         grunt.config.set('phpcs.analyze', files);
         analyze.push('phpcs:analyze');
       }
     }
-    var eslint = grunt.config.get('eslint.analyze'),
-      eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError'),
-      eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
+    var eslint = grunt.config.get('eslint.analyze');
+    var eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError');
+    var eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
     if (eslint) {
-      // The eslint:analyze task has a deeper configuration structure than eslint:validate.
-      var files = filesToProcess(eslint.src);
+      // The eslint:analyze task has a deeper configuration structure than
+      // eslint:validate.
+      files = filesToProcess(eslint.src);
       if (files.length) {
         grunt.config.set('eslint.analyze', files);
         analyze.push(eslintName + ':analyze');
@@ -240,6 +243,7 @@ module.exports = function(grunt) {
     }
 
     if (analyze.length) {
+      var tasks = analyze;
       if (analyze.length > 1) {
         grunt.loadNpmTasks('grunt-concurrent');
         grunt.config(['concurrent', 'analyze'], {
@@ -248,10 +252,7 @@ module.exports = function(grunt) {
             logConcurrentOutput: true
           }
         });
-        var tasks = ['concurrent:analyze']
-      }
-      else {
-        var tasks = analyze;
+        tasks = ['concurrent:analyze'];
       }
 
       tasks.unshift('mkdir:init');

@@ -5,8 +5,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
       config: config
     });
-  }
-  else {
+  } else {
     grunt.config.set('config', config);
   }
 
@@ -16,10 +15,11 @@ module.exports = function(grunt) {
   // Wrap Grunt's loadNpmTasks() function to allow loading Grunt task modules
   // that are dependencies of Grunt Drupal Tasks.
   grunt._loadNpmTasks = grunt.loadNpmTasks;
-  grunt.loadNpmTasks = function (mod) {
+  grunt.loadNpmTasks = function(mod) {
     var internalMod = grunt.file.exists(__dirname, 'node_modules', mod);
+    var pathOrig;
     if (internalMod) {
-      var pathOrig = process.cwd();
+      pathOrig = process.cwd();
       process.chdir(__dirname);
     }
     grunt._loadNpmTasks(mod);
@@ -29,12 +29,14 @@ module.exports = function(grunt) {
   };
 
   // Load all tasks from grunt-drupal-tasks.
-  grunt.loadTasks(__dirname + '/tasks');
+  var path = require('path');
+  grunt.loadTasks(path.join(__dirname, '/tasks'));
 
   // Define the default task to fully build and configure the project.
   var tasksDefault = [];
 
-  // If the "--no-validate" option is given, skip adding "validate" to task array.
+  // If the "--no-validate" option is given, skip adding "validate" to default
+  // tasks array.
   if (!grunt.option('no-validate')) {
     tasksDefault.push('validate');
   }
@@ -47,8 +49,7 @@ module.exports = function(grunt) {
   // any one run does not impact later behavior.
   if (grunt.file.exists(grunt.config.get('config.buildPaths.html') + '/index.php')) {
     tasksDefault.push('newer:drushmake:default');
-  }
-  else {
+  } else {
     tasksDefault.push('drushmake:default');
   }
 

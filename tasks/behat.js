@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-
   /**
    * Define "behat" tasks.
    *
@@ -26,9 +25,8 @@ module.exports = function(grunt) {
    *   }
    */
   grunt.loadNpmTasks('grunt-parallel-behat');
-  var config = grunt.config.get('config'),
-    flags = '',
-    _ = require('lodash');
+  var config = grunt.config.get('config');
+  var _ = require('lodash');
 
   if (config.buildPaths.html && config.siteUrls) {
     for (var key in config.siteUrls) {
@@ -60,7 +58,7 @@ module.exports = function(grunt) {
               bin: 'vendor/bin/behat',
               debug: true,
               env: _.extend({}, process.env, {
-                "BEHAT_PARAMS": "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\", \"zombie\": {\"node_modules_path\": \"" + process.cwd() + "/node_modules/\"}}}}"
+                BEHAT_PARAMS: "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\", \"zombie\": {\"node_modules_path\": \"" + process.cwd() + "/node_modules/\"}}}}"
               })
             }, options)
           }

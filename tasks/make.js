@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-
   /**
    * Define "drush" tasks.
    *
@@ -9,33 +8,36 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-drush');
   grunt.loadNpmTasks('grunt-newer');
 
-  var Help = require('../lib/help')(grunt),
-    Drupal = require('../lib/drupal')(grunt),
-    gdt = require('../lib/util');
+  var Help = require('../lib/help')(grunt);
+  var Drupal = require('../lib/drupal')(grunt);
+  var gdt = require('../lib/util');
 
-  var path = require('path'),
-    _ = require('lodash');
+  var _ = require('lodash');
 
   // If no path is configured for Drush, fallback to the system path.
   var cmd = {cmd: Drupal.drushPath()};
 
   // Allow extra arguments for drush to be supplied.
-  var make_args = ['make', '<%= config.srcPaths.make %>', '<%= config.buildPaths.temp %>'];
-  var extra_args = grunt.config.get('config.drush.make.args');
+  var makeArgs = [
+    'make',
+    '<%= config.srcPaths.make %>',
+    '<%= config.buildPaths.temp %>'
+  ];
+  var extraArgs = grunt.config.get('config.drush.make.args');
 
-  if (extra_args && extra_args.length) {
-    extra_args.unshift(make_args[0]);
-    extra_args.push(make_args[1]);
-    extra_args.push(make_args[2]);
-    make_args = extra_args;
+  if (extraArgs && extraArgs.length) {
+    extraArgs.unshift(makeArgs[0]);
+    extraArgs.push(makeArgs[1]);
+    extraArgs.push(makeArgs[2]);
+    makeArgs = extraArgs;
   }
 
   var limit = grunt.option('concurrency') || require('../lib/util').concurrency;
-  make_args.push('--concurrency=' + limit);
+  makeArgs.push('--concurrency=' + limit);
   grunt.verbose.writeln('Configured for concurrency=' + limit);
 
   grunt.config(['drush', 'make'], {
-    args: make_args,
+    args: makeArgs,
     options: _.extend({}, cmd)
   });
 
@@ -58,7 +60,7 @@ module.exports = function(grunt) {
         // Check at the immediate root of each theme.
         '<%= config.srcPaths.drupal %>/themes/*/*.{make,make.yml}'
       ],
-      dest: '<%= config.buildPaths.html %>',
+      dest: '<%= config.buildPaths.html %>'
     },
     options: {
       tasks: [

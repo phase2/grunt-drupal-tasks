@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-
   /**
    * Define "package" tasks.
    *
@@ -10,12 +9,11 @@ module.exports = function(grunt) {
   var Help = require('../lib/help')(grunt);
 
   grunt.registerTask('package', 'Package the operational codebase for deployment. Use package:compress to create an archive.', function() {
-    var path = require('path');
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-    var config = grunt.config.get('config.packages'),
-      srcFiles = ['**', '!**/.gitkeep'].concat((config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : '**'),
-      projFiles = (config && config.projFiles && config.projFiles.length) ? config.projFiles : [];
+    var config = grunt.config.get('config.packages');
+    var srcFiles = ['**', '!**/.gitkeep'].concat((config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : '**');
+    var projFiles = (config && config.projFiles && config.projFiles.length) ? config.projFiles : [];
 
     // Look for a package target spec, build destination path.
     var packageName = grunt.option('name') || config.name || 'package';
@@ -46,12 +44,12 @@ module.exports = function(grunt) {
       }
     });
 
-    grunt.config.set('clean.packages', [ destPath ]);
+    grunt.config.set('clean.packages', [destPath]);
 
     tasks.push('clean:packages');
     tasks.push('copy:package');
 
-    if (this.args[0] && this.args[0] == 'compress') {
+    if (this.args[0] && this.args[0] === 'compress') {
       grunt.loadNpmTasks('grunt-contrib-compress');
       grunt.config('compress.package', {
         options: {
@@ -60,11 +58,11 @@ module.exports = function(grunt) {
           gruntLogHeader: false
         },
         files: [
-          { 
+          {
             expand: true,
             dot: true,
             cwd: grunt.config.get('config.buildPaths.packages') + '/' + packageName,
-            src: ['**'],
+            src: ['**']
           }
         ]
       });
@@ -79,5 +77,4 @@ module.exports = function(grunt) {
     task: 'package',
     group: 'Operations'
   });
-
 };

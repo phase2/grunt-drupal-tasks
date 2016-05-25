@@ -1,14 +1,12 @@
 var _ = require('lodash');
 
 module.exports = function(grunt) {
-
   /**
    * Define tasks for automatic setup of a local project git repo.
    *
    * These are tasks that cannot be initialized into the repository via Yeoman,
    * such as githooks.
    */
-
 
   if (!grunt.file.exists('build') && !grunt.file.exists('.git/hooks/pre-comit') && !grunt.config('config.validate.ignoreError')) {
     grunt.log.writeln('Run `grunt git-setup` to perform one-time repo upgrades, such as adding a pre-commit code scanner.');
@@ -21,7 +19,7 @@ module.exports = function(grunt) {
     if (tasks !== undefined) {
       tasks = [];
     }
-    tasks.push('validate:staged')
+    tasks.push('validate:staged');
 
     // Githooks task may be configured via Gruntconfig.
     grunt.config('githooks', {
