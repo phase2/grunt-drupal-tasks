@@ -52,9 +52,9 @@ module.exports = function(grunt) {
         // Check the configured makefile.
         '<%= config.srcPaths.make %>',
         // Check files at the immediate root of the Drupal source files.
-        '<%= config.srcPaths.drupal %>/*.{make,make.yml}'
+        '<%= config.srcPaths.drupal %>/*.{make,make.yml}',
         // Recursively check inside modules, profiles, and libraries.
-        '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.{make,make.yml}'
+        '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.{make,make.yml}',
         // Check at the immediate root of each theme.
         '<%= config.srcPaths.drupal %>/themes/*/*.{make,make.yml}'
       ],
