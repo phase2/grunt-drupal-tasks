@@ -29,6 +29,7 @@
     "grunt-shell": "^1.2.1",
     "grunt-staged": "~0.1.0",
     "lodash": "^4.5.0",
+    "semver": "^5.1.0",
     "time-grunt": "^1.3.0"
   },
   "engines": {

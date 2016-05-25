@@ -54,6 +54,7 @@ module.exports = function(grunt) {
 
   // Wire up the generated docroot to our custom code.
   tasksDefault.push('scaffold');
+  tasksDefault.push('composer-drupal');
 
   if (grunt.config.get(['composer', 'install'])) {
     tasksDefault.unshift('composer:install');
