@@ -64,6 +64,62 @@ to view documentation tailored for your project.
 
 To build your Drupal site, run `grunt`.
 
+### Commands
+
+The following is a list of base commands and their options which you can expect to find on any **grunt-drupal-tasks** based project.
+
+#### Build Process
+
+* `grunt`
+  * The default build process, which includes verifying dependencies and assembling the build directory. 
+* `grunt scaffold`
+  * Apply the scaffolding from src/ to the Drupal docroot. 
+
+#### Operations
+
+* `grunt package`
+  * Package the operational codebase in the `/build/packages/` directory for deployment.
+  * Use `package:compress` to compress the packaged directory into an archive.
+* `grunt serve`
+  * Run Drupal using the PHP built-in webserver.
+  * Use `serve:demo` to run without watch tasks
+  * Use `serve:test` for grunt-drupal-tasks development. 
+
+#### Testing & Code Quality
+
+* `grunt analyze`
+  * Run static codebase analysis to detect problems. 
+  * Outputs Jenkins-compatible reports. (e.g. PHPMD) 
+* `grunt test`
+  * Run the Behat tests included with this project. 
+* `grunt validate`
+  * Quick code health check for syntax errors and basic practices. (e.g. PHPCS w/ Drush Coder rules) 
+
+#### Dependency Management
+
+* `grunt composer`
+  * Install dependencies defined in this project's composer.json file.
+* `grunt drushmake`
+  * Prepare the build directory and run "drush make" 
+* `grunt newer`
+  * Use "newer:drushmake" to run the drushmake task only if the make file was updated since the last running. 
+
+#### Utilities
+
+* `grunt clean`
+  * Remove the build output directory.
+
+#### Asset & Code Compilation
+* `grunt compile-theme`
+  * Run compilers for all themes (such as Compass).
+
+#### Real-time Tooling
+
+* `grunt watch-test`
+  * Watch for changes that should trigger new testing and validation of the codebase. 
+* `grunt watch-theme`
+  * Watch for changes that should rebuild frontend assets, such as CSS.
+
 ### Special Flags
 
 These flags are not yet documented as part of the `grunt help` command.
