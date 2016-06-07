@@ -51,14 +51,15 @@ module.exports = function(grunt) {
   var phpcsPatterns = defaultPatterns.slice(0);
   phpcsPatterns.push('!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.tpl.php');
 
-  if (grunt.config.get('config.phpcs')) {
-    var phpcs = grunt.config.get('config.phpcs.dir') || phpcsPatterns;
-    var phpStandard = grunt.config('config.phpcs.standard') ||
+  var phpcsConfig = grunt.config.get('config.phpcs');
+  if (phpcsConfig) {
+    var phpcs = phpcsConfig.dir || phpcsPatterns;
+    var phpStandard = phpcsConfig.standard ||
       'vendor/drupal/coder/coder_sniffer/Drupal,vendor/drupal/coder/coder_sniffer/DrupalPractice';
 
     // Support deprecated config.phpcs.ignoreExitCode value until 1.0.
     var ignoreError = grunt.config('config.validate.ignoreError') ||
-      grunt.config('config.phpcs.ignoreExitCode');
+      phpcsConfig.ignoreExitCode;
     ignoreError = ignoreError === undefined ? false : ignoreError;
 
     grunt.config('phpcs', {
@@ -71,7 +72,7 @@ module.exports = function(grunt) {
       validate: {
         src: phpcs,
         options: {
-          report: grunt.config.get('config.phpcs.validateReport') || 'full',
+          report: phpcsConfig.validateReport || 'full',
           reportFile: false
         }
       },
@@ -97,7 +98,7 @@ module.exports = function(grunt) {
         }
       },
       options: {
-        bin: '<%= config.phpcs.path %>',
+        bin: phpcsConfig.path || 'vendor/bin/phpcs',
         standard: phpStandard,
         ignoreExitCode: ignoreError,
         report: 'checkstyle',
@@ -106,15 +107,15 @@ module.exports = function(grunt) {
     });
   }
 
-  if (grunt.config.get('config.phpmd')) {
-    var phpmdConfig = grunt.config.get('config.phpmd.configPath') || 'phpmd.xml';
+  var phpmdConfig = grunt.config.get('config.phpmd');
+  if (phpmdConfig) {
     grunt.config('phpmd', {
       custom: {
         dir: '<%= config.srcPaths.drupal %>/'
       },
       options: {
-        bin: '<%= config.phpmd.path %>',
-        rulesets: phpmdConfig,
+        bin: phpmdConfig.path || 'vendor/bin/phpmd',
+        rulesets: phpmdConfig.configPath || 'phpmd.xml',
         suffixes: "php,module,inc,install,profile",
         exclude: "<%= config.srcPaths.drupal %>/sites",
         reportFormat: 'xml',
@@ -125,8 +126,8 @@ module.exports = function(grunt) {
   }
 
   var themes = grunt.config('config.themes');
-  if (grunt.config.get('config.eslint')) {
-    var eslintConfig = grunt.config.get('config.eslint');
+  var eslintConfig = grunt.config.get('config.eslint');
+  if (eslintConfig) {
     var eslintTarget = eslintConfig.dir || [
       '<%= config.srcPaths.drupal %>/themes/*/js/**/*.js',
       '<%= config.srcPaths.drupal %>/{modules,profiles,libraries}/**/*.js'
@@ -182,20 +183,20 @@ module.exports = function(grunt) {
   };
 
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
-    var phpcs = grunt.config.get('phpcs.validate');
+    phpcsConfig = grunt.config.get('phpcs');
     var files;
-    if (phpcs) {
-      files = filesToProcess(phpcs.src);
+    if (phpcsConfig.validate) {
+      files = filesToProcess(phpcsConfig.validate.src);
       if (files.length) {
         grunt.config.set('phpcs.validate.src', files);
         validate.push('phpcs:validate');
       }
     }
-    var eslint = grunt.config.get('eslint.validate');
+    eslintConfig = grunt.config.get('eslint');
     var eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError');
     var eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
-    if (eslint) {
-      files = filesToProcess(eslint);
+    if (eslintConfig.validate) {
+      files = filesToProcess(eslintConfig.validate);
       if (files.length) {
         grunt.config.set('eslint.validate', files);
         validate.push(eslintName + ':validate');
@@ -220,22 +221,22 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('analyze', 'Generate reports on code quality for use by Jenkins or other visualization tools.', function() {
-    var phpcs = grunt.config.get('phpcs.analyze');
+    phpcsConfig = grunt.config.get('phpcs');
     var files;
-    if (phpcs) {
-      files = filesToProcess(phpcs.src);
+    if (phpcsConfig.analyze) {
+      files = filesToProcess(phpcsConfig.analyze.src);
       if (files.length) {
         grunt.config.set('phpcs.analyze', files);
         analyze.push('phpcs:analyze');
       }
     }
-    var eslint = grunt.config.get('eslint.analyze');
+    eslintConfig = grunt.config.get('eslint');
     var eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError');
     var eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
-    if (eslint) {
+    if (eslintConfig.analyze) {
       // The eslint:analyze task has a deeper configuration structure than
       // eslint:validate.
-      files = filesToProcess(eslint.src);
+      files = filesToProcess(eslintConfig.analyze.src);
       if (files.length) {
         grunt.config.set('eslint.analyze', files);
         analyze.push(eslintName + ':analyze');

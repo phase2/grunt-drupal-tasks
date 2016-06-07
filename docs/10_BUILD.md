@@ -199,7 +199,7 @@ This is an example of the settings for Drush tasks:
 ```
 {
   "drush": {
-    "cmd": "/usr/bin/drush",
+    "path": "/usr/bin/drush",
     "make": {
       "args": ["--force-complete", "--working-copy"]
     }
@@ -207,7 +207,7 @@ This is an example of the settings for Drush tasks:
 }
 ```
 
-**drush.cmd**: The path to the Drush executable that should be used for all
+**drush.path**: The path to the Drush executable that should be used for all
 Drush operations. If none is specified, the Drush executable found in the
 default PATH will be used.
 

@@ -18,6 +18,7 @@ module.exports = function(grunt) {
    *     },
    *     "behat": {
    *       "flags": "--tags ~@wip",
+   *       "path": "/usr/local/bin/behat",
    *       "subsite": {
    *          "src": "./features/subsite/*.feature",
    *          "debug": false
@@ -36,6 +37,12 @@ module.exports = function(grunt) {
     for (var key in config.siteUrls) {
       if (config.siteUrls.hasOwnProperty(key)) {
         var options = {};
+        var path = 'vendor/bin/behat';
+
+        // Allow configuring the path to the behat binary.
+        if (config.behat && config.behat.path) {
+          path = config.behat.path;
+        }
 
         // Check for per-site behat options.
         if (config.behat && config.behat[key]) {
@@ -59,7 +66,7 @@ module.exports = function(grunt) {
             options: _.extend({
               config: './test/behat.yml',
               maxProcesses: 5,
-              bin: 'vendor/bin/behat',
+              bin: path,
               debug: true,
               env: _.extend({}, process.env, {
                 BEHAT_PARAMS: "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\", \"zombie\": {\"node_modules_path\": \"" + process.cwd() + "/node_modules/\"}}}}"

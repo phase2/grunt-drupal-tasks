@@ -38,6 +38,7 @@ This is an example of the settings for Behat tasks:
 {
   "behat": {
     "flags": "--tags '~@javascript'",
+    "path": "/usr/local/bin/behat",
     "subsite": {
       "src": "./test/features/subsite/*.feature",
       "debug": false
@@ -55,3 +56,8 @@ should be used while invoking Behat. These flags can be overridden by using the
 `--behat-flags` option when running `grunt`. Common use cases are to include or
 exclude tests according to tags or to use an alternative profile defined in
 `behat.yml`.
+
+**behat.path**: A string with the path to the Behat executable. By default, this
+is set to `vendor/bin/behat` to use the version of Behat installed by Composer.
+Only set this option if you need to use a specific version of Behat that is
+installed elsewhere.

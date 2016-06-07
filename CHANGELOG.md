@@ -5,6 +5,9 @@
 - Dropped support for Node.js v0.12 and earlier and PHP v5.4 and earlier.
 - Removed built-in support for Compass theme compilation and Ruby bundle
 installation.
+- Added configuration for the Behat binary path. Add default configuration for
+the paths of the phpcs, phpmd, and Drush binaries. Changed configuration key
+from `drush.cmd` to `drush.path` for consistency.
 - Updated dependencies.
 
 ### Upgrade Notes
@@ -14,6 +17,8 @@ Node.js v5.
 - PHP v5.5 or later is required.
 - Use of the built-in Compass theme compilation steps must be replaced by custom
 handling at the project- or theme-level.
+- Change the Gruntconfig.json configuration key `cmd` under `drush` to `path`,
+or if using the default path of `vendor/bin/drush`, remove the setting entirely.
 
 ## v0.11.1 [2016/04/17]
 
