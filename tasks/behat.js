@@ -17,12 +17,16 @@ module.exports = function(grunt) {
    *       "subsite": "http://sub.dev-site.local"
    *     },
    *     "behat": {
+   *       "flags": "--tags ~@wip",
    *       "subsite": {
    *          "src": "./features/subsite/*.feature",
    *          "debug": false
    *       }
    *     }
    *   }
+   *
+   * If the command line option `--behat_flags="flags"` is set, the `flags`
+   * specified will be passed to behat and override any flags from the config.
    */
   grunt.loadNpmTasks('grunt-parallel-behat');
   var config = grunt.config.get('config');
