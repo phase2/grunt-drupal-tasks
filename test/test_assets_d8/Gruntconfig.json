@@ -1,7 +1,6 @@
 {
   "domain": "http://127.0.0.1:8080",
   "srcPaths": {
-    "make": "src/project.make",
     "drupal": "src"
   },
   "siteUrls": {
