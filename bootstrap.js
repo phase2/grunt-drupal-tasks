@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
   // Initialize global configuration variables.
-  var config = grunt.file.readJSON('Gruntconfig.json');
+  var config = require('load-grunt-configs')(grunt);
   if (grunt.config.getRaw() === undefined) {
     grunt.initConfig({
       config: config

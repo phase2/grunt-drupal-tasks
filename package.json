@@ -7,6 +7,7 @@
     "fs-extra": "~3.0.1",
     "grunt": "^1.0.1",
     "grunt-available-tasks": "~0.6.2",
+    "load-grunt-configs": "~1.0.0",
     "grunt-composer": "~0.4.4",
     "grunt-concurrent": "^2.1.0",
     "grunt-contrib-clean": "^1.0.0",
