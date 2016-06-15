@@ -41,7 +41,8 @@ This project is built on the tools of the Grunt community to provide scripted
 automation of a number of PHP & Drupal tasks. Here are a few examples of what it
 provides:
 
-* Drush make-based build workflow
+* Composer workflow
+  * Drush make-based build workflow (for Drupal 7.x)
 * CI portability (used with Jenkins so far)
 * Opt-in for a number of great enhancements:
   * Composer dependency management for PHP
