@@ -14,9 +14,11 @@ automation of a number of PHP & Drupal tasks. Here are a few examples of what it
 provides:
 
 * Configurable code structure that defaults to a clean development practice.
-* Drush make-based [build workflow](https://phase2.github.io/grunt-drupal-tasks/build).
-* Optional use of Composer,
-  [Code Quality & Static Analysis](https://phase2.github.io/grunt-drupal-tasks/quality), and [Frontend tooling](https://phase2.github.io/grunt-drupal-tasks/frontend) to extend the build process.
+* Composer [build workflow](https://phase2.github.io/grunt-drupal-tasks/build)
+  (or Drush make-based build workflow for Drupal 7.x).
+* Optional use [Code Quality & Static Analysis](https://phase2.github.io/grunt-drupal-tasks/quality),
+  and [Frontend tooling](https://phase2.github.io/grunt-drupal-tasks/frontend)
+  to extend the build process.
 * [Behat and SimpleTest Testing](https://phase2.github.io/grunt-drupal-tasks/testing)
 * [Deployment packaging](https://phase2.github.io/grunt-drupal-tasks/package)
 * [Git Hook management](https://phase2.github.io/grunt-drupal-tasks/git-hooks)
