@@ -7,6 +7,7 @@ module.exports = function(grunt) {
    */
 
   var Help = require('../lib/help')(grunt);
+  var path = require('path');
 
   grunt.registerTask('package', 'Package the operational codebase for deployment. Use package:compress to create an archive.', function() {
     grunt.loadNpmTasks('grunt-contrib-copy');
@@ -26,14 +27,14 @@ module.exports = function(grunt) {
           expand: true,
           cwd: '<%= config.buildPaths.html %>',
           src: srcFiles,
-          dest: destPath + (grunt.config.get('config.packages.dest.docroot') || ''),
+          dest: path.resolve(destPath, grunt.config.get('config.packages.dest.docroot') || ''),
           dot: true,
           follow: true
         },
         {
           expand: true,
           src: projFiles,
-          dest: destPath + (grunt.config.get('config.packages.dest.devResources') || ''),
+          dest: path.resolve(destPath, grunt.config.get('config.packages.dest.devResources') || ''),
           dot: true,
           follow: true
         }
