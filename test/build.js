@@ -187,6 +187,8 @@ describe('grunt', function() {
   });
 
   describe('Packaging', function() {
+    var drupalCore = process.env.GDT_DRUPAL_CORE;
+
     // Package commands can take excessive time (> 10 minutes for D8).
     // Before testing them, remove the bulk of the Drupal codebase.
     before(function(done) {
@@ -198,8 +200,10 @@ describe('grunt', function() {
     });
 
     it('should place the build codebase in build/packages/package by default', function(done) {
+      this.timeout(180000);
       exec('grunt package', function(error) {
-        fs.exists('build/packages/package/build/html/index.php', function(exists) {
+        var indexPackageDest = (drupalCore === '8') ? 'build/packages/package/build/html/index.php' : 'build/packages/package/index.php';
+        fs.exists(indexPackageDest, function(exists) {
           assert.ok(!error && exists);
           done();
         });
@@ -207,8 +211,10 @@ describe('grunt', function() {
     });
 
     it('should allow override of grunt package destination with --name', function(done) {
+      this.timeout(180000);
       exec('grunt package --name=upstream', function(error) {
-        fs.exists('build/packages/upstream/build/html/index.php', function(exists) {
+        var indexPackageDest = (drupalCore === '8') ? 'build/packages/upstream/build/html/index.php' : 'build/packages/upstream/index.php';
+        fs.exists(indexPackageDest, function(exists) {
           assert.ok(!error && exists);
           done();
         });
@@ -216,6 +222,7 @@ describe('grunt', function() {
     });
 
     it('should compress the package with grunt package:compress', function(done) {
+      this.timeout(180000);
       exec('grunt package:compress --name=archive', function(error) {
         fs.exists('build/packages/archive.tgz', function(exists) {
           assert.ok(!error && exists);
