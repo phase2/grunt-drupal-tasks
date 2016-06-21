@@ -11,15 +11,8 @@
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
     "projFiles": ["README*", "bin/**", "hooks/**", "src/*.make"]
   },
-  "phpcs": {
-    "path": "vendor/bin/phpcs"
-  },
-  "phpmd": {
-    "path": "vendor/bin/phpmd"
-  },
-  "drush": {
-    "cmd": "vendor/bin/drush"
-  },
+  "phpcs": true,
+  "phpmd": true,
   "behat": {
     "flags": "--tags ~@wip"
   },
