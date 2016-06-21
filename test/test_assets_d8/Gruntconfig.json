@@ -1,7 +1,6 @@
 {
   "domain": "http://127.0.0.1:8080",
   "srcPaths": {
-    "make": "src/project.make",
     "drupal": "src"
   },
   "siteUrls": {
@@ -9,7 +8,11 @@
   },
   "packages": {
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
-    "projFiles": ["README*", "bin/**"]
+    "projFiles": ["README*", "bin/**", "hooks/**", "src/*.make", "vendor/**"],
+    "dest": {
+      "docroot": "build/html",
+      "devResources": ""
+    }
   },
   "phpcs": true,
   "phpmd": true,

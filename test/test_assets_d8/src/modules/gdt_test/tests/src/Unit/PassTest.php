@@ -1,9 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\Tests\gdt_test\Unit\PassTest
- */
-
 namespace Drupal\Tests\gdt_test\Unit;
 
 use Drupal\Tests\UnitTestCase;

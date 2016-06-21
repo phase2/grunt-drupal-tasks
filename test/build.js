@@ -114,7 +114,7 @@ describe('grunt', function() {
     });
 
     // Ensure a custom library file is available under package.
-    var librariesPackageDest = (drupalCore === '8') ? 'build/packages/package/libraries/example_lib/example.md' : 'build/packages/package/sites/all/libraries/example_lib/example.md';
+    var librariesPackageDest = (drupalCore === '8') ? 'build/packages/package/build/html/libraries/example_lib/example.md' : 'build/packages/package/sites/all/libraries/example_lib/example.md';
     it('custom library file should exist in package', function(done) {
       fs.exists(librariesPackageDest, function(exists) {
         assert.ok(exists);
@@ -123,7 +123,7 @@ describe('grunt', function() {
     });
 
     // Ensure a custom module file is available under package.
-    var modulesPackageDest = (drupalCore === '8') ? 'build/packages/package/modules/custom/test.php' : 'build/packages/package/sites/all/modules/custom/test.php';
+    var modulesPackageDest = (drupalCore === '8') ? 'build/packages/package/build/html/modules/custom/test.php' : 'build/packages/package/sites/all/modules/custom/test.php';
     it('custom module file should exist in package', function(done) {
       fs.exists(modulesPackageDest, function(exists) {
         assert.ok(exists);
@@ -132,7 +132,7 @@ describe('grunt', function() {
     });
 
     // Ensure a custom theme file is available under package.
-    var themesPackageDest = (drupalCore === '8') ? 'build/packages/package/themes/custom/example_theme/example_theme.info.yml' : 'build/packages/package/sites/all/themes/custom/example_theme/example_theme.info';
+    var themesPackageDest = (drupalCore === '8') ? 'build/packages/package/build/html/themes/custom/example_theme/example_theme.info.yml' : 'build/packages/package/sites/all/themes/custom/example_theme/example_theme.info';
     it('custom theme file should exist in package', function(done) {
       fs.exists(themesPackageDest, function(exists) {
         assert.ok(exists);
@@ -187,6 +187,8 @@ describe('grunt', function() {
   });
 
   describe('Packaging', function() {
+    var drupalCore = process.env.GDT_DRUPAL_CORE;
+
     // Package commands can take excessive time (> 10 minutes for D8).
     // Before testing them, remove the bulk of the Drupal codebase.
     before(function(done) {
@@ -198,8 +200,10 @@ describe('grunt', function() {
     });
 
     it('should place the build codebase in build/packages/package by default', function(done) {
+      this.timeout(180000);
       exec('grunt package', function(error) {
-        fs.exists('build/packages/package/index.php', function(exists) {
+        var indexPackageDest = (drupalCore === '8') ? 'build/packages/package/build/html/index.php' : 'build/packages/package/index.php';
+        fs.exists(indexPackageDest, function(exists) {
           assert.ok(!error && exists);
           done();
         });
@@ -207,8 +211,10 @@ describe('grunt', function() {
     });
 
     it('should allow override of grunt package destination with --name', function(done) {
+      this.timeout(180000);
       exec('grunt package --name=upstream', function(error) {
-        fs.exists('build/packages/upstream/index.php', function(exists) {
+        var indexPackageDest = (drupalCore === '8') ? 'build/packages/upstream/build/html/index.php' : 'build/packages/upstream/index.php';
+        fs.exists(indexPackageDest, function(exists) {
           assert.ok(!error && exists);
           done();
         });
@@ -216,6 +222,7 @@ describe('grunt', function() {
     });
 
     it('should compress the package with grunt package:compress', function(done) {
+      this.timeout(180000);
       exec('grunt package:compress --name=archive', function(error) {
         fs.exists('build/packages/archive.tgz', function(exists) {
           assert.ok(!error && exists);

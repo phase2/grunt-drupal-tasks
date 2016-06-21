@@ -19,6 +19,16 @@ module.exports = function(grunt) {
         ]
       }
     });
+    grunt.config(['composer', 'update'], {
+      options: {
+        flags: [
+          'no-interaction',
+          'no-progress',
+          'prefer-dist'
+        ]
+      }
+    });
+    grunt.config(['composer', 'drupal-scaffold'], {});
 
     Help.add({
       task: 'composer',

@@ -41,24 +41,34 @@ module.exports = function(grunt) {
     tasksDefault.push('validate');
   }
 
-  // If build/html exists, but is empty, skip the newer check.
-  // This facilitates situations where the build/html is generated as a mounted
-  // directory point with a newer timestamp than the Drush Makefiles.
-  //
-  // We do not use the grunt-newer .cache with drushmake so skipping newer for
-  // any one run does not impact later behavior.
-  if (grunt.file.exists(grunt.config.get('config.buildPaths.html') + '/index.php')) {
-    tasksDefault.push('newer:drushmake:default');
-  } else {
-    tasksDefault.push('drushmake:default');
+  // Process .make files if configured.
+  if (grunt.config.get('config.srcPaths.make')) {
+    // If build/html exists, but is empty, skip the newer check.
+    // This facilitates situations where the build/html is generated as a mounted
+    // directory point with a newer timestamp than the Drush Makefiles.
+    //
+    // We do not use the grunt-newer .cache with drushmake so skipping newer for
+    // any one run does not impact later behavior.
+    if (grunt.file.exists(grunt.config.get('config.buildPaths.html') + '/index.php')) {
+      tasksDefault.push('newer:drushmake:default');
+    } else {
+      tasksDefault.push('drushmake:default');
+    }
   }
 
   // Wire up the generated docroot to our custom code.
   tasksDefault.push('scaffold');
 
-  if (grunt.config.get(['composer', 'install'])) {
+  if (grunt.file.exists('./composer.lock') && grunt.config.get(['composer', 'install'])) {
+    // Manually run `composer drupal-scaffold` since this is only automatically run on update.
+    tasksDefault.unshift('composer:drupal-scaffold');
+    // Run `composer install` if there is already a lock file. Updates should be explicit once this file exists.
     tasksDefault.unshift('composer:install');
+  } else if (grunt.config.get(['composer', 'update'])) {
+    // Run `composer update` if no lock file exists. This forces `composer drupal-scaffold` to run.
+    tasksDefault.unshift('composer:update');
   }
+
   if (grunt.task.exists('compile-theme')) {
     tasksDefault.push('compile-theme');
   }

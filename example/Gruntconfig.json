@@ -9,7 +9,11 @@
   },
   "packages": {
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
-    "projFiles": ["README*", "bin/**", "hooks/**", "src/*.make"]
+    "projFiles": ["README*", "bin/**", "hooks/**", "src/*.make", "vendor/**"],
+    "dest": {
+      "docroot": "build/html",
+      "devResources": ""
+    }
   },
   "phpcs": true,
   "phpmd": true,
