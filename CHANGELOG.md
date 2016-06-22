@@ -3,11 +3,13 @@
 ## v1.0.0-pre
 
 - Dropped support for Node.js v0.12 and earlier and PHP v5.4 and earlier.
+- Added support for a Composer build process for Drupal 8.
 - Removed built-in support for Compass theme compilation and Ruby bundle
 installation.
 - Added configuration for the Behat binary path. Add default configuration for
 the paths of the phpcs, phpmd, and Drush binaries. Changed configuration key
 from `drush.cmd` to `drush.path` for consistency.
+- Minor code refactoring and adopting code style standard.
 - Updated dependencies.
 
 ### Upgrade Notes
