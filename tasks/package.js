@@ -50,6 +50,15 @@ module.exports = function(grunt) {
     tasks.push('clean:packages');
     tasks.push('copy:package');
 
+    // Rebuild composer dependencies without dev.
+    grunt.config(['composer'], {
+      options: {
+        flags: ['no-dev'],
+        cwd: destPath
+      }
+    });
+    tasks.push('composer:install');
+
     if (this.args[0] && this.args[0] === 'compress') {
       grunt.loadNpmTasks('grunt-contrib-compress');
       grunt.config('compress.package', {
