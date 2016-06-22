@@ -111,8 +111,6 @@ skip starting up watch tasks.
 }
 ```
 
-**serve.profile**: DEPRECATED - use **project.profile** instead.
-
 **serve.port**: The port number to bind for the webserver. Only one service may
 occupy a port on a machine, so a project-specific port may be worthwhile.
 Defaults to `8080`.

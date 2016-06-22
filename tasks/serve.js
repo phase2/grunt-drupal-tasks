@@ -21,13 +21,7 @@ module.exports = function(grunt) {
   // If no path is configured for Drush, fallback to the system path.
   var cmd = {cmd: Drupal.drushPath()};
 
-  // `config.serve.profile` is deprecated.
-  if (grunt.config('config.serve.profile')) {
-    grunt.log.warn('The `serve.profile` parameter is deprecated and will be ' +
-      'removed in future versions. Use `project.profile` instead.');
-  }
-  var profile = grunt.config('config.project.profile') ||
-    grunt.config('config.serve.profile') || 'standard';
+  var profile = grunt.config('config.project.profile') || 'standard';
 
   grunt.config(['drush', 'liteinstall'], {
     args: ['site-install', '-yv', profile, '--db-url=sqlite:/' +
