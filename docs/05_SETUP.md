@@ -11,8 +11,8 @@ earlier versions of Node.js and PHP.
 ### Node.js
 
 Install _Node.js v4.2.x or later_ using [nvm](https://github.com/creationix/nvm),
-a [package manager](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)
-like apt-get, brew, or yum, or a [standalone installer](http://nodejs.org/download/).
+a [package manager](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager),
+or a [standalone installer](http://nodejs.org/download/).
 
 ### Grunt
 
@@ -38,9 +38,11 @@ for your project.
 ## Start using Gadget
 
 The easiest way to start a new Drupal project with Grunt Drupal Tasks is to use
-**[Gadget](https://github.com/phase2/generator-gadget)**, a tool which offers an interactive, text-based approach to building an initial project template.
+**[Gadget](https://github.com/phase2/generator-gadget)**, a tool which offers an
+interactive, text-based approach to building an initial project template.
 
-Once you have Gadget installed, start a new Drupal project by running `yo gadget` in an empty directory and answer it's prompts.
+Once you have Gadget installed, start a new Drupal project by running
+`yo gadget` in an empty directory and answer it's prompts.
 
 ```
 $> yo gadget
