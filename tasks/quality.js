@@ -56,7 +56,7 @@ module.exports = function(grunt) {
     var phpcs = phpcsConfig.dir || phpcsPatterns;
     var phpStandard = phpcsConfig.standard ||
       'vendor/drupal/coder/coder_sniffer/Drupal,vendor/drupal/coder/coder_sniffer/DrupalPractice';
-    var ignoreError = (phpcsConfig.ignoreExitCode === undefined) ? false : phpcsConfig.ignoreExitCode;
+    var ignoreError = grunt.config('config.validate.ignoreError');
 
     grunt.config('phpcs', {
       analyze: {
