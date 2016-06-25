@@ -15,6 +15,7 @@ module.exports = function(grunt) {
     var config = grunt.config.get('config.packages');
     var srcFiles = ['**', '!**/.gitkeep'].concat((config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : '**');
     var projFiles = (config && config.projFiles && config.projFiles.length) ? config.projFiles : [];
+    console.log(projFiles);
 
     // Look for a package target spec, build destination path.
     var packageName = grunt.option('name') || config.name || 'package';
@@ -49,6 +50,19 @@ module.exports = function(grunt) {
 
     tasks.push('clean:packages');
     tasks.push('copy:package');
+
+    // If the `composer.json` file is being packaged, rebuild composer dependencies without dev.
+    if (projFiles.find(function(pattern) {
+      return pattern.startsWith('composer');
+    })) {
+      grunt.config(['composer'], {
+        options: {
+          flags: ['no-dev'],
+          cwd: destPath
+        }
+      });
+      tasks.push('composer:install');
+    }
 
     if (this.args[0] && this.args[0] === 'compress') {
       grunt.loadNpmTasks('grunt-contrib-compress');

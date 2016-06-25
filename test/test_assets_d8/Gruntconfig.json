@@ -8,7 +8,7 @@
   },
   "packages": {
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
-    "projFiles": ["README*", "bin/**", "hooks/**", "src/*.make", "vendor/**"],
+    "projFiles": ["README*", "bin/**", "hooks/**", "src/*.make", "vendor/**", "composer.*"],
     "dest": {
       "docroot": "build/html",
       "devResources": ""
