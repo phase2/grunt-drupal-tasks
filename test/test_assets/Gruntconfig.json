@@ -10,15 +10,8 @@
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
     "projFiles": ["README*", "bin/**"]
   },
-  "phpcs": {
-    "path": "vendor/bin/phpcs"
-  },
-  "phpmd": {
-    "path": "vendor/bin/phpmd"
-  },
-  "drush": {
-    "cmd": "vendor/bin/drush"
-  },
+  "phpcs": true,
+  "phpmd": true,
   "behat": {
     "flags": "--tags ~@wip"
   },
@@ -34,7 +27,6 @@
   "themes": {
     "example_theme": {
       "path": "<%= config.srcPaths.drupal %>/themes/example_theme",
-      "compass": true,
       "scripts": {
         "echo": "echo 'theme scripts run in '$(basename $(pwd))"
       }

@@ -1,12 +1,12 @@
 module.exports = function(grunt) {
-
   /**
    * Define "copy" tasks.
    *
    * grunt copy:static
    *   Copies all files from src/static to the build/html directory.
    * grunt rsync:tempbuild
-   *   Duplicate Drupal docroot from temporary location to the final build target.
+   *   Duplicate Drupal docroot from temporary location to the final build
+   *    target.
    * grunt copy:tempbuild
    *   Original implementation of rsync:tempbuild, preserved for backwards
    *   compatibility and Windows support.
@@ -56,7 +56,7 @@ module.exports = function(grunt) {
       ],
       src: '<%= config.buildPaths.temp %>/',
       dest: '<%= config.buildPaths.html %>'
-    },
+    }
   });
 
   grunt.config('copy.defaults', {
@@ -72,5 +72,4 @@ module.exports = function(grunt) {
       }
     ]
   });
-
 };

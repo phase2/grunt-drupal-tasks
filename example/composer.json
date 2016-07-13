@@ -1,14 +1,57 @@
 {
-    "name": "client/project",
-    "description": "{Project} drupal codebase for {client}.",
-    "require-dev": {
-        "behat/mink-zombie-driver": "~1.2",
-        "drupal/drupal-extension": "~3.0",
-        "drush/drush": "^8",
-        "drupal/coder": "^8.2",
-        "phpmd/phpmd": "~2.1"
+  "name": "client/project",
+  "description": "{Project} drupal codebase for {client}.",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
     },
-    "require": {
-        "roave/security-advisories": "dev-master"
+    {
+      "type": "git",
+      "url": "https://github.com/minkphp/MinkZombieDriver"
     }
+  ],
+  "require": {
+    "composer/installers": "^1.0.20",
+    "drupal-composer/drupal-scaffold": "^2.0.1",
+    "cweagans/composer-patches": "~1.0",
+    "drupal/core": "~8.1",
+    "roave/security-advisories": "dev-master"
+  },
+  "require-dev": {
+    "behat/mink-zombie-driver": "dev-master#dd32fbd6988881dbab583225b65b787a893bb131",
+    "drupal/drupal-extension": "~3.0",
+    "drush/drush": "^8",
+    "drupal/console": "~0.10",
+    "phpmd/phpmd": "~2.1",
+    "phpunit/phpunit": "~4.8",
+    "drupal/coder": "^8.2"
+  },
+  "conflict": {
+    "drupal/drupal": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+  },
+  "extra": {
+    "installer-paths": {
+      "build/html/core": [
+        "type:drupal-core"
+      ],
+      "build/html/modules/contrib/{$name}": [
+        "type:drupal-module"
+      ],
+      "build/html/profiles/contrib/{$name}": [
+        "type:drupal-profile"
+      ],
+      "build/html/themes/contrib/{$name}": [
+        "type:drupal-theme"
+      ],
+      "drush/contrib/{$name}": [
+        "type:drupal-drush"
+      ]
+    }
+  }
 }

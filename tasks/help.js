@@ -1,11 +1,11 @@
 module.exports = function(grunt) {
-
   /**
    * Define "help" task, a more purposeful and structured help than -h.
    *
    * grunt help
    *   Provides an overview of intended and useful grunt tasks.
    */
+  var _ = require('lodash');
 
   var Help = require('../lib/help')(grunt);
 
@@ -26,14 +26,21 @@ module.exports = function(grunt) {
   grunt.registerTask('help', 'Output grunt-drupal-tasks specialized help.', function() {
     var gdt = {};
     var gruntHelp = require('grunt/lib/grunt/help');
-    var process = function(queue) { queue.forEach(function(cb) { cb(); }); };
+    var process = function(queue) {
+      queue.forEach(function(cb) {
+        cb();
+      });
+    };
 
     gdt.cleanOptions = function() {
-      for (var i in gruntHelp._options) {
-        item = gruntHelp._options[i];
-        if (item[0] == '--base' || item[0] == '--gruntfile' || item[0] == '--tasks' || item[0] == '--npm') delete gruntHelp._options[i];
-        if (item[0] == '--help, -h') gruntHelp._options[i][1] = 'Display the default Grunt help text.';
-      }
+      _.each(gruntHelp._options, function(item, i) {
+        if (item[0] === '--base' || item[0] === '--gruntfile' || item[0] === '--tasks' || item[0] === '--npm') {
+          delete gruntHelp._options[i];
+        }
+        if (item[0] === '--help, -h') {
+          gruntHelp._options[i][1] = 'Display the default Grunt help text.';
+        }
+      });
     };
 
     gdt.header = function() {
@@ -43,12 +50,13 @@ module.exports = function(grunt) {
 
     gdt.options = function() {
       var options = [
-        [ '--quiet', 'Suppress desktop notifications.' ],
-        [ '--notify', 'Request a desktop notification despite timing or environment settings.' ],
-        [ '--timer', 'Output task execution timing info.' ],
-        [ '--concurrency', 'Override the dynamic concurrency parameter used by Drush Make.' ],
-        [ '--no-validate', 'Skip `grunt:validate` in the default `grunt` task.' ],
-        [ '--db-url', 'Pass thru your Drupal database credentials for site installation.' ]
+        ['--concurrency', 'Override the dynamic concurrency parameter used by Drush Make.'],
+        ['--db-url', 'Pass thru your Drupal database credentials for site installation.'],
+        ['--name', 'Override the name of the package exported by "grunt package".'],
+        ['--notify', 'Request a desktop notification despite timing or environment settings.'],
+        ['--no-validate', 'Skip `grunt:validate` in the default `grunt` task.'],
+        ['--quiet', 'Suppress desktop notifications.'],
+        ['--timer', 'Output task execution timing info.']
       ];
 
       if (grunt.config('config.project.db')) {
@@ -75,7 +83,6 @@ module.exports = function(grunt) {
         gruntHelp.footer,
         gdt.footer
       ];
-
       process(queue);
     });
 

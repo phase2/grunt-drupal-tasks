@@ -1,7 +1,6 @@
 sudo: false
 language: php
 php:
-  - 5.4
   - 5.5
   - 5.6
   - 7
@@ -13,24 +12,20 @@ addons:
    - gcc-4.8
    - g++-4.8
 env:
-  - NVM_NODE_VERSION="0.12" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js" CXX=g++-4.8
-  - NVM_NODE_VERSION="4.3" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
-  - NVM_NODE_VERSION="node" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
+  - NVM_NODE_VERSION="4" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js" CXX=g++-4.8
+  - NVM_NODE_VERSION="4" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
+  - NVM_NODE_VERSION="5" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
+  - NVM_NODE_VERSION="6" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
 matrix:
-  allow_failures:
-    - php: 5.5
-      env: NVM_NODE_VERSION="node" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
-    - php: 5.6
-      env: NVM_NODE_VERSION="node" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
-    - php: 7
-      env: NVM_NODE_VERSION="node" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
   exclude:
-    - php: 5.4
-      env: NVM_NODE_VERSION="4.3" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
-    - php: 5.4
-      env: NVM_NODE_VERSION="node" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
+    # Skip Drupal 7 on PHP 7
     - php: 7
-      env: NVM_NODE_VERSION="0.12" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js" CXX=g++-4.8
+      env: NVM_NODE_VERSION="4" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js" CXX=g++-4.8
+    # Skip Node.js v5 with PHP 5.5 and PHP 7
+    - php: 5.5
+      env: NVM_NODE_VERSION="5" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
+    - php: 7
+      env: NVM_NODE_VERSION="5" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
 before_install:
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $NVM_NODE_VERSION
   - node --version
@@ -40,9 +35,10 @@ before_install:
 install:
   - npm install -g grunt-cli@^1.0.0
   - npm install -g mocha
-  - ls -lRa
+  - npm install
 script:
   - echo "Code checkout disk usage"; du -chs .
+  - npm run lint
   - ./test/create_working_copy.sh
   - cd test/working_copy/
   - echo "Working copy disk usage"; du -chs .
@@ -58,5 +54,5 @@ script:
   - sleep 1; while (ps aux | grep '[b]ehat' > /dev/null); do sleep 1; done
   - for pid in `ps aux | grep drush | grep runserver | awk '{print $2}'`; do echo "Stopping drush pid $pid"; kill -SIGINT $pid; done;
   - grunt package --quiet
-  - mocha --timeout 10000 node_modules/grunt-drupal-tasks/test/build.js
+  - mocha --timeout 30000 node_modules/grunt-drupal-tasks/test/build.js
   - mocha node_modules/grunt-drupal-tasks/test/library.js

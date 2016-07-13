@@ -4,19 +4,19 @@
     "drupal": "src"
   },
   "domain": "project.vm",
+  "buildPaths": {
+    "packages": "build/packages"
+  },
   "packages": {
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
-    "projFiles": ["README*", "bin/**"]
+    "projFiles": ["README*", "bin/**", "hooks/**", "src/*.make", "vendor/**"],
+    "dest": {
+      "docroot": "build/html",
+      "devResources": ""
+    }
   },
-  "phpcs": {
-    "path": "vendor/bin/phpcs"
-  },
-  "phpmd": {
-    "path": "vendor/bin/phpmd"
-  },
-  "drush": {
-    "cmd": "vendor/bin/drush"
-  },
+  "phpcs": true,
+  "phpmd": true,
   "behat": {
     "flags": "--tags ~@wip"
   },

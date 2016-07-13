@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-
   /**
    * Define "watch" tasks.
    *
@@ -34,14 +33,15 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('watch-test', 'Backend operations watch task.', function() {
-    grunt.loadNpmTasks('grunt-concurrent');
-    grunt.task.run('concurrent:watch-test');
-  });
+  grunt.registerTask('watch-test', 'Backend operations watch task.',
+    function() {
+      grunt.loadNpmTasks('grunt-concurrent');
+      grunt.task.run('concurrent:watch-test');
+    });
 
   Help.add({
     task: 'watch-test',
     group: 'Real-time Tooling',
     description: 'Watch for changes that should trigger new testing and validation of the codebase.'
   });
-}
+};
