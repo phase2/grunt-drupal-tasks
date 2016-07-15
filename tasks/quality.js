@@ -49,6 +49,7 @@ module.exports = function(grunt) {
 
   // Exclude templates by default from phpcs validation.
   var phpcsPatterns = defaultPatterns.slice(0);
+  phpcsPatterns.unshift('<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.yml');
   phpcsPatterns.push('!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.tpl.php');
 
   var phpcsConfig = grunt.config.get('config.phpcs');
