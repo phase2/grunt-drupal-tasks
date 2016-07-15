@@ -3,7 +3,7 @@
 # This script creates a working copy of grunt-drupal-tasks by initializing a
 # project using the example in the test/working_copy directory.
 
-if [ ! -f "Gruntfile.js" ]; then echo "This script should be run from the grunt-drupal-tasks directory."; exit 1; fi;
+if [ ! -f "test/create_working_copy.sh" ]; then echo "This script should be run from the grunt-drupal-tasks directory."; exit 1; fi;
 
 # If an old install exists, reset permissions on src/sites/default.
 if [ -d "test/working_copy/src/sites/default" ]; then chmod 755 test/working_copy/src/sites/default/; fi;
