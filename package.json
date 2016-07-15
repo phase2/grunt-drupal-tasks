@@ -1,7 +1,7 @@
 {
   "name": "grunt-drupal-tasks",
   "description": "A Grunt plugin to automate Drupal build and testing tasks.",
-  "version": "1.0.0-alpha1",
+  "version": "1.0.0-alpha2",
   "main": "bootstrap.js",
   "dependencies": {
     "fs-extra": "~0.30.0",
@@ -15,7 +15,7 @@
     "grunt-contrib-symlink": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-drush": "~0.0.7",
-    "grunt-eslint": "^18.0.0",
+    "grunt-eslint": "^19.0.0",
     "grunt-force-task": "^2.0.0",
     "grunt-githooks": "~0.6.0",
     "grunt-log-headers": "^1.0.1",
@@ -33,7 +33,7 @@
     "time-grunt": "^1.3.0"
   },
   "devDependencies": {
-    "eslint": "^2.12.0",
+    "eslint": "^3.1.0",
     "eslint-config-google": "^0.6.0",
     "eslint-config-xo": "^0.15.0"
   },

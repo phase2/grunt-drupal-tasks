@@ -1,6 +1,14 @@
 # CHANGELOG
 
-## v1.0.0-pre
+## v1.0.0-alpha2 [2016/07/15]
+
+- Fixed regression issue for projects using Composer but not drupal-scaffold.
+- For Composer installs, rebuild package output to exclude dev dependencies.
+- Extended default PHPCS configuration to validate YAML files.
+- Removed deprecated code and documentation.
+- Updated dependencies.
+
+## v1.0.0-alpha1 [2016/06/22]
 
 - Dropped support for Node.js v0.12 and earlier and PHP v5.4 and earlier.
 - Added support for a Composer build process for Drupal 8.
