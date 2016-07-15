@@ -5,7 +5,6 @@ module.exports = function(grunt) {
    * Dynamically adds a Composer install task if a composer.json file
    * exists in the project directory.
    */
-
   if (require('fs').existsSync('./composer.json')) {
     grunt.loadNpmTasks('grunt-composer');
     var Help = require('../lib/help')(grunt);
@@ -28,7 +27,12 @@ module.exports = function(grunt) {
         ]
       }
     });
-    grunt.config(['composer', 'drupal-scaffold'], {});
+
+    // Add the drupal-scaffold task if it is defined in the `composer.json`.
+    var composer = require('fs').readFileSync('./composer.json', 'utf8');
+    if (typeof composer.scripts !== 'undefined' && 'drupal-scaffold' in composer.scripts) {
+      grunt.config(['composer', 'drupal-scaffold'], {});
+    }
 
     Help.add({
       task: 'composer',
