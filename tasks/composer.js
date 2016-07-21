@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     });
 
     // Add the drupal-scaffold task if it is defined in the `composer.json`.
-    var composer = require('fs').readFileSync('./composer.json', 'utf8');
+    var composer = JSON.parse(require('fs').readFileSync('./composer.json', 'utf8'));
     if (typeof composer.scripts !== 'undefined' && 'drupal-scaffold' in composer.scripts) {
       grunt.config(['composer', 'drupal-scaffold'], {});
     }
