@@ -60,7 +60,7 @@ module.exports = function(grunt) {
   tasksDefault.push('scaffold');
 
   if (grunt.file.exists('./composer.lock') && grunt.config.get(['composer', 'install'])) {
-    if (grunt.task.exists('composer:drupal-scaffold')) {
+    if (grunt.config.get(['composer', 'drupal-scaffold'])) {
       // Manually run `composer drupal-scaffold` since this is only automatically run on update.
       tasksDefault.unshift('composer:drupal-scaffold');
     }
