@@ -182,7 +182,7 @@ significant changes to the build process may make it difficult to get support.
 If you want to avoid forking the build process, but have some additional tasks
 that need to be done, you can use this trick to add new tasks to the build.
 
-This trick can be done multiple times after the initial load of `boostrap.js`,
+This trick can be done multiple times after the initial load of `bootstrap.js`,
 which allows for modular customizations.
 
 ```js
