@@ -25,8 +25,12 @@ Drupal Tasks:
     file contains the version of Grunt Drupal Tasks, it should be updated as
     part of the release process.
 
-    First, delete `npm-shrinkwrap.json` and `node_modules`. Then, run `npm i &&
-    npm shrinkwrap`.
+    First, delete `npm-shrinkwrap.json` and `node_modules`. Then, run:
+    `npm i --prod && npm shrinkwrap`.
+
+    Installing with the `--prod` option excludes dev dependencies, which avoids
+    an issue with npm v2 where modules that are dev dependencies are not
+    included in the shrinkwrap file.
 
 - Tag a new version.
 
@@ -34,3 +38,6 @@ Drupal Tasks:
     -m "Version 0.9.3."` and push the tag.
 
 - Run `npm publish` to publish the release to npm.
+
+    For pre-releases (alpha, non-stable), specify a release tag by running:
+    `npm publish --tag alpha`
