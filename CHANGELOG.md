@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.0.0-alpha3 [2016/08/21]
+
+- Fixed missing composer:drupal-scaffold command error.
+- Fixed eslint installation issue.
+
 ## v1.0.0-alpha2 [2016/07/15]
 
 - Fixed regression issue for projects using Composer but not drupal-scaffold.
