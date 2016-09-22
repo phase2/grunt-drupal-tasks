@@ -12,14 +12,28 @@ module.exports = function(grunt) {
   grunt.registerTask('packageRewriteComposer', '', function() {
     var pathBuild = grunt.config('config.buildPaths.html');
     var pathPackage = grunt.config('config.packages.dest.docroot');
+    // Check if we are packaging to a custom destination.
     if (pathBuild !== pathPackage) {
+      var changed = false;
+      var regex = new RegExp('^' + pathBuild);
       // Load `composer.json` as JSON, convert to object.
-
-      // Alter keys in `extra.installer-paths` object to change `build/html`
-      // to `html` or an alternative path from the config.
-
-      // Write out data to `composer.json` in the package output.
-
+      var composer = grunt.file.readJSON('composer.json');
+      for (var key in composer.extra['installer-paths']) {
+        var newKey = key.replace(regex, pathPackage);
+        if (newKey != key) {
+          // Alter keys in `extra.installer-paths` object to change `build/html`
+          // to `html` or an alternative path from the config.
+          var value = composer.extra['installer-paths'][key];
+          delete composer.extra['installer-paths'][key];
+          composer.extra['installer-paths'][newKey] = value;
+          changed = true;
+        }
+      }
+      if (changed) {
+        // Write out data to `composer.json` in the package output.
+        var composerString = JSON.stringify(composer, null, 2);
+        grunt.file.write('composer.json', composerString);
+      }
     }
   });
 
