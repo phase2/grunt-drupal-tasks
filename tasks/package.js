@@ -12,30 +12,49 @@ module.exports = function(grunt) {
   grunt.registerTask('packageRewriteComposer', '', function() {
     var pathBuild = grunt.config('config.buildPaths.html');
     var pathPackage = grunt.config('config.packages.dest.docroot');
+    var pathVendor = grunt.config('config.packages.dest.vendor');
     // Check if we are packaging to a custom destination.
-    if (pathBuild !== pathPackage) {
-      var changed = false;
-      var regex = new RegExp('^' + pathBuild);
+    if ((pathBuild !== pathPackage) || pathVendor) {
       // Load `composer.json` as JSON, convert to object.
-      var composer = grunt.file.readJSON('composer.json');
+      var destPath = grunt.option('package-dest');
+      var composer = grunt.file.readJSON(destPath + '/composer.json');
+      // Determine new installer-paths
+      var pathInstall = pathPackage + '/';
+      if (pathVendor) {
+        // Make sure install path is relative to vendor location.
+        var regex = new RegExp('^' + pathVendor + '/');
+        pathInstall = pathInstall.replace(regex, '');
+      }
+      var regex = new RegExp('^' + pathBuild + '/');
       for (var key in composer.extra['installer-paths']) {
         // Add an unnecessary if check just for eslint rules.
         if (composer.extra['installer-paths'][key]) {
-          var newKey = key.replace(regex, pathPackage);
+          var newKey = key.replace(regex, pathInstall);
           if (newKey !== key) {
             // Alter keys in `extra.installer-paths` object to change `build/html`
             // to `html` or an alternative path from the config.
             var value = composer.extra['installer-paths'][key];
             delete composer.extra['installer-paths'][key];
             composer.extra['installer-paths'][newKey] = value;
-            changed = true;
           }
         }
       }
-      if (changed) {
-        // Write out data to `composer.json` in the package output.
-        var composerString = JSON.stringify(composer, null, 2);
-        grunt.file.write('composer.json', composerString);
+
+      // Next, generate the composer.json in the correct path.
+      var destComposer = (pathVendor) ? destPath + '/' + pathVendor : destPath;
+      // Write out data to `composer.json` in the package output.
+      var composerString = JSON.stringify(composer, null, 2);
+      grunt.file.write(destComposer + '/composer.json', composerString);
+      if (pathVendor) {
+        // Remove the original file if we moved it.
+        grunt.file.delete(destPath + '/composer.json');
+        // Change working directory for composer install.
+        grunt.config(['composer'], {
+          options: {
+            flags: ['no-dev'],
+            cwd: destComposer
+          }
+        });
       }
     }
   });
@@ -51,6 +70,7 @@ module.exports = function(grunt) {
     var packageName = grunt.option('name') || config.name || 'package';
     var destPath = grunt.config.get('config.buildPaths.packages') + '/' + packageName;
     var tasks = [];
+    grunt.option('package-dest', destPath);
 
     grunt.config('copy.package', {
       files: [
