@@ -9,13 +9,26 @@ module.exports = function(grunt) {
   var Help = require('../lib/help')(grunt);
   var path = require('path');
 
+  grunt.registerTask('packageRewriteComposer', '', function() {
+    var pathBuild = grunt.config('config.buildPaths.html');
+    var pathPackage = grunt.config('config.packages.dest.docroot');
+    if (pathBuild !== pathPackage) {
+      // Load `composer.json` as JSON, convert to object.
+
+      // Alter keys in `extra.installer-paths` object to change `build/html`
+      // to `html` or an alternative path from the config.
+
+      // Write out data to `composer.json` in the package output.
+
+    }
+  });
+
   grunt.registerTask('package', 'Package the operational codebase for deployment. Use package:compress to create an archive.', function() {
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     var config = grunt.config.get('config.packages');
     var srcFiles = ['**', '!**/.gitkeep'].concat((config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : '**');
     var projFiles = (config && config.projFiles && config.projFiles.length) ? config.projFiles : [];
-    console.log(projFiles);
 
     // Look for a package target spec, build destination path.
     var packageName = grunt.option('name') || config.name || 'package';
@@ -55,6 +68,7 @@ module.exports = function(grunt) {
     if (projFiles.find(function(pattern) {
       return pattern.startsWith('composer');
     })) {
+      tasks.push('packageRewriteComposer');
       grunt.config(['composer'], {
         options: {
           flags: ['no-dev'],
