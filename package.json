@@ -48,6 +48,8 @@
     "url": "https://github.com/phase2/grunt-drupal-tasks.git"
   },
   "scripts": {
-    "test": "./test/test.sh"
+    "test": "./test/test.sh",
+    "predocs": "rm -Rf build; mkdir build",
+    "docs": "docker-compose run docs"
   }
 }

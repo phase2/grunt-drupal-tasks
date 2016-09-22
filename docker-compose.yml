@@ -1,0 +1,6 @@
+docs:
+  build: docs/
+  working_dir: /documents
+  volumes:
+    - ./docs:/documents
+    - ./build:/site
