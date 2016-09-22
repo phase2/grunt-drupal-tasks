@@ -22,8 +22,8 @@ module.exports = function(grunt) {
       var pathInstall = pathPackage + '/';
       if (pathVendor) {
         // Make sure install path is relative to vendor location.
-        var regex = new RegExp('^' + pathVendor + '/');
-        pathInstall = pathInstall.replace(regex, '');
+        var regexVendor = new RegExp('^' + pathVendor + '/');
+        pathInstall = pathInstall.replace(regexVendor, '');
       }
       var regex = new RegExp('^' + pathBuild + '/');
       for (var key in composer.extra['installer-paths']) {
