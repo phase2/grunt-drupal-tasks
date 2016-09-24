@@ -114,7 +114,7 @@ describe('grunt', function() {
     });
 
     // Ensure a custom library file is available under package.
-    var librariesPackageDest = (drupalCore === '8') ? 'build/packages/package/build/html/libraries/example_lib/example.md' : 'build/packages/package/sites/all/libraries/example_lib/example.md';
+    var librariesPackageDest = (drupalCore === '8') ? 'build/packages/package/html/libraries/example_lib/example.md' : 'build/packages/package/sites/all/libraries/example_lib/example.md';
     it('custom library file should exist in package', function(done) {
       fs.exists(librariesPackageDest, function(exists) {
         assert.ok(exists);
@@ -123,7 +123,7 @@ describe('grunt', function() {
     });
 
     // Ensure a custom module file is available under package.
-    var modulesPackageDest = (drupalCore === '8') ? 'build/packages/package/build/html/modules/custom/test.php' : 'build/packages/package/sites/all/modules/custom/test.php';
+    var modulesPackageDest = (drupalCore === '8') ? 'build/packages/package/html/modules/custom/test.php' : 'build/packages/package/sites/all/modules/custom/test.php';
     it('custom module file should exist in package', function(done) {
       fs.exists(modulesPackageDest, function(exists) {
         assert.ok(exists);
@@ -132,7 +132,7 @@ describe('grunt', function() {
     });
 
     // Ensure a custom theme file is available under package.
-    var themesPackageDest = (drupalCore === '8') ? 'build/packages/package/build/html/themes/custom/example_theme/example_theme.info.yml' : 'build/packages/package/sites/all/themes/custom/example_theme/example_theme.info';
+    var themesPackageDest = (drupalCore === '8') ? 'build/packages/package/html/themes/custom/example_theme/example_theme.info.yml' : 'build/packages/package/sites/all/themes/custom/example_theme/example_theme.info';
     it('custom theme file should exist in package', function(done) {
       fs.exists(themesPackageDest, function(exists) {
         assert.ok(exists);
