@@ -202,7 +202,7 @@ describe('grunt', function() {
     it('should place the build codebase in build/packages/package by default', function(done) {
       this.timeout(180000);
       exec('grunt package', function(error) {
-        var indexPackageDest = (drupalCore === '8') ? 'build/packages/package/build/html/index.php' : 'build/packages/package/index.php';
+        var indexPackageDest = (drupalCore === '8') ? 'build/packages/package/html/index.php' : 'build/packages/package/index.php';
         fs.exists(indexPackageDest, function(exists) {
           assert.ok(!error && exists);
           done();
@@ -213,7 +213,7 @@ describe('grunt', function() {
     it('should allow override of grunt package destination with --name', function(done) {
       this.timeout(180000);
       exec('grunt package --name=upstream', function(error) {
-        var indexPackageDest = (drupalCore === '8') ? 'build/packages/upstream/build/html/index.php' : 'build/packages/upstream/index.php';
+        var indexPackageDest = (drupalCore === '8') ? 'build/packages/upstream/html/index.php' : 'build/packages/upstream/index.php';
         fs.exists(indexPackageDest, function(exists) {
           assert.ok(!error && exists);
           done();
