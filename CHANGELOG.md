@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.0.0-alpha4 [2016/09/26]
+
+- Adding support to configure the packaging task's output location of the
+docroot and vendor directories for Drupal 8 projects using Composer.
+
 ## v1.0.0-alpha3 [2016/08/21]
 
 - Fixed missing composer:drupal-scaffold command error.
