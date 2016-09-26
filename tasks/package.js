@@ -19,7 +19,7 @@ module.exports = function(grunt) {
       var destPath = grunt.option('package-dest');
       var composer = grunt.file.readJSON(destPath + '/composer.json');
       // Determine new installer-paths
-      var pathInstall = pathPackage + '/';
+      var pathInstall = pathPackage ? pathPackage + '/' : '';
       if (pathVendor) {
         // Make sure install path is relative to vendor location.
         var regexVendor = new RegExp('^' + pathVendor + '/');
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
       var regex = new RegExp('^' + pathBuild + '/');
       for (var key in composer.extra['installer-paths']) {
         // Add an unnecessary if check just for eslint rules.
-        if (composer.extra['installer-paths'][key]) {
+        if (composer.extra['installer-paths'].hasOwnProperty(key)) {
           var newKey = key.replace(regex, pathInstall);
           if (newKey !== key) {
             // Alter keys in `extra.installer-paths` object to change `build/html`
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
       if (pathVendor) {
         // Remove the original file if we moved it.
         grunt.file.delete(destPath + '/composer.json');
-        // Change working directory for composer install.
+        // Change working directory for later `composer install`.
         grunt.config(['composer'], {
           options: {
             flags: ['no-dev'],
@@ -113,6 +113,8 @@ module.exports = function(grunt) {
         }
       });
       tasks.push('composer:install');
+      grunt.config(['composer', 'drupal-scaffold'], {});
+      tasks.push('composer:drupal-scaffold');
     }
 
     if (this.args[0] && this.args[0] === 'compress') {
