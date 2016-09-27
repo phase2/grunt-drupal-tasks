@@ -18,7 +18,7 @@ automation of a number of PHP & Drupal tasks. Here are a few examples of what it
 provides:
 
 * Configurable code structure that defaults to a clean development practice.
-* Composer [build workflow](docs/10_build.md)
+* Composer [build workflow](docs/10_BUILD.md)
   (or Drush make-based build workflow for Drupal 7.x).
 * Optional use [Code Quality & Static Analysis](https://phase2.github.io/grunt-drupal-tasks/quality),
   and [Frontend tooling](https://phase2.github.io/grunt-drupal-tasks/frontend)
