@@ -6,15 +6,15 @@ This project brings the tooling energy of the Node.js and Grunt communities toge
 
 * [Generator Gadget](https://github.com/phase2/generator-gadget), a Yeoman-generator to assemble new codebases with best practices configuration.
 * Configurable code structure that defaults to a clean development practice.
-* Drush make-based [build workflow](https://phase2.github.io/grunt-drupal-tasks/build).
+* Drush make-based [build workflow](10_BUILD/).
 * Optional use of Composer,
-  [Code Quality & Static Analysis](https://phase2.github.io/grunt-drupal-tasks/quality), and [Frontend tooling](https://phase2.github.io/grunt-drupal-tasks/frontend) to extend the build process.
-* [Behat and SimpleTest Testing](https://phase2.github.io/grunt-drupal-tasks/testing)
-* [Deployment packaging](https://phase2.github.io/grunt-drupal-tasks/package)
-* [Git Hook management](https://phase2.github.io/grunt-drupal-tasks/git-hooks)
+  [Code Quality & Static Analysis](20_QUALITY/), and [Frontend tooling](30_FRONTEND/) to extend the build process.
+* [Behat and SimpleTest Testing](40_TESTING/)
+* [Deployment packaging](60_PACKAGE/)
+* [Git Hook management](70_GIT_INTEGRATION/)
 * Desktop Notifications
 * Local Development Friendly
-* [CI](https://phase2.github.io/grunt-drupal-tasks/ci) Friendly
+* [CI](80_CI/) Friendly
 
 We are continuously working to improve this toolchain, adding functionality that
 we see as common to our _continuous integration_ and everyday development
