@@ -20,12 +20,12 @@ the checkout of the codebase has already run `npm install` to retrieve all Node
 dependencies.
 
 1. **Composer Install:** Retrieve all development dependencies in the project
-  composer.json. (Note that this does not imply management of Drupal
-  dependencies via Composer, such functionality is on the roadmap).
+  composer.json. For Drupal 8.x, this also includes the management of Drupal
+  dependencies via Composer.
 2. **Validate:** Run static analysis and code quality checks against custom code.
-3. **Drush Make:** If the Drush makefiles are newer than the built codebase,
-  will run Drush Make to assemble upstream dependencies. (A composer-based
-  alternative is on the roadmap.)
+3. **Drush Make:** For Drupal 7.x projects, if the Drush makefiles are newer
+  than the built codebase, Drush Make will run to assemble upstream
+  dependencies. For Drupal 8.x projects, Composer is used instead of Drush Make.
 4. **Scaffold:** Copy and symlink custom code into the assembled codebase.
 5. **Theme Triggers:** Run any theme triggers to validate code or build assets
   on a per-theme basis.
@@ -80,9 +80,13 @@ phpmd.xml
   built, the contents of src/profiles become part of Drupal's sites/all/modules/
   directory (via symlink from profiles/ to each profile in src/profiles/).
 
-- Customize the Drush make file that is used at the start of the build process.
-  The example includes **project.make** but this file can be replaced or renamed
-  with a setting change in Gruntconfig.json (see below).
+- For Drupal 8.x projects, customize the `composer.json` file to add module
+  dependencies. Patches can also be specified.
+
+- For Drupal 7.x projects, customize the Drush make file that is used at the
+  start of the build process. The example includes `project.make` but this
+  file can be replaced or renamed with a setting change in Gruntconfig.json
+  (see below).
 
 - Include any sites directories (like "default"), optionally with settings.php
   or other files, and if needed a multi-site sites.php in **src/sites/**. (The
@@ -127,7 +131,6 @@ This is the minimum set of configuration options:
 {
   "srcPaths": {
     "drupal": "src",
-    "make": "src/project.make"
   }
 }
 ```
@@ -145,10 +148,11 @@ src/
   themes/
 ```
 
-**srcPaths.make**: The Drush make file used to assemble the Drupal project.
-
 The following build output paths are optional to specify in the project's
 `Gruntconfig.json` file.
+
+**srcPaths.make**: The Drush make file used to assemble the Drupal project.
+This is only used for Drupal 7.x projects.  Example is `src/project.make`.
 
 **buildPaths.build**: The directory that should be used for miscellaneous build
 artifacts. This can be the parent directory of the following build paths.
