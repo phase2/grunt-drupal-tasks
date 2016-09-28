@@ -1,6 +1,0 @@
-docs:
-  build: .
-  working_dir: /documents
-  volumes:
-    - .:/documents
-    - ~/Projects/phase2.github.io/grunt-drupal-tasks:/site
