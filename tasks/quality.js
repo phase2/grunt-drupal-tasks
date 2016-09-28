@@ -182,7 +182,7 @@ module.exports = function(grunt) {
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
     phpcsConfig = grunt.config.get('phpcs');
     var files;
-    if (phpcsConfig.validate) {
+    if (phpcsConfig && phpcsConfig.validate) {
       files = filesToProcess(phpcsConfig.validate.src);
       if (files.length) {
         grunt.config.set('phpcs.validate.src', files);
@@ -192,7 +192,7 @@ module.exports = function(grunt) {
     eslintConfig = grunt.config.get('eslint');
     var eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError');
     var eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
-    if (eslintConfig.validate) {
+    if (eslintConfig && eslintConfig.validate) {
       files = filesToProcess(eslintConfig.validate);
       if (files.length) {
         grunt.config.set('eslint.validate', files);
