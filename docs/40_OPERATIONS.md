@@ -1,6 +1,7 @@
 # Project Operations
 
-> Operations other than testing involved in the creation, hosting, and management of a running Drupal site.
+> Operations other than testing involved in the creation, hosting, and
+management of a running Drupal site.
 
 ## Invoking Ad Hoc Operations
 

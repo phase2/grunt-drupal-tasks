@@ -1,10 +1,13 @@
 # Frontend & Theme Operations
 
-> Facilitate integration with Drupal themes as owners of their own script-driven tooling.
+> Facilitate integration with Drupal themes as owners of their own script-driven
+tooling.
 
 ## Making Grunt Theme-Aware
 
-For each theme Grunt should be aware of, it will need an entry in the `Gruntconfig.json` under the themes property. This might look like the following:
+For each theme Grunt should be aware of, it will need an entry in the
+`Gruntconfig.json` under the themes property. This might look like the
+following:
 
 ```
 {
@@ -53,4 +56,6 @@ run the command as part of the actions it takes for `grunt compile-theme`,
 `grunt validate`, and `grunt analyze`.
 
 Note that Theme Scripts support the `pre-` and `post-` operations explained in
-Project Operations. This means if you configure a `compile-theme` task in `Gruntconfig.json`, you may also configure a `pre-compile-theme` and a `post-compile-theme`.
+Project Operations. This means if you configure a `compile-theme` task in
+`Gruntconfig.json`, you may also configure a `pre-compile-theme` and a
+`post-compile-theme`.

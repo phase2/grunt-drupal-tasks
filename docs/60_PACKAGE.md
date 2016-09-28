@@ -44,7 +44,9 @@ to '/docroot'.
 **packages.dest.devResources**: Specify where within the package directory the
 `projFiles` should be placed. Defaults to package root.
 
-**packages.name**: The default name of the package, used as the path within the packages directory. This can be overridden by calling grunt package with the `--name` parameter.
+**packages.name**: The default name of the package, used as the path within the
+packages directory. This can be overridden by calling grunt package with the
+`--name` parameter.
 
 ## Packaging for Acquia
 
@@ -52,7 +54,8 @@ The `package` command has the flexibility to support many different use cases,
 include structure for PaaS services such as Acquia. This is currently handled
 by convention rather than specific coded support.
 
-The example configuration below for your Gruntconfig.json file structures an Acquia repository with support for custom hooks and scripts.
+The example configuration below for your Gruntconfig.json file structures an
+Acquia repository with support for custom hooks and scripts.
 
 ```
 {

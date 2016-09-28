@@ -38,9 +38,11 @@ for your project.
 ## Start using Gadget
 
 The easiest way to start a new Drupal project with Grunt Drupal Tasks is to use
-**[Gadget](https://github.com/phase2/generator-gadget)**, a tool which offers an interactive, text-based approach to building an initial project template.
+**[Gadget](https://github.com/phase2/generator-gadget)**, a tool which offers an
+interactive, text-based approach to building an initial project template.
 
-Once you have Gadget installed, start a new Drupal project by running `yo gadget` in an empty directory and answer it's prompts.
+Once you have Gadget installed, start a new Drupal project by running
+`yo gadget` in an empty directory and answer it's prompts.
 
 ```
 $> yo gadget
@@ -53,4 +55,5 @@ If you wish to customize this structure, you can [override the default practices
 with your project configuration](10_BUILD.md),
 but will need to manually adjusted generated files to match.
 
-For an example of the default behavior, take a look at the [example project](https://github.com/phase2/grunt-drupal-tasks/tree/master/example).
+For an example of the default behavior, take a look at the
+[example project](https://github.com/phase2/grunt-drupal-tasks/tree/master/example).

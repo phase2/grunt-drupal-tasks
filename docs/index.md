@@ -1,14 +1,18 @@
 # Grunt Drupal Tasks
 
-This project brings the tooling energy of the Node.js and Grunt communities together with best practices in Drupal development to accelerate Drupal 7 and Drupal 8 development.
+This project brings the tooling energy of the Node.js and Grunt communities
+together with best practices in Drupal development to accelerate Drupal 7 and
+Drupal 8 development.
 
 ## Features
 
-* [Generator Gadget](https://github.com/phase2/generator-gadget), a Yeoman-generator to assemble new codebases with best practices configuration.
+* [Generator Gadget](https://github.com/phase2/generator-gadget), a
+  Yeoman-generator to assemble new codebases with best practices configuration.
 * Configurable code structure that defaults to a clean development practice.
 * Drush make-based [build workflow](10_BUILD.md).
 * Optional use of Composer,
-  [Code Quality & Static Analysis](20_QUALITY.md), and [Frontend tooling](30_FRONTEND.md) to extend the build process.
+  [Code Quality & Static Analysis](20_QUALITY.md), and [Frontend tooling](30_FRONTEND.md)
+  to extend the build process.
 * [Behat and SimpleTest Testing](40_TESTING.md)
 * [Deployment packaging](60_PACKAGE.md)
 * [Git Hook management](70_GIT_INTEGRATION.md)
