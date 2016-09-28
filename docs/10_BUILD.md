@@ -191,7 +191,7 @@ significant changes to the build process may make it difficult to get support.
 If you want to avoid forking the build process, but have some additional tasks
 that need to be done, you can use this trick to add new tasks to the build.
 
-This trick can be done multiple times after the initial load of `boostrap.js`,
+This trick can be done multiple times after the initial load of `bootstrap.js`,
 which allows for modular customizations.
 
 ```js
@@ -208,7 +208,7 @@ This is an example of the settings for Drush tasks:
 ```
 {
   "drush": {
-    "cmd": "/usr/bin/drush",
+    "path": "/usr/bin/drush",
     "make": {
       "args": ["--force-complete", "--working-copy"]
     }
@@ -216,7 +216,7 @@ This is an example of the settings for Drush tasks:
 }
 ```
 
-**drush.cmd**: The path to the Drush executable that should be used for all
+**drush.path**: The path to the Drush executable that should be used for all
 Drush operations. If none is specified, the Drush executable found in the
 default PATH will be used.
 

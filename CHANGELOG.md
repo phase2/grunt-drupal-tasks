@@ -1,10 +1,33 @@
 # CHANGELOG
 
-## v1.0.0-pre
+## v1.0.0-alpha4 [2016/09/26]
+
+- Adding support to configure the packaging task's output location of the
+docroot and vendor directories for Drupal 8 projects using Composer.
+
+## v1.0.0-alpha3 [2016/08/21]
+
+- Fixed missing composer:drupal-scaffold command error.
+- Fixed eslint installation issue.
+
+## v1.0.0-alpha2 [2016/07/15]
+
+- Fixed regression issue for projects using Composer but not drupal-scaffold.
+- For Composer installs, rebuild package output to exclude dev dependencies.
+- Extended default PHPCS configuration to validate YAML files.
+- Removed deprecated code and documentation.
+- Updated dependencies.
+
+## v1.0.0-alpha1 [2016/06/22]
 
 - Dropped support for Node.js v0.12 and earlier and PHP v5.4 and earlier.
+- Added support for a Composer build process for Drupal 8.
 - Removed built-in support for Compass theme compilation and Ruby bundle
 installation.
+- Added configuration for the Behat binary path. Add default configuration for
+the paths of the phpcs, phpmd, and Drush binaries. Changed configuration key
+from `drush.cmd` to `drush.path` for consistency.
+- Minor code refactoring and adopting code style standard.
 - Updated dependencies.
 
 ### Upgrade Notes
@@ -14,6 +37,8 @@ Node.js v5.
 - PHP v5.5 or later is required.
 - Use of the built-in Compass theme compilation steps must be replaced by custom
 handling at the project- or theme-level.
+- Change the Gruntconfig.json configuration key `cmd` under `drush` to `path`,
+or if using the default path of `vendor/bin/drush`, remove the setting entirely.
 
 ## v0.11.1 [2016/04/17]
 

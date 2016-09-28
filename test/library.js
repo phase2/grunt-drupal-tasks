@@ -1,3 +1,5 @@
+/* global describe, it */
+
 var assert = require('assert');
 var util = require('../lib/util');
 
@@ -9,16 +11,16 @@ describe('Utility Functions', function() {
     });
   });
   describe('provides a capability to construct absolute URLs', function() {
-    it ('allows expansion of a root path', function() {
+    it('allows expansion of a root path', function() {
       var items = util.expandUrls('http://example.com', ['/']);
       assert.equal('http://example.com/', items[0]);
     });
-    it ('allows expansion of multiple paths', function() {
+    it('allows expansion of multiple paths', function() {
       var items = util.expandUrls('http://example.com', ['/a', '/b']);
       assert.equal('http://example.com/a', items[0]);
       assert.equal('http://example.com/b', items[1]);
     });
-    it ('allows expansion of a base URL with a base path', function() {
+    it('allows expansion of a base URL with a base path', function() {
       var items = util.expandUrls('http://example.com/subsite', ['/a', '/b']);
       assert.equal('http://example.com/subsite/a', items[0]);
       assert.equal('http://example.com/subsite/b', items[1]);
@@ -32,20 +34,20 @@ describe('Initialization', function() {
   describe('of magic configuration', function() {
     it('should defer to the "GDT" namespace', function(done) {
       grunt.config.init({
-        config: { test_a: 'Enterprise' },
-        gdt: { test_a: 'Victory' }
+        config: {testA: 'Enterprise'},
+        gdt: {testA: 'Victory'}
       });
-      process.env['GDT_TEST_A'] = 'Yamaguchi';
+      process.env.GDT_TEST_A = 'Yamaguchi';
 
       var init = require('../lib/init')(grunt);
-      assert.equal(init.magic('test_a'), 'Victory');
+      assert.equal(init.magic('testA'), 'Victory');
       done();
     });
     it('should defer to environment over normal project configuration', function(done) {
       grunt.config.init({
-        config: { test_b: 'Enterprise' }
+        config: {testB: 'Enterprise'}
       });
-      process.env['GDT_TEST_B'] = 'Yamaguchi';
+      process.env.GDT_TEST_B = 'Yamaguchi';
 
       var init = require('../lib/init')(grunt);
       assert.equal(init.magic('test_b'), 'Yamaguchi');
@@ -53,35 +55,35 @@ describe('Initialization', function() {
     });
     it('should fall back to the project configuration', function(done) {
       grunt.config.init({
-        config: { test_c: 'Enterprise' }
+        config: {testC: 'Enterprise'}
       });
 
       var init = require('../lib/init')(grunt);
-      assert.equal(init.magic('test_c'), 'Enterprise');
+      assert.equal(init.magic('testC'), 'Enterprise');
       done();
     });
     it('should allow override of the environment variable name', function(done) {
       grunt.config.init({
-        config: { test_d: 'Enterprise' }
+        config: {testD: 'Enterprise'}
       });
-      process.env['GDT_TEST_DELTA'] = 'Yamaguchi';
+      process.env.GDT_TEST_DELTA = 'Yamaguchi';
 
       var init = require('../lib/init')(grunt);
-      assert.equal(init.magic('test_d', 'test_delta'), 'Yamaguchi');
+      assert.equal(init.magic('testD', 'test_delta'), 'Yamaguchi');
       done();
     });
     it('should allow override of the environment variable name without affecting priority', function(done) {
       grunt.config.init({
-        config: { test_e: 'Enterprise' }
+        config: {testE: 'Enterprise'}
       });
 
       var init = require('../lib/init')(grunt);
-      assert.equal(init.magic('test_e', 'test_epsilon'), 'Enterprise');
+      assert.equal(init.magic('testE', 'test_epsilon'), 'Enterprise');
       done();
     });
     it('should allow a nested value to be overridden', function(done) {
       grunt.config.init({
-        config: { nested: { item: 'a' } }
+        config: {nested: {item: 'a'}}
       });
 
       var init = require('../lib/init')(grunt);
@@ -89,5 +91,4 @@ describe('Initialization', function() {
       done();
     });
   });
-
 });

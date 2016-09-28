@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-
   /**
    * Define "clean" tasks to remove files and directories.
    *

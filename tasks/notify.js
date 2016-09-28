@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-
   /**
    * Define "notify" tasks.
    */
@@ -12,8 +11,11 @@ module.exports = function(grunt) {
 
   // Set the default threshold.
   var threshold = grunt.config('config.notify.threshold') || 10;
-  // If the notify flag is used, drop the threshold to ensure notifications are triggered.
-  if (grunt.option('notify')) threshold = 0;
+  // If the notify flag is used, drop the threshold to ensure notifications are
+  // triggered.
+  if (grunt.option('notify')) {
+    threshold = 0;
+  }
 
   grunt.config('notify_hooks', {
     options: {
@@ -35,5 +37,4 @@ module.exports = function(grunt) {
 
   // This is required if you use any options.
   grunt.task.run('notify_hooks');
-
 };
