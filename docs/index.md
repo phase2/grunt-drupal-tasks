@@ -1,6 +1,6 @@
 # Grunt Drupal Tasks
 
-TEST This project brings the tooling energy of the Node.js and Grunt communities
+This project brings the tooling energy of the Node.js and Grunt communities
 together with best practices in Drupal development to accelerate Drupal 7 and
 Drupal 8 development.
 
