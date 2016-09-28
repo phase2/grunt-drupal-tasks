@@ -18,17 +18,17 @@ automation of a number of PHP & Drupal tasks. Here are a few examples of what it
 provides:
 
 * Configurable code structure that defaults to a clean development practice.
-* Composer [build workflow](https://phase2.github.io/grunt-drupal-tasks/build)
+* Composer [build workflow](docs/10_BUILD.md)
   (or Drush make-based build workflow for Drupal 7.x).
-* Optional use [Code Quality & Static Analysis](https://phase2.github.io/grunt-drupal-tasks/quality),
-  and [Frontend tooling](https://phase2.github.io/grunt-drupal-tasks/frontend)
+* Optional use [Code Quality & Static Analysis](docs/20_QUALITY.md),
+  and [Frontend tooling](docs/30_FRONTEND.md)
   to extend the build process.
-* [Behat and SimpleTest Testing](https://phase2.github.io/grunt-drupal-tasks/testing)
-* [Deployment packaging](https://phase2.github.io/grunt-drupal-tasks/package)
-* [Git Hook management](https://phase2.github.io/grunt-drupal-tasks/git-hooks)
+* [Behat and SimpleTest Testing](docs/40_TESTING.md)
+* [Deployment packaging](docs/60_PACKAGE.md)
+* [Git Hook management](docs/70_GIT_INTEGRATION.md)
 * Desktop Notifications
 * Local Development Friendly
-* [CI](https://phase2.github.io/grunt-drupal-tasks/ci) Friendly
+* [CI](docs/80_CI.md) Friendly
 
 We are continuously working to improve this toolchain, adding functionality that
 we see as common to our _continuous integration_ and everyday development
