@@ -1,0 +1,21 @@
+site_name: Grunt-Drupal-Tasks
+repo_url: https://github.com/phase2/grunt-drupal-tasks/
+site_author: Phase2
+theme: readthedocs
+docs_dir: .
+pages:
+  - 'Home': 'index.md'
+  - 'Project Setup': '05_SETUP.md'
+  - 'Build Process': '10_BUILD.md'
+  - 'Code Quality': '20_QUALITY.md'
+  - 'Frontend Ties': '30_FRONTEND.md'
+  - 'Project Operations': '40_OPERATIONS.md'
+  - 'Testing': '40_TESTING.md'
+  - 'Deploy Packaging': '60_PACKAGE.md'
+  - 'Git Integration': '70_GIT_INTEGRATION.md'
+  - 'Advanced Options': '70_ADVANCED_CONFIG.md'
+  - 'Continuous Integration': '80_CI.md'
+  - 'Extending GDT': '80_CUSTOM_TASKS.md'
+  - 'FAQ': '90_FAQ.md'
+markdown_extensions:
+  - smarty

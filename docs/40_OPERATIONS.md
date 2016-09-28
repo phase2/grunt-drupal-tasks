@@ -1,6 +1,7 @@
 # Project Operations
 
-> Operations other than testing involved in the creation, hosting, and management of a running Drupal site.
+> Operations other than testing involved in the creation, hosting, and
+management of a running Drupal site.
 
 ## Invoking Ad Hoc Operations
 
@@ -13,7 +14,7 @@ To keep this flexible the new Operations system offers nothing out of the box,
 but facilitates creating lightweight commands or callouts to the shell for more
 advanced scripts you want easily run on the project by the entire team.
 
-This should remind you of the [Frontend & Theming Operations]().
+This should remind you of the [Frontend & Theming Operations](30_FRONTEND.md).
 
 ```
 {

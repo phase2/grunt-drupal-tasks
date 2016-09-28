@@ -3,16 +3,23 @@
 > Maintaining code quality and managing static analysis.
 
 Grunt Drupal Tasks makes a point of easing management of good coding practices
-by building code quality checks into the default build process, and applying several best-of-breed tools to evaluate code changes.
+by building code quality checks into the default build process, and applying
+several best-of-breed tools to evaluate code changes.
 
 * The `grunt validate` task runs the same operation the build process executes.
-* The `grunt analyze` task runs the same, along with the PHP Mess Detector, and outputs all results in checkstyle XML format for consumption by Jenkins or other reporting tools.
+* The `grunt analyze` task runs the same, along with the PHP Mess Detector, and
+* outputs all results in checkstyle XML format for consumption by Jenkins or
+* other reporting tools.
 
-If you are interested in applying validation against files changed in your git repository, read more on [how Grunt Drupal Tasks can manage your Git Hooks](https://phase2.github.io/grunt-drupal-tasks/GIT_HOOKS).
+If you are interested in applying validation against files changed in your git
+repository, read more on
+[how Grunt Drupal Tasks can manage your Git Hooks](70_GIT_INTEGRATION.md).
 
 ### Validate Settings
 
-The `validate` task runs eslint, phpcs, phplint against all custom code. If a theme has it's own `validate` operation configured for grunt, it will skip eslint.
+The `validate` task runs eslint, phpcs, phplint against all custom code. If a
+theme has it's own `validate` operation configured for grunt, it will skip
+eslint.
 
 **validate.ignoreError**: Set to `true` to prevent failing the build if code
 quality validation fails (which also prevents other tasks from executing).
@@ -65,7 +72,8 @@ exclude from PHP code syntax validation.
 **phpcs.standard**: The PHPCS coding standard to use. The example composer.json
 installs the Drupal Coder's standard, the path of which is shown above.
 
-**phpcs.dir**: An array of globbing pattern where phpcs should search for files. This can be used to replace the defaults supplied by grunt-drupal-tasks.
+**phpcs.dir**: An array of globbing pattern where phpcs should search for files.
+This can be used to replace the defaults supplied by grunt-drupal-tasks.
 
 This example placed in the Gruntconfig.json file ignores directories named
 "pattern-lab" and a "bower_components" in addition to the defaults that come
@@ -95,11 +103,14 @@ of these files.
 
 ### Analyze Settings
 
-In addition to all the behaviors under the Validate section, Analyze adds additional reporting that does not make sense as part of the build process, such as tools that are too time-consuming to run on a regular basis.
+In addition to all the behaviors under the Validate section, Analyze adds
+additional reporting that does not make sense as part of the build process,
+such as tools that are too time-consuming to run on a regular basis.
 
 #### PHP Mess Detector (PHPMD)
 
-This tool is less focused on codified practice, and more on the architectural implications of code complexity, though there is some overlap in the rulesets.
+This tool is less focused on codified practice, and more on the architectural
+implications of code complexity, though there is some overlap in the rulesets.
 
 ```
 {

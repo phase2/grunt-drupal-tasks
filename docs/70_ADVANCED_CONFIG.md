@@ -1,6 +1,7 @@
 # Advanced Configuration
 
-> Tips and tricks in customizing Grunt Drupal Tasks, contextually adjusting behaviors, and more.
+> Tips and tricks in customizing Grunt Drupal Tasks, contextually adjusting
+behaviors, and more.
 
 ## Desktop Notification Settings
 

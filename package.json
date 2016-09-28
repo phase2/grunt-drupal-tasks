@@ -54,7 +54,9 @@
     "url": "https://github.com/phase2/grunt-drupal-tasks.git"
   },
   "scripts": {
-    "lint": "eslint .",
-    "test": "./test/test.sh"
+    "test": "./test/test.sh",
+    "predocs": "rm -Rf build; mkdir build",
+    "docs": "docker-compose run docs",
+    "lint": "eslint ."
   }
 }

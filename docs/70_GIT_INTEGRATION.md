@@ -23,10 +23,12 @@ since the last successful commit.
 
 ### Configuring Git Hooks
 
-**config.git.hooks**: An array of grunt tasks to run on pre-commit in addition to `validate:staged`.
+**config.git.hooks**: An array of grunt tasks to run on pre-commit in addition
+to `validate:staged`.
 
-**config.git.hook-command**: A substitute for a simple `grunt` command to handle the individual grunt tasks.
-Allows specification of more complex bin paths or execution wrappers such as `time` or `docker-compose`.
+**config.git.hook-command**: A substitute for a simple `grunt` command to handle
+the individual grunt tasks. Allows specification of more complex bin paths or
+execution wrappers such as `time` or `docker-compose`.
 
 ### Overriding a Commit Rejection
 
