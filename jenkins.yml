@@ -17,5 +17,5 @@ jenkins:
   environment:
     DNSDOCK_NAME: jenkins
     DNSDOCK_IMAGE: gdt_docs
-    VIRTUAL_HOST: build.gdt_docs.ci2.p2devcloud.com
+    VIRTUAL_HOST: build.gdt_docs.ci.p2devcloud.com
     VIRTUAL_PORT: 8080
