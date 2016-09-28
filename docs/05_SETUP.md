@@ -50,7 +50,7 @@ $> yo gadget
 ```
 
 If you wish to customize this structure, you can [override the default practices
-with your project configuration](https://phase2.github.io/grunt-drupal-tasks/build),
+with your project configuration](10_BUILD.md),
 but will need to manually adjusted generated files to match.
 
 For an example of the default behavior, take a look at the [example project](https://github.com/phase2/grunt-drupal-tasks/tree/master/example).

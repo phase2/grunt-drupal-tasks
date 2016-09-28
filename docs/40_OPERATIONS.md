@@ -13,7 +13,7 @@ To keep this flexible the new Operations system offers nothing out of the box,
 but facilitates creating lightweight commands or callouts to the shell for more
 advanced scripts you want easily run on the project by the entire team.
 
-This should remind you of the [Frontend & Theming Operations]().
+This should remind you of the [Frontend & Theming Operations](30_FRONTEND.md).
 
 ```
 {

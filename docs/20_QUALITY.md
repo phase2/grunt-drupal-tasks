@@ -8,7 +8,7 @@ by building code quality checks into the default build process, and applying sev
 * The `grunt validate` task runs the same operation the build process executes.
 * The `grunt analyze` task runs the same, along with the PHP Mess Detector, and outputs all results in checkstyle XML format for consumption by Jenkins or other reporting tools.
 
-If you are interested in applying validation against files changed in your git repository, read more on [how Grunt Drupal Tasks can manage your Git Hooks](https://phase2.github.io/grunt-drupal-tasks/GIT_HOOKS).
+If you are interested in applying validation against files changed in your git repository, read more on [how Grunt Drupal Tasks can manage your Git Hooks](70_GIT_INTEGRATION.md).
 
 ### Validate Settings
 

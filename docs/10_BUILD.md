@@ -2,7 +2,7 @@
 
 > What's your codebase and how is it used in a working Drupal site?
 
-Continuing discussing of code structure begun in the [Setup section](),
+Continuing discussing of code structure begun in the [Setup section](05_SETUP.md),
 Grunt Drupal Tasks is a build system driven by a known "scaffolding" configuration to assemble a working Drupal site from custom code and
 dependency manifests.
 
