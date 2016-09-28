@@ -9,7 +9,7 @@
   <securityRealm class="hudson.security.SecurityRealm$None"/>
   <disableRememberMe>false</disableRememberMe>
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
-  <workspaceDir>/opt/development/<%= projectName %>/jenkins/env/workspace/${ITEM_FULL_NAME}</workspaceDir>
+  <workspaceDir>/opt/development/gdt_docs/jenkins/env/workspace/${ITEM_FULL_NAME}</workspaceDir>
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
   <jdks/>
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
@@ -27,123 +27,8 @@
     </hudson.model.AllView>
     <listView>
       <owner class="hudson" reference="../../.."/>
-      <name>Local</name>
-      <description>Operations for the Local environment at &apos;<%= host.local %>&apos;.</description>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
-      <properties class="hudson.model.View$PropertyList"/>
-      <jobNames>
-        <comparator class="hudson.util.CaseInsensitiveComparator"/>
-      </jobNames>
-      <jobFilters/>
-      <columns>
-        <hudson.views.StatusColumn/>
-        <hudson.views.WeatherColumn/>
-        <hudson.views.JobColumn/>
-        <hudson.views.LastSuccessColumn/>
-        <hudson.views.LastFailureColumn/>
-        <hudson.views.LastDurationColumn/>
-        <hudson.views.BuildButtonColumn/>
-      </columns>
-      <includeRegex>.*local.*</includeRegex>
-      <recurse>false</recurse>
-    </listView><% if (host.int) { %>
-    <listView>
-      <owner class="hudson" reference="../../.."/>
-      <name>Integration</name>
-      <description>Operations for the Integration/PR Testing/Maintenance environment at &apos;<%= host.int %>&apos;.</description>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
-      <properties class="hudson.model.View$PropertyList"/>
-      <jobNames>
-        <comparator class="hudson.util.CaseInsensitiveComparator"/>
-      </jobNames>
-      <jobFilters/>
-      <columns>
-        <hudson.views.StatusColumn/>
-        <hudson.views.WeatherColumn/>
-        <hudson.views.JobColumn/>
-        <hudson.views.LastSuccessColumn/>
-        <hudson.views.LastFailureColumn/>
-        <hudson.views.LastDurationColumn/>
-        <hudson.views.BuildButtonColumn/>
-      </columns>
-      <includeRegex>.*(ci|int|dev\-support).*</includeRegex>
-      <recurse>false</recurse>
-    </listView><% } if (host.dev) { %>
-    <listView>
-      <owner class="hudson" reference="../../.."/>
-      <name>Development</name>
-      <description>Operations for the Development environment at &apos;<%= host.dev %>&apos;.</description>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
-      <properties class="hudson.model.View$PropertyList"/>
-      <jobNames>
-        <comparator class="hudson.util.CaseInsensitiveComparator"/>
-      </jobNames>
-      <jobFilters/>
-      <columns>
-        <hudson.views.StatusColumn/>
-        <hudson.views.WeatherColumn/>
-        <hudson.views.JobColumn/>
-        <hudson.views.LastSuccessColumn/>
-        <hudson.views.LastFailureColumn/>
-        <hudson.views.LastDurationColumn/>
-        <hudson.views.BuildButtonColumn/>
-      </columns>
-      <includeRegex>.*dev(?!\-support).*</includeRegex>
-      <recurse>false</recurse>
-    </listView><% } if (host.qa) { %>
-    <listView>
-      <owner class="hudson" reference="../../.."/>
-      <name>QA</name>
-      <description>Operations for the QA/Testing environment at &apos;<%= host.qa %>&apos;.</description>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
-      <properties class="hudson.model.View$PropertyList"/>
-      <jobNames>
-        <comparator class="hudson.util.CaseInsensitiveComparator"/>
-      </jobNames>
-      <jobFilters/>
-      <columns>
-        <hudson.views.StatusColumn/>
-        <hudson.views.WeatherColumn/>
-        <hudson.views.JobColumn/>
-        <hudson.views.LastSuccessColumn/>
-        <hudson.views.LastFailureColumn/>
-        <hudson.views.LastDurationColumn/>
-        <hudson.views.BuildButtonColumn/>
-      </columns>
-      <includeRegex>.*qa.*</includeRegex>
-      <recurse>false</recurse>
-    </listView><% } if (host.review) { %>
-    <listView>
-      <owner class="hudson" reference="../../.."/>
-      <name>Review</name>
-      <description>Operations for the Review environment at &apos;<%= host.review %>&apos;.</description>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
-      <properties class="hudson.model.View$PropertyList"/>
-      <jobNames>
-        <comparator class="hudson.util.CaseInsensitiveComparator"/>
-      </jobNames>
-      <jobFilters/>
-      <columns>
-        <hudson.views.StatusColumn/>
-        <hudson.views.WeatherColumn/>
-        <hudson.views.JobColumn/>
-        <hudson.views.LastSuccessColumn/>
-        <hudson.views.LastFailureColumn/>
-        <hudson.views.LastDurationColumn/>
-        <hudson.views.BuildButtonColumn/>
-      </columns>
-      <includeRegex>.*(ms|review).*</includeRegex>
-      <recurse>false</recurse>
-    </listView><% } -%>
-    <listView>
-      <owner class="hudson" reference="../../.."/>
       <name>Utility</name>
-      <description>Facilitate Jenkins troubleshooting.</description>
+      <description>Jobs for building docs.</description>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
@@ -160,34 +45,7 @@
         <hudson.views.LastDurationColumn/>
         <hudson.views.BuildButtonColumn/>
       </columns>
-      <includeRegex>.*jenkins.*</includeRegex>
-      <recurse>false</recurse>
-    </listView>
-    <listView>
-      <owner class="hudson" reference="../../.."/>
-      <name>Primary</name>
-      <description>Primary jobs for use in day to day operations.</description>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
-      <jobNames>
-        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
-        <% if (host.int) { %><string>ci</string><% } %>
-        <% if (host.qa) { %><string>deploy-qa</string><% } %>
-        <% if (host.review) { %><string>deploy-review</string><% } %>
-        <% if (host.int) { %><string>dev-support</string><% } %>
-        <% if (host.qa) { %><string>password-reset-qa</string><% } %>
-        <% if (host.review) { %><string>password-reset-review</string><% } %>
-      </jobNames>
-      <jobFilters/>
-      <columns>
-       <hudson.views.StatusColumn/>
-        <hudson.views.WeatherColumn/>
-        <hudson.views.JobColumn/>
-        <hudson.views.LastSuccessColumn/>
-        <hudson.views.LastFailureColumn/>
-        <hudson.views.LastDurationColumn/>
-        <hudson.views.BuildButtonColumn/>
-      </columns>
+      <includeRegex>.*docs.*</includeRegex>
       <recurse>false</recurse>
     </listView>
   </views>

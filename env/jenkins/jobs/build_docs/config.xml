@@ -15,7 +15,7 @@
         <hudson.model.StringParameterDefinition>
           <name>GIT_REF</name>
           <description>Git branch, tag, or commit revision to build.</description>
-          <defaultValue>:^((?!develop).)*$</defaultValue>
+          <defaultValue>refs/heads/feature/mkdocs</defaultValue>
         </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
@@ -28,7 +28,7 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url><%= gitRepoUrl %></url>
+        <url>git@github.com:phase2/grunt-drupal-tasks.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
@@ -56,49 +56,13 @@
       <command>#!/usr/bin/env bash
 export DOCKER_ENV=int
 
-docker-compose run docs
+# docker-compose run docs
+echo "Hello world"
 
 </command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <% if (flowdockApiKey) { %><com.flowdock.jenkins.FlowdockNotifier plugin="jenkins-flowdock-plugin@1.1.8">
-      <flowToken><%= flowdockApiKey %></flowToken>
-      <notificationTags>ci, int</notificationTags>
-      <chatNotification>false</chatNotification>
-      <notifyMap>
-        <entry>
-          <com.flowdock.jenkins.BuildResult>FIXED</com.flowdock.jenkins.BuildResult>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <com.flowdock.jenkins.BuildResult>UNSTABLE</com.flowdock.jenkins.BuildResult>
-          <boolean>false</boolean>
-        </entry>
-        <entry>
-          <com.flowdock.jenkins.BuildResult>NOT_BUILT</com.flowdock.jenkins.BuildResult>
-          <boolean>false</boolean>
-        </entry>
-        <entry>
-          <com.flowdock.jenkins.BuildResult>SUCCESS</com.flowdock.jenkins.BuildResult>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <com.flowdock.jenkins.BuildResult>ABORTED</com.flowdock.jenkins.BuildResult>
-          <boolean>false</boolean>
-        </entry>
-        <entry>
-          <com.flowdock.jenkins.BuildResult>FAILURE</com.flowdock.jenkins.BuildResult>
-          <boolean>true</boolean>
-        </entry>
-      </notifyMap>
-      <notifySuccess>true</notifySuccess>
-      <notifyFailure>true</notifyFailure>
-      <notifyFixed>true</notifyFixed>
-      <notifyUnstable>false</notifyUnstable>
-      <notifyAborted>false</notifyAborted>
-      <notifyNotBuilt>false</notifyNotBuilt>
-    </com.flowdock.jenkins.FlowdockNotifier><% } %>
   </publishers>
   <buildWrappers>
     <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.4.2">
