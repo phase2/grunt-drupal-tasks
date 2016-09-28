@@ -39,7 +39,10 @@ files and files under bin/ in the project's package.
 
 **packages.dest.docroot**: Specify where within the package directory the
 `srcFiles` should be placed. Defaults to the package root. For Acquia set this
-to '/docroot'.
+to 'docroot'.
+
+**packages.dest.vendor**: Specify where to place the composer.json and vendor
+directory.  Defaults to the docroot.
 
 **packages.dest.devResources**: Specify where within the package directory the
 `projFiles` should be placed. Defaults to package root.
@@ -63,7 +66,7 @@ Acquia repository with support for custom hooks and scripts.
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
     "projFiles": ["README*", "bin/**", "hooks/**"],
     "dest": {
-      "docroot": "/docroot"
+      "docroot": "docroot"
     }
   }
 }
