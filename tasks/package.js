@@ -61,10 +61,17 @@ module.exports = function(grunt) {
 
   grunt.registerTask('package', 'Package the operational codebase for deployment. Use package:compress to create an archive.', function() {
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-shell');
 
     var config = grunt.config.get('config.packages');
     var srcFiles = ['**', '!**/.gitkeep'].concat((config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : '**');
     var projFiles = (config && config.projFiles && config.projFiles.length) ? config.projFiles : [];
+
+    // Look for a package target spec, build destination path.
+    var packageName = grunt.option('name') || config.name || 'package';
+    var destPath = grunt.config.get('config.buildPaths.packages') + '/' + packageName;
+    var tasks = [];
+    grunt.option('package-dest', destPath);
 
     var exclude = grunt.config('config.packages.exclude');
     if (exclude !== false) {
@@ -76,44 +83,50 @@ module.exports = function(grunt) {
       for (var i = 0; i < excludePaths.length; i++) {
         excludePaths[i] = '!**/' + excludePaths[i] + '/**';
       }
-      srcFiles = srcFiles.concat(excludePaths);
-      projFiles = projFiles.concat(excludePaths);
+      //srcFiles = srcFiles.concat(excludePaths);
+      //projFiles = projFiles.concat(excludePaths);
     }
 
-    // Look for a package target spec, build destination path.
-    var packageName = grunt.option('name') || config.name || 'package';
-    var destPath = grunt.config.get('config.buildPaths.packages') + '/' + packageName;
-    var tasks = [];
-    grunt.option('package-dest', destPath);
+    var rsync = 'rsync -a '
+        + '--exclude node_modules '
+        + '--exclude bower_components '
+        + '--exclude .git '
+        + '--exclude sites/*/files '
+        + '--exclude xmlrpc.php ';
 
-    grunt.config('copy.package', {
-      files: [
-        {
-          expand: true,
-          cwd: '<%= config.buildPaths.html %>',
-          src: srcFiles,
-          dest: path.resolve(destPath, grunt.config.get('config.packages.dest.docroot') || ''),
-          dot: true,
-          follow: true
-        },
-        {
-          expand: true,
-          src: projFiles,
-          dest: path.resolve(destPath, grunt.config.get('config.packages.dest.devResources') || ''),
-          dot: true,
-          follow: true
-        }
-      ],
-      options: {
-        gruntLogHeader: false,
-        mode: true
-      }
+    var srcPath = grunt.config('config.buildPaths.html');
+    var destSrc = path.resolve(destPath, grunt.config.get('config.packages.dest.docroot') || '');
+    var command = rsync + srcPath + '/ ' + destSrc + '/';
+    console.log(command);
+    console.log(destSrc)
+    grunt.config('shell.mkSrc', {
+      command: 'mkdir -p ' + destSrc
     });
+    grunt.config('shell.srcFiles', {
+      command: command
+    });
+
+    var destProj = path.resolve(destPath, grunt.config.get('config.packages.dest.devResources') || '');
+    grunt.config('shell.mkProj', {
+      command: 'mkdir -p ' + destProj
+    });
+    for (var i = 0; i < projFiles.length; i++) {
+      var command = rsync + srcPath + '/' + projFiles[i] + ' ' + destProj;
+      console.log(command);
+      grunt.config('shell.projFiles' + i, {
+        command: command
+      });
+    }
 
     grunt.config.set('clean.packages', [destPath]);
 
     tasks.push('clean:packages');
-    tasks.push('copy:package');
+    tasks.push('shell:mkSrc');
+    tasks.push('shell:srcFiles');
+    tasks.push('shell:mkProj');
+    for (var i = 0; i < projFiles.length; i++) {
+      tasks.push('shell:projFiles' + i);
+    }
 
     // If the `composer.json` file is being packaged, rebuild composer dependencies without dev.
     if (projFiles.find(function(pattern) {
