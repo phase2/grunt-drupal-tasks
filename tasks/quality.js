@@ -107,12 +107,12 @@ module.exports = function(grunt) {
   var phpmdConfig = grunt.config.get('config.phpmd');
   if (phpmdConfig) {
     var excludePaths = grunt.config('config.phpmd.excludePaths');
-    excludePaths = (excludePaths) ? excludePaths : [];
-    excludePaths = excludePaths.concat(
+    excludePaths = (excludePaths && excludePaths.length) ? excludePaths : [];
+    excludePaths = excludePaths.concat([
       "<%= config.srcPaths.drupal %>/sites",
       'bower_components',
       'node_modules'
-    );
+    ]);
 
     grunt.config('phpmd', {
       custom: {
