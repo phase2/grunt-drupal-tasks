@@ -69,12 +69,12 @@ module.exports = function(grunt) {
     var exclude = grunt.config('config.packages.exclude');
     if (exclude !== false) {
       var excludePaths = grunt.config('config.packages.excludePaths');
-      if (!excludePaths || excludePaths.length == 0) {
+      if (!excludePaths || !excludePaths) {
         excludePaths = ['bower_components', 'node_modules'];
       }
 
-      for (var key in excludePaths) {
-        excludePaths[key] = '!**/' + excludePaths[key] + '/**';
+      for (var i = 0; i < excludePaths.length; i++) {
+        excludePaths[i] = '!**/' + excludePaths[i] + '/**';
       }
       srcFiles = srcFiles.concat(excludePaths);
       projFiles = projFiles.concat(excludePaths);
