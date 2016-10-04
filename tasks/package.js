@@ -66,20 +66,6 @@ module.exports = function(grunt) {
     var srcFiles = ['**', '!**/.gitkeep'].concat((config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : '**');
     var projFiles = (config && config.projFiles && config.projFiles.length) ? config.projFiles : [];
 
-    var exclude = grunt.config('config.packages.exclude');
-    if (exclude !== false) {
-      var excludePaths = grunt.config('config.packages.excludePaths');
-      if (!excludePaths || excludePaths.length == 0) {
-        excludePaths = ['bower_components', 'node_modules'];
-      }
-
-      for (var key in excludePaths) {
-        excludePaths[key] = '!**/' + excludePaths[key] + '/**';
-      }
-      srcFiles = srcFiles.concat(excludePaths);
-      projFiles = projFiles.concat(excludePaths);
-    }
-
     // Look for a package target spec, build destination path.
     var packageName = grunt.option('name') || config.name || 'package';
     var destPath = grunt.config.get('config.buildPaths.packages') + '/' + packageName;
