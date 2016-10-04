@@ -106,6 +106,14 @@ module.exports = function(grunt) {
 
   var phpmdConfig = grunt.config.get('config.phpmd');
   if (phpmdConfig) {
+    var excludePaths = grunt.config('config.phpmd.excludePaths');
+    excludePaths = (excludePaths) ? excludePaths : [];
+    excludePaths = excludePaths.concat(
+      "<%= config.srcPaths.drupal %>/sites",
+      'bower_components',
+      'node_modules'
+    );
+
     grunt.config('phpmd', {
       custom: {
         dir: '<%= config.srcPaths.drupal %>/'
@@ -114,7 +122,7 @@ module.exports = function(grunt) {
         bin: phpmdConfig.path || 'vendor/bin/phpmd',
         rulesets: phpmdConfig.configPath || 'phpmd.xml',
         suffixes: "php,module,inc,install,profile",
-        exclude: "<%= config.srcPaths.drupal %>/sites",
+        exclude: excludePaths.join(),
         reportFormat: 'xml',
         reportFile: '<%= config.buildPaths.reports %>/phpmd.xml'
       }
