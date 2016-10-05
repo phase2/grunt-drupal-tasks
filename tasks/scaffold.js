@@ -23,6 +23,16 @@ module.exports = function(grunt) {
 
         grunt.loadNpmTasks('grunt-contrib-symlink');
 
+        grunt.config.set('mkdir.drupal', {
+          options: {
+            create: [
+              drupal.libraryPath(),
+              drupal.modulePath(),
+              drupal.profilePath()
+            ]
+          }
+        });
+
         grunt.config(['symlink', 'libraries'], {
           expand: true,
           cwd: '<%= config.srcPaths.drupal %>/libraries',
@@ -33,6 +43,7 @@ module.exports = function(grunt) {
           src: '<%= config.srcPaths.drupal %>/modules',
           dest: path.join(drupal.modulePath(), 'custom')
         });
+        console.log("Profile: ",drupal.profilePath());
         grunt.config(['symlink', 'profiles'], {
           expand: true,
           cwd: '<%= config.srcPaths.drupal %>/profiles',
@@ -55,6 +66,7 @@ module.exports = function(grunt) {
         });
 
         grunt.task.run([
+          'mkdir:drupal',
           'symlink:profiles',
           'symlink:libraries',
           'symlink:modules',
