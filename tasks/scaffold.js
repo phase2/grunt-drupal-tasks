@@ -43,7 +43,6 @@ module.exports = function(grunt) {
           src: '<%= config.srcPaths.drupal %>/modules',
           dest: path.join(drupal.modulePath(), 'custom')
         });
-        console.log("Profile: ",drupal.profilePath());
         grunt.config(['symlink', 'profiles'], {
           expand: true,
           cwd: '<%= config.srcPaths.drupal %>/profiles',
