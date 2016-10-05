@@ -71,56 +71,68 @@ module.exports = function(grunt) {
     var packageName = grunt.option('name') || config.name || 'package';
 
     // Determine if we are using rsync and vmPath and tarball for performance.
-    var useRsync = grunt.config('config.packages.rsync');
-    useRsync = (typeof(useRsync) !== 'undefined') ? useRsync : true;
+    var useRsync = grunt.config('config.packages.rsync') || false;
+    // Determine if we are creating a tarball archive.
+    var archive = grunt.config('config.packages.archive') || useRsync;
 
     // When using rsync, generate to a path that can be mounted in the VM.
-    var vmPath = grunt.config.get('config.buildPaths.packages.vmpath') || 'vm_package';
+    var vmPath = grunt.config.get('config.packages.vmData') || 'build/vm_data';
     var destPath = vmPath + '/' + packageName;
     var finalPath = grunt.config.get('config.buildPaths.packages') + '/' + packageName;
     if (!useRsync) {
-      // If not using rsync, then generate to final path.
+      // If not using rsync, then directly generate to final path.
       destPath = finalPath;
     }
+
     var tasks = [];
+    var cleanPaths = [destPath];
+    if (destPath !== finalPath) {
+      cleanPaths.push(finalPath);
+    }
     grunt.option('package-dest', destPath);
+    grunt.config.set('clean.packages', cleanPaths);
+    tasks.push('clean:packages');
 
     var excludePaths = ['bower_components', 'node_modules', '.gitkeep'];
 
     if (useRsync) {
-
-      for (var i=0; i < srcFiles.length; i++) {
-        var item = srcFiles[i];
-        if (item.substr(0,1) === '!') {
+      // Pull negate conditions from srcFiles into excludePaths.
+      for (var srcIndex = 0; srcIndex < srcFiles.length; srcIndex++) {
+        var item = srcFiles[srcIndex];
+        if (item.substr(0, 1) === '!') {
           item = item.slice(1);
           item = item.replace('**', '*');
           excludePaths.push(item);
         }
       }
 
+      // Setup default rsync command and options.
       var rsync = 'rsync -ahWL --no-l --stats --chmod=Du+rwx ';
-      for (var i=0; i < excludePaths.length; i++) {
-        rsync = rsync + "--exclude " + excludePaths[i] + ' ';
+      for (var pathIndex = 0; pathIndex < excludePaths.length; pathIndex++) {
+        rsync = rsync + "--exclude " + excludePaths[pathIndex] + ' ';
       }
 
+      // Ensure destination exists and sent the rsync.
       var srcPath = grunt.config('config.buildPaths.html');
       var destSrc = path.resolve(destPath, grunt.config.get('config.packages.dest.docroot') || '');
       var rsyncCommand = rsync + srcPath + '/ ' + destSrc + '/';
-      grunt.config('shell.mkSrc', {
-        command: 'mkdir -p ' + destSrc
-      });
-      grunt.config('shell.srcFiles', {
-        command: rsyncCommand
+
+      grunt.config.set('mkdir.package', {
+        options: {
+          create: [destSrc]
+        }
       });
 
-    }
-    else {
+      grunt.config('shell.rsync', {
+        command: rsyncCommand
+      });
+    } else {
       // Use slower copy if rsync is disabled in options.
       srcFiles.unshift('**');
+      // Add any additional excludePaths to srcFiles.
       for (var i = 0; i < excludePaths.length; i++) {
-        excludePaths[i] = '!**/' + excludePaths[i];
+        srcFiles.push('!**/' + excludePaths[i]);
       }
-      srcFiles = srcFiles.concat(excludePaths);
       grunt.config('copy.source', {
         files: [
           {
@@ -139,6 +151,7 @@ module.exports = function(grunt) {
       });
     }
 
+    // Always copy any files specified in projFiles.
     grunt.config('copy.package', {
       files: [
         {
@@ -155,15 +168,10 @@ module.exports = function(grunt) {
       }
     });
 
-    grunt.config.set('clean.packages', [destPath]);
-
-    tasks.push('clean:packages');
-
     if (useRsync) {
-      tasks.push('shell:mkSrc');
-      tasks.push('shell:srcFiles');
-    }
-    else {
+      tasks.push('mkdir:package');
+      tasks.push('shell:rsync');
+    } else {
       tasks.push('copy:source');
     }
     tasks.push('copy:package');
@@ -184,39 +192,31 @@ module.exports = function(grunt) {
       tasks.push('composer:drupal-scaffold');
     }
 
-    if (this.args[0] && this.args[0] === 'compress') {
+    if (archive || (this.args[0] && this.args[0] === 'compress')) {
       grunt.loadNpmTasks('grunt-contrib-compress');
       grunt.config('compress.package', {
         options: {
           archive: destPath + '.tgz',
-          mode: 'tgz',
-          gruntLogHeader: false
+          mode: 'tgz'
         },
         files: [
           {
             expand: true,
             dot: true,
-            cwd: grunt.config.get('config.buildPaths.packages') + '/' + packageName,
+            cwd: destPath,
             src: ['**']
           }
         ]
       });
 
       tasks.push('compress:package');
-    }
 
-    if (useRsync) {
-      // Tar the generated package and move it out of the VM.
-      grunt.config('shell.tar', {
-          command: 'tar czf ' + vmPath + '/' + packageName + '.tar.gz ' + destPath
-      });
-
-      grunt.config('shell.mvtar', {
-          command: 'mv ' + vmPath + '/' + packageName + '.tar.gz ' + finalPath
-      });
-
-      tasks.push('shell:tar');
-      tasks.push('shell:mvtar');
+      if (destPath !== finalPath) {
+        grunt.config('shell.mvArchive', {
+          command: 'mv ' + destPath + '.tgz ' + finalPath + '.tgz'
+        });
+        tasks.push('shell:mvArchive');
+      }
     }
 
     grunt.task.run(tasks);
