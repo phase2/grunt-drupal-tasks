@@ -61,27 +61,99 @@ module.exports = function(grunt) {
 
   grunt.registerTask('package', 'Package the operational codebase for deployment. Use package:compress to create an archive.', function() {
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-shell');
 
     var config = grunt.config.get('config.packages');
-    var srcFiles = ['**', '!**/.gitkeep'].concat((config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : '**');
+    var srcFiles = (config && config.srcFiles && config.srcFiles.length) ? config.srcFiles : [];
     var projFiles = (config && config.projFiles && config.projFiles.length) ? config.projFiles : [];
 
     // Look for a package target spec, build destination path.
     var packageName = grunt.option('name') || config.name || 'package';
-    var destPath = grunt.config.get('config.buildPaths.packages') + '/' + packageName;
-    var tasks = [];
-    grunt.option('package-dest', destPath);
 
+    // Determine if we are using rsync and vmPath and tarball for performance.
+    var useRsync = grunt.config('config.packages.rsync') || false;
+    // Determine if we are creating a tarball archive.
+    var archive = grunt.config('config.packages.archive') || useRsync;
+
+    // When using rsync, generate to a path that can be mounted in the VM.
+    var vmPath = grunt.config.get('config.packages.vmData') || 'build/vm_data';
+    var destPath = vmPath + '/' + packageName;
+    var finalPath = grunt.config.get('config.buildPaths.packages') + '/' + packageName;
+    if (!useRsync) {
+      // If not using rsync, then directly generate to final path.
+      destPath = finalPath;
+    }
+
+    var tasks = [];
+    var cleanPaths = [destPath];
+    if (destPath !== finalPath) {
+      cleanPaths.push(finalPath);
+    }
+    grunt.option('package-dest', destPath);
+    grunt.config.set('clean.packages', cleanPaths);
+    tasks.push('clean:packages');
+
+    var excludePaths = ['bower_components', 'node_modules', '.gitkeep'];
+
+    if (useRsync) {
+      // Pull negate conditions from srcFiles into excludePaths.
+      for (var srcIndex = 0; srcIndex < srcFiles.length; srcIndex++) {
+        var item = srcFiles[srcIndex];
+        if (item.substr(0, 1) === '!') {
+          item = item.slice(1);
+          item = item.replace('**', '*');
+          excludePaths.push(item);
+        }
+      }
+
+      // Setup default rsync command and options.
+      var rsync = 'rsync -ahWL --no-l --stats --chmod=Du+rwx ';
+      for (var pathIndex = 0; pathIndex < excludePaths.length; pathIndex++) {
+        rsync = rsync + "--exclude " + excludePaths[pathIndex] + ' ';
+      }
+
+      // Ensure destination exists and sent the rsync.
+      var srcPath = grunt.config('config.buildPaths.html');
+      var destSrc = path.resolve(destPath, grunt.config.get('config.packages.dest.docroot') || '');
+      var rsyncCommand = rsync + srcPath + '/ ' + destSrc + '/';
+
+      grunt.config.set('mkdir.package', {
+        options: {
+          create: [destSrc]
+        }
+      });
+
+      grunt.config('shell.rsync', {
+        command: rsyncCommand
+      });
+    } else {
+      // Use slower copy if rsync is disabled in options.
+      srcFiles.unshift('**');
+      // Add any additional excludePaths to srcFiles.
+      for (var i = 0; i < excludePaths.length; i++) {
+        srcFiles.push('!**/' + excludePaths[i]);
+      }
+      grunt.config('copy.source', {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= config.buildPaths.html %>',
+            src: srcFiles,
+            dest: path.resolve(destPath, grunt.config.get('config.packages.dest.docroot') || ''),
+            dot: true,
+            follow: true
+          }
+        ],
+        options: {
+          gruntLogHeader: false,
+          mode: true
+        }
+      });
+    }
+
+    // Always copy any files specified in projFiles.
     grunt.config('copy.package', {
       files: [
-        {
-          expand: true,
-          cwd: '<%= config.buildPaths.html %>',
-          src: srcFiles,
-          dest: path.resolve(destPath, grunt.config.get('config.packages.dest.docroot') || ''),
-          dot: true,
-          follow: true
-        },
         {
           expand: true,
           src: projFiles,
@@ -96,9 +168,12 @@ module.exports = function(grunt) {
       }
     });
 
-    grunt.config.set('clean.packages', [destPath]);
-
-    tasks.push('clean:packages');
+    if (useRsync) {
+      tasks.push('mkdir:package');
+      tasks.push('shell:rsync');
+    } else {
+      tasks.push('copy:source');
+    }
     tasks.push('copy:package');
 
     // If the `composer.json` file is being packaged, rebuild composer dependencies without dev.
@@ -117,25 +192,31 @@ module.exports = function(grunt) {
       tasks.push('composer:drupal-scaffold');
     }
 
-    if (this.args[0] && this.args[0] === 'compress') {
+    if (archive || (this.args[0] && this.args[0] === 'compress')) {
       grunt.loadNpmTasks('grunt-contrib-compress');
       grunt.config('compress.package', {
         options: {
           archive: destPath + '.tgz',
-          mode: 'tgz',
-          gruntLogHeader: false
+          mode: 'tgz'
         },
         files: [
           {
             expand: true,
             dot: true,
-            cwd: grunt.config.get('config.buildPaths.packages') + '/' + packageName,
+            cwd: destPath,
             src: ['**']
           }
         ]
       });
 
       tasks.push('compress:package');
+
+      if (destPath !== finalPath) {
+        grunt.config('shell.mvArchive', {
+          command: 'mv ' + destPath + '.tgz ' + finalPath + '.tgz'
+        });
+        tasks.push('shell:mvArchive');
+      }
     }
 
     grunt.task.run(tasks);

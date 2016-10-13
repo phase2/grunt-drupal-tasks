@@ -51,6 +51,35 @@ directory.  Defaults to the docroot.
 packages directory. This can be overridden by calling grunt package with the
 `--name` parameter.
 
+**archive**: Used to enable the `compress` option via the configuration instead
+of the command line. Defaults to false.
+
+**rsync**: If set to true, rsync will be used instead of file copying for
+improved performance. This automatically enables the `compress` option and will
+write the archive to the package destination.
+
+**vmData**: This path is used as the intermediate generation directory for the
+package when using the `rsync` option. By selecting a volume mounted in your
+VM `/data` area, this can significantly improve performance. The archive is
+still moved to the normal package destination when complete.  Defaults to
+`build/vm_data`.
+
+## Performance
+
+When running `grunt package` within a docker container, the default file
+operations will be using NFS to update the files on your local disk, which will
+be very slow. Using the `rsync` option along with creating the `build/vm_data`
+intermediate mount point in your docker container can improve performance by
+a factor of 20 or more. However, the downside is only the compressed archive of
+your package will be written to your local disk. The full package folder will
+only be accessible within your docker container.
+
+A sample docker-composer.yml entry to mount the vm_data looks like this:
+```
+  volumes:
+    - /data/PROJECTNAME/package:/var/www/build/vm_data
+```
+
 ## Packaging for Acquia
 
 The `package` command has the flexibility to support many different use cases,
@@ -65,6 +94,7 @@ Acquia repository with support for custom hooks and scripts.
   "packages": {
     "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
     "projFiles": ["README*", "bin/**", "hooks/**"],
+    "rsync": true,
     "dest": {
       "docroot": "docroot"
     }
