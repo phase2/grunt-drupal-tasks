@@ -30,16 +30,16 @@ This is an example of the settings for package tasks:
 
 **packages.srcFiles**: An array of files or file patterns to include or exclude
 from the build output when building a package. The above excludes files within
-any sites/*/files directory, and Drupal's xmlrpc.php and PHP Filter. For more on
-this format, see: http://gruntjs.com/configuring-tasks#files
+any `sites/*/files` directory, and Drupal's `xmlrpc.php` file and PHP Filter
+module. For more on this format, see: http://gruntjs.com/configuring-tasks#files
 
 **packages.projFiles**: An array of files or file patterns to include or exclude
 from the project directory when building a package. The above includes README
-files and files under bin/ in the project's package.
+files and files under `bin/` in the project's package.
 
 **packages.dest.docroot**: Specify where within the package directory the
 `srcFiles` should be placed. Defaults to the package root. For Acquia set this
-to 'docroot'.
+to `/docroot`.
 
 **packages.dest.vendor**: Specify where to place the composer.json and vendor
 directory.  Defaults to the docroot.

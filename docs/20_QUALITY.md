@@ -117,12 +117,19 @@ implications of code complexity, though there is some overlap in the rulesets.
   "phpmd": {
     "configPath": "phpmd.xml",
     "path": "bin/phpmd"
+    "excludePaths": [
+      "bower_components",
+      "node_modules"
+    ]
   }
 }
 ```
 
 **phpmd.configPath**: The configuration file to use with PHPMD. Defaults to
 *phpmd.xml*.
+
+**phpmd.excludePaths**: An array of string path patterns that should be skipped
+by PHPMD.
 
 **phpmd.path**: The path to the PHPMD executable.
 
