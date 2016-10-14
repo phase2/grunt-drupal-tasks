@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v1.0.0-rc1 [2016/10/14]
+
+- Adding scaffold step to ensure the profiles, modules, and libraries
+directories are created within the build output.
+- By default, exclude bower_components and node_modules paths from phpmd.
+- Fixed task error if phpcsConfig and eslintConfig are not defined.
+- Setting up generated documentation site, and documentation updates.
+- Removing Travis test coverage for Node.js v5.
+
 ## v1.0.0-alpha4 [2016/09/26]
 
 - Adding support to configure the packaging task's output location of the
@@ -33,7 +42,7 @@ from `drush.cmd` to `drush.path` for consistency.
 ### Upgrade Notes
 
 - Node.js v4 or later is required. Grunt Drupal Tasks is now compatible with
-Node.js v5.
+Node.js v4 and v6.
 - PHP v5.5 or later is required.
 - Use of the built-in Compass theme compilation steps must be replaced by custom
 handling at the project- or theme-level.
