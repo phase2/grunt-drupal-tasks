@@ -7,10 +7,6 @@ Code Status (master branch):
 [![Dependency Status](https://david-dm.org/phase2/grunt-drupal-tasks.svg)](https://david-dm.org/phase2/grunt-drupal-tasks)
 [![npm version](https://badge.fury.io/js/grunt-drupal-tasks.svg)](https://www.npmjs.com/package/grunt-drupal-tasks)
 
-**This branch contains documentation for the v1.0.0 pre-release. Documentation
-for v0.11.1 and earlier can be found at:**
-https://github.com/phase2/grunt-drupal-tasks/tree/v0.11.1
-
 ## Features
 
 This project is built on the tools of the Grunt community to provide scripted

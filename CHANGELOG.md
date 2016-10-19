@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.0.0 [2016/10/19]
+
+- No changes since the v1.0.0-rc1 pre-release.
+
 ## v1.0.0-rc1 [2016/10/14]
 
 - Adding scaffold step to ensure the profiles, modules, and libraries

@@ -1,6 +1,6 @@
 {
   "name": "grunt-drupal-tasks",
-  "version": "1.0.0-rc1",
+  "version": "1.0.0",
   "dependencies": {
     "fs-extra": {
       "version": "0.30.0",
