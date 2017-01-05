@@ -190,11 +190,18 @@ module.exports = function(grunt) {
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
     phpcsConfig = grunt.config.get('phpcs');
     var files;
+
     if (phpcsConfig && phpcsConfig.validate) {
-      files = filesToProcess(phpcsConfig.validate.src);
-      if (files.length) {
-        grunt.config.set('phpcs.validate.src', files);
+      // Defer to phpcs.xml/phpcs.xml.dist if present.
+      if (grunt.file.exists('./phpcs.xml') || grunt.file.exists('./phpcs.xml.dist')) {
+        grunt.config.set('phpcs.validate.src', []);
         validate.push('phpcs:validate');
+      } else {
+        files = filesToProcess(phpcsConfig.validate.src);
+        if (files.length) {
+          grunt.config.set('phpcs.validate.src', files);
+          validate.push('phpcs:validate');
+        }
       }
     }
     eslintConfig = grunt.config.get('eslint');
