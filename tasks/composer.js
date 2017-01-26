@@ -28,10 +28,14 @@ module.exports = function(grunt) {
       }
     });
 
-    // Add the drupal-scaffold task if it is defined in the `composer.json`.
     var composer = JSON.parse(require('fs').readFileSync('./composer.json', 'utf8'));
     if (typeof composer.scripts !== 'undefined' && 'drupal-scaffold' in composer.scripts) {
+      // Add the drupal-scaffold task if it is defined in the `composer.json`.
       grunt.config(['composer', 'drupal-scaffold'], {});
+    }
+    if (typeof composer.scripts !== 'undefined' && 'test' in composer.scripts) {
+      // Add the composer test task.
+      grunt.config(['composer', 'test'], {});
     }
 
     Help.add({

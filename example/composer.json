@@ -25,7 +25,8 @@
     "drupal/console": "~0.10",
     "phpmd/phpmd": "~2.1",
     "phpunit/phpunit": "~4.8",
-    "drupal/coder": "^8.2"
+    "drupal/coder": "^8.2",
+    "jakub-onderka/php-parallel-lint": "^0.9.2"
   },
   "conflict": {
     "drupal/drupal": "*"
@@ -33,7 +34,11 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "scripts": {
-    "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+    "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+    "test": [
+      "parallel-lint src",
+      "phpcs --encoding=utf-8 -p --standard=phpcs.xml --report-full"
+    ]
   },
   "extra": {
     "installer-paths": {

@@ -12,7 +12,14 @@
         "drupal/drupal-extension": "~3.0",
         "drush/drush": "^8",
         "drupal/coder": "^8.2",
-        "phpmd/phpmd": "~2.1"
+        "phpmd/phpmd": "~2.1",
+        "jakub-onderka/php-parallel-lint": "^0.9.2"
+    },
+    "scripts": {
+      "test": [
+        "parallel-lint src",
+        "phpcs --encoding=utf-8 -p --standard=phpcs.xml --report-full"
+      ]
     },
     "require": {
         "roave/security-advisories": "dev-master"
