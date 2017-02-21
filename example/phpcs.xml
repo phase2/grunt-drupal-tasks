@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="example-gdt-project">
+  <description>PHP CodeSniffer configuration for example project.</description>
+  <file>./src</file>
+  <arg name="extensions" value="inc,install,module,php,profile,test,theme,yml"/>
+
+  <rule ref="vendor/drupal/coder/coder_sniffer/Drupal">
+  </rule>
+</ruleset>

@@ -39,6 +39,7 @@ module.exports = function(grunt) {
   // tasks array.
   if (!grunt.option('no-validate')) {
     tasksDefault.push('validate');
+    tasksDefault.push('composer:test');
   }
 
   // Process .make files if configured.

@@ -32,78 +32,6 @@ module.exports = function(grunt) {
     '!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/vendor/**'
   ];
 
-  // Include common sites and theme locations in phplint validation.
-  var phplintPatterns = defaultPatterns.slice(0);
-  phplintPatterns.unshift([
-    '<%= config.srcPaths.drupal %>/sites/*/*.{php,inc}',
-    '<%= config.srcPaths.drupal %>/sites/*/*/*.{php,inc}',
-    '<%= config.srcPaths.drupal %>/themes/*/template.php',
-    '<%= config.srcPaths.drupal %>/themes/*/templates/**/*.php',
-    '<%= config.srcPaths.drupal %>/themes/*/includes/**/*.{inc,php}'
-  ]);
-
-  grunt.config('phplint', {
-    all: grunt.config.get('config.phplint.dir') ? grunt.config.get('config.phplint.dir') : phplintPatterns
-  });
-  validate.push('phplint:all');
-
-  // Exclude templates by default from phpcs validation.
-  var phpcsPatterns = defaultPatterns.slice(0);
-  phpcsPatterns.unshift('<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.yml');
-  phpcsPatterns.push('!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.tpl.php');
-
-  var phpcsConfig = grunt.config.get('config.phpcs');
-  if (phpcsConfig) {
-    var phpcs = phpcsConfig.dir || phpcsPatterns;
-    var phpStandard = phpcsConfig.standard ||
-      'vendor/drupal/coder/coder_sniffer/Drupal,vendor/drupal/coder/coder_sniffer/DrupalPractice';
-    var ignoreError = grunt.config('config.validate.ignoreError');
-
-    grunt.config('phpcs', {
-      analyze: {
-        src: phpcs
-      },
-      drupal: {
-        src: phpcs
-      },
-      validate: {
-        src: phpcs,
-        options: {
-          report: phpcsConfig.validateReport || 'full',
-          reportFile: false
-        }
-      },
-      full: {
-        src: phpcs,
-        options: {
-          report: 'full',
-          reportFile: false
-        }
-      },
-      summary: {
-        src: phpcs,
-        options: {
-          report: 'summary',
-          reportFile: false
-        }
-      },
-      gitblame: {
-        src: phpcs,
-        options: {
-          report: 'gitblame',
-          reportFile: false
-        }
-      },
-      options: {
-        bin: phpcsConfig.path || 'vendor/bin/phpcs',
-        standard: phpStandard,
-        ignoreExitCode: ignoreError,
-        report: 'checkstyle',
-        reportFile: '<%= config.buildPaths.reports %>/phpcs.xml'
-      }
-    });
-  }
-
   var phpmdConfig = grunt.config.get('config.phpmd');
   if (phpmdConfig) {
     var excludePaths = grunt.config('config.phpmd.excludePaths');
@@ -188,15 +116,6 @@ module.exports = function(grunt) {
   };
 
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
-    phpcsConfig = grunt.config.get('phpcs');
-    var files;
-    if (phpcsConfig && phpcsConfig.validate) {
-      files = filesToProcess(phpcsConfig.validate.src);
-      if (files.length) {
-        grunt.config.set('phpcs.validate.src', files);
-        validate.push('phpcs:validate');
-      }
-    }
     eslintConfig = grunt.config.get('eslint');
     var eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError');
     var eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
@@ -226,15 +145,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('analyze', 'Generate reports on code quality for use by Jenkins or other visualization tools.', function() {
-    phpcsConfig = grunt.config.get('phpcs');
-    var files;
-    if (phpcsConfig.analyze) {
-      files = filesToProcess(phpcsConfig.analyze.src);
-      if (files.length) {
-        grunt.config.set('phpcs.analyze', files);
-        analyze.push('phpcs:analyze');
-      }
-    }
     eslintConfig = grunt.config.get('eslint');
     var eslintIgnoreError = grunt.config.get('config.validate.ignoreError') === undefined ? false : grunt.config.get('config.validate.ignoreError');
     var eslintName = eslintIgnoreError ? 'force:eslint' : 'eslint';
