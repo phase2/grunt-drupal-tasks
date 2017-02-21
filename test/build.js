@@ -160,7 +160,7 @@ describe('grunt', function() {
 
     it('should run pre-op and post-op scripts', function(done) {
       exec('grunt echo', function(error, stdout) {
-        var status = !error && stdout && stdout.match(/pre\-op script/)[0] && stdout.match(/post\-op script/)[0];
+        var status = !error && stdout && stdout.match(/pre-op script/)[0] && stdout.match(/post-op script/)[0];
         assert.ok(status);
         done();
       });
