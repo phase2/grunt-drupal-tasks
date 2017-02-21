@@ -98,7 +98,7 @@ module.exports = function(grunt) {
         bin: phpcsConfig.path || 'vendor/bin/phpcs',
         standard: phpStandard,
         ignoreExitCode: ignoreError,
-        report: 'checkstyle',
+        report: phpcsConfig.format || 'checkstyle',
         reportFile: '<%= config.buildPaths.reports %>/phpcs.xml'
       }
     });
@@ -160,7 +160,7 @@ module.exports = function(grunt) {
       validate: eslintTarget,
       analyze: {
         options: {
-          format: 'checkstyle',
+          format: eslintConfig.format || 'checkstyle',
           outputFile: '<%= config.buildPaths.reports %>/eslint.xml'
         },
         src: eslintTargetAnalyze
