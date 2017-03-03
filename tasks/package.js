@@ -49,7 +49,7 @@ module.exports = function(grunt) {
         // Remove the original file if we moved it.
         grunt.file.delete(destPath + '/composer.json');
         // Change working directory for later `composer install`.
-        grunt.config(['composer'], {
+        grunt.config(['composer', 'install'], {
           options: {
             flags: ['no-dev'],
             cwd: destComposer
@@ -106,15 +106,15 @@ module.exports = function(grunt) {
       return pattern.startsWith('composer');
     })) {
       tasks.push('packageRewriteComposer');
-      grunt.config(['composer'], {
+      grunt.config(['composer', 'install'], {
         options: {
           flags: ['no-dev'],
           cwd: destPath
         }
       });
-      tasks.push('composer:install');
+      tasks.push('composer:install:install');
       grunt.config(['composer', 'drupal-scaffold'], {});
-      tasks.push('composer:drupal-scaffold');
+      tasks.push('composer:drupal-scaffold:drupal-scaffold');
     }
 
     if (this.args[0] && this.args[0] === 'compress') {
