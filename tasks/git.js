@@ -16,7 +16,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-githooks');
 
     var tasks = grunt.config('config.git.hooks') || [];
-    tasks.unshift('validate:staged')
+    tasks.unshift('validate:staged');
 
     // Githooks task may be configured via Gruntconfig.
     grunt.config('githooks', {
