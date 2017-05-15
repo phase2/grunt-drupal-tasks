@@ -1,5 +1,7 @@
 # Grunt Drupal Tasks
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/phase2/grunt-drupal-tasks.svg)](https://greenkeeper.io/)
+
 > A Grunt plugin to automate Drupal 7 and Drupal 8 build and testing tasks.
 
 Code Status (master branch):
