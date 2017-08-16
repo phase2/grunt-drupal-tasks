@@ -28,7 +28,8 @@ module.exports = function(grunt) {
             create: [
               drupal.libraryPath(),
               drupal.modulePath(),
-              drupal.profilePath()
+              drupal.profilePath(),
+              drupal.configPath()
             ]
           }
         });
@@ -49,6 +50,10 @@ module.exports = function(grunt) {
           src: ['*'],
           dest: drupal.profilePath(),
           filter: 'isDirectory'
+        });
+        grunt.config(['symlink', 'config'], {
+          src: '<%= config.srcPaths.drupal %>/config',
+          dest: drupal.configPath()
         });
         grunt.config(['symlink', 'sites'], {
           expand: true,
