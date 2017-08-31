@@ -53,6 +53,10 @@ module.exports = function(grunt) {
   phpcsPatterns.push('!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.tpl.php');
 
   var phpcsConfig = grunt.config.get('config.phpcs');
+  // Warn if existing phpcs configs will be overridden.
+  if (phpcsConfig.path && (grunt.file.exists('./phpcs.xml') || grunt.file.exists('./phpcs.xml.dist'))) {
+    grunt.warn('The PHPCS configuration is being specified by phpcs.xml. Please remove the configuration settings from the Gruntconfig file as these are ignored.');
+  }
   if (phpcsConfig) {
     var phpcs = phpcsConfig.dir || phpcsPatterns;
     var phpStandard = phpcsConfig.standard ||
