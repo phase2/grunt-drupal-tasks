@@ -139,6 +139,18 @@ describe('grunt', function() {
         done();
       });
     });
+
+    // Ensure the build/html/config directory exists if it should.
+    it('config directory should exist if provided ', function(done) {
+      fs.exists('src/config', function(exists) {
+        if (exists) {
+          fs.exists('build/html/config', function(exists) {
+            assert.ok(exists);
+            done();
+          });
+        }
+      });
+    });
   });
 
   describe('Script dispatching', function() {
