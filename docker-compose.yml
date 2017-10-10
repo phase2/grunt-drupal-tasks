@@ -1,0 +1,36 @@
+##
+# Operational services to run tests for GDT.
+##
+version: '3.0'
+
+services:
+  # Database service
+  db:
+    container_name: gdt_db
+    image: ${GDT_DB:-outrigger/mariadb:10.1}
+    network_mode: "bridge"
+    labels:
+      com.dnsdock.name: db
+      com.dnsdock.image: gdt
+    environment:
+      MYSQL_DATABASE: gdt_drupal
+    volumes:
+      - /data/gdt/mysql:/var/lib/mysql
+  
+  # Main Application service.
+  www:
+    container_name: gdt_www
+    image: ${GDT_WWW:-outrigger/apache-php:php70}
+    network_mode: "bridge"
+    labels:
+      com.dnsdock.name: www
+      com.dnsdock.image: gdt
+    links:
+      - db
+    environment:
+      DOCROOT: /var/www/build/html
+      PHP_MAX_EXECUTION_TIME: 60
+      # Include the DOCKER_ENV so Drupal settings can be aware of environment.
+      DOCKER_ENV: ${DOCKER_ENV:-local}
+    volumes:
+      - ./test/working_copy:/var/www/
