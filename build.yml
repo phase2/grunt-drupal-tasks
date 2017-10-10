@@ -1,0 +1,102 @@
+version: '2.1'
+
+services:
+  # Container for starting a cli for build commands
+  # Usage: docker-compose -f build.yml run --rm cli
+  cli:
+    extends:
+      service: operational
+    command: /bin/bash
+
+  # Container for running composer in the repo root.
+  # Usage: docker-compose -f build.yml run --rm composer <command>
+  composer:
+    extends:
+      service: base
+    entrypoint: [ "/init", "composer", "--ansi" ]
+    command: ""
+
+  # Container for running drush in the docroot.
+  # Usage: docker-compose -f build.yml run --rm drush <command>
+  # Where <command> is a direct drush command like cache-rebuild
+  drush:
+    extends:
+      service: operational
+    entrypoint: [ "/init", "drush" ]
+    working_dir: /var/www/build/html
+
+  # Container for running grunt in the docroot.
+  # Usage: DOCKER_ENV=int docker-compose -f build.devcloud.yml -p atmosphere_int run --rm grunt <command>
+  grunt:
+    extends:
+      service: operational
+    entrypoint: [ "/init", "grunt" ]
+
+  # Container for running tests.
+  # Usage: DOCKER_ENV=int docker-compose -f build.devcloud.yml -p atmosphere_int run --rm grunt <command>
+  test:
+    extends:
+      service: base
+    entrypoint: [ "/init", "./test/test-entrypoint.sh" ]
+    working_dir: /var/gdt
+
+  # Container for running PHPUnit tests.
+  # Usage: docker-compose -f build.yml run --rm phpunit <phpunit parameters>
+  # E.g. docker-compose -f build.yml run --rm phpunit -c ./core/phpunit.xml.dist ./modules/custom
+  phpunit:
+    extends:
+      service: operational
+    entrypoint: [ "/init", "/var/www/vendor/bin/phpunit" ]
+    working_dir: /var/www/build/html
+    volumes:
+      - ./env/build/tmp/phpunit:/tmp/phpunit
+
+  # Operational base service definition for Local environment.
+  #
+  # Unlike `base`, this layer is functional for application interactions.
+  #
+  # Other services inherit these settings via the extends property.
+  # See https://docs.docker.com/compose/extends/#extending-services
+  operational:
+    extends:
+      service: base
+    external_links:
+      - gdt_db:db
+    working_dir: /var/www
+    # Unset the bin/bash command used by base and cli.
+    command: ""
+
+  # Base service definition for GDT environment.
+  base:
+    image: ${DOCKER_WWW_IMAGE:-outrigger/build:php71}
+    network_mode: "bridge"
+    entrypoint: [ "/init" ]
+    working_dir: /var/gdt
+    command: /bin/bash
+    volumes:
+      - .:/var/gdt/
+      # Persist the cache directories associated with various tools.
+      # The first volume mount covers: npm, composer, bower, fontconfig, & yarn
+      - /data/gdt/cache:/root/.cache
+      - /data/gdt/cache/drush:/root/.drush/cache
+      - /data/gdt/cache/behat_gherkin:/tmp/behat_gherkin_cache
+      # SSH key grants read access to private Git repositories.
+      - ~/.ssh/${OUTRIGGER_SSH_KEY:-id_rsa}:/root/.ssh/outrigger.key
+    environment:
+      APP_DOMAIN: www.gdt.vm
+      GDT_DOMAIN: www.gdt.vm
+      # Check https://hub.docker.com/r/phase2/devtools-build/ for other Node version options.
+      NODE_VERSION: 6
+      # Suppress the loading of grunt-drupal-tasks desktop notification functionality.
+      GDT_QUIET: 1
+      # Include the DOCKER_ENV so Drupal settings can be aware of environment.
+      DOCKER_ENV: ${DOCKER_ENV:-local}
+      # Centralized build cache configuration.
+      # This might move to the Docker build image.
+      NPM_CONFIG_CACHE: /root/.cache/npm
+      COMPOSER_CACHE_DIR: /root/.cache/composer
+      # PHPUnit variables.
+      SIMPLETEST_DB: mysql://admin:admin@db/gdt_drupal
+      SIMPLETEST_BASE_URL: http://www.gdt.vm
+      BROWSERTEST_OUTPUT_DIRECTORY: /tmp/phpunit
+      COMPOSER_EXIT_ON_PATCH_FAILURE: 1
