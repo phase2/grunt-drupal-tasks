@@ -139,6 +139,32 @@ describe('grunt', function() {
         done();
       });
     });
+
+    // Ensure the build/html/config directory exists if it should.
+    it('config directory should exist if provided ', function(done) {
+      var src = fs.existsSync('src/config');
+      var html = fs.existsSync('build/html/config');
+      if (drupalCore === '8') {
+        if (src && html) {
+          assert.ok(true, 'Both src/config and build/html/config exist');
+          done();
+        } else if (src && !html) {
+          assert.ok(false, 'Error: src/config exists but build/html/config does not');
+          done();
+        } else if (html && !src) {
+          assert.ok(false, 'Error: build/html/config exists but src/config does not');
+          done();
+        }
+      } else if (drupalCore === '7') {
+        if (src || html) {
+          assert.ok(false, 'Error: The src/config or build/html/config directories should not exist');
+          done();
+        } else {
+          assert.ok(true, 'Neither src/config or build/html/config exist');
+          done();
+        }
+      }
+    });
   });
 
   describe('Script dispatching', function() {
