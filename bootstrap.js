@@ -1,12 +1,32 @@
 module.exports = function(grunt) {
   // Initialize global configuration variables.
-  var config = require('load-grunt-configs')(grunt);
+  var config = grunt.file.readJSON('Gruntconfig.json');
   if (grunt.config.getRaw() === undefined) {
     grunt.initConfig({
       config: config
     });
   } else {
     grunt.config.set('config', config);
+  }
+
+  config_dir = grunt.config.get('config.srcPaths.config_dir');
+  if (config_dir && grunt.file.isDir(config_dir)) {
+    var options = {
+      config: {
+        src: [
+          config_dir + '/*.js*',
+          config_dir + '/*.coffee',
+          config_dir + '/*.y*ml',
+          config_dir + '/*.cson'
+        ]
+      }
+    };
+    var configs = require('load-grunt-configs')(grunt, options);
+    for (config_name in configs) {
+      if (config_name != 'config') {
+        grunt.config.set('config.' + config_name, configs[config_name]);
+      }
+    }
   }
 
   var GDT = require('./lib/init')(grunt);
