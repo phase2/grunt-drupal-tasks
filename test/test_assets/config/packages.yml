@@ -1,0 +1,8 @@
+---
+srcFiles:
+  - "!sites/*/files/**"
+  - "!xmlrpc.php"
+  - "!modules/php/*"
+projFiles:
+  - "README*"
+  - "bin/**"
