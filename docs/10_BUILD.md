@@ -154,6 +154,11 @@ The following build output paths are optional to specify in the project's
 **srcPaths.make**: The Drush make file used to assemble the Drupal project.
 This is only used for Drupal 7.x projects.  Example is `src/project.make`.
 
+**srcPaths.config_dir**: The directory that should be used for loading
+configurations. The files inside this directory will be loaded using
+[load-grunt-configs](https://www.npmjs.com/package/load-grunt-configs)
+and merged with the *Gruntconfig.json*.
+
 **buildPaths.build**: The directory that should be used for miscellaneous build
 artifacts. This can be the parent directory of the following build paths.
 
