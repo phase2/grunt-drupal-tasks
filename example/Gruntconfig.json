@@ -1,6 +1,6 @@
 {
   "srcPaths": {
-    "config_dir": "config",
+    "configDir": "config",
     "make": "src/project.make",
     "drupal": "src"
   },

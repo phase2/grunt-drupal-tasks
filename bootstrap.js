@@ -9,22 +9,22 @@ module.exports = function(grunt) {
     grunt.config.set('config', config);
   }
 
-  config_dir = grunt.config.get('config.srcPaths.config_dir');
-  if (config_dir && grunt.file.isDir(config_dir)) {
+  var configDir = grunt.config.get('config.srcPaths.configDir');
+  if (configDir && grunt.file.isDir(configDir)) {
     var options = {
       config: {
         src: [
-          config_dir + '/*.js*',
-          config_dir + '/*.coffee',
-          config_dir + '/*.y*ml',
-          config_dir + '/*.cson'
+          configDir + '/*.js*',
+          configDir + '/*.coffee',
+          configDir + '/*.y*ml',
+          configDir + '/*.cson'
         ]
       }
     };
     var configs = require('load-grunt-configs')(grunt, options);
-    for (config_name in configs) {
-      if (config_name != 'config') {
-        grunt.config.set('config.' + config_name, configs[config_name]);
+    for (var configName in configs) {
+      if (configName !== 'config') {
+        grunt.config.set('config.' + configName, configs[configName]);
       }
     }
   }
