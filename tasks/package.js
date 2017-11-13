@@ -17,7 +17,8 @@ module.exports = function(grunt) {
     if ((pathBuild !== pathPackage) || pathVendor) {
       // Load `composer.json` as JSON, convert to object.
       var destPath = grunt.option('package-dest');
-      var composer = grunt.file.readJSON(destPath + '/composer.json');
+      var composerPath = path.resolve(destPath, grunt.config.get('config.packages.dest.devResources') || '');
+      var composer = grunt.file.readJSON(composerPath + '/composer.json');
       // Determine new installer-paths
       var pathInstall = pathPackage ? pathPackage + '/' : '';
       if (pathVendor) {
@@ -47,7 +48,7 @@ module.exports = function(grunt) {
       grunt.file.write(destComposer + '/composer.json', composerString);
       if (pathVendor) {
         // Remove the original file if we moved it.
-        grunt.file.delete(destPath + '/composer.json');
+        grunt.file.delete(composerPath + '/composer.json');
         // Change working directory for later `composer install`.
         grunt.config(['composer'], {
           options: {
