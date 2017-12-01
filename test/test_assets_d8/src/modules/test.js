@@ -1,6 +1,6 @@
 
 var test = "hi";
 
-  if (test == 'hello') {
-  }
-
+if (test === 'hello') {
+  console.log(test);
+}
