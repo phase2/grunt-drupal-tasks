@@ -23,16 +23,21 @@ module.exports = function(grunt) {
 
         grunt.loadNpmTasks('grunt-contrib-symlink');
 
+        // Creates directories needed for the build.
         grunt.config.set('mkdir.drupal', {
           options: {
             create: [
               drupal.libraryPath(),
               drupal.modulePath(),
-              drupal.profilePath()
+              drupal.profilePath(),
+              drupal.configPath()
             ]
           }
         });
 
+        /**
+         * Symlink directories from 'src' to 'build/html'.
+         */
         grunt.config(['symlink', 'libraries'], {
           expand: true,
           cwd: '<%= config.srcPaths.drupal %>/libraries',
@@ -63,6 +68,14 @@ module.exports = function(grunt) {
           src: '<%= config.srcPaths.drupal %>/themes',
           dest: path.join(drupal.themePath(), 'custom')
         });
+
+        // We symlink the config directory if one exists.
+        if (drupal.sourceConfigExists()) {
+          grunt.config(['symlink', 'config'], {
+            src: '<%= config.srcPaths.drupal %>/config',
+            dest: drupal.configPath()
+          });
+        }
 
         grunt.task.run([
           'mkdir:drupal',

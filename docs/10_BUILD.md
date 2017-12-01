@@ -70,6 +70,11 @@ package.json
 phpmd.xml
 ```
 
+If you are using Config Management in Drupal 8 you will want to place a
+`src/config` directory in your codebase. Scaffolding (scaffold.js) will not
+create a symlink to `build/html/config` if it does not exist. Please see the
+`example/src/config` directory.
+
 ### Setting up Source Code
 
 - Place custom modules in **src/modules/**. When the project is built, the
