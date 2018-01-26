@@ -25,10 +25,11 @@ module.exports = function(grunt) {
 
   if (dbUrl) {
     dbUrl = '--db-url=' + dbUrl;
+    args.push(dbUrl);
   }
 
   grunt.config(['drush', 'install'], {
-    args: args.concat(['site-install', '-yv', profile, dbUrl]),
+    args: args.concat(['site-install', '-yv', profile]),
     options: _.extend({
     }, cmd)
   });
