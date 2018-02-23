@@ -28,7 +28,8 @@
     "drupal/coder": "^8.2"
   },
   "conflict": {
-    "drupal/drupal": "*"
+    "drupal/drupal": "*",
+    "behat/behat": ">= 3.4"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
