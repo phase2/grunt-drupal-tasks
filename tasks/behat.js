@@ -69,7 +69,7 @@ module.exports = function(grunt) {
               bin: path,
               debug: true,
               env: _.extend({}, process.env, {
-                BEHAT_PARAMS: "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\", \"zombie\": {\"node_modules_path\": \"" + process.cwd() + "/node_modules/\"}}}}"
+                BEHAT_PARAMS: "{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"./" + config.buildPaths.html + "\"}}, \"Behat\\\\MinkExtension\": {\"base_url\": \"" + config.siteUrls[key] + "\"}}}"
               })
             }, options)
           }

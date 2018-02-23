@@ -19,7 +19,7 @@
     "roave/security-advisories": "dev-master"
   },
   "require-dev": {
-    "behat/mink-zombie-driver": "dev-master#dd32fbd6988881dbab583225b65b787a893bb131",
+    "jakoch/phantomjs-installer": "^2.1",
     "drupal/drupal-extension": "~3.0",
     "drush/drush": "^8",
     "drupal/console": "~0.10",

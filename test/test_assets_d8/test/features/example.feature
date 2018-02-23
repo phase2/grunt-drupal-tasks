@@ -22,7 +22,7 @@ tests are meant both to verify the Drupal install as well as Behat test features
   menu item is clicked.
     Given I am logged in as a user with the "administrator" role
       And I am on the homepage
-      And I click "My account"
+      And I click "My account" in the header
       And I click "Edit"
      When I fill in "pass[pass1]" with "123"
      Then I should see "Password strength" in the ".form-item-pass-pass1" element
