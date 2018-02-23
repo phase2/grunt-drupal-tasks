@@ -15,11 +15,8 @@ module.exports = function(grunt) {
   grunt.registerTask('git-setup', 'Set up the project git repository with some one-time configurations.', function() {
     grunt.loadNpmTasks('grunt-githooks');
 
-    var tasks = grunt.config('config.git.hooks') || {};
-    if (tasks !== undefined) {
-      tasks = [];
-    }
-    tasks.push('validate:staged');
+    var tasks = grunt.config('config.git.hooks') || [];
+    tasks.unshift('validate:staged');
 
     // Githooks task may be configured via Gruntconfig.
     grunt.config('githooks', {
