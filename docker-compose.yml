@@ -1,21 +1,35 @@
-version: '3.3'
+version: '3.4'
+
+x-custom:
+  environment: &environment
+    COMPOSER_CACHE_DIR: /root/.cache/composer
+    NODE_VERSION: 6
+    NPM_CONFIG_CACHE: /root/.cache/npm
+    GDT_QUIET: 1
+  volumes: &volumes
+    - .:/code
+    # Persist the cache directories associated with various tools.
+    # The first volume mount covers: npm, composer, bower, fontconfig, & yarn
+    - /data/gdt/cache:/root/.cache
+    - /data/gdt/cache/drush:/root/.drush/cache
+    - /data/gdt/cache/behat_gherkin:/tmp/behat_gherkin_cache
 
 services:
+  cli:
+    image: outrigger/build:php56
+    container_name: gdt
+    environment: *environment
+    entrypoint: ["/init"]
+    command: ["bash"]
+    network_mode: bridge
+    volumes: *volumes
+    working_dir: /code
+
   test:
     image: outrigger/build:php56
     container_name: gdt
-    environment:
-      COMPOSER_CACHE_DIR: /root/.cache/composer
-      NODE_VERSION: 6
-      NPM_CONFIG_CACHE: /root/.cache/npm
-      GDT_QUIET: 1
+    environment: *environment
     entrypoint: ["/init", "npm", "test"]
     network_mode: bridge
-    volumes:
-      - .:/code
-      # Persist the cache directories associated with various tools.
-      # The first volume mount covers: npm, composer, bower, fontconfig, & yarn
-      - /data/gdt/cache:/root/.cache
-      - /data/gdt/cache/drush:/root/.drush/cache
-      - /data/gdt/cache/behat_gherkin:/tmp/behat_gherkin_cache
+    volumes: *volumes
     working_dir: /code
