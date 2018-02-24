@@ -17,7 +17,7 @@ tests are meant both to verify the Drupal install as well as Behat test features
      Then I should be on the homepage
       And I should see "Log in"
 
-  @api @javascript
+  @api @javascript @wip
   Scenario: Ensure the Reports page is loaded into an overlay when the Reports
   menu item is clicked.
     Given I am logged in as a user with the "administrator" role
