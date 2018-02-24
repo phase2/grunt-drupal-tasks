@@ -9,12 +9,15 @@
     ],
     "require-dev": {
         "behat/mink-zombie-driver": "dev-feature/test_remove_tough_cookie",
-        "drupal/drupal-extension": "~3.0",
+        "drupal/drupal-extension": "~3.3.0",
         "drush/drush": "^8",
         "drupal/coder": "^8.2",
         "phpmd/phpmd": "~2.1"
     },
     "require": {
         "roave/security-advisories": "dev-master"
+    },
+    "conflict": {
+      "behat/behat": ">= 3.4.0"
     }
 }
