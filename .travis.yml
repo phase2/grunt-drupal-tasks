@@ -24,6 +24,7 @@ before_install:
   - npm --version
   - composer self-update
   - echo "sendmail_path='true'" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
+  - phpenv config-add test/travis.php.ini
 install:
   - npm set progress=false
   - npm install -g grunt-cli@^1.0.0
