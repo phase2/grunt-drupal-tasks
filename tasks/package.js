@@ -17,7 +17,7 @@ module.exports = function(grunt) {
     if ((pathBuild !== pathPackage) || pathVendor) {
       // Load `composer.json` as JSON, convert to object.
       var destPath = grunt.option('package-dest');
-      var composer = grunt.file.readJSON(destPath + '/composer.json');
+      var composer = grunt.file.readJSON('composer.json');
       // Determine new installer-paths
       var pathInstall = pathPackage ? pathPackage + '/' : '';
       if (pathVendor) {
