@@ -55,7 +55,7 @@ module.exports = function(grunt) {
         grunt.loadNpmTasks('grunt-concurrent');
 
         // Allow overriding the tasks run concurrently to the Drupal server.
-        var serveTasks = grunt.config('serve.concurrent');
+        var serveTasks = grunt.config('config.serve.concurrent');
         if (!serveTasks) {
           serveTasks = ['watch-test'];
           if (grunt.task.exists('watch-theme')) {
