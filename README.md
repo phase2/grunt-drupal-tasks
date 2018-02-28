@@ -1,13 +1,11 @@
 # Grunt Drupal Tasks
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/phase2/grunt-drupal-tasks.svg)](https://greenkeeper.io/)
-
 > A Grunt plugin to automate Drupal 7 and Drupal 8 build and testing tasks.
 
-Code Status (master branch):
+[![npm version](https://badge.fury.io/js/grunt-drupal-tasks.svg)](https://www.npmjs.com/package/grunt-drupal-tasks)
 [![Travis CI status](https://travis-ci.org/phase2/grunt-drupal-tasks.svg?branch=master)](https://travis-ci.org/phase2/grunt-drupal-tasks)
 [![Dependency Status](https://david-dm.org/phase2/grunt-drupal-tasks.svg)](https://david-dm.org/phase2/grunt-drupal-tasks)
-[![npm version](https://badge.fury.io/js/grunt-drupal-tasks.svg)](https://www.npmjs.com/package/grunt-drupal-tasks)
+[![Greenkeeper badge](https://badges.greenkeeper.io/phase2/grunt-drupal-tasks.svg)](https://greenkeeper.io/)
 
 ## Features
 
