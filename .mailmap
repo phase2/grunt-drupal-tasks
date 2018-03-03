@@ -1,0 +1,13 @@
+#
+# This list is used by git-shortlog to consolidate variations of the same
+# committer identity into one.
+#
+# This done, you can run commands like `git shortlog -sne` and get the data
+# properly consolidated by author.
+#
+
+Adam Ross <aross@phase2technology.com> Adam R <aross@phase2technology.com>
+Adam Ross <aross@phase2technology.com> Adam Ross <grayside@gmail.com>
+Adam Ross <aross@phase2technology.com> Grayside <aross@phase2technology.com>
+Adam Ross <aross@phase2technology.com> Grayside <grayside@gmail.com>
+Joe Turgeon <arithmetric@gmail.com> Joe Turgeon <jturgeon@phase2technology.com>
