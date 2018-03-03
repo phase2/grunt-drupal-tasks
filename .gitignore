@@ -3,3 +3,6 @@
 /test/working_copy
 /build
 /docs/site
+example/build/
+example/composer.lock
+example/vendor/
