@@ -1,6 +1,7 @@
 sudo: false
 language: php
 php:
+  - 5.5
   - 5.6
   - 7
 addons:
@@ -11,13 +12,22 @@ addons:
    - gcc-4.8
    - g++-4.8
 env:
+  - NVM_NODE_VERSION="4" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js" CXX=g++-4.8
+  - NVM_NODE_VERSION="7" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
   - NVM_NODE_VERSION="6" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
-  - NVM_NODE_VERSION="6" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js" CXX=g++-4.8
 matrix:
   exclude:
     # Skip Drupal 7 on PHP 7
     - php: 7
-      env: NVM_NODE_VERSION="6" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js" CXX=g++-4.8
+      env: NVM_NODE_VERSION="4" GDT_DRUPAL_CORE="7" GDT_TEST_URL="http://127.0.0.1:8080/misc/drupal.js" CXX=g++-4.8
+    # Skip PHP 5.5 and 5.6 with Node.js 7
+    - php: 5.5
+      env: NVM_NODE_VERSION="6" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
+    # Skip PHP 5.5 and 5.6 with Node.js 7
+    - php: 5.5
+      env: NVM_NODE_VERSION="7" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
+    - php: 5.6
+      env: NVM_NODE_VERSION="7" GDT_DRUPAL_CORE="8" GDT_TEST_URL="http://127.0.0.1:8080/core/misc/drupal.js" CXX=g++-4.8
 before_install:
   - rm -rf ~/.nvm && git clone https://github.com/creationix/nvm.git ~/.nvm && (cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`) && source ~/.nvm/nvm.sh && nvm install $NVM_NODE_VERSION
   - node --version
