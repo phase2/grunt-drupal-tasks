@@ -16,14 +16,14 @@
     "composer/installers": "^1.0.20",
     "drupal-composer/drupal-scaffold": "^2.0.1",
     "cweagans/composer-patches": "~1.0",
-    "drupal/core": "~8.1",
+    "drupal/core": "~8.5",
     "roave/security-advisories": "dev-master"
   },
   "require-dev": {
     "behat/mink-zombie-driver": "dev-master#dd32fbd6988881dbab583225b65b787a893bb131",
     "drupal/drupal-extension": "~3.3.0",
-    "drush/drush": "^8",
-    "drupal/console": "~0.10",
+    "drush/drush": "^9",
+    "drupal/console": "~1.7",
     "phpmd/phpmd": "~2.1",
     "phpunit/phpunit": "~4.8",
     "drupal/coder": "^8.2"
