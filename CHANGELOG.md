@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## v1.1.0 [2018/04/25]
+
+Long overdue Spring Cleaning.
+
+Thanks to @markdboyd, @jhedstrom, @csegarra, @scottalan, and @spacepants for
+contributing.
+
+### Changes
+
+* Drush 9 Compatibility: Only pass dbUrl to Drush if set. (#342)
+* For Drupal 8 packaging, loading composer.json from repo root. (#331)
+* Fixed githook configuration. (#321, #344)
+* Fix Behat failures: Add conflict with behat >= v3.4 (#343)
+* Fix eslint error in test regex. (#317)
+* Correct path of the config.serve.concurrent configuration (#334)
+* Use absolute path to HTML build directory. (#325)
+* expose eslint/phpcs report format option (#310)
+
+### Project Plumbing
+
+* Added Greenkeeper for automated dependency update management.
+* Added Docker-based local development & testing environment.
+* Add mailmap for contributor aliasing.
+* Ignore build byproducts in examples directory.
+* Ignore the .idea directory for phpstorm (#329)
+* Minor tweaks to Travis testing around node/Drupal version compatibility.
+* Re-sequenced README badges
+
 ## v1.0.0 [2016/10/19]
 
 - No changes since the v1.0.0-rc1 pre-release.
