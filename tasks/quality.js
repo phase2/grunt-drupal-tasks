@@ -53,6 +53,10 @@ module.exports = function(grunt) {
   phpcsPatterns.push('!<%= config.srcPaths.drupal %>/{modules,profiles,libraries,static}/**/*.tpl.php');
 
   var phpcsConfig = grunt.config.get('config.phpcs');
+  // Warn if existing phpcs configs will be overridden.
+  if (phpcsConfig.path && (grunt.file.exists('./phpcs.xml') || grunt.file.exists('./phpcs.xml.dist'))) {
+    grunt.warn('The PHPCS configuration is being specified by phpcs.xml. Please remove the configuration settings from the Gruntconfig file as these are ignored.');
+  }
   if (phpcsConfig) {
     var phpcs = phpcsConfig.dir || phpcsPatterns;
     var phpStandard = phpcsConfig.standard ||
@@ -190,11 +194,18 @@ module.exports = function(grunt) {
   grunt.registerTask('validate', 'Validate the quality of custom code.', function(mode) {
     phpcsConfig = grunt.config.get('phpcs');
     var files;
+
     if (phpcsConfig && phpcsConfig.validate) {
-      files = filesToProcess(phpcsConfig.validate.src);
-      if (files.length) {
-        grunt.config.set('phpcs.validate.src', files);
+      // Defer to phpcs.xml/phpcs.xml.dist if present.
+      if (grunt.file.exists('./phpcs.xml') || grunt.file.exists('./phpcs.xml.dist')) {
+        grunt.config.set('phpcs.validate.src', []);
         validate.push('phpcs:validate');
+      } else {
+        files = filesToProcess(phpcsConfig.validate.src);
+        if (files.length) {
+          grunt.config.set('phpcs.validate.src', files);
+          validate.push('phpcs:validate');
+        }
       }
     }
     eslintConfig = grunt.config.get('eslint');
