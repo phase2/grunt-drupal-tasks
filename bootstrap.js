@@ -62,13 +62,13 @@ module.exports = function(grunt) {
   if (grunt.file.exists('./composer.lock') && grunt.config.get(['composer', 'install'])) {
     if (grunt.config.get(['composer', 'drupal-scaffold'])) {
       // Manually run `composer drupal-scaffold` since this is only automatically run on update.
-      tasksDefault.unshift('composer:drupal-scaffold');
+      tasksDefault.unshift('composer:drupal-scaffold:drupal-scaffold');
     }
     // Run `composer install` if there is already a lock file. Updates should be explicit once this file exists.
-    tasksDefault.unshift('composer:install');
+    tasksDefault.unshift('composer:install:install');
   } else if (grunt.config.get(['composer', 'update'])) {
     // Run `composer update` if no lock file exists. This forces `composer drupal-scaffold` to run.
-    tasksDefault.unshift('composer:update');
+    tasksDefault.unshift('composer:update:update');
   }
 
   if (grunt.task.exists('compile-theme')) {
