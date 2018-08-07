@@ -26,7 +26,7 @@
     "grunt-phpcs": "git+https://github.com/grayside/grunt-phpcs.git#0.5.0-fork2",
     "grunt-phplint": "~0.1.0",
     "grunt-phpmd": "~0.1.1",
-    "grunt-rsync": "^2.0.1",
+    "grunt-rsync": "^3.0.0",
     "grunt-shell": "^2.1.0",
     "grunt-staged": "~0.1.0",
     "lodash": "^4.5.0",
