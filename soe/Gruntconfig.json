@@ -1,0 +1,35 @@
+{
+  "srcPaths": {
+    "make": "src/engineering.make"
+  },
+  "domain": "jse.localacebuild",
+  "buildPaths": {
+    "packages": "build/packages"
+  },
+  "packages": {
+    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
+    "projFiles": ["README*", "bin/**", "hooks/**"],
+    "dest": {
+      "docroot": "docroot"
+    }
+  },
+  "phpcs": true,
+  "phpmd": true,
+  "behat": {
+    "flags": "--tags ~@wip"
+  },
+  "eslint": true,
+  "drush": {
+    "path": "/usr/local/bin/drush",
+    "make": {
+      "args": ["--force-complete", "--working-copy"]
+    },
+    "alias": "jse.localace"
+  },
+  "scripts": {
+    "syncfiles": "drush rsync --mode=rv @jse.redesign:sites/default/files/ @jse.localacebuild:%files",
+    "syncdb": "drush sql-sync @swssoe.dev <%= config.alias %>",
+    "update": "drush <%= config.alias %> updb -yv",
+    "reset": "drush <%= config.alias %> rr && drush <%= config.alias %> cc all"
+  }
+}

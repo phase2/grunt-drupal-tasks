@@ -1,0 +1,27 @@
+default:
+  suites:
+    default:
+      contexts:
+        - FeatureContext
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+  extensions:
+    Behat\MinkExtension:
+      goutte: ~
+      selenium2: ~
+      zombie: ~
+      base_url: http://127.0.0.1:8080
+      javascript_session: 'zombie'
+    Drupal\DrupalExtension:
+      blackbox: ~
+      drush:
+        alias: 'local'
+      drupal:
+        drupal_root: './build/html'
+      api_driver: 'drupal'
+
+ci:
+  formatter:
+    name: junit
+    parameters:
+      output_path: behat_junit

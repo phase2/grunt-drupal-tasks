@@ -6,3 +6,7 @@
 example/build/
 example/composer.lock
 example/vendor/
+soe/build/
+soe/composer.lock
+soe/vendor/
+soe/node_modules

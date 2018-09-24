@@ -1,0 +1,41 @@
+{
+  "name": "Engineering",
+  "description": "Engineering drupal codebase.",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/7"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/minkphp/MinkZombieDriver"
+    }
+  ],
+  "require": {
+    "php": ">= 7.1",
+    "cweagans/composer-patches": "~1.0",
+    "roave/security-advisories": "dev-master"
+  },
+  "require-dev": {
+    "behat/mink-zombie-driver": "dev-master#dd32fbd6988881dbab583225b65b787a893bb131",
+    "drupal/drupal-extension": "~3.3.0",
+    "drush/drush": "^8",
+    "drupal/console": "~1.7",
+    "phpmd/phpmd": "~2.1",
+    "phpunit/phpunit": "~4.8",
+    "drupal/coder": "^8.2"
+  },
+  "conflict": {
+    "drupal/drupal": "*",
+    "behat/behat": ">= 3.4.0"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+    "installer-paths": {
+      "drush/contrib/{$name}": [
+        "type:drupal-drush"
+      ]
+    }
+  }
+}

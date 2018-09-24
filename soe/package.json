@@ -1,0 +1,11 @@
+{
+  "name": "grunt-drupal-tasks-example",
+  "description": "Example package.json for a Drupal project built with grunt-drupal-tasks.",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "grunt": "^1.0.0",
+    "grunt-drupal-tasks": "~1.0.0",
+    "zombie": "^4.2.1"
+  }
+}
