@@ -641,8 +641,8 @@ $databases = array (
           'password' => 'root',
           'host' => '127.0.0.1',
           'port' => '',
-          'database' => 'localjsesoeace',
+          'database' => 'localjsesoeacebuild',
         ),
     ),
 );
-$base_url = "http://jse-soe-ace.loc";
+$base_url = "http://jse-soe-build.loc";

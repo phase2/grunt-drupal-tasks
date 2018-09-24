@@ -10,3 +10,4 @@ soe/build/
 soe/composer.lock
 soe/vendor/
 soe/node_modules
+soe/src/sites/default/settings.local.php

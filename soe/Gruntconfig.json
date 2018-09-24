@@ -27,8 +27,9 @@
     "alias": "jse.localace"
   },
   "scripts": {
+    "settings": "cp src/sites/default/*.php build/html/sites/default/",
     "syncfiles": "drush rsync --mode=rv @jse.redesign:sites/default/files/ @jse.localacebuild:%files",
-    "syncdb": "drush sql-sync @swssoe.dev <%= config.alias %>",
+    "syncdb": "drush <%= config.alias %> sql-drop && drush sql-sync @swssoe.dev <%= config.alias %>",
     "update": "drush <%= config.alias %> updb -yv",
     "reset": "drush <%= config.alias %> rr && drush <%= config.alias %> cc all"
   }
