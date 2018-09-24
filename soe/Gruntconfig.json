@@ -22,7 +22,7 @@
   "drush": {
     "path": "/usr/local/bin/drush",
     "make": {
-      "args": ["--force-complete", "--working-copy"]
+      "args": ["--force-complete"]
     },
     "alias": "jse.localace"
   },
