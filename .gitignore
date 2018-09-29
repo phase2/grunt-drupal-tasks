@@ -1,4 +1,5 @@
 .idea
+.DS_Store
 /node_modules
 /test/working_copy
 /build
@@ -11,3 +12,5 @@ soe/composer.lock
 soe/vendor/
 soe/node_modules
 soe/src/sites/default/settings.local.php
+soe/.development_site
+soe/build/packages/package/.DS_Store

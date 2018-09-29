@@ -1,11 +1,15 @@
 {
-  "name": "grunt-drupal-tasks-example",
-  "description": "Example package.json for a Drupal project built with grunt-drupal-tasks.",
+  "name": "grunt-drupal-tasks-soe",
+  "description": "School of engineering package.json for a Drupal project built with grunt-drupal-tasks.",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
     "grunt": "^1.0.0",
     "grunt-drupal-tasks": "~1.0.0",
     "zombie": "^4.2.1"
+  },
+  "devDependencies": {
+    "grunt-deploy-site": "^0.1.3",
+    "grunt-legacy-util": "^1.1.1"
   }
 }
