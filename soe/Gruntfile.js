@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
   // Load all plugins and tasks defined by the grunt-drupal-tasks package.
   require('grunt-drupal-tasks')(grunt);
+  grunt.loadNpmTasks('grunt-deploy-site');
   grunt.initConfig({
     deploy_site: {
       development: {
@@ -21,6 +22,5 @@ module.exports = function(grunt) {
       },
     },
   });
-  grunt.loadNpmTasks('grunt-deploy-site');
-  grunt.registerTask('git_deploy', ['copy', 'deploy_site']);
+  grunt.registerTask('git_deploy', ['copy:acquia_dependencies', 'deploy_site']);
 };

@@ -32,23 +32,5 @@
     "syncdb": "drush <%= config.alias %> sql-drop && drush sql-sync @swssoe.dev <%= config.alias %>",
     "update": "drush <%= config.alias %> updb -yv",
     "reset": "drush <%= config.alias %> rr && drush <%= config.alias %> cc all"
-  },
-  "deploy_site": {
-    "development": {
-      "options": {
-        "branch": "SOE-3551-tool-tasks",
-        "commit_msg": "deployment"
-      },
-      "base_path": "build/packages/package",
-      "remote_url": "git@github.com:boznik/destination_test.git"
-    }
-  },
-  "copy": {
-    "acquia_dependencies": {
-      "expand": true,
-      "cwd": "acquia_dependencies/",
-      "src": "*/*",
-      "dest": "build/packages/package/"
-    }
   }
 }
