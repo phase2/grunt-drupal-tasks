@@ -6,11 +6,11 @@ module.exports = function(grunt) {
     deploy_site: {
       development: {
         options: {
-          branch: "SOE-3551-tool-tasks",
+          branch: "SOE-develop-mc",
           commit_msg: "deployment",
         },
         base_path: "build/packages/package",
-        remote_url: "git@github.com:boznik/destination_test.git",
+        remote_url: "git@github.com:SU-SOE/sws_soe_ace.git",
       },
     },
     copy: {
