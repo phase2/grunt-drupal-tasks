@@ -4,6 +4,9 @@ api = 2
 ; Patches
 ; ------------------------------------------------------------------------------
 
+; https://www.drupal.org/project/drupal/issues/1349080#comment-10953027 | node_access filters out accessible nodes when node is left joined
+projects[drupal][patch][] = "https://www.drupal.org/files/issues/node_access_for_left_joins_d7.1349080-332.patch"
+
 ; https://www.drupal.org/node/1904174 | Context pulling out css injector files when aggregation enabled
 projects[context][patch][] = "https://www.drupal.org/files/issues/context_css_injector_1.diff"
 
