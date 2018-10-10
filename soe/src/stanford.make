@@ -108,7 +108,7 @@ projects[stanford_image][download][url] = "git@github.com:SU-SWS/stanford_image.
 projects[stanford_image][subdir] = "stanford"
 projects[stanford_image][type] = "module"
 
-projects[stanford_image_styles][download][tag] = "7.x-4.1"
+projects[stanford_image_styles][download][tag] = "7.x-4.3-alpha1"
 projects[stanford_image_styles][download][type] = "git"
 projects[stanford_image_styles][download][url] = "git@github.com:SU-SWS/stanford_image_styles.git"
 projects[stanford_image_styles][subdir] = "stanford"
@@ -265,6 +265,12 @@ projects[stanford_ssp][download][type] = "git"
 projects[stanford_ssp][download][url] = "git@github.com:SU-SWS/stanford_ssp.git"
 projects[stanford_ssp][subdir] = "stanford"
 projects[stanford_ssp][type] = "module"
+
+projects[webauth][download][tag] = "7.x-3.4"
+projects[webauth][download][type] = "git"
+projects[webauth][download][url] = "git@github.com:Stanford/WMD.git"
+projects[webauth][subdir] = "stanford"
+projects[webauth][type] = "module"
 
 
 ; Custom Themes, GitHub

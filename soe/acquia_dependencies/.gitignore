@@ -1,0 +1,47 @@
+# Ignore paths that contain user-generated content.
+docroot/files
+docroot/sites/*/files
+docroot/sites/*/private
+
+INSTALL.txt
+MAINTAINERS.txt
+UPGRADE.txt
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+
+# OS or Editor folders
+.DS_Store
+.cache
+.idea
+.sass-cache
+.project
+.settings
+.tmproj
+nbproject
+Thumbs.db
+config.rb
+*.scssc
+*.sassc
+*.map
+
+# Folders to ignore
+.hg
+.svn
+.CVS
+cgi-bin
+node_modules
+
+# DB Dumbs don't belong in modules.
+*.sql
+
+#Ignore local settings
+docroot/sites/*/settings.local.php
