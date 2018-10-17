@@ -82,7 +82,7 @@ projects[stanford_field_formatters][subdir] = "stanford"
 projects[stanford_field_formatters][type] = "module"
 projects[stanford_field_formatters][download][type] = "git"
 projects[stanford_field_formatters][download][url] = "git@github.com:SU-SWS/stanford_field_formatters.git"
-projects[stanford_field_formatters][download][tag] = "7.x-1.1"
+projects[stanford_field_formatters][download][tag] = "7.x-1.2"
 
 projects[stanford_gallery][download][tag] = "7.x-2.2"
 projects[stanford_gallery][download][type] = "git"
@@ -102,13 +102,14 @@ projects[stanford_helper][download][url] = "git@github.com:SU-SWS/stanford_helpe
 projects[stanford_helper][subdir] = "stanford"
 projects[stanford_helper][type] = "module"
 
-projects[stanford_image][download][tag] = "7.x-3.5+10-dev"
+projects[stanford_image][download][branch] = "7.x-3.x-dev"
+projects[stanford_image][download][revision] = "2c9d033ca2c9194260fb373cc04acbfaa6856bde"
 projects[stanford_image][download][type] = "git"
 projects[stanford_image][download][url] = "git@github.com:SU-SWS/stanford_image.git"
 projects[stanford_image][subdir] = "stanford"
 projects[stanford_image][type] = "module"
 
-projects[stanford_image_styles][download][tag] = "7.x-4.3-alpha1"
+projects[stanford_image_styles][download][branch] = "7.x-4.3-alpha1"
 projects[stanford_image_styles][download][type] = "git"
 projects[stanford_image_styles][download][url] = "git@github.com:SU-SWS/stanford_image_styles.git"
 projects[stanford_image_styles][subdir] = "stanford"
@@ -126,9 +127,10 @@ projects[stanford_jumpstart_academic][download][url] = "git@github.com:SU-SWS/st
 projects[stanford_jumpstart_academic][subdir] = "stanford"
 projects[stanford_jumpstart_academic][type] = "module"
 
-projects[stanford_landing_page][download][tag] = "7.x-1.6-beta1"
+projects[stanford_landing_page][download][branch] = "7.x-1.x"
+projects[stanford_landing_page][download][revision] = "1eaf50e0fdce4dfece3267bf26ff996862fac800"
 projects[stanford_landing_page][download][type] = "git"
-projects[stanford_landing_page][download][url] = "git@github.com:SU-SWS/stanford_landing_page.git"
+projects[stanford_landing_page][download][url] = "git@github.com:SU-SOE/stanford_landing_page.git"
 projects[stanford_landing_page][subdir] = "stanford"
 projects[stanford_landing_page][type] = "module"
 
@@ -260,7 +262,8 @@ projects[stanford_soe_regions][download][url] = "git@github.com:SU-SOE/stanford_
 projects[stanford_soe_regions][subdir] = "stanford"
 projects[stanford_soe_regions][type] = "module"
 
-projects[stanford_ssp][download][tag] = "7.x-2.2-alpha5"
+;projects[stanford_ssp][download][tag] = "7.x-2.2-alpha6"
+projects[stanford_ssp][download][branch] = "SITES-784"
 projects[stanford_ssp][download][type] = "git"
 projects[stanford_ssp][download][url] = "git@github.com:SU-SWS/stanford_ssp.git"
 projects[stanford_ssp][subdir] = "stanford"
