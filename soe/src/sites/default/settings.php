@@ -644,3 +644,10 @@ if (file_exists('/var/www/site-php')) {
 if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php')) {
   include DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php';
 }
+
+/**
+ * Include a acquia settings file if it exists.
+ */
+if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/acquia.settings.php')) {
+  include DRUPAL_ROOT . '/' . conf_path() . '/acquia.settings.php';
+}
