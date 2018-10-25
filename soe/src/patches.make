@@ -46,4 +46,7 @@ projects[views_ajax_history][patch][] = "https://www.drupal.org/files/issues/201
 ; https://www.drupal.org/project/views_load_more/issues/1690692 | Bug with exposed filters
 projects[views_load_more][patch][] = "https://www.drupal.org/files/issues/views-load-more-exposed-filters-1690692-7.patch"
 
+; https://www.drupal.org/project/xmlsitemap/issues/2986847 | PHP fatal error when a node is deleted while the node ID is still in the queue
+projects[xmlsitemap][patch][] = "https://www.drupal.org/files/issues/2018-07-19/xmlsitemap-2986847-2.patch"
+
 

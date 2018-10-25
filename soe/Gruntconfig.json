@@ -28,8 +28,8 @@
   },
   "scripts": {
     "settings": "cp src/sites/default/*.php build/html/sites/default/",
-    "syncfiles": "drush rsync --mode=rv @jse.redesign:sites/default/files/ @jse.localacebuild:%files",
-    "syncdb": "drush <%= config.alias %> sql-drop && drush sql-sync @swssoe.dev <%= config.alias %>",
+    "syncfiles": "[ -d build/html/sites/default/files ] || mkdir build/html/sites/default/files && rsync -rtv swssoe.dev@swssoedev.ssh.prod.acquia-sites.com:/mnt/files/swssoe.dev/sites/default/files/ build/html/sites/default/files/",
+    "syncdb": "drush <%= config.alias %> sql-drop && drush sql-sync @swssoe.dev <%= config.alias %> && drush <%= config.alias %> dis stanford_ssp",
     "update": "drush <%= config.alias %> updb -yv",
     "reset": "drush <%= config.alias %> rr && drush <%= config.alias %> cc all"
   }

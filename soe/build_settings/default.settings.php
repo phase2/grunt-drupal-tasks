@@ -1,17 +1,5 @@
 <?php
 
-// Require HTTPS.
-// We're behind a load-balancer, so we can't check $_SERVER['HTTPS'].
-// Have to check HTTP_X_FORWARDED_PROTO.
-// $_SERVER['HTTP_X_FORWARDED_PROTO'] is only set when we're serving over https,
-// therefore check if it's set.
-if (!array_key_exists('HTTP_X_FORWARDED_PROTO', $_SERVER) && !drupal_is_cli()) {
-  header('HTTP/1.0 301 Moved Permanently');
-  $redirect_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-  header("Location: " . check_plain($redirect_url));
-  drupal_exit();
-}
-
 /**
  * @file
  * Drupal site-specific configuration file.
@@ -640,26 +628,3 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * @see drupal_clean_css_identifier()
  */
 # $conf['allow_css_double_underscores'] = TRUE;
-
-
-// On Acquia Cloud, this include file configures Drupal to use the correct
-// database in each site environment (Dev, Stage, or Prod). To use this
-// settings.php for development on your local workstation, set $db_url
-// (Drupal 5 or 6) or $databases (Drupal 7 or 8) as described in comments above.
-if (file_exists('/var/www/site-php')) {
-  require('/var/www/site-php/swssoe/swssoe-settings.inc');
-}
-
-/**
- * Include a local settings file if it exists.
- */
-if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php')) {
-  include DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php';
-}
-
-/**
- * Include a acquia settings file if it exists.
- */
-if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/acquia.settings.php')) {
-  include DRUPAL_ROOT . '/' . conf_path() . '/acquia.settings.php';
-}
