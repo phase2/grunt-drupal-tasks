@@ -663,3 +663,8 @@ if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/settings.local.php')) {
 if (file_exists(DRUPAL_ROOT . '/' . conf_path() . '/acquia.settings.php')) {
   include DRUPAL_ROOT . '/' . conf_path() . '/acquia.settings.php';
 }
+
+/**
+ * Sets the "image_allow_insecure_derivatives" variable to TRUE.
+ */
+$conf['image_allow_insecure_derivatives'] = TRUE;
