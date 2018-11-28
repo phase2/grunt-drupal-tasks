@@ -49,4 +49,8 @@ projects[views_load_more][patch][] = "https://www.drupal.org/files/issues/views-
 ; https://www.drupal.org/project/xmlsitemap/issues/2986847 | PHP fatal error when a node is deleted while the node ID is still in the queue
 projects[xmlsitemap][patch][] = "https://www.drupal.org/files/issues/2018-07-19/xmlsitemap-2986847-2.patch"
 
+; custom patch for letsencrypt_challenge to work with acme.sh script on ACE env's
+projects[letsencrypt_challenge][patch][] = "https://gist.githubusercontent.com/boznik/e47f023e330345519598813f13fe2d40/raw/9a995c9254174fb5997147176d05af33403ab6dc/d7-acme-sh-letsencrypt_challenge.patch"
 
+: https://www.drupal.org/project/video_embed_field/issues/2580459 | Not all video style options are being applied
+projects[video_embed][patch][] = "https://www.drupal.org/files/issues/youtube_autoplay-2580459-25.patch"

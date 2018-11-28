@@ -4,6 +4,8 @@ api = 2
 ; Contributed modules
 ; ------------------------------------------------------------------------------
 
+projects[acquia_connector][subdir] = "contrib"
+projects[acquia_connector][version] = "3.2"
 projects[admin_menu][subdir] = "contrib"
 projects[admin_menu][version] = "3.0-rc5"
 projects[admin_views][subdir] = "contrib"
@@ -72,6 +74,8 @@ projects[date_ical][subdir] = "contrib"
 projects[date_ical][version] = "2.14"
 projects[delta][subdir] = "contrib"
 projects[delta][version] = "3.0-beta11"
+projects[devel][subdir] = "contrib"
+projects[devel][version] = "1.6"
 projects[diff][subdir] = "contrib"
 projects[diff][version] = "3.2"
 projects[drafty][subdir] = "contrib"

@@ -6,7 +6,7 @@ module.exports = function(grunt) {
   grunt.config.set('deploy_site.development.options.branch', 'SOE-develop-mc');
   grunt.config.set('deploy_site.development.options.commit_msg', 'deployment');
   grunt.config.set('deploy_site.development.base_path', 'build/packages/package');
-  grunt.config.set('deploy_site.development.remote_url', 'git@github.com:SU-SOE/sws_soe_ace.git');
+  grunt.config.set('deploy_site.development.remote_url', 'git@github.com:SU-SWS/sws_soe_ace.git');
   grunt.config.set('copy.acquia_dependencies.expand', true);
   grunt.config.set('copy.acquia_dependencies.cwd', 'acquia_dependencies/');
   grunt.config.set('copy.acquia_dependencies.src', '*/**');

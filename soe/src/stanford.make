@@ -226,7 +226,7 @@ projects[stanford_sites_systemtools][type] = "module"
 
 ; SU-SOE Modules
 
-projects[stanford_bean_types][download][tag] = "7.x-2.9-alpha5"
+projects[stanford_bean_types][download][tag] = "7.x-2.9-alpha6"
 projects[stanford_bean_types][download][type] = "git"
 projects[stanford_bean_types][download][url] = "git@github.com:SU-SOE/stanford_bean_types.git"
 projects[stanford_bean_types][subdir] = "stanford"
@@ -244,13 +244,13 @@ projects[stanford_jumpstart_home][download][url] = "git@github.com:SU-SOE/stanfo
 projects[stanford_jumpstart_home][subdir] = "stanford"
 projects[stanford_jumpstart_home][type] = "module"
 
-projects[stanford_paragraph_types][download][tag] = "7.x-1.5-alpha1"
+projects[stanford_paragraph_types][download][tag] = "7.x-1.5-alpha2"
 projects[stanford_paragraph_types][download][type] = "git"
 projects[stanford_paragraph_types][download][url] = "git@github.com:SU-SOE/stanford_paragraph_types.git"
 projects[stanford_paragraph_types][subdir] = "stanford"
 projects[stanford_paragraph_types][type] = "module"
 
-projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha10"
+projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha11"
 projects[stanford_soe_helper][download][type] = "git"
 projects[stanford_soe_helper][download][url] = "git@github.com:SU-SOE/stanford_soe_helper.git"
 projects[stanford_soe_helper][subdir] = "stanford"
