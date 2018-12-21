@@ -7,7 +7,7 @@
     "packages": "build/packages"
   },
   "packages": {
-    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
+    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*", "!sites/example.sites.php", "!sites/default.settings.local.php", "!sites/settings.local.php"],
     "projFiles": ["README*", "bin/**", "hooks/**"],
     "dest": {
       "docroot": "docroot"
@@ -27,7 +27,7 @@
     "alias": "jse.localacebuild"
   },
   "scripts": {
-    "settings": "cp src/sites/default/*.php build/html/sites/default/",
+    "settings": "cp src/sites/default/*.php build/html/sites/default/ && cp src/static/.gitignore build/html/",
     "syncfiles": "[ -d build/html/sites/default/files ] || mkdir build/html/sites/default/files && rsync -rtv swssoe.dev@swssoedev.ssh.prod.acquia-sites.com:/mnt/files/swssoe.dev/sites/default/files/ build/html/sites/default/files/",
     "syncdb": "drush <%= config.alias %> sql-drop && drush sql-sync @swssoe.dev <%= config.alias %> && drush <%= config.alias %> dis stanford_ssp acquia_connector acquia_purge expire",
     "update": "drush <%= config.alias %> updb -yv",
