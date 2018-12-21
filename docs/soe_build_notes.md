@@ -31,14 +31,14 @@
 > More grunt commands
 
 * `grunt package` packages the build/html directory to the build/packages/package dir for proper ACE formatting
-* `grunt git_deploy` adds acquia dependencies, the simplesaml symlink and deploys the build/packages/package dir to the artifact repo
+* `grunt git_deploy` adds acquia dependencies, the simplesaml symlink and deploys the build/packages/package dir to the [Artifact Repo](https://github.com/SU-SWS/sws_soe_ace)
 
 > Deployment 
 
 * be sure forcing https is uncommented in settings.php
 * run: `grunt package`
 * check to make sure build/packages/package has correct code
-* run: `grunt git_deploy` this will send the branch you set in Gruntfile.js. Set `deploy_site.development.options.branch` to the artifact repo
-* check artifact repo for structure and code integrity: [Artifact Repo](https://github.com/SU-SWS/sws_soe_ace)
+* run: `grunt git_deploy` this will send the branch you set in Gruntfile.js setting `deploy_site.development.options.branch` to the [Artifact Repo](https://github.com/SU-SWS/sws_soe_ace)
+* check artifact repo for structure and code integrity
 * pull branch from artifact repo to local and push to ACE remote
-* test branch on dev
+* test branch on [dev](https://eng-dev.stanford.edu)
