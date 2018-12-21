@@ -33,3 +33,6 @@ practices.
 ## Requirements
 
 For requirements, installation, use, and customization instructions, see the [documentation](https://phase2.github.io/grunt-drupal-tasks).
+
+# SOE Build Documentation
+* [SOE Build Documentation](docs/soe_build_notes.md)
