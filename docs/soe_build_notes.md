@@ -28,6 +28,11 @@
 *  `grunt reset` runs drush rr and drush cc all on local
 *  `grunt localadmin` sets local admin login to admin/admin
 
+> More grunt commands
+
+* `grunt package` packages the build/html directory to the build/packages/package dir for proper ACE formatting
+* `grunt git_deploy` adds acquia dependencies, the simplesaml symlink and deploys the build/packages/package dir to the artifact repo
+
 > Deployment 
 
 * be sure forcing https is uncommented in settings.php
