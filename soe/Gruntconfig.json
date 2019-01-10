@@ -7,7 +7,7 @@
     "packages": "build/packages"
   },
   "packages": {
-    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*", "!sites/example.sites.php", "!sites/default.settings.local.php", "!sites/settings.local.php"],
+    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*", "!sites/example.sites.php", "!sites/default/default.settings.local.php", "!sites/default/settings.local.php"],
     "projFiles": ["README*", "bin/**", "hooks/**"],
     "dest": {
       "docroot": "docroot"

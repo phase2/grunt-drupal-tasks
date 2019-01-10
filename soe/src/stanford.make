@@ -18,7 +18,7 @@ projects[stanford_affiliate_organization][download][url] = "git@github.com:SU-SW
 projects[stanford_affiliate_organization][subdir] = "stanford"
 projects[stanford_affiliate_organization][type] = "module"
 
-projects[stanford_alt_check][download][tag] = "7.x-1.0-alpha1"
+projects[stanford_alt_check][download][tag] = "7.x-1.1-alpha2"
 projects[stanford_alt_check][download][type] = "git"
 projects[stanford_alt_check][download][url] = "git@github.com:SU-SWS/stanford_alt_check.git"
 projects[stanford_alt_check][subdir] = "stanford"
