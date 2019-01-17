@@ -256,7 +256,7 @@ projects[stanford_soe_helper][download][url] = "git@github.com:SU-SOE/stanford_s
 projects[stanford_soe_helper][subdir] = "stanford"
 projects[stanford_soe_helper][type] = "module"
 
-projects[stanford_soe_regions][download][tag] = "7.x-1.0-alpha2"
+projects[stanford_soe_regions][download][tag] = "7.x-1.0-alpha3"
 projects[stanford_soe_regions][download][type] = "git"
 projects[stanford_soe_regions][download][url] = "git@github.com:SU-SOE/stanford_soe_regions.git"
 projects[stanford_soe_regions][subdir] = "stanford"
