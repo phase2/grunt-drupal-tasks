@@ -13,6 +13,7 @@
 * create drush alias file for your local env
 * modify Gruntconfig.json  for domain, alias and local path to drush
 * modify Gruntfile.js. Set `deploy_site.development.options.branch` to your new `SOE-jiraticket-shortdescription`
+* run: `grunt`
 * run: `grunt settings`
 * copy default.settings.local.php to settings.local.php and put info in there
 * if not running https comment out line 8-13 in settings.php but undo before packaging.
