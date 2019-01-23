@@ -1,7 +1,7 @@
 core = 7.x
 api = 2
 
-projects[drupal][version] = "7.60"
+projects[drupal][version] = "7.63"
 
 includes[contrib] = contrib.make
 includes[libraries] = libraries.make

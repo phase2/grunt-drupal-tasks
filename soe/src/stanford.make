@@ -250,13 +250,13 @@ projects[stanford_paragraph_types][download][url] = "git@github.com:SU-SOE/stanf
 projects[stanford_paragraph_types][subdir] = "stanford"
 projects[stanford_paragraph_types][type] = "module"
 
-projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha12"
+projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha13"
 projects[stanford_soe_helper][download][type] = "git"
 projects[stanford_soe_helper][download][url] = "git@github.com:SU-SOE/stanford_soe_helper.git"
 projects[stanford_soe_helper][subdir] = "stanford"
 projects[stanford_soe_helper][type] = "module"
 
-projects[stanford_soe_regions][download][tag] = "7.x-1.0-alpha2"
+projects[stanford_soe_regions][download][tag] = "7.x-1.0-alpha3"
 projects[stanford_soe_regions][download][type] = "git"
 projects[stanford_soe_regions][download][url] = "git@github.com:SU-SOE/stanford_soe_regions.git"
 projects[stanford_soe_regions][subdir] = "stanford"
