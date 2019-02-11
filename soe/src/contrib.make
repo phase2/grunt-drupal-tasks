@@ -5,7 +5,7 @@ api = 2
 ; ------------------------------------------------------------------------------
 
 projects[acquia_connector][subdir] = "contrib"
-projects[acquia_connector][version] = "3.2"
+projects[acquia_connector][version] = "3.4"
 projects[acquia_purge][subdir] = "contrib"
 projects[acquia_purge][version] = "1.3"
 projects[admin_menu][subdir] = "contrib"
@@ -93,7 +93,7 @@ projects[encrypt][version] = "2.3"
 projects[entity][subdir] = "contrib"
 projects[entity][version] = "1.9"
 projects[entityreference][subdir] = "contrib"
-projects[entityreference][version] = "1.1"
+projects[entityreference][version] = "1.5"
 projects[environment_indicator][subdir] = "contrib"
 projects[environment_indicator][version] = "2.9"
 projects[expire][subdir] = "contrib"
