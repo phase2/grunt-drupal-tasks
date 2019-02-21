@@ -36,9 +36,10 @@
   },
   "behat": {
     "flags": "-p local --tags '~@all'",
+    "maxProcesses": 100,
     "path": "vendor/bin/behat",
     "default": {
-      "src": "./test/features/**.feature",
+      "src": "./test/features/**/*.feature",
       "debug": true
     }
   }
