@@ -9,4 +9,4 @@ local:
       #blackbox: ~
       #api_driver: 'drush'
       drush:
-        alias: jse.localbuild
+        alias: jse.localacebuild

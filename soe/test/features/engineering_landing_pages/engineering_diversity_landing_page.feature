@@ -14,7 +14,7 @@ Feature: Ensure items on the Engineering Diversity landing page appear as expect
   @safe
   Scenario: Verify users can view all the blocks
     Then I should see 3 or more ".bean-stanford-call-to-action" elements
-    Then I should see 5 or more ".bean-stanford-postcard-linked" elements
+    Then I should see 4 or more ".bean-stanford-postcard-linked" elements
     Then I should see 1 or more ".block-views" elements
 
   @safe
@@ -45,12 +45,6 @@ Feature: Ensure items on the Engineering Diversity landing page appear as expect
     Then I should see a "a" element in the "Content Bottom" region
     Then I should see a "#block-bean-diversity-programs-graduate-prog" element
     Then I should see a "#block-bean-diversity-programs-graduate-prog.span6.well.no-padding" element
-
-  @safe
-  Scenario: Verify users can view the fifth postcard linked block
-    Then I should see a "a" element in the "Content Bottom" region
-    Then I should see a "#block-bean-diversity-programs-opportunity-j" element
-    Then I should see a "#block-bean-diversity-programs-opportunity-j.span12.well.no-padding.no-margin" element
 
   @safe
   Scenario: Verify users can view the people spotlight
