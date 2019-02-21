@@ -1,0 +1,12 @@
+local:
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://jse-soe-build.loc
+      browser_name: googlechrome
+      selenium2:
+        browser: chrome
+    Drupal\DrupalExtension:
+      #blackbox: ~
+      #api_driver: 'drush'
+      drush:
+        alias: jse.localbuild

@@ -1,0 +1,9 @@
+2017-09-07
+Generated stanford_people_spotlight.feature, stanford_magazine_article.feature
+and stanford_magazine_issue.feature using pookmish/behat.drush.inc at
+https://gist.github.com/pookmish/d1602a93c9d46f0a14aa9e3fcda4383c
+
+Example:
+$ drush behat-fields stanford_magazine > ~/Documents/htdocs/behat/linky_clicky/sites/engineering-redesign/features/stanford_magazine/stanford_magazine_article.feature
+$ drush behat-fields stanford_magazine_issue > ~/Documents/htdocs/behat/linky_clicky/sites/engineering-redesign/features/stanford_magazine/stanford_magazine_issue.feature
+$ drush behat-fields stanford_people_spotlight > ~/Documents/htdocs/behat/linky_clicky/sites/engineering-redesign/features/stanford_people_spotlight.feature

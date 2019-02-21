@@ -18,7 +18,7 @@
   },
   "require-dev": {
     "behat/mink-zombie-driver": "dev-master#dd32fbd6988881dbab583225b65b787a893bb131",
-    "drupal/drupal-extension": "~3.3.0",
+    "drupal/drupal-extension": "~3.4",
     "drush/drush": "^8",
     "drupal/console": "~1.7",
     "phpmd/phpmd": "~2.1",
@@ -27,7 +27,7 @@
   },
   "conflict": {
     "drupal/drupal": "*",
-    "behat/behat": ">= 3.4.0"
+    "behat/behat": "^3.3.0"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,

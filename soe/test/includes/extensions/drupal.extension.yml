@@ -1,0 +1,58 @@
+default:
+  extensions:
+    Drupal\DrupalExtension:
+      blackbox: ~
+      api_driver: 'drush'
+      drush:
+        alias: sse.ds_example
+      region_map:
+        # Open Framework regions
+        Admin Shortcuts: "#admin-shortcuts"
+        Site Login: "#site-login"
+        Header: "#header"
+        Site Name: "#site-name"
+        Branding: "#branding"
+        Navigation: "#navigation"
+        Search Box: "#nav-search"
+        Main Navigation: "#main-nav"
+        Main Top: "#main-top"
+        Main Upper: "#main-upper"
+        First sidebar: "#sidebar-first"
+        Highlighted: "#highlighted"
+        Help: "#help"
+        Console: "#console"
+        Content Head: "#content-head"
+        Content Top: "#content-top"
+        Content Upper: "#content-upper"
+        Content Body: "#content-body"
+        Content 2 column flow: "#content-row2"
+        Content 2 column stacked (1): "#content-col2-1"
+        Content 2 column stacked (2): "#content-col2-2"
+        Content 3 column flow: "#content-row3"
+        Content 3 column stacked (1): "#content-col3-1"
+        Content 3 column stacked (2): "#content-col3-2"
+        Content 3 column stacked (3): "#content-col3-3"
+        Content 4 column flow: "#content-row4"
+        Content 4 column stacked (1): "#content-col4-1"
+        Content 4 column stacked (2): "#content-col4-2"
+        Content 4 column stacked (3): "#content-col4-3"
+        Content 4 column stacked (4): "#content-col4-4"
+        Content Lower: "#content-lower"
+        Content Bottom: "#content-bottom"
+        Second sidebar: "#sidebar-second"
+        Main Lower: "#main-lower"
+        Main Bottom: "#main-bottom"
+        Main Content: "#main-content"
+        Footer: "#footer"
+        Content: "#content"
+        Tabs: ".tabs"
+        Top Full Width: "#fullwidth-top"
+        Bottom Full Width: "#fullwidth-bottom"
+      selectors:
+        message_selector: '.alert'
+        error_message_selector: '.alert.alert-error'
+        success_message_selector: '.alert.alert-success'
+
+      # text:
+        # password_field: "Local Drupal Username"
+        # username_field: "Local Drupal Password"

@@ -1,0 +1,1 @@
+The files stanford_person_node_display and stanford_person_cap_node_display are mutually exclusive. If you are using the CAP display mode, you'll want the stanford_person_cap_display. Otherwise, if you're using the default display view mode, you'll want the stanford_person_node_display.
