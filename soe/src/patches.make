@@ -52,5 +52,8 @@ projects[xmlsitemap][patch][] = "https://www.drupal.org/files/issues/2018-07-19/
 ; custom patch for letsencrypt_challenge to work with acme.sh script on ACE env's
 projects[letsencrypt_challenge][patch][] = "https://gist.githubusercontent.com/boznik/e47f023e330345519598813f13fe2d40/raw/9a995c9254174fb5997147176d05af33403ab6dc/d7-acme-sh-letsencrypt_challenge.patch"
 
-: https://www.drupal.org/project/video_embed_field/issues/2580459 | Not all video style options are being applied
-projects[video_embed][patch][] = "https://www.drupal.org/files/issues/youtube_autoplay-2580459-25.patch"
+; https://www.drupal.org/project/video_embed_field/issues/2580459 | Not all video style options are being applied
+projects[video_embed_field][patch][] = "https://www.drupal.org/files/issues/youtube_autoplay-2580459-25.patch"
+
+; https://www.drupal.org/project/devel/issues/2962943 | Multi-level objects/arrays displayed with krumo causes page to never finish loading
+projects[devel][patch][] = "https://www.drupal.org/files/issues/2018-04-26/devel-krumo_page_never_loads-2962943-11.patch"
