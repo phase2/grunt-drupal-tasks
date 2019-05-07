@@ -13,6 +13,7 @@
 * create drush alias file for your local env
 * modify Gruntconfig.json  for domain, alias and local path to drush
 * modify Gruntfile.js. Set `deploy_site.development.options.branch` to your new `SOE-jiraticket-shortdescription`
+* touch src/engineering.make as this tells grunt that a cahnge has been made to the build
 * run: `grunt`
 * run: `grunt settings`
 * copy default.settings.local.php to settings.local.php and put info in there
@@ -31,6 +32,7 @@
 
 > More grunt commands
 
+* `grunt behat` runs behat tests located in soe/test/features directory
 * `grunt package` packages the build/html directory to the build/packages/package dir for proper ACE formatting
 * `grunt git_deploy` adds acquia dependencies, the simplesaml symlink and deploys the build/packages/package dir to the [Artifact Repo](https://github.com/SU-SWS/sws_soe_ace)
 
