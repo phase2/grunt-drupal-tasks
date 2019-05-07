@@ -13,7 +13,7 @@
 * create drush alias file for your local env
 * modify Gruntconfig.json  for domain, alias and local path to drush
 * modify Gruntfile.js. Set `deploy_site.development.options.branch` to your new `SOE-jiraticket-shortdescription`
-* touch src/engineering.make as this tells grunt that a cahnge has been made to the build
+* touch src/engineering.make as this tells grunt that a change has been made to the build
 * run: `grunt`
 * run: `grunt settings`
 * copy default.settings.local.php to settings.local.php and put info in there
