@@ -6,6 +6,12 @@ api = 2
 
 ; SU-SWS Modules
 
+projects[acquia_purge_d8cache][download][tag] = "7.x-1.2"
+projects[acquia_purge_d8cache][download][type] = "git"
+projects[acquia_purge_d8cache][download][url] = "git@github.com:SU-SWS/acquia_purge_d8cache.git"
+projects[acquia_purge_d8cache][subdir] = "stanford"
+projects[acquia_purge_d8cache][type] = "module"
+
 projects[erus][download][tag] = "7.x-1.1"
 projects[erus][download][type] = "git"
 projects[erus][download][url] = "git@github.com:SU-SWS/erus.git"
@@ -24,7 +30,7 @@ projects[stanford_alt_check][download][url] = "git@github.com:SU-SWS/stanford_al
 projects[stanford_alt_check][subdir] = "stanford"
 projects[stanford_alt_check][type] = "module"
 
-projects[stanford_capx][download][tag] = "7.x-3.0-beta10"
+projects[stanford_capx][download][tag] = "7.x-3.0-beta14"
 projects[stanford_capx][download][type] = "git"
 projects[stanford_capx][download][url] = "git@github.com:SU-SWS/stanford_capx.git"
 projects[stanford_capx][subdir] = stanford
@@ -250,7 +256,7 @@ projects[stanford_paragraph_types][download][url] = "git@github.com:SU-SOE/stanf
 projects[stanford_paragraph_types][subdir] = "stanford"
 projects[stanford_paragraph_types][type] = "module"
 
-projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha15"
+projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha16"
 projects[stanford_soe_helper][download][type] = "git"
 projects[stanford_soe_helper][download][url] = "git@github.com:SU-SOE/stanford_soe_helper.git"
 projects[stanford_soe_helper][subdir] = "stanford"

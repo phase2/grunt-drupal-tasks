@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## v1.2.0 [2019/10/08]
+
+### Changes
+
+* Upgraded CAPx to 7.x-3.0-beta14 for the php 7.2 upgrade.
+* Removed "acquia_purge" and "expire" modules.
+* Added "acquia_purge_d8cache" and "d8cache" modules.
+* Fix sorting bug in spotlights when on next page.
+
 ## v1.1.0 [2018/04/25]
 
 Long overdue Spring Cleaning.
