@@ -13,7 +13,7 @@ Feature: Ensure items on the homepage appear as expected
 
   @safe
   Scenario: Verify users can view all the blocks
-    Then I should see 6 or more ".bean-stanford-postcard" elements
+    Then I should see 5 or more ".bean-stanford-postcard" elements
     Then I should see 3 or more ".bean-stanford-postcard-linked" elements
     Then I should see 3 or more ".bean-stanford-call-to-action" elements
     Then I should see 4 or more ".block-views" elements
@@ -48,4 +48,3 @@ Feature: Ensure items on the homepage appear as expected
     Then I should see the "img" element in the "Full Width Middle" region
     Then I should see a "a" element in the "Full Width Middle" region
     Then I should see the text "More Stories"
-
