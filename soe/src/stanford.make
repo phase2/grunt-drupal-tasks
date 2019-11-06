@@ -30,7 +30,7 @@ projects[stanford_alt_check][download][url] = "git@github.com:SU-SWS/stanford_al
 projects[stanford_alt_check][subdir] = "stanford"
 projects[stanford_alt_check][type] = "module"
 
-projects[stanford_capx][download][tag] = "7.x-3.0-beta14"
+projects[stanford_capx][download][tag] = "7.x-3.0-beta15"
 projects[stanford_capx][download][type] = "git"
 projects[stanford_capx][download][url] = "git@github.com:SU-SWS/stanford_capx.git"
 projects[stanford_capx][subdir] = stanford
@@ -250,13 +250,13 @@ projects[stanford_jumpstart_home][download][url] = "git@github.com:SU-SOE/stanfo
 projects[stanford_jumpstart_home][subdir] = "stanford"
 projects[stanford_jumpstart_home][type] = "module"
 
-projects[stanford_paragraph_types][download][tag] = "7.x-1.5-alpha2"
+projects[stanford_paragraph_types][download][tag] = "7.x-1.5-alpha3"
 projects[stanford_paragraph_types][download][type] = "git"
 projects[stanford_paragraph_types][download][url] = "git@github.com:SU-SOE/stanford_paragraph_types.git"
 projects[stanford_paragraph_types][subdir] = "stanford"
 projects[stanford_paragraph_types][type] = "module"
 
-projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha16"
+projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha17"
 projects[stanford_soe_helper][download][type] = "git"
 projects[stanford_soe_helper][download][url] = "git@github.com:SU-SOE/stanford_soe_helper.git"
 projects[stanford_soe_helper][subdir] = "stanford"
