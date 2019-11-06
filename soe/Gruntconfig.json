@@ -20,7 +20,7 @@
   },
   "eslint": true,
   "drush": {
-    "path": "/usr/local/bin/drush",
+    "path": "/Users/boznik/.composer/vendor/bin/drush",
     "make": {
       "args": ["--force-complete"]
     },

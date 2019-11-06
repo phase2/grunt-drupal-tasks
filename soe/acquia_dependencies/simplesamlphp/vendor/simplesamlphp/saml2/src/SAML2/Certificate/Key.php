@@ -18,7 +18,8 @@ class Key implements \ArrayAccess
     /**
      * @var array
      */
-    protected $keyData = array();
+    protected $keyData = [];
+
 
     /**
      * @param array $keyData
@@ -31,6 +32,7 @@ class Key implements \ArrayAccess
         }
     }
 
+
     /**
      * Whether or not the key is configured to be used for usage given
      *
@@ -39,12 +41,13 @@ class Key implements \ArrayAccess
      */
     public function canBeUsedFor($usage)
     {
-        if (!in_array($usage, static::getValidKeyUsages())) {
+        if (!in_array($usage, static::getValidKeyUsages(), true)) {
             throw new InvalidKeyUsageException($usage);
         }
 
         return isset($this->keyData[$usage]) && $this->keyData[$usage];
     }
+
 
     /**
      * Returns the list of valid key usage options
@@ -52,48 +55,66 @@ class Key implements \ArrayAccess
      */
     public static function getValidKeyUsages()
     {
-        return array(
+        return [
             self::USAGE_ENCRYPTION,
             self::USAGE_SIGNING
-        );
+        ];
     }
 
+
+    /**
+     * @param mixed $offset
+     * @throws InvalidArgumentException
+     * @return bool
+     */
     public function offsetExists($offset)
     {
+        if (!is_string($offset)) {
+            throw InvalidArgumentException::invalidType('string', $offset);
+        }
         return array_key_exists($offset, $this->keyData);
     }
 
+
+    /**
+     * @param mixed $offset
+     * @throws InvalidArgumentException
+     * @return string
+     */
     public function offsetGet($offset)
     {
-        $this->assertIsString($offset);
-
+        if (!is_string($offset)) {
+            throw InvalidArgumentException::invalidType('string', $offset);
+        }
         return $this->keyData[$offset];
     }
 
+
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     * @throws InvalidArgumentException
+     * @return void
+     */
     public function offsetSet($offset, $value)
     {
-        $this->assertIsString($offset);
-
+        if (!is_string($offset)) {
+            throw InvalidArgumentException::invalidType('string', $offset);
+        }
         $this->keyData[$offset] = $value;
     }
 
-    public function offsetUnset($offset)
-    {
-        $this->assertIsString($offset);
-
-        unset($this->keyData[$offset]);
-    }
 
     /**
-     * Asserts that the parameter is of type string
-     * @param mixed $test
-     *
-     * @throws \Exception
+     * @param mixed $offset
+     * @throws InvalidArgumentException
+     * @return void
      */
-    protected function assertIsString($test)
+    public function offsetUnset($offset)
     {
-        if (!is_string($test)) {
-            throw InvalidArgumentException::invalidType('string', $test);
+        if (!is_string($offset)) {
+            throw InvalidArgumentException::invalidType('string', $offset);
         }
+        unset($this->keyData[$offset]);
     }
 }

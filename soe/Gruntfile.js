@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   require('grunt-drupal-tasks')(grunt);
   grunt.loadNpmTasks('grunt-deploy-site');
   grunt.loadNpmTasks('grunt-symlink');
-  grunt.config.set('deploy_site.development.options.branch', 'SOE-develop-mc');
+  grunt.config.set('deploy_site.development.options.branch', 'simplesaml-upgrade-1-17-7');
   grunt.config.set('deploy_site.development.options.commit_msg', 'deployment');
   grunt.config.set('deploy_site.development.base_path', 'build/packages/package');
   grunt.config.set('deploy_site.development.remote_url', 'git@github.com:SU-SWS/sws_soe_ace.git');
