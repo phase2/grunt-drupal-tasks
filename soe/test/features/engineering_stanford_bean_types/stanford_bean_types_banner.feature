@@ -68,8 +68,8 @@ Feature: Stanford Banner bean Type
     Then I should see "stanford_banner Behat Banner Block has been created."
     Then I should see "This is the caption"
     Then I should see "Behat Banner Block"
-    Then I should see 1 ".field-name-field-s-image-image" element
-    Then I should see 1 ".field-name-field-s-image-image img" element
+#    Then I should see 1 ".field-name-field-s-image-image" element
+#    Then I should see 1 ".field-name-field-s-image-image img" element
     Then I click "Delete Block"
     Then I press "Delete"
     Then I should see "stanford_banner Behat Banner Block has been deleted."

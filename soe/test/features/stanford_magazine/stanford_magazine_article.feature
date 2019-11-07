@@ -89,7 +89,7 @@ Feature: Stanford Magazine Article
     Then I should see 1 ".caption" element
     Then I should see 1 ".paragraphs-items" element
     Then I should see 1 "#block-ds-extras-related-departments" element
-    Then I should see 1 "#block-bean-stanford-soe-mag-news-signup" element
+#    Then I should see 1 "#block-bean-stanford-soe-mag-news-signup" element
     Then I should see 1 ".view-stanford-magazine-article-collection" element
 
   @safe

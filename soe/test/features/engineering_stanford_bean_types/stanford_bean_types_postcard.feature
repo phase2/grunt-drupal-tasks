@@ -124,10 +124,10 @@ Feature: Stanford postcard bean Type
     Then I should see "This is the body content"
     Then I should see "Behat Postcard Block"
     Then I should see "This is the read more link title"
-    Then I should see 1 ".field-name-field-s-image-image" element
-    Then I should see 1 ".field-name-field-s-image-image img" element
+#    Then I should see 1 ".field-name-field-s-image-image" element
+#    Then I should see 1 ".field-name-field-s-image-image img" element
 #    Then I should see 1 ".view-mode-stanford-4-col-header" element <- we changed the image format
-    Then I should see 1 ".view-mode-header_370x170" element
+#    Then I should see 1 ".view-mode-header_370x170" element
     Then I click "Delete Block"
     Then I press "Delete"
     Then I should see "stanford_postcard Behat Postcard Block has been deleted."

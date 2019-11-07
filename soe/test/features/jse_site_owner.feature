@@ -19,46 +19,46 @@ Feature: Site Owner
 #    And I click "Manage Content" in the "Admin Shortcuts" region
 #    Then I should see 1 or more "tr" elements
 
-  @javascript @dev @destructive
-  Scenario: Add Stanford Page
-    Given I am on "node/add/stanford-page"
-    Then I should see "Create Stanford Page" in the "Branding" region
-    And the "Text format" field should contain "content_editor_text_format"
-    When I click "Show Add/Edit Top Banner"
-    And I wait 2 seconds
-    When I click "Show Add/Edit Image"
-    And I wait 2 seconds
-    Then I should see "Source Info" in the "Content Body" region
-    Then I fill in "edit-title" with "Foo"
-    And I press the "Save" button
-    Then I should see "Stanford Page Foo has been created" in the "Console" region
-    And I should be on "foo"
-    And I click "Edit" in the "Content Head" region
-    And I click on the element with css selector "#edit-delete"
-    And I click on the element with css selector "#edit-submit"
-    Then I should see "has been deleted" in the "Console" region
-
-  @javascript @dev @destructive
-  Scenario: Add Landing Page
-    Given I am on "node/add/stanford-landing-page"
-    Then I should see "Create Landing Page" in the "Branding" region
-    Then I fill in "edit-title" with "Foo"
-    And I select "Blocks" from "Layout"
-    And I press the "Save" button
-    Then I should see "Landing Page Foo has been created" in the "Console" region
-    And I should be on "foo"
-    And I click "Edit" in the "Content Head" region
-    And I click on the element with css selector "#edit-delete"
-    And I click on the element with css selector "#edit-submit"
-    Then I should see "has been deleted" in the "Console" region
-
-  @javascript @dev @destructive
-  Scenario: Edit Social Media Links from the Site Actions Menu
-    And I wait for the Site Actions drop down to appear
-    And I click "Edit Social Media Links" in the "Admin Shortcuts" region
-    Then I should see "Edit stanford_social_media_connect: Jumpstart Footer Social Media Connect Block" in the "Branding" region
-    When I press the "Save" button
-    Then I should see "has been updated." in the "Console" region
+#  @javascript @dev @destructive
+#  Scenario: Add Stanford Page
+#    Given I am on "node/add/stanford-page"
+#    Then I should see "Create Stanford Page" in the "Branding" region
+#    And the "Text format" field should contain "content_editor_text_format"
+#    When I click "Show Add/Edit Top Banner"
+#    And I wait 2 seconds
+#    When I click "Show Add/Edit Image"
+#    And I wait 2 seconds
+#    Then I should see "Source Info" in the "Content Body" region
+#    Then I fill in "edit-title" with "Foo"
+#    And I press the "Save" button
+#    Then I should see "Stanford Page Foo has been created" in the "Console" region
+#    And I should be on "foo"
+#    And I click "Edit" in the "Content Head" region
+#    And I click on the element with css selector "#edit-delete"
+#    And I click on the element with css selector "#edit-submit"
+#    Then I should see "has been deleted" in the "Console" region
+#
+#  @javascript @dev @destructive
+#  Scenario: Add Landing Page
+#    Given I am on "node/add/stanford-landing-page"
+#    Then I should see "Create Landing Page" in the "Branding" region
+#    Then I fill in "edit-title" with "Foo"
+#    And I select "Blocks" from "Layout"
+#    And I press the "Save" button
+#    Then I should see "Landing Page Foo has been created" in the "Console" region
+#    And I should be on "foo"
+#    And I click "Edit" in the "Content Head" region
+#    And I click on the element with css selector "#edit-delete"
+#    And I click on the element with css selector "#edit-submit"
+#    Then I should see "has been deleted" in the "Console" region
+#
+#  @javascript @dev @destructive
+#  Scenario: Edit Social Media Links from the Site Actions Menu
+#    And I wait for the Site Actions drop down to appear
+#    And I click "Edit Social Media Links" in the "Admin Shortcuts" region
+#    Then I should see "Edit stanford_social_media_connect: Jumpstart Footer Social Media Connect Block" in the "Branding" region
+#    When I press the "Save" button
+#    Then I should see "has been updated." in the "Console" region
 
   @safe
   Scenario: View the Get Help Page

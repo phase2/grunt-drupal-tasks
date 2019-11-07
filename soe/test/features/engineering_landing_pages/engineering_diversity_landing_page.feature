@@ -17,10 +17,10 @@ Feature: Ensure items on the Engineering Diversity landing page appear as expect
     Then I should see 4 or more ".bean-stanford-postcard-linked" elements
     Then I should see 1 or more ".block-views" elements
 
-  @safe
+  @safe 
   Scenario: Verify users can view the WYSIWYG text
     Then I should see a ".field-name-body" element
-    Then I should see the text "Engineering Diversity"
+    Then I should see the text "Equity and Inclusion Initiatives"
 
   @safe
   Scenario: Verify users can view the first postcard linked block

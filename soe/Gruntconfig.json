@@ -35,7 +35,7 @@
     "localadmin": "drush <%= config.alias %> urol administrator 'admin' && drush <%= config.alias %> upwd admin --password=admin"
   },
   "behat": {
-    "flags": "-p local --tags '~@all'",
+    "flags": "-p local -s all",
     "maxProcesses": 100,
     "path": "vendor/bin/behat",
     "default": {

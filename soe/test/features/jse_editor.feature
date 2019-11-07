@@ -29,13 +29,13 @@ Feature: Editor
     And I should see the heading "Are you ready to launch your site?"
     And I should see the link "Request Site Launch" in the "Content Body" region
 
-  @javascript @dev @destructive
-  Scenario: Edit Social Media Links
-    And I wait for the Site Actions drop down to appear
-    And I click "Edit Social Media Links" in the "Admin Shortcuts" region
-    Then I should see "Edit stanford_social_media_connect: Jumpstart Footer Social Media Connect Block" in the "Branding" region
-    When I press the "Save" button
-    Then I should see "has been updated." in the "Console" region
+#  @javascript @dev @destructive
+#  Scenario: Edit Social Media Links
+#    And I wait for the Site Actions drop down to appear
+#    And I click "Edit Social Media Links" in the "Admin Shortcuts" region
+#    Then I should see "Edit stanford_social_media_connect: Jumpstart Footer Social Media Connect Block" in the "Branding" region
+#    When I press the "Save" button
+#    Then I should see "has been updated." in the "Console" region
 
   @safe
   Scenario: Create Stanford event
