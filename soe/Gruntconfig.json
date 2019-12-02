@@ -40,7 +40,7 @@
     "path": "vendor/bin/behat",
     "default": {
       "src": "./test/features/**/*.feature",
-      "debug": true
+      "debug": false
     }
   }
 }
