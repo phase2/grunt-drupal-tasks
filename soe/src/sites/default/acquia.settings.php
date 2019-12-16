@@ -31,3 +31,8 @@ if (!isset($_ENV['AH_SITE_ENVIRONMENT'])  || 'prod' != $_ENV['AH_SITE_ENVIRONMEN
 $conf['acquia_purge_http'] = FALSE;
 
 $conf['acquia_purge_https'] = TRUE;
+
+// Set the Strict Transport Security header.
+// See https://support.acquia.com/hc/en-us/articles/360004119254-How-To-enable-HSTS-for-your-Drupal-site.
+header('Strict-Transport-Security: max-age=31536000');
+
