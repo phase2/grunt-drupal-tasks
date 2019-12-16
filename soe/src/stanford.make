@@ -232,7 +232,7 @@ projects[stanford_sites_systemtools][type] = "module"
 
 ; SU-SOE Modules
 
-projects[stanford_bean_types][download][tag] = "7.x-2.9-alpha6"
+projects[stanford_bean_types][download][tag] = "7.x-2.9-alpha7"
 projects[stanford_bean_types][download][type] = "git"
 projects[stanford_bean_types][download][url] = "git@github.com:SU-SOE/stanford_bean_types.git"
 projects[stanford_bean_types][subdir] = "stanford"
@@ -256,7 +256,7 @@ projects[stanford_paragraph_types][download][url] = "git@github.com:SU-SOE/stanf
 projects[stanford_paragraph_types][subdir] = "stanford"
 projects[stanford_paragraph_types][type] = "module"
 
-projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha17"
+projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha18"
 projects[stanford_soe_helper][download][type] = "git"
 projects[stanford_soe_helper][download][url] = "git@github.com:SU-SOE/stanford_soe_helper.git"
 projects[stanford_soe_helper][subdir] = "stanford"
