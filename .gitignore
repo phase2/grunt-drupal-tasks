@@ -14,3 +14,7 @@ soe/node_modules
 soe/src/sites/default/settings.local.php
 soe/.development_site
 soe/build/packages/package/.DS_Store
+xhprof
+*.sql
+.lando.yml
+lando/output/*

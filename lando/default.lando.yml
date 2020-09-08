@@ -1,0 +1,106 @@
+name: engdept
+recipe: drupal7
+config:
+  webroot: soe/build/html
+  xdebug: true
+  php: '7.3'
+# proxy:
+#   appserver:
+#     - cardinald7.loc
+#   testresults:
+#     - tests.cardinald7.loc
+#   mailhog:
+#     - mail.cardinald7.loc
+services:
+  appserver:
+    ssl: true
+    via: apache
+    config:
+      php: lando/config/php.ini
+  #   overrides:
+  #     services:
+  #       environment:
+  #           BEHAT_PARAMS: >-
+  #             {
+  #               "extensions" : {
+  #                 "Behat\\MinkExtension" : {
+  #                   "base_url" : "http://appserver/"
+  #                 }
+  #               }
+  #             }
+    build_as_root:
+      - |
+        git clone https://github.com/longxinH/xhprof.git ./xhprof
+        cd xhprof/extension/
+        /usr/local/bin/phpize
+        ./configure --with-php-config=/usr/local/bin/php-config
+        make && make install
+        chown www-data /usr/local/lib/php/extensions/no-debug-non-zts-20180731/xhprof.so
+        docker-php-ext-enable xhprof
+  database:
+    creds:
+      user: drupal
+      password: drupal
+      database: drupal
+  # chromedriver:
+  #   type: compose
+  #   services:
+  #     image: robcherry/docker-chromedriver:latest
+  #     expose:
+  #       - "4444"
+  #     environment:
+  #       CHROMEDRIVER_WHITELISTED_IPS: ""
+  #       CHROMEDRIVER_URL_BASE: "/wd/hub"
+  #     security_opt:
+  #       - seccomp:unconfined
+  #     command: ["/usr/local/bin/supervisord", "-c", "/etc/supervisord.conf"]
+  # testresults:
+  #   type: nginx
+  #   webroot: tests
+  # mailhog:
+  #   type: mailhog
+  #   hogfrom:
+  #     - appserver
+tooling:
+  # Site install command
+  si:
+    description: "Install an installation profile"
+    service: appserver
+    cmd: drush si stanford_sites_jumpstart_academic install_configure_form.itasks_extra_tasks=acsf -y
+  # Add behat to the available commands.
+  # behat:
+  #   service: appserver
+  #   cmd: /app/vendor/bin/behat
+  # behat-jsv:
+  #   service: appserver
+  #   cmd: /app/vendor/bin/behat --config=/app/tests/behat/jsv/behat.yml -s all /app/tests/behat/jsv/features/
+  # behat-jsplus:
+  #   service: appserver
+  #   cmd: /app/vendor/bin/behat --config=/app/tests/behat/jsplus/behat.yml -s all /app/tests/behat/jsplus/features/
+  # behat-jsa:
+  #   service: appserver
+  #   cmd: /app/vendor/bin/behat --config=/app/tests/behat/jsa/behat.yml -s all /app/tests/behat/jsa/features/
+  # behat-jse:
+  #   service: appserver
+  #   cmd: /app/vendor/bin/behat --config=/app/tests/behat/jse/behat.yml -s all /app/tests/behat/jse/features/
+events:
+  # Run some commands after `lando db-import`
+  post-db-import:
+    # Run `drush sqlsan` on the appserver service
+    - appserver: cd \$LANDO_WEBROOT
+    - appserver: drush sqlsan
+  # Run some commands before `lando si`
+  pre-si:
+    - echo "Beginning site install."
+    - appserver: cd $LANDO_WEBROOT
+  # Run some commands after `lando si`
+  post-si:
+    - echo "Finishing site install"
+  # Run some commands after `lando start`
+  post-start:
+    - echo "Welcome back boss!"
+    # - "sh scripts/lando/db-settings.sh"
+    # - appserver: drush si stanford_sites_jumpstart
+  # pre-start:
+  #   - chmod 0755 /user
+  #   - chown -hR www-data:dialout /user
