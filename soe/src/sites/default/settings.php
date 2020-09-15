@@ -9,7 +9,7 @@ if (!array_key_exists('HTTP_X_FORWARDED_PROTO', $_SERVER) && !drupal_is_cli()) {
   header('HTTP/1.0 301 Moved Permanently');
   $redirect_url = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
   header("Location: " . check_plain($redirect_url));
-  drupal_exit();
+  exit();
 }
 
 /**
