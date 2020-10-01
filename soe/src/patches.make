@@ -19,6 +19,9 @@ projects[css_injector][patch][] = "https://www.drupal.org/files/issues/css_injec
 ; https://www.drupal.org/node/2375235 Calendar block Next/Prev navigation broken
 projects[date][patch][] = "https://www.drupal.org/files/issues/calendar_pager_broken-2375235-35.patch"
 
+; https://www.drupal.org/project/date/issues/3009740 PHP 7.3 compatibility
+projects[date][patch][] = "https://www.drupal.org/files/issues/2018-10-27/3009740-1-php-7.3-compatibility.patch"
+
 ; https://www.drupal.org/node/2221307 | Patch allows for field groups to be rendered in ds custom block regions
 projects[ds][patch][] = "https://www.drupal.org/files/issues/ds_extras_field_group_not_rendered-2221307-18.patch"
 
