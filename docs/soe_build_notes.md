@@ -5,7 +5,7 @@
 > Initial Setup
 
 * clone repo will default SOE-develop-mc branch.
-* `git co -b SOE-jiraticket-shortdescription`
+* `git checkout -b SOE-jiraticket-shortdescription`
 * npm install
 * move into soe dir
 * npm install
