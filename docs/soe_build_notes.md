@@ -1,6 +1,6 @@
 # SOE Build Documentation
 
-> Get Node, Grunt, & Composer on you machine.
+> Get Node (-v 10.x), Grunt, & Composer on you machine.
 
 > Initial Setup
 

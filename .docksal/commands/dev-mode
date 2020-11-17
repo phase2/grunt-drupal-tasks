@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#
+# This script turns off caching and fixes any potential permission problems in the files folder.
+# By Marc Young
+# Date: Oct 15, 2020
+
+#: exec_target = cli
+
+DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT}"
+
+cd "$DOCROOT_PATH" || return
+drush variable-set preprocess_js 0
+drush variable-set preprocess_css 0
+
+find "$DOCROOT_PATH/sites/default/files" -type f -exec sudo chmod 644 {} \;
+find "$DOCROOT_PATH/sites/default/files" -type d -exec sudo chmod 755 {} \;

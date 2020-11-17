@@ -14,4 +14,8 @@ soe/node_modules
 soe/src/sites/default/settings.local.php
 soe/.development_site
 soe/build/packages/package/.DS_Store
+soe/src/sites/default/files
+soe/test/behat.local.yml
+# Docksal local environment file
+.docksal/docksal-local.env
 soe/test/behat.local.yml

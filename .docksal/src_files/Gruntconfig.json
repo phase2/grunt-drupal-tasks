@@ -1,0 +1,47 @@
+{
+  "srcPaths": {
+    "make": "src/engineering.make",
+    "drupal": "src"
+  },
+  "domain": "soe.local",
+  "buildPaths": {
+    "packages": "build/packages"
+  },
+  "packages": {
+    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*", "!sites/example.sites.php", "!sites/default/default.settings.local.php", "!sites/default/settings.local.php"],
+    "projFiles": ["README*", "bin/**", "hooks/**"],
+    "dest": {
+      "docroot": "docroot"
+    }
+  },
+  "phpcs": true,
+  "phpmd": true,
+  "behat": {
+    "flags": "--tags ~@wip"
+  },
+  "eslint": true,
+  "drush": {
+    "path": "/usr/local/bin/drush",
+    "make": {
+      "args": ["--force-complete"]
+    },
+    "alias": "local"
+  },
+  "scripts": {
+    "settings": "rsync -az src/sites/default/*.php build/html/sites/default/ && rsync -az src/static/.gitignore build/html/",
+    "syncfiles": "[ -d build/html/sites/default/files ] || mkdir build/html/sites/default/files && rsync -rtv swssoe.test@swssoedev.ssh.prod.acquia-sites.com:/mnt/files/swssoe.test/sites/default/files/ build/html/sites/default/files/",
+    "syncdb": "drush <%= config.alias %> sql-drop -y && drush sql-sync @swssoe.test <%= config.alias %> -y && drush <%= config.alias %> dis -y stanford_ssp acquia_connector",
+    "update": "drush <%= config.alias %> updb -yv",
+    "reset": "drush <%= config.alias %> rr && drush <%= config.alias %> cc all",
+    "localadmin": "drush <%= config.alias %> urol administrator 'admin' && drush <%= config.alias %> upwd admin --password=admin"
+  },
+  "behat": {
+    "flags": "-p local -s all",
+    "maxProcesses": 100,
+    "path": "vendor/bin/behat",
+    "default": {
+      "src": "./test/features/**/*.feature",
+      "debug": false
+    }
+  }
+}

@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+#
+# Script to build SOE (Drupal 7) with Grunt
+# Based on these steps: https://github.com/SU-SOE/grunt-drupal-tasks/blob/SOE-develop-mc/docs/soe_build_notes.md
+# By Marc Young
+# Date: Oct 15, 2020
+
+#: exec_target = cli
+
+cd "$PROJECT_ROOT" || return
+
+
+#Setup
+#Copies preconfigured files.
+sudo mkdir -p /usr/local/n
+sudo chown -R "$(whoami)" /usr/local/n
+sudo chown -R "$(whoami)" /usr/local/bin /usr/local/lib /usr/local/include /usr/local/share
+
+
+#Installations
+#bash /var/www/.docksal/commands/init-site
+npm install -g n
+n 10.22.1
+npm install -g grunt-cli
+
+# Copying install files.
+rsync -az "$PROJECT_ROOT/.docksal/src_files/Gruntconfig.json" "$PROJECT_ROOT/soe"
+rsync -az "$PROJECT_ROOT/.docksal/src_files/Gruntfile.js" "$PROJECT_ROOT/soe"
+rsync -az "$PROJECT_ROOT/.docksal/src_files/behat.local.yml" "$PROJECT_ROOT/soe/test"
+rsync -az "$PROJECT_ROOT/.docksal/src_files/settings.local.php" "$PROJECT_ROOT/soe/src/sites/default"
+rsync -az "$PROJECT_ROOT/.docksal/src_files/Acquia_settings/.drush/"* "$HOME/.drush"
+rsync -az "$PROJECT_ROOT/.docksal/src_files/soe.aliases.drushrc.php"* "$HOME/.drush"
+rsync -az -r "$PROJECT_ROOT/.docksal/src_files/Acquia_settings/.acquia" "$HOME"
+
+#Running install commands
+n exec 10.22.1 npm install
+sleep 5
+cd "$PROJECT_ROOT/soe" || return
+n exec 10.22.1 npm install
+sleep 5
+n exec 10.22.1 npm install grunt
+sleep 5
+composer install
+grunt
+grunt settings
+grunt syncdb
+grunt update
+grunt reset
+grunt localadmin
+grunt syncfiles
+echo
+echo "Installation completed."
