@@ -152,7 +152,7 @@ projects[stanford_manage_content][download][url] = "git@github.com:SU-SWS/stanfo
 projects[stanford_manage_content][subdir] = "stanford"
 projects[stanford_manage_content][type] = "module"
 
-projects[stanford_news][download][tag] = "7.x-3.6+23-dev"
+projects[stanford_news][download][tag] = "7.3.7-alpha5"
 projects[stanford_news][download][type] = "git"
 projects[stanford_news][download][url] = "git@github.com:SU-SWS/stanford_news.git"
 projects[stanford_news][subdir] = "stanford"
@@ -256,7 +256,7 @@ projects[stanford_paragraph_types][download][url] = "git@github.com:SU-SOE/stanf
 projects[stanford_paragraph_types][subdir] = "stanford"
 projects[stanford_paragraph_types][type] = "module"
 
-projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha19"
+projects[stanford_soe_helper][download][tag] = "7.x-2.1-alpha21"
 projects[stanford_soe_helper][download][type] = "git"
 projects[stanford_soe_helper][download][url] = "git@github.com:SU-SOE/stanford_soe_helper.git"
 projects[stanford_soe_helper][subdir] = "stanford"
