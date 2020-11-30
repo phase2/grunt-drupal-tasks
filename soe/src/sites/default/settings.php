@@ -1,13 +1,5 @@
 <?php
 
-// On Acquia Cloud, this include file configures Drupal to use the correct
-// database in each site environment (Dev, Stage, or Prod). To use this
-// settings.php for development on your local workstation, set $db_url
-// (Drupal 5 or 6) or $databases (Drupal 7 or 8) as described in comments above.
-if (file_exists('/var/www/site-php')) {
-  require '/var/www/site-php/swssoe/swssoe-settings.inc';
-}
-
 // Require HTTPS.
 // We're behind a load-balancer, so we can't check $_SERVER['HTTPS'].
 // Have to check HTTP_X_FORWARDED_PROTO.
@@ -653,6 +645,13 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  */
 # $conf['allow_css_double_underscores'] = TRUE;
 
+// On Acquia Cloud, this include file configures Drupal to use the correct
+// database in each site environment (Dev, Stage, or Prod). To use this
+// settings.php for development on your local workstation, set $db_url
+// (Drupal 5 or 6) or $databases (Drupal 7 or 8) as described in comments above.
+if (file_exists('/var/www/site-php')) {
+  require '/var/www/site-php/swssoe/swssoe-settings.inc';
+}
 /**
  * Include a local settings file if it exists.
  */
