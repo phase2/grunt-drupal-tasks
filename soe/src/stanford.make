@@ -268,7 +268,7 @@ projects[stanford_soe_regions][download][url] = "git@github.com:SU-SOE/stanford_
 projects[stanford_soe_regions][subdir] = "stanford"
 projects[stanford_soe_regions][type] = "module"
 
-projects[stanford_ssp][download][tag] = "7.x-2.2-alpha7"
+projects[stanford_ssp][download][tag] = "7.x-2.2-alpha11"
 projects[stanford_ssp][download][type] = "git"
 projects[stanford_ssp][download][url] = "git@github.com:SU-SWS/stanford_ssp.git"
 projects[stanford_ssp][subdir] = "stanford"
