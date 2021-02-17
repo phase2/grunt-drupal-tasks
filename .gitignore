@@ -17,5 +17,5 @@ soe/build/packages/package/.DS_Store
 soe/src/sites/default/files
 soe/test/behat.local.yml
 # Docksal local environment file
-.docksal/docksal-local.env
-soe/test/behat.local.yml
+.docksal/local.docksal.env
+.docksal/local.docksal.yml
