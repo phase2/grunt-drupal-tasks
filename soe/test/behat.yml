@@ -8,10 +8,8 @@ imports:
 default:
   extensions:
     Behat\MinkExtension:
-      base_url: http://jse-soe-build.loc
     Drupal\DrupalExtension:
       drush:
-        alias: 'jse.localacebuild'
       region_map:
         # SOE Regions
         Full Width Super Hero: "#full-width-super-hero"

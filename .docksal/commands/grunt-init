@@ -23,6 +23,8 @@ npm install -g n
 n 10.22.1
 npm install -g grunt-cli
 
+behat-update
+
 # Copying install files.
 rsync -az "$PROJECT_ROOT/.docksal/src_files/Gruntconfig.json" "$PROJECT_ROOT/soe"
 rsync -az "$PROJECT_ROOT/.docksal/src_files/Gruntfile.js" "$PROJECT_ROOT/soe"

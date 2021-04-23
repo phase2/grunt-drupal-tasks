@@ -3,7 +3,7 @@
     "make": "src/engineering.make",
     "drupal": "src"
   },
-  "domain": "soe.local",
+  "domain": "test-grunt.docksal",
   "buildPaths": {
     "packages": "build/packages"
   },

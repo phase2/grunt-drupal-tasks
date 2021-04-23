@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+
+printf "local:
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://${VIRTUAL_HOST}
+      browser_name: googlechrome
+      selenium2:
+        browser: chrome
+    Drupal\DrupalExtension:
+      #blackbox: ~
+      #api_driver: 'drush'
+      drush:
+        alias: soe.local" > "$PROJECT_ROOT/.docksal/src_files/behat.local.yml"
