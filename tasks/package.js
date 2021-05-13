@@ -113,8 +113,13 @@ module.exports = function(grunt) {
         }
       });
       tasks.push('composer:install');
-      grunt.config(['composer', 'drupal-scaffold'], {});
-      tasks.push('composer:drupal-scaffold');
+
+      // Add the drupal-scaffold task if it is defined in the `composer.json`.
+      var composer = JSON.parse(require('fs').readFileSync('./composer.json', 'utf8'));
+      if (typeof composer.scripts !== 'undefined' && 'drupal-scaffold' in composer.scripts) {
+        grunt.config(['composer', 'drupal-scaffold'], {});
+        tasks.push('composer:drupal-scaffold');
+      }
     }
 
     if (this.args[0] && this.args[0] === 'compress') {

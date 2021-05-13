@@ -1,0 +1,15 @@
+---
+srcFiles:
+  - "!sites/*/files/**"
+  - "!xmlrpc.php"
+  - "!modules/php/*"
+projFiles:
+  - "README*"
+  - "bin/**"
+  - "hooks/**"
+  - "src/*.make"
+  - "vendor/**"
+  - "composer.*"
+dest:
+  docroot: "html"
+  devResources: ""

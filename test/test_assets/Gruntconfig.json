@@ -1,14 +1,11 @@
 {
   "srcPaths": {
+    "configDir": "config",
     "make": "src/project.make",
     "drupal": "src"
   },
   "siteUrls": {
     "default": "http://project.local"
-  },
-  "packages": {
-    "srcFiles": ["!sites/*/files/**", "!xmlrpc.php", "!modules/php/*"],
-    "projFiles": ["README*", "bin/**"]
   },
   "phpcs": true,
   "phpmd": true,

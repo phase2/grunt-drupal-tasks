@@ -9,6 +9,26 @@ module.exports = function(grunt) {
     grunt.config.set('config', config);
   }
 
+  var configDir = grunt.config.get('config.srcPaths.configDir');
+  if (configDir && grunt.file.isDir(configDir)) {
+    var options = {
+      config: {
+        src: [
+          configDir + '/*.js*',
+          configDir + '/*.coffee',
+          configDir + '/*.y*ml',
+          configDir + '/*.cson'
+        ]
+      }
+    };
+    var configs = require('load-grunt-configs')(grunt, options);
+    for (var configName in configs) {
+      if (configName !== 'config') {
+        grunt.config.set('config.' + configName, configs[configName]);
+      }
+    }
+  }
+
   var GDT = require('./lib/init')(grunt);
   GDT.init();
 
