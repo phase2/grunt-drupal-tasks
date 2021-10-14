@@ -13,7 +13,7 @@ switch ($env) {
     break;
   case 'prod':
     $idp = 'https://idp.stanford.edu/';
-    $entityID = 'https://engineering.stanford.edu';
+    $entityID = 'https://engineering-legacy.stanford.edu';
     break;
   default:
     $idp = 'https://idp.stanford.edu/';

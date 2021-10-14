@@ -18,7 +18,7 @@ if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
       break;
     case 'prod':
       $conf['stanford_simplesamlphp_auth_installdir'] = '/var/www/html/swssoe.prod/simplesamlphp';
-      $conf['acquia_purge_domains'] = array('engineering.stanford.edu');
+      $conf['acquia_purge_domains'] = array('engineering-legacy.stanford.edu');
       break;
   }
 }
